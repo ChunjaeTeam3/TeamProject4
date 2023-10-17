@@ -71,8 +71,31 @@ public class AdminController {
         // 도서 판매로 얻은 이익 계산
 
         // 회원 중 수강신청한 사람 비율
+        double regPercent = registerService.calcRegPercent();
+        model.addAttribute("regPercent", regPercent);
+        
+        // 커뮤니티 게시글 개수
+        int boardCnt = boardService.getCount();
+        model.addAttribute("boardCnt", boardCnt);
 
         return "/admin/dashboard";
+    }
+
+    @PostMapping("getUserCnt")
+    public void getUserCnt(HttpServletResponse response, Model model) throws Exception {
+        // 월별 회원 수 추이
+        List<Map<String, Integer>> userCntList = userService.userCntList();
+
+        JSONArray jsonArray = new JSONArray();
+        for(Map<String, Integer> userCnt : userCntList) {
+            JSONObject obj = new JSONObject();
+            obj.put("label", userCnt.get("label"));
+            obj.put("cnt", userCnt.get("cnt"));
+            jsonArray.put(obj);
+        }
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+
     }
 
     @GetMapping("userMgmt")

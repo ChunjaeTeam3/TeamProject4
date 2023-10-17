@@ -79,8 +79,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.getIsStudy(id);
     }
 
-    //    @Override
-//    public List<AdminChartVO> adminChart() throws Exception {
-//        return userMapper.adminChart();
-//    }
+    @Override
+    public List<Map<String, Integer>> userCntList() throws Exception {
+        return userMapper.userCntList();
+    }
+
 }

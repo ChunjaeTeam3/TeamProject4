@@ -273,7 +273,7 @@
 <script src="${path}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="${path}/resources/js/sb-admin-2.min.js"></script>
 <script src="${path}/resources/vendor/chart.js/Chart.min.js"></script>
-<script src="${path}/resources/js/demo/chart-area-demo.js"></script>
+<script src="${path}/resources/js/demo/chart-area-setting.js"></script>
 <script src="${path}/resources/js/demo/chart-pie-demo.js"></script>
 </body>
 </html>

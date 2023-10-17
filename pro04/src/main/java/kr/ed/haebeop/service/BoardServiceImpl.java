@@ -26,7 +26,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int getCount(Page page) throws Exception {
-        return boardMapper.getCount(page);
+        return boardMapper.getCountWithPage(page);
+    }
+
+    @Override
+    public int getCount() throws Exception {
+        return boardMapper.getCount();
     }
 
     @Override
