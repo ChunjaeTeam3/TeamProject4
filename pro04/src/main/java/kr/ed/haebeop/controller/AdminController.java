@@ -78,11 +78,15 @@ public class AdminController {
         int boardCnt = boardService.getCount();
         model.addAttribute("boardCnt", boardCnt);
 
+        // 현재 진행 중인 이벤트 리스트
+        List<Event> ongoingEvents = eventService.ongoingEvents();
+        model.addAttribute("ongoingEvents", ongoingEvents);
+
         return "/admin/dashboard";
     }
 
     @PostMapping("getUserCnt")
-    public void getUserCnt(HttpServletResponse response, Model model) throws Exception {
+    public void getUserCnt(HttpServletResponse response) throws Exception {
         // 월별 회원 수 추이
         List<Map<String, Integer>> userCntList = userService.userCntList();
 
@@ -91,6 +95,23 @@ public class AdminController {
             JSONObject obj = new JSONObject();
             obj.put("label", userCnt.get("label"));
             obj.put("cnt", userCnt.get("cnt"));
+            jsonArray.put(obj);
+        }
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+
+    }
+
+    @PostMapping("getCateBoardCnt")
+    public void getCateBoardCnt(HttpServletResponse response) throws Exception {
+        // 카테고리 별 게시글 수
+        List<Map<String, Integer>> boardCntList = boardService.getCateBoardCnt();
+
+        JSONArray jsonArray = new JSONArray();
+        for(Map<String, Integer> boardCnt : boardCntList) {
+            JSONObject obj = new JSONObject();
+            obj.put("cateName", boardCnt.get("cateName"));
+            obj.put("cnt", boardCnt.get("cnt"));
             jsonArray.put(obj);
         }
         PrintWriter out = response.getWriter();

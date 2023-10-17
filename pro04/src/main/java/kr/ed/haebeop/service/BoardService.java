@@ -6,6 +6,7 @@ import kr.ed.haebeop.domain.Category;
 import kr.ed.haebeop.util.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
     public List<BoardVO> boardList(Page page) throws Exception;
@@ -17,5 +18,6 @@ public interface BoardService {
     public void boardDelete(int seq) throws Exception;
     public void boardEdit(Board dto) throws Exception;
     public List<Category> categories() throws Exception;
+    public List<Map<String, Integer>> getCateBoardCnt() throws Exception;
 
 }

@@ -97,4 +97,9 @@
     <select id="categories" resultType="kr.ed.haebeop.domain.Category">
         select * from category
     </select>
+
+    <select id="getCateBoardCnt" resultType="java.util.Map">
+        SELECT cateName, COUNT(cateName) AS cnt FROM category c JOIN board b ON (c.cate=b.cate) GROUP BY b.cate
+    </select>
+
 </mapper>

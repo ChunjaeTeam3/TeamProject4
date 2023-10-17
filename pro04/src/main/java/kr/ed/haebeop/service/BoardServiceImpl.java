@@ -68,4 +68,10 @@ public class BoardServiceImpl implements BoardService {
     public List<Category> categories() throws Exception {
         return boardMapper.categories();
     }
+
+    @Override
+    public List<Map<String, Integer>> getCateBoardCnt() throws Exception {
+        return boardMapper.getCateBoardCnt();
+    }
+
 }

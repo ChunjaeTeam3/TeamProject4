@@ -21,4 +21,6 @@ public interface BoardMapper {
     public int getCountWithPage(Page page) throws Exception;
     public int getCount() throws Exception;
     public void countUp(int seq) throws Exception;
+    public List<Map<String, Integer>> getCateBoardCnt() throws Exception;
+
 }
