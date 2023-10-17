@@ -11,22 +11,9 @@
     <title>로그인</title>
     <jsp:include page="../layout/head.jsp"/>
     <style>
-        body{
-            background:#f3f3f3;
-            margin-top:20px;
-            color: #616f80;
-        }
-        .card {
-            border: none;
-            margin-bottom: 24px;
-            -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
-            box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
-        }
-
-        .avatar-xs {
-            height: 2.3rem;
-            width: 2.3rem;
-        }
+        .body{ background:#f3f3f3; margin-top:20px; color: #616f80; }
+        .card { border: none; margin-bottom: 24px; -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);box-shadow: 0 0 13px 0 rgba(236,236,241,.44);}
+        .avatar-xs {height: 2.3rem;width: 2.3rem;}
     </style>
 </head>
 <body>
@@ -52,7 +39,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="${path}/user/myPage">${user.name} 님</a>
+                            <a class="nav-link active" aria-current="page" href="${path}/user/myPage" >${user.name} 님</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${path}/user/edit">내정보</a>
@@ -71,21 +58,21 @@
 </div>
 <!--sidemenu End -->
 <div class="container-lg" style="margin: 100px auto; width: 85%;">
-    <div class="row">
-        <div class="col-xl-3 col-md-6">
+    <div class="row" style="width: 90%; margin: 0 auto;">
+        <div class="col-xl-3 col-md-6"  >
             <div class="card bg-pattern">
-                <div class="card-body">
-                    <div class="float-right">
-                        <i class="fa fa-archive text-primary h4 ml-3"></i>
+                <div class="card-body" style="background-color: lightgray; height: 200px;">
+                    <div class="float-left" style=" margin-right: 10px;  font-size: 40px;">
+                        <i class="fa-solid fa-cloud" style="color: #393a3c;"></i>
                     </div>
-                    <h5 class="font-size-20 mt-0 pt-1">24</h5>
-                    <p class="text-muted mb-0">Total Projects</p>
+                    <h5 class="font-size-30 mt-0 pt-1" style="font-size: 25px; line-height: 60px; margin-bottom: 0;" >${user.name}님,</h5>
+                    <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 28px; line-height: 20px;">오늘도 열공하세요!</p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6" >
             <div class="card bg-pattern">
-                <div class="card-body">
+                <div class="card-body" style="height: 200px;">
                     <div class="float-right">
                         <i class="fa fa-th text-primary h4 ml-3"></i>
                     </div>
@@ -94,9 +81,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6" >
             <div class="card bg-pattern">
-                <div class="card-body">
+                <div class="card-body" style="height: 200px;">
+                    <div class="float-right">
+                        <i class="fa fa-file text-primary h4 ml-3"></i>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">06</h5>
+                    <p class="text-muted mb-0">Pending Projects</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6" >
+            <div class="card bg-pattern">
+                <div class="card-body" style="height: 200px;">
                     <div class="float-right">
                         <i class="fa fa-file text-primary h4 ml-3"></i>
                     </div>
