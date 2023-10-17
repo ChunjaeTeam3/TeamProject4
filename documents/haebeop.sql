@@ -1,6 +1,9 @@
 CREATE DATABASE haebeop;
 USE haebeop;
 
+CREATE DATABASE team34;
+USE team34;
+
 -- 회원
 CREATE TABLE user(
   id VARCHAR(20) PRIMARY KEY NOT NULL,
@@ -268,7 +271,19 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
+-- TodoList (list 넘버, 제목, 상태)
+CREATE TABLE todo(
+	tdno INT PRIMARY KEY AUTO_INCREMENT,
+	id VARCHAR(20) NOT NULL,
+	tdtitle VARCHAR(200),
+	STATUS BOOLEAN DEFAULT false);
 
+INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
+INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
+
+select * from todo where status=FALSE and id='admin' order by tdno asc;
+UPDATE todo SET STATUS=TRUE WHERE tdno=1;
+DROP TABLE todo;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등
