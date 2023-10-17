@@ -11,5 +11,5 @@ public class Todo {
     private int tdno;
     private String id;
     private String tdtitle;
-    private boolean status;
+    private int status;
 }

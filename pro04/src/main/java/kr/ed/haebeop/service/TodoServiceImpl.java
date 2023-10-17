@@ -18,17 +18,22 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
+    public Todo todoGet(int tdno) throws Exception {
+        return todoMapper.todoGet(tdno);
+    }
+
+    @Override
     public void todoInsert(Todo dto) throws Exception {
         todoMapper.todoInsert(dto);
     }
 
     @Override
-    public void todoEdit(Todo dto) throws Exception {
-        todoMapper.todoEdit(dto);
+    public void todoEdit(Todo todo) throws Exception {
+        todoMapper.todoEdit(todo);
     }
 
     @Override
-    public void todoDelete(int tdno, String id) throws Exception {
-        todoMapper.todoDelete(tdno, id);
+    public void todoDelete(int tdno) throws Exception {
+        todoMapper.todoDelete(tdno);
     }
 }
