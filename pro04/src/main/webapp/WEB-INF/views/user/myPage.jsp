@@ -11,9 +11,7 @@
     <title>마이페이지</title>
     <jsp:include page="../layout/head.jsp"/>
     <style>
-        .body{ background:#f3f3f3; margin-top:20px; color: #616f80; }
         .card { border: none; margin-bottom: 24px; -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);box-shadow: 0 0 13px 0 rgba(236,236,241,.44);}
-        .avatar-xs {height: 2.3rem;width: 2.3rem;}
         #profile {margin-top: 10px;border-radius: 30px;width: 150px;}
     </style>
 </head>
@@ -46,10 +44,10 @@
                             <a class="nav-link" href="${path}/user/edit">내정보</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">수강내역</a>
+                            <a class="nav-link" href="${path}/user/lecture">수강내역</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">주문/배송내역</a>
+                            <a class="nav-link" href="${path}/user/paymnet">주문/배송내역</a>
                         </li>
                     </ul>
                 </div>
@@ -119,38 +117,59 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Projects</th>
-                                <th scope="col">Start Date</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">강좌명</th>
+                                <th scope="col">강사</th>
+                                <th scope="col">수강기간</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="lecture" items="${myLecture}" >
                             <tr>
-                                <th scope="row">1</th>
-                                <td>New admin Design</td>
-                                <td>02/5/2019</td>
-                                <td>
-                                    <span class="text-success font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i> Completed</span>
-                                </td>
+                                <th scope="row">${lecture.lcode}</th>
+                                <td>${lecture.lname}</td>
+                                <td>${lecture.tname}</td>
+                                <td>${lecture.sdate} ~ ${lecture.edate}</td>
                             </tr>
+                            </c:forEach>
+                            <c:if test="${empty myLecture}">
+                                <tr>
+                                    <td colspan="6" class="has-text-centered"> 수강신청한 강의가 없습니다. </td>
+                                </tr>
+                            </c:if>
                             </tbody>
                         </table>
                     </div>
-                    <!-- end project-list -->
 
-                    <div class="pt-3">
-                        <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
+
+                    <nav aria-label="Page navigation example" >
+                        <c:if test="${curPage > 5}">
+                            <a href="${path}/user/myPage?page=${page.blockStartNum - 1}"
+                               class="page-link">Previous</a>
+                        </c:if>
+                        <c:if test="${page.blockLastNum < page.totalPageCount}">
+                            <a href="${path}/user/myPage?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
+                        </c:if>
+
+                        <ul class="pagination justify-content-center">
+                            <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                                <c:choose>
+                                    <c:when test="${i == curPage}">
+                                        <li class="page-item">
+                                            <a href="${path}/user/myPage?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                               class="page-link active" aria-label="Page ${i}"
+                                               aria-current="page" style="background-color: #545050; color:#FFFFFF" ;>${i}</a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item">
+                                            <a href="${path}/user/myPage?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                               class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                         </ul>
-                    </div>
+                    </nav>
                 </div>
             </div>
         </div>

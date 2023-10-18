@@ -44,10 +44,10 @@
                             <a class="nav-link" href="${path}/user/edit">내정보</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">수강내역</a>
+                            <a class="nav-link" href="${path}/user/lecture">수강내역</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">주문/배송내역</a>
+                            <a class="nav-link" href="${path}/user/paymnet">주문/배송내역</a>
                         </li>
                     </ul>
                 </div>

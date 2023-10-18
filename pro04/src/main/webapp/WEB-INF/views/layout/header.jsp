@@ -78,7 +78,7 @@
                                 </c:if>
                                 <c:if test="${sid ne null && sid eq 'admin'}">
                                     <div class="login-register-btn mr-50" style="margin-right: 10px!important;" >
-                                        <a href="${path}" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">ADMIN</a>
+                                        <a href="${path}/admin/dashboard" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">ADMIN</a>
                                     </div>
                                     <div class="login-register-btn mr-50">
                                         <a href="${path}/user/logout" class="btn btn-primary" style="background-color: #625e5e; color: #fff; border: none;">LOGOUT</a>
