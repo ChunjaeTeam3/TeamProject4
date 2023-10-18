@@ -20,7 +20,9 @@ CREATE TABLE user(
   visited INT(11) DEFAULT 0,
   isStudy BOOLEAN DEFAULT false);
   
-SELECT * FROM user;
+SELECT * FROM USER;
+INSERT INTO USER VALUES ('admin','asdf1234!','관리자','admin@edu.com','010-1111-1111',NULL, NULL, NULL, DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT);
+
 UPDATE user SET pw='$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS'
 WHERE id='admin';
 
@@ -71,6 +73,12 @@ CREATE TABLE notice (
    regdate DATETIME DEFAULT CURRENT_TIMESTAMP(),
    visited INT DEFAULT 0
 );
+
+INSERT INTO notice VALUES(DEFAULT, '공지사항1','공지사항1내용','admin',DEFAULT, DEFAULT);
+INSERT INTO notice VALUES(DEFAULT, '공지사항2','공지사항2내용','admin',DEFAULT, DEFAULT);
+INSERT INTO notice VALUES(DEFAULT, '공지사항3','공지사항3내용','admin',DEFAULT, DEFAULT);
+INSERT INTO notice VALUES(DEFAULT, '공지사항4','공지사항4내용','admin',DEFAULT, DEFAULT);
+INSERT INTO notice VALUES(DEFAULT, '공지사항5','공지사항5내용','admin',DEFAULT, DEFAULT);
 
 
 -- faq 테이블 생성
@@ -271,17 +279,19 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
--- TodoList (list 넘버, 제목, 상태)
+-- TodoList (list 넘버, 제목, 상태(0:미완료/1:완료))
 CREATE TABLE todo(
 	tdno INT PRIMARY KEY AUTO_INCREMENT,
 	id VARCHAR(20) NOT NULL,
 	tdtitle VARCHAR(200),
-	STATUS BOOLEAN DEFAULT false);
+	STATUS INT DEFAULT 0);
 
 INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
+INSERT INTO todo VALUES (DEFAULT, 'admin','todo2',DEFAULT);
+INSERT INTO todo VALUES (DEFAULT, 'admin','todo3',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
-
-select * from todo where status=FALSE and id='admin' order by tdno asc;
+DROP TABLE todo;
+select * from todo where id='admin' order by status ASC, tdno ASC;
 UPDATE todo SET STATUS=TRUE WHERE tdno=1;
 DROP TABLE todo;
 
