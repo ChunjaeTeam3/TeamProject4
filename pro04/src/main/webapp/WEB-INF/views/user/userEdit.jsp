@@ -10,6 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의정보수정</title>
     <jsp:include page="../layout/head.jsp"/>
+    <style>
+        .label {font-weight: bold !important; font-size: 18px;}
+        .column { margin-top: 20px !important;}
+    </style>
 </head>
 <body>
 <!-- header Start -->

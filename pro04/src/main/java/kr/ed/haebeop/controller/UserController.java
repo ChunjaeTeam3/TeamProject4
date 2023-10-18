@@ -4,9 +4,7 @@ import kr.ed.haebeop.domain.Lecture;
 import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.domain.User;
 import kr.ed.haebeop.domain.UserProgress;
-import kr.ed.haebeop.service.LectureService;
-import kr.ed.haebeop.service.RegisterService;
-import kr.ed.haebeop.service.UserService;
+import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.LecturePage;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,12 @@ public class UserController {
     private RegisterService registerService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private AttendanceService attendanceService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private StudyInfoService studyInfoService;
 
     private BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
@@ -146,6 +150,23 @@ public class UserController {
         // 사용자 정보 가져오기
         User user = userService.getUser(id);
         model.addAttribute("user", user);
+
+        //총 출석일수 가져오기
+        int totalAttendance = attendanceService.getCount(id);
+        model.addAttribute("totalAttendance", totalAttendance);
+
+        //총 수강시간 가져오기
+        //int totalStudy = studyInfoService.getCount(id);
+        //model.addAttribute("totlStudy", totalStudy);
+
+        //총 리뷰일수 가져오기
+        //int totalReview = reviewService.getCount(id);
+        //model.addAttribute("totalReview", totalReview);
+
+        //총 수강신청개수
+        //int totalLecture = registerService.getMyCount(id);
+        //model.addAttribute("totalLecture", totalLecture);
+
 
         //int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 

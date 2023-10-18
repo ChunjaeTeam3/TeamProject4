@@ -11,18 +11,8 @@
     <title>회원가입약관</title>
     <jsp:include page="../layout/head.jsp"/>
     <style>
-        .agree_fr {
-            width: 100%;
-            white-space: pre-wrap;
-            margin: 10px auto;
-            padding: 24px;
-            border: 2px solid #eee;
-            height: 400px;
-            overflow-y: auto;
-            text-align: left;
-            color: #777;
-        }
-        label span { color: #71A894; }
+        .agree_fr { width: 100%; white-space: pre-wrap; margin: 10px auto; padding: 24px; border: 2px solid #eee; height: 400px; overflow-y: auto; text-align: left; color: #777; }
+        label span { color: darkgray; }
     </style>
 </head>
 <body>
@@ -943,6 +933,7 @@
                                     </article>
                                     <label for="ck_item2">
                                         <input type="checkbox" id="ck_item2" name="ck_item">
+                                        <span class="on"></span>
                                         개인정보 수집 및 이용 동의 <span>(필수)</span>
                                     </label>
                                 </div>
