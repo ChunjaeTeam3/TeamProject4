@@ -15,7 +15,10 @@ CREATE TABLE user(
   birth DATE,
   pt INT(11) DEFAULT 0,
   visited INT(11) DEFAULT 0,
-  isStudy BOOLEAN DEFAULT false);
+  isStudy BOOLEAN DEFAULT FALSE,
+  userType VARCHAR(20) DEFAULT 'student');
+  
+SELECT * FROM user;
   
 -- 회원 더미데이터
 SELECT * FROM user;
@@ -325,7 +328,7 @@ CREATE TABLE register(
 	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE
 );
 
--- 수강생 강의 수강 정보 테이블
+-- 수강생 온라인 강의 수강 정보 테이블
 CREATE TABLE studyInfo(
 	scode INT AUTO_INCREMENT PRIMARY KEY,
 	ccode INT NOT NULL,
@@ -334,6 +337,29 @@ CREATE TABLE studyInfo(
 	completed BOOLEAN DEFAULT FALSE,
 	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE,
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
+);
+
+SELECT * FROM register
+
+SELECT r.lcode, u.id, name, adate, atime, atype
+FROM register r LEFT OUTER JOIN lectureAttend l ON (r.id=l.id) JOIN user u ON (r.id=u.id)
+WHERE lcode='ma1' AND aType IS NULL;
+
+-- 오프라인 강의 출석 번호 저장 테이블
+CREATE TABLE saveAttendCode(
+	sno INT AUTO_INCREMENT PRIMARY KEY,
+	lcode VARCHAR(50) NOT NULL,
+	attendCode INT NOT NULL
+);
+
+-- 오프라인 강의 출석체크 테이블
+CREATE TABLE lectureAttend(
+	ano INT AUTO_INCREMENT PRIMARY KEY,
+	id VARCHAR(20) NOT NULL,
+	adate DATE,
+	atime TIME,
+	atype VARCHAR(10) NOT NULL,
+	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 -- TodoList (list 넘버, 제목, 상태)
