@@ -48,7 +48,7 @@
     <!-- 검색 엔진 끝 -->
     <div class="container">
         <!-- 테이블 영역 시작 -->
-        <div class="col-12">
+        <div class="col-12 mb-5">
             <div class="card w-100">
                 <div class="card-body">
                     <div class="table-responsive project-list">
@@ -126,7 +126,7 @@
                         <!-- 페이지 끝 -->
                         <c:if test="${sid eq 'admin'}">
                             <div class="btn float-right mt-10">
-                                <a href="${path}/notice/insert" class="primary-btn">글쓰기</a>
+                                <a href="${path}/notice/insert" class="btn btn-outline-dark">글쓰기</a>
                             </div>
                         </c:if>
                     </div>
