@@ -74,7 +74,7 @@
                         <label for="lcontent"> 강의소개 </label>
                         <textarea name="lcontent" id="lcontent" class="form-control" cols="30" rows="10" maxlength="1400">${detail.lcontent}</textarea>
                         <script>
-                            CKEDITOR.replace('lcontent', {filebrowserUploadUrl:'${path}/lecture/imageUpload'});
+                            $(document).ready(function () { $("#lcontent").cleditor(); });
                         </script>
                     </div>
                     <div class="form-group mt-3">

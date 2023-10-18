@@ -14,7 +14,6 @@
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
-
             <div class="col-12 col-md-6">
                 <div class="footer-nav">
                     <ul>

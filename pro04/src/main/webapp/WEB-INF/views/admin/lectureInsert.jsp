@@ -70,7 +70,7 @@
                         <textarea name="lcontent" id="lcontent" class="form-control" cols="30" rows="10"
                                   maxlength="1400"></textarea>
                         <script>
-                            CKEDITOR.replace('lcontent', {filebrowserUploadUrl: '${path}/lecture/imageUpload'});
+                            $(document).ready(function () { $("#lcontent").cleditor(); });
                         </script>
                     </div>
                     <div class="form-group mt-3">

@@ -1371,10 +1371,10 @@ img {
   height: 34px;
   line-height: 32px;
   text-align: center;
-  margin-right: 10px; }
-.oneMusic-pagination-area .pagination .page-item .page-link:hover, .oneMusic-pagination-area .pagination .page-item .page-link:focus {
-  color: #000000;
-  border: 1px solid #000000; }
+  /*margin-right: 10px;*/ }
+  .oneMusic-pagination-area .pagination .page-item .page-link:hover, .oneMusic-pagination-area .pagination .page-item .page-link:focus {
+    color: #000000;
+    border: 1px solid #000000; }
 .oneMusic-pagination-area .pagination .page-item:first-child .page-link {
   margin-left: 0;
   border-top-left-radius: 0;
