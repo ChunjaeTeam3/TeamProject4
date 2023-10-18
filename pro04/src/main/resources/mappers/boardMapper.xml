@@ -29,7 +29,7 @@
     </select>
 
     <!-- board의 전체 개수 구하기 -->
-    <select id="getCount" resultType="integer">
+    <select id="getCountWithPage" resultType="integer">
         select count(*) from board
         <where>
             <if test="type != null">
@@ -51,6 +51,11 @@
                 AND cate = #{category}
             </if>
         </where>
+    </select>
+
+    <!-- 관리자 페이지의 커뮤니티 게시글 개수 구하기 -->
+    <select id="getCount" resultType="integer">
+        select count(*) from board
     </select>
     
     <select id="boardDetail" resultType="kr.ed.haebeop.domain.BoardVO">
@@ -92,4 +97,9 @@
     <select id="categories" resultType="kr.ed.haebeop.domain.Category">
         select * from category
     </select>
+
+    <select id="getCateBoardCnt" resultType="java.util.Map">
+        SELECT cateName, COUNT(cateName) AS cnt FROM category c JOIN board b ON (c.cate=b.cate) GROUP BY b.cate
+    </select>
+
 </mapper>

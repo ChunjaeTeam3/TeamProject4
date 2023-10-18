@@ -96,10 +96,8 @@
         SELECT isStudy FROM user WHERE id = #{id}
     </select>
 
-    <!-- 월별 회원 수와 출석체크 수 조회 -->
-<!--    <select id="adminChart" resultType="kr.co.teaspoon.dto.AdminChartVO">-->
-<!--        SELECT if(regMonth IS NULL,attendMonth,regMonth) AS label, if(userCnt IS NULL,0,userCnt) AS userCnt, if(attendCnt IS NULL,0,attendCnt) AS attendCnt FROM userMonth AS m LEFT JOIN attendanceMonth AS a ON m.regMonth = a.attendMonth-->
-<!--        UNION-->
-<!--        SELECT if(regMonth IS NULL,attendMonth,regMonth) AS label, if(userCnt IS NULL,0,userCnt) AS userCnt, if(attendCnt IS NULL,0,attendCnt) AS attendCnt FROM userMonth AS m RIGHT JOIN attendanceMonth AS a ON m.regMonth = a.attendMonth-->
-<!--    </select>-->
+    <!-- 월별 회원수 조회 -->
+    <select id="userCntList" resultType="java.util.Map">
+        SELECT DATE_FORMAT(regdate, '%Y-%m') AS label, COUNT(*) AS cnt FROM user WHERE regdate >= DATE_ADD(NOW(), INTERVAL -1 YEAR) GROUP BY label
+    </select>
 </mapper>

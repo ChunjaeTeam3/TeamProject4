@@ -58,7 +58,15 @@
     </select>
 
     <select id="calcProfitPt" resultType="integer">
+<<<<<<< HEAD
         SELECT SUM(lprice) FROM register r JOIN lecture l ON (r.lcode = l.lcode)
+=======
+        SELECT IFNULL(SUM(lprice), 0) FROM register r JOIN lecture l ON (r.lcode = l.lcode)
+    </select>
+
+    <select id="calcRegPercent" resultType="double">
+        SELECT ((SELECT COUNT(DISTINCT id) FROM register) / (SELECT COUNT(*) FROM user) * 100)
+>>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
     </select>
 
 </mapper>

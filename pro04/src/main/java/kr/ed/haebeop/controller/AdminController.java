@@ -71,10 +71,60 @@ public class AdminController {
         // 도서 판매로 얻은 이익 계산
 
         // 회원 중 수강신청한 사람 비율
+<<<<<<< HEAD
+=======
+        double regPercent = registerService.calcRegPercent();
+        model.addAttribute("regPercent", regPercent);
+        
+        // 커뮤니티 게시글 개수
+        int boardCnt = boardService.getCount();
+        model.addAttribute("boardCnt", boardCnt);
+
+        // 현재 진행 중인 이벤트 리스트
+        List<Event> ongoingEvents = eventService.ongoingEvents();
+        model.addAttribute("ongoingEvents", ongoingEvents);
+>>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
 
         return "/admin/dashboard";
     }
 
+<<<<<<< HEAD
+=======
+    @PostMapping("getUserCnt")
+    public void getUserCnt(HttpServletResponse response) throws Exception {
+        // 월별 회원 수 추이
+        List<Map<String, Integer>> userCntList = userService.userCntList();
+
+        JSONArray jsonArray = new JSONArray();
+        for(Map<String, Integer> userCnt : userCntList) {
+            JSONObject obj = new JSONObject();
+            obj.put("label", userCnt.get("label"));
+            obj.put("cnt", userCnt.get("cnt"));
+            jsonArray.put(obj);
+        }
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+
+    }
+
+    @PostMapping("getCateBoardCnt")
+    public void getCateBoardCnt(HttpServletResponse response) throws Exception {
+        // 카테고리 별 게시글 수
+        List<Map<String, Integer>> boardCntList = boardService.getCateBoardCnt();
+
+        JSONArray jsonArray = new JSONArray();
+        for(Map<String, Integer> boardCnt : boardCntList) {
+            JSONObject obj = new JSONObject();
+            obj.put("cateName", boardCnt.get("cateName"));
+            obj.put("cnt", boardCnt.get("cnt"));
+            jsonArray.put(obj);
+        }
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+
+    }
+
+>>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
     @GetMapping("userMgmt")
     public String userMgmt(HttpServletRequest request, Model model) throws Exception {
         //Page
