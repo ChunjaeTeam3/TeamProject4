@@ -1,11 +1,5 @@
 CREATE DATABASE team34;
 USE team34;
-<<<<<<< HEAD
-=======
-
-CREATE DATABASE team34;
-USE team34;
->>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
 
 -- 회원
 CREATE TABLE user(
@@ -25,9 +19,6 @@ CREATE TABLE user(
   
 -- 회원 더미데이터
 SELECT * FROM user;
-<<<<<<< HEAD
-INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2023-09-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
-=======
 INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test111','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-11-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test121','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
@@ -51,7 +42,6 @@ INSERT INTO user VALUES('test91','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZ
 INSERT INTO user VALUES('test92','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test101','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-10-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 
->>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
 
 -- 커뮤니티 카테고리 테이블 생성
 CREATE TABLE category(
@@ -336,20 +326,12 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
-<<<<<<< HEAD
-SELECT DISTINCT COUNT(id) FROM register;
-
-SELECT * FROM register;
-INSERT INTO register VALUES(DEFAULT, 'ma2', 'admin', DEFAULT);
-=======
 -- TodoList (list 넘버, 제목, 상태)
 CREATE TABLE todo(
 	tdno INT PRIMARY KEY AUTO_INCREMENT,
 	id VARCHAR(20) NOT NULL,
 	tdtitle VARCHAR(200),
 	STATUS BOOLEAN DEFAULT false);
->>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
-
 
 INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
