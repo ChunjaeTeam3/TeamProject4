@@ -55,13 +55,13 @@
                 <div class="p-3 bg-white2 pb-4" id="todoInsert">
                     <c:forEach var="list" items="${todoList}" varStatus="status">
                         <div class="align-items-center d-flex justify-content-between" id="complete">
-                            <input type="hidden" id="tdno${status.count }" name="tdno" value="${list.tdno}">
+                            <input type="hidden" id="tdno${list.tdno }" name="tdno" value="${list.tdno}">
                             <input type="hidden" id="status" name="status" value="${list.status}">
                             <c:if test="${list.status eq 0}">
-                                <label><input type="checkbox" class="option-input radio" id="edit${status.count }" onclick="updateState(${status.count })"><span class="label-text" id="label">${list.tdtitle}</span></label>
+                                <label><input type="checkbox" class="option-input radio" id="edit${list.tdno }" onclick="updateState(${list.tdno })"><span class="label-text" id="label">${list.tdtitle}</span></label>
                             </c:if>
                             <c:if test="${list.status eq 1}">
-                                <label><input type="checkbox" class="option-input radio" id="edit${status.count }" onclick="updateState(${status.count })" checked><span class="label-text" style="text-decoration-line: line-through;">${list.tdtitle}</span></label>
+                                <label><input type="checkbox" class="option-input radio" id="edit${list.tdno }" onclick="updateState(${list.tdno })" checked><span class="label-text" style="text-decoration-line: line-through;">${list.tdtitle}</span></label>
                             </c:if>
                             <a href="${path}/todo/delete?tdno=${list.tdno}" ><i class="fa-solid fa-trash-can fa-xl"></i></a>
                         </div>
@@ -105,9 +105,9 @@
                     for (let i in res) {
                         console.log(res[i]);
                         if (res[i].status == 0) {
-                            txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit'><span class='label-text'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                            txt = txt + "<div class='align-items-center d-flex justify-content-between' id='complete'><input type='hidden' id='tdno"+res[i].tdno+"' name='tdno' value='"+res[i].tdno+"'><input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit"+res[i].tdno+"' onclick='updateState("+res[i].tdno+")'><span class='label-text' id='label'>"+res[i].tdtitle+"</span></label><a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a></div>"
                         } else {
-                            txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit' checked><span class='label-text' style='text-decoration-line: line-through;'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                            txt = txt + "<div class='align-items-center d-flex justify-content-between' id='complete'><input type='hidden' id='tdno"+res[i].tdno+"' name='tdno' value='"+res[i].tdno+"'><input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit"+res[i].tdno+"' onclick='updateState("+res[i].tdno+")' checked><span class='label-text' style='text-decoration-line: line-through;'>"+res[i].tdtitle+"</span></label><a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a></div>"
                         }
                     }
                     $("#todoInsert").html(txt);
@@ -130,8 +130,8 @@
             url : "${path}/todo/edit",
             data : test,
             success : function (res){
-                $("#edit" + num).checked();
-                $("#edit" + num + " > span").css("text-decoration-line", "line-through");
+                $("#edit" + num).checked;
+                $("#edit" + num).next().css("text-decoration-line", "line-through");
             },
             error: function(err){
                 console.log("실패", err)
