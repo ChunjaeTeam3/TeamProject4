@@ -14,5 +14,5 @@ public interface StudyInfoMapper {
     public void studyInfoEdit(StudyInfo studyInfo) throws Exception;
     public List<Integer> getStudyList(Map<String, String> data) throws Exception;
     public StudyInfo getStudyInfo(StudyInfo studyInfo) throws Exception;
-    public int getCount(String id) throws Exception;
+    public Integer getCount(String id) throws Exception;
 }
