@@ -112,7 +112,7 @@ public class LectureController {
 
         return "/lecture/lectureDetail";
     }
-    
+
     @RequestMapping(value="changeReview", method= RequestMethod.POST)
     @ResponseBody
     public void changeReview(@RequestParam String type, @RequestParam String lcode, HttpServletResponse response, Model model) throws Exception {
