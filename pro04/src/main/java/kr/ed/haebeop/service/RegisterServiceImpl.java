@@ -69,12 +69,10 @@ public class RegisterServiceImpl implements RegisterService {
     public int calcProfitPt() throws Exception {
         return registerMapper.calcProfitPt();
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public double calcRegPercent() throws Exception {
         return registerMapper.calcRegPercent();
     }
->>>>>>> 3c17a14c63fe9c38056fafc9201eeb8e79185e44
+
 }

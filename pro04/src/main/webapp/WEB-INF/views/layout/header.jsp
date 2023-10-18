@@ -12,7 +12,7 @@
                 <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+                    <a href="${path}/" class="nav-brand"><img src="${path}/resources/img/logo2.png" alt="해법 로고 이미지" style="width: 80%"></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">

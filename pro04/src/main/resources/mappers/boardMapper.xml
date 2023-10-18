@@ -99,7 +99,7 @@
     </select>
 
     <select id="getCateBoardCnt" resultType="java.util.Map">
-        SELECT cateName, COUNT(cateName) AS cnt FROM category c JOIN board b ON (c.cate=b.cate) GROUP BY b.cate
+        SELECT cateName, COUNT(b.cate) AS cnt FROM board b RIGHT OUTER JOIN category c ON (b.cate=c.cate) GROUP BY c.cate
     </select>
 
 </mapper>

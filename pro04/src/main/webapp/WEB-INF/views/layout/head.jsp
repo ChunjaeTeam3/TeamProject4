@@ -18,10 +18,7 @@
 <link rel="stylesheet" href="${path1}/resources/css/style.css">
 
 <!-- JS -->
-<script src="${path}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-
-<!-- JS -->
-<script src="${path}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="${path1}/resources/js/jquery/jquery-2.2.4.min.js"></script>
 
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/153ada4eea.js" crossorigin="anonymous"></script>
