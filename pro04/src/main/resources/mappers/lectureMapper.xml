@@ -80,8 +80,8 @@
     <!-- 폐강 위기 과목 목록 -->
     <select id="closeList" resultType="kr.ed.haebeop.domain.CloseLecture">
         <![CDATA[
-        SELECT l.lcode as lcode, sname, lname, sdate, edate, COUNT(r.lcode) AS 'regCnt', state FROM lecture l JOIN subject s ON (l.scode=s.scode) left outer JOIN register r ON (r.lcode=l.lcode)
-        WHERE sdate BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5
+        SELECT l.lcode as lcode, sname, lname, sdate, edate, COUNT(r.lcode) AS 'regCnt', state FROM lecture l JOIN subject s ON (l.scode=s.scode) left OUTER JOIN register r ON (r.lcode=l.lcode)
+        WHERE sdate BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL +7 day) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5
             ORDER BY sdate limit #{postStart}, #{postCount}
         ]]>
     </select>
@@ -90,7 +90,7 @@
         <![CDATA[
         SELECT COUNT(lcode) FROM (
         SELECT l.lcode, COUNT(*) FROM lecture l left outer JOIN register r ON (r.lcode=l.lcode)
-        WHERE sdate BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5) AS a
+        WHERE sdate BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL +7 day) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5) AS a
         ]]>
     </select>
 

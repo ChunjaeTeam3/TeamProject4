@@ -58,7 +58,10 @@
                             <input type="hidden" id="tdno${status.count }" name="tdno" value="${list.tdno}">
                             <input type="hidden" id="status" name="status" value="${list.status}">
                             <c:if test="${list.status eq 0}">
-                                <label><input type="checkbox" class="option-input radio" id="edit${status.count }" onclick="updateState(${status.count })"><span class="label-text" id="label">${list.tdtitle}</span></label>
+                                <label>
+                                    <input type="checkbox" class="option-input radio" id="edit${status.count }" onclick="updateState(${status.count })">
+                                    <span class="label-text" id="label">${list.tdtitle}</span>
+                                </label>
                             </c:if>
                             <c:if test="${list.status eq 1}">
                                 <label><input type="checkbox" class="option-input radio" id="edit${status.count }" onclick="updateState(${status.count })" checked><span class="label-text" style="text-decoration-line: line-through;">${list.tdtitle}</span></label>
@@ -104,9 +107,14 @@
                     console.log("내용", res[0].tdtitle);
                     for (let i in res) {
                         console.log(res[i]);
-                        txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit'><span class='label-text'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                        if (res[i].status == 0) {
+                            txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit'><span class='label-text'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                        } else {
+                            txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit' checked><span class='label-text' style='text-decoration-line: line-through;'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                        }
                     }
                     $("#todoInsert").html(txt);
+                    $("#tdtitle").val("");
                 },
                 error: function(err){
                     console.log("실패", err)
@@ -126,7 +134,7 @@
             url : "${path}/todo/edit",
             data : test,
             success : function (res){
-                $("#edit" + num).checked();
+                // $("#edit" + num).checked();
                 $("#edit" + num + " > span").css("text-decoration-line", "line-through");
             },
             error: function(err){
