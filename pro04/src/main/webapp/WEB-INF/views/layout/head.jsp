@@ -17,6 +17,11 @@
 <!-- CSS -->
 <link rel="stylesheet" href="${path1}/resources/css/style.css">
 
+<!-- JS -->
+<script src="${path1}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- CLEditor -->
+<link rel="stylesheet" href="${path1}/resources/js/CLEditor1.4.5/jquery.cleditor.css">
+<script src="${path1}/resources/js/CLEditor1.4.5/jquery.cleditor.js"></script>
+
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/153ada4eea.js" crossorigin="anonymous"></script>
-
