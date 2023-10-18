@@ -1,5 +1,5 @@
-CREATE DATABASE haebeop;
-USE haebeop;
+CREATE DATABASE team34;
+USE team34;
 
 -- 회원
 CREATE TABLE user(
@@ -18,8 +18,7 @@ CREATE TABLE user(
   isStudy BOOLEAN DEFAULT false);
   
 SELECT * FROM user;
-UPDATE user SET pw='$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS'
-WHERE id='admin';
+INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2023-09-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
 
 -- 커뮤니티 카테고리 테이블 생성
 CREATE TABLE category(
@@ -187,16 +186,13 @@ CREATE TABLE subject(
 
 -- 과목 테이블 더미데이터
 INSERT INTO SUBJECT
-VALUES('ko', '국어');
+VALUES('es', '논술');
 INSERT INTO SUBJECT
 VALUES('ma', '수학');
 INSERT INTO SUBJECT
 VALUES('en', '영어');
 INSERT INTO SUBJECT
-VALUES('so', '사회');
-INSERT INTO SUBJECT
-VALUES('sc', '과학');
-
+VALUES('fo', '외국어');
 
 -- 강사 테이블 (강사코드, 강사명, 연락처, 이메일, 강사소개, 강사 이미지)
 CREATE TABLE teacher(
@@ -234,7 +230,7 @@ CREATE TABLE curriculum(
 	ccode INT PRIMARY KEY AUTO_INCREMENT,
 	lcode VARCHAR(50) NOT NULL,
 	cname VARCHAR(500) NOT NULL,
-	cvideo VARCHAR(500)
+	cvideo VARCHAR(500),
 	FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE
 );
 
@@ -268,6 +264,10 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
+SELECT DISTINCT COUNT(id) FROM register;
+
+SELECT * FROM register;
+INSERT INTO register VALUES(DEFAULT, 'ma2', 'admin', DEFAULT);
 
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제

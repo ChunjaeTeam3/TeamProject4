@@ -3,7 +3,23 @@
 <mapper namespace="kr.ed.haebeop.persistence.UserMapper">
     <!-- 회원 목록 -->
     <select id="userList" resultType="kr.ed.haebeop.domain.User">
-        select * from user WHERE NOT id IN ('admin') order by regdate desc
+        select * from user
+        <where>
+            <if test="type != null">
+                <trim prefixOverrides="OR">
+                    <choose>
+                        <when test="type == 'I'.toString()">
+                            id LIKE concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            name LIKE concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </if>
+            AND id != 'admin'
+        </where>
+        order by regdate desc limit #{postStart}, #{postCount}
     </select>
 
     <!-- 회원정보 조회 -->
@@ -48,6 +64,21 @@
     <!-- 회원 수 조회 -->
     <select id="userCnt" resultType="integer">
         select count(*) from user
+        <where>
+            <if test="type != null">
+                <trim prefixOverrides="OR">
+                    <choose>
+                        <when test="type == 'I'.toString()">
+                            id LIKE concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            name LIKE concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </if>
+            AND id != 'admin'
+        </where>
     </select>
 
     <!-- 수강신청 시 포인트 차감 -->
