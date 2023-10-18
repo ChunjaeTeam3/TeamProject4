@@ -62,24 +62,25 @@
 <section class="album-catagory section-padding-100-0">
     <div class="container">
         <div class="col-md-7" style="margin: 0 auto">
-            <div class="container is-max-desktop has-text-centered">
+            <div class="container text-center">
                 <h3 class="mb-20" style="font-family:'Roboto', sans-serif; font-weight: bold"> ${calendarInfo.month}월 출석 <i class="fa-regular fa-calendar"></i> </h3>
                 <h4 class="mb-40" style="font-family: 'Poppins', sans-serif;color: #007cf0;font-weight: bold;"> 출석체크하고 포인트 받자 <i class="fa-solid fa-face-laugh-squint fa-bounce"></i> </h4>
                 <c:forEach var="i" begin="0" end="5">
-                    <div class="columns">
+                    <div class="d-flex">
                         <c:forEach var="j" begin="0" end="6">
                             <c:set var="date" value="${(7 * i + j) - (calendarInfo.startDayOfWeek - 1)}"></c:set>
                             <c:if test="${date < 1 or date > calendarInfo.endDay}">
                                 <div class="column m-1 rounded-lg" style="height: 80px;"></div>
                             </c:if>
                             <c:if test="${date > 0 and date <= calendarInfo.endDay and !fn:contains(list, ' '+=date+=' ')}">
-                                <div class="column m-1 rounded-lg" style="height: 80px; background-color: #DDD;">
+                                <div class="column m-1 rounded-lg" style="height: 75px; background-color: #DDD; width: 75px; border-radius: 7px;">
                                     <h5 style="font-family: sans-serif"> ${date} </h5>
                                 </div>
                             </c:if>
                             <c:if test="${date > 0 and date <= calendarInfo.endDay and fn:contains(list, ' '+=date+=' ')}">
-                                <div class="column m-1 rounded-lg" style="height: 80px; background-color: #A2B29F">
+                                <div class="column m-1 rounded-lg" style="height: 75px; background-color: #ffaeae; width: 75px; border-radius: 7px;">
                                     <h5 style="font-family: sans-serif"> ${date} </h5>
+                                    <i class="fa-regular fa-heart fa-2xl"></i>
                                 </div>
                             </c:if>
                         </c:forEach>
@@ -89,11 +90,11 @@
                 <!-- 오늘 이미 출석체크를 했다면 버튼 비활성화 -->
                 <div class="has-text-centered">
                     <c:if test="${attendChk}">
-                        <button type="button" class="button is-info is-rounded is-large" disabled> 출석체크 완료 </button>
+                        <button type="button" class="btn btn-dark mb-50" style="width: 150px;" disabled> 출석체크 완료 </button>
                     </c:if>
                     <!-- 오늘 출석체크를 하지 않았다면 버튼 활성화 -->
                     <c:if test="${!attendChk}">
-                        <a href="${path}/attendance/addAttend" class="button is-info is-rounded is-large"> 출석체크 </a>
+                        <a href="${path}/attendance/addAttend"  class="btn btn-dark mb-50" style="width: 150px;"> 출석체크 </a>
                     </c:if>
                 </div>
             </div>

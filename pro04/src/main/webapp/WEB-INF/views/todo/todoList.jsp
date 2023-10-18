@@ -135,7 +135,6 @@
                 } else {
                     $("#edit" + num).next().css("text-decoration-line", "line-through");
                 }
-
             },
             error: function(err){
                 console.log("실패", err)
