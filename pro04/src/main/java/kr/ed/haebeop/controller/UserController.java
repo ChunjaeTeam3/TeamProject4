@@ -4,9 +4,7 @@ import kr.ed.haebeop.domain.Lecture;
 import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.domain.User;
 import kr.ed.haebeop.domain.UserProgress;
-import kr.ed.haebeop.service.LectureService;
-import kr.ed.haebeop.service.RegisterService;
-import kr.ed.haebeop.service.UserService;
+import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.LecturePage;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,12 @@ public class UserController {
     private RegisterService registerService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private AttendanceService attendanceService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private StudyInfoService studyInfoService;
 
     private BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
@@ -147,29 +151,46 @@ public class UserController {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
 
-        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        //총 출석일수 가져오기
+        int totalAttendance = attendanceService.getCount(id);
+        model.addAttribute("totalAttendance", totalAttendance);
 
-        LecturePage page = new LecturePage();
-        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
-        page.setType(request.getParameter("type"));             // 검색 타입 SET
-        page.setId(id);
+        //총 수강시간 가져오기
+        //int totalStudy = studyInfoService.getCount(id);
+        //model.addAttribute("totlStudy", totalStudy);
+
+        //총 리뷰일수 가져오기
+        //int totalReview = reviewService.getCount(id);
+        //model.addAttribute("totalReview", totalReview);
+
+        //총 수강신청개수
+        //int totalLecture = registerService.getMyCount(id);
+        //model.addAttribute("totalLecture", totalLecture);
+
+
+        //int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        //LecturePage page = new LecturePage();
+        //page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        //page.setType(request.getParameter("type"));             // 검색 타입 SET
+        //page.setId(id);
 
         // 페이징에 필요한 데이터 저장
-        int total = lectureService.getCount(page);
-        page.makeBlock(curPage, total);
-        page.makeLastPageNum(total);
-        page.makePostStart(curPage, total);
+        //int total = lectureService.getCount(page);
+        //page.makeBlock(curPage, total);
+        //page.makeLastPageNum(total);
+        //page.makePostStart(curPage, total);
 
         // 수강신청 목록 불러오기
-        List<LectureVO> myLecture = registerService.myLectures(page);
-        model.addAttribute("lectureList", myLecture);
+        //List<LectureVO> myLecture = registerService.myLectures(page);
+        //model.addAttribute("lectureList", myLecture);
 
         // 최근 학습 목록 불러오기
-        List<UserProgress> progressList = registerService.progressList(id);
-        model.addAttribute("progressList", progressList);
+        //List<UserProgress> progressList = registerService.progressList(id);
+        //model.addAttribute("progressList", progressList);
 
-        model.addAttribute("curPage", curPage);
-        model.addAttribute("page", page);
+        //model.addAttribute("curPage", curPage);
+        //model.addAttribute("page", page);
 
         return "/user/myPage";
     }

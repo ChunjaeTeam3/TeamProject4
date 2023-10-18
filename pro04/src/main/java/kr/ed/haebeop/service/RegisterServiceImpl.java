@@ -66,6 +66,11 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
+    public int getMyCount(String id) throws Exception {
+        return registerMapper.getMyCount(id);
+    }
+  
+    @Override
     public int calcProfitPt() throws Exception {
         return registerMapper.calcProfitPt();
     }

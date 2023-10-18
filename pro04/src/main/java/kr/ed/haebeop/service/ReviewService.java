@@ -9,5 +9,5 @@ public interface ReviewService {
     public List<Review> reviewList(String type, String lcode) throws Exception;
     public int starAvg(String lcode) throws Exception;
     public void reviewInsert(Review review) throws Exception;
-
+    public int getCount(String id) throws Exception;
 }

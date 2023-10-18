@@ -9,4 +9,5 @@ public interface AttendanceService {
     public boolean isAttendance(String id) throws Exception;
     public int addAttend(String id) throws Exception;
     public List<Attendance> attendaceDetail(String id) throws Exception;
+    public int getCount(String id) throws Exception;
 }

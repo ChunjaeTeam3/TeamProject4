@@ -53,4 +53,9 @@ public class AttendanceServiceImpl implements AttendanceService {
     public List<Attendance> attendaceDetail(String id) throws Exception {
         return attendanceMapper.attendaceDetail(id);
     }
+
+    @Override
+    public int getCount(String id) throws Exception {
+        return attendanceMapper.getCount(id);
+    }
 }

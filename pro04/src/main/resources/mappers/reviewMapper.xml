@@ -26,4 +26,8 @@
         INSERT INTO review VALUES(DEFAULT, #{lcode}, #{id}, #{star}, #{content})
     </insert>
 
+    <select id="getCount" resultType="integer">
+        select count(*) from review where id=#{id}
+    </select>
+
 </mapper>

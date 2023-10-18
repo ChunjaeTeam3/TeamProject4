@@ -11,5 +11,5 @@ public interface StudyInfoService {
     public List<Integer> getStudyList(String id, String lcode) throws Exception;
     public StudyInfo studyInfoDetail(String id, int ccode) throws Exception;
     public void studyInfoInsert(StudyInfo studyInfo) throws Exception;
-
+    public int getCount(String id) throws Exception;
 }

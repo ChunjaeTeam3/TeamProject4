@@ -13,7 +13,6 @@
 
                     <!-- Nav brand -->
                     <a href="${path}/" class="nav-brand"><img src="${path}/resources/img/logo2.png" alt="해법 로고 이미지" style="width: 80%"></a>
-
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -68,18 +67,33 @@
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
+                                <c:if test="${sid eq null}">
+                                <div class="login-register-btn mr-50" style="margin-right: 10px!important;" >
+                                    <a href="${path}/user/term" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">JOIN</a>
+                                </div>
                                 <div class="login-register-btn mr-50">
-                                    <a href="login.html" id="loginBtn">Login / Register</a>
+                                    <a href="${path}/user/login" class="btn btn-primary" style="background-color: #625e5e; color: #fff; border: none;">LOGIN</a>
                                 </div>
-
-                                <!-- Cart Button -->
-                                <div class="cart-btn">
-                                    <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
-                                </div>
+                                </c:if>
+                                <c:if test="${sid ne null && sid eq 'admin'}">
+                                    <div class="login-register-btn mr-50" style="margin-right: 10px!important;" >
+                                        <a href="${path}" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">ADMIN</a>
+                                    </div>
+                                    <div class="login-register-btn mr-50">
+                                        <a href="${path}/user/logout" class="btn btn-primary" style="background-color: #625e5e; color: #fff; border: none;">LOGOUT</a>
+                                    </div>
+                                </c:if>
+                                <c:if test="${sid ne null && sid ne 'admin'}">
+                                    <div class="login-register-btn mr-50" style="margin-right: 10px!important;" >
+                                        <a href="${path}/user/myPage" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">MYPAGE</a>
+                                    </div>
+                                    <div class="login-register-btn mr-50">
+                                        <a href="${path}/user/logout" class="btn btn-primary" style="background-color: #625e5e; color: #fff; border: none;">LOGOUT</a>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
                         <!-- Nav End -->
-
                     </div>
                 </nav>
             </div>
