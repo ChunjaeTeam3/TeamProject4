@@ -12,5 +12,6 @@ public interface ReviewMapper {
     public List<Review> reviewList(Map<String, String> data) throws Exception;
     public int starAvg(String lcode) throws Exception;
     public void reviewInsert(Review review) throws Exception;
+    public int getCount(String id) throws Exception;
 
 }

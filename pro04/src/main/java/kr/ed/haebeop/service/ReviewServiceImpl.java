@@ -32,4 +32,9 @@ public class ReviewServiceImpl implements ReviewService {
     public void reviewInsert(Review review) throws Exception {
         reviewMapper.reviewInsert(review);
     }
+
+    @Override
+    public int getCount(String id) throws Exception {
+        return reviewMapper.getCount(id);
+    }
 }

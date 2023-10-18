@@ -12,8 +12,8 @@
     <jsp:include page="../layout/head.jsp"/>
     <style>
         @keyframes click-wave{0%{height: 40px;width: 40px;opacity: 0.15;position: relative}100%{height: 200px;width: 200px;margin-left: -80px;margin-top: -80px;opacity: 0}}
-        .option-input{-webkit-appearance: none;-moz-appearance: none;-ms-appearance: none;-o-appearance: none;appearance: none;position: relative;top: 10.3px;right: 0;bottom: 0;left: 0;height: 30px;width: 30px;transition: all 0.15s ease-out 0s;background: #cbd1d8;border: none;color: #fff;cursor: pointer;display: inline-block;margin-right: 0.5rem;outline: none;position: relative;z-index: 999}
-        .option-input:hover{background: #9faab7}
+        .option-input{-webkit-appearance: none;-moz-appearance: none;-ms-appearance: none;-o-appearance: none;appearance: none;position: relative;top: 10.3px;right: 0;bottom: 0;left: 0;height: 30px;width: 30px;transition: all 0.15s ease-out 0s;background: #CBD1D8;border: none;color: #fff;cursor: pointer;display: inline-block;margin-right: 0.5rem;outline: none;position: relative;z-index: 999}
+        .option-input:hover{background: #9FAAB7}
         .option-input:checked{background: #3D3D3D}
         .option-input:checked::before{height: 30px;width: 30px;position: absolute;content: "\f111";font-family: "Font Awesome 5 Free";display: inline-block;font-size: 16.7px;text-align: center;line-height: 30px}
         .option-input:checked::after{-webkit-animation: click-wave 0.25s;-moz-animation: click-wave 0.25s;animation: click-wave 0.25s;background: #3D3D3D;content: '';display: block;position: relative;z-index: 100}
@@ -24,7 +24,7 @@
         .col-md-6 {box-shadow: 4px 4px 12px;}
         .input {width: 94%; height: 40px; border-top: none; border-left: none; border-right: none; border-bottom: 3px solid #3D3D3D;}
         .input:focus {outline: none;}
-        .input2 {height: 40px; width: 7%; background-color: #3D3D3D; color: #eeeeee; font-weight: bold; border: none; border-radius: 25%}
+        .input2 {height: 40px; width: 7%; background-color: #3D3D3D; color: #EEEEEE; font-weight: bold; border: none; border-radius: 25%}
     </style>
 </head>
 <body>
@@ -104,9 +104,14 @@
                     console.log("내용", res[0].tdtitle);
                     for (let i in res) {
                         console.log(res[i]);
-                        txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit'><span class='label-text'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                        if (res[i].status == 0) {
+                            txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit'><span class='label-text'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                        } else {
+                            txt = txt + "<div class='align-items-center d-flex justify-content-between'> <input type='hidden' id='tdno' name='tdno' value='"+res[i].tdno+"'> <input type='hidden' id='status' name='status' value='"+res[i].status+"'><label><input type='checkbox' class='option-input radio' id='edit' checked><span class='label-text' style='text-decoration-line: line-through;'>"+res[i].tdtitle+"</span></label> <a href='${path}/todo/delete?tdno="+res[i].tdno+"' ><i class='fa-solid fa-trash-can fa-xl'></i></a> </div>"
+                        }
                     }
                     $("#todoInsert").html(txt);
+                    $("#tdtitle").val("");
                 },
                 error: function(err){
                     console.log("실패", err)
@@ -120,7 +125,6 @@
     function updateState(num) {
         var tdno = parseInt($("#tdno" + num).val());
         var test = { "tdno": tdno}
-
         $.ajax({
             type: "post",
             url : "${path}/todo/edit",

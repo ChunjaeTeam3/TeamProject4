@@ -23,4 +23,8 @@
         WHERE ccode = #{ccode} AND id = #{id}
     </update>
 
+    <select id="getCount" resultType="integer">
+        SELECT SUM(studyTime) FROM studyInfo where id=#{id};
+    </select>
+
 </mapper>

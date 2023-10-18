@@ -20,4 +20,8 @@
         select ano, name AS id, attend from attendance a join member m on(a.id = m.id)
         where month(attend) = month(current_date)
     </select>
+
+    <select id="getCount" resultType="integer">
+        select COUNT(*) from attendance where id=#{id}
+    </select>
 </mapper>

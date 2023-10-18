@@ -13,5 +13,9 @@ public interface RegisterService {
     public int isPeriod(String lcode) throws Exception;
     public List<LectureVO> myLectures(Page page) throws Exception;
     public List<UserProgress> progressList(String id) throws Exception;
+    public int getMyCount(String id) throws Exception;
+    public int calcProfitPt() throws Exception;
+    public double calcRegPercent() throws Exception;
+
 
 }

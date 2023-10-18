@@ -74,4 +74,5 @@ public class LectureServiceImpl implements LectureService {
     public boolean comparePeriod(String lcode) throws Exception {
         return lectureMapper.comparePeriod(lcode);
     }
+
 }

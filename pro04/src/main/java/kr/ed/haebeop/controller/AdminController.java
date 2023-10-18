@@ -59,25 +59,83 @@ public class AdminController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @Autowired
+    private RegisterService registerService;
+
     @RequestMapping("dashboard")
     public String dashboard(Model model) throws Exception {
+        // 포인트로 얻은 이익 계산
+        int profitPt = registerService.calcProfitPt();
+        model.addAttribute("profitPt", profitPt);
 
+        // 도서 판매로 얻은 이익 계산
+
+        // 회원 중 수강신청한 사람 비율
+        double regPercent = registerService.calcRegPercent();
+        model.addAttribute("regPercent", regPercent);
+
+        // 커뮤니티 게시글 개수
+        int boardCnt = boardService.getCount();
+        model.addAttribute("boardCnt", boardCnt);
+
+        // 현재 진행 중인 이벤트 리스트
+        List<Event> ongoingEvents = eventService.ongoingEvents();
+        model.addAttribute("ongoingEvents", ongoingEvents);
 
         return "/admin/dashboard";
     }
 
+    @PostMapping("getUserCnt")
+    public void getUserCnt(HttpServletResponse response) throws Exception {
+        // 월별 회원 수 추이
+        List<Map<String, Integer>> userCntList = userService.userCntList();
 
-    /* 관리자가 볼 수 있는 회원 목록 */
-    @GetMapping("userList")
-    public String userList(Model model) throws Exception {
-        List<User> userList = userService.userList();
-        model.addAttribute("userList", userList);
-        return "/admin/userList";
+        JSONArray jsonArray = new JSONArray();
+        for(Map<String, Integer> userCnt : userCntList) {
+            JSONObject obj = new JSONObject();
+            obj.put("label", userCnt.get("label"));
+            obj.put("cnt", userCnt.get("cnt"));
+            jsonArray.put(obj);
+        }
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+
+    }
+
+    @PostMapping("getCateBoardCnt")
+    public void getCateBoardCnt(HttpServletResponse response) throws Exception {
+        // 카테고리 별 게시글 수
+        List<Map<String, Integer>> boardCntList = boardService.getCateBoardCnt();
+
+        JSONArray jsonArray = new JSONArray();
+        for(Map<String, Integer> boardCnt : boardCntList) {
+            JSONObject obj = new JSONObject();
+            obj.put("cateName", boardCnt.get("cateName"));
+            obj.put("cnt", boardCnt.get("cnt"));
+            jsonArray.put(obj);
+        }
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+
     }
 
     @GetMapping("userMgmt")
-    public String userMgmt(Model model) throws Exception {
-        List<User> userList = userService.userList();
+    public String userMgmt(HttpServletRequest request, Model model) throws Exception {
+        //Page
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        Page page = new Page();
+        page.setType(request.getParameter("type"));
+        page.setKeyword(request.getParameter("keyword"));
+
+        int total = userService.userCnt(page);
+
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+        model.addAttribute("curPage", curPage);     // 현재 페이지
+        model.addAttribute("page", page);           // 페이징 데이터
+
+        List<User> userList = userService.userList(page);
         model.addAttribute("userList", userList);
         return "/admin/userMgmt";
     }
@@ -369,9 +427,9 @@ public class AdminController {
             folder.mkdirs();
         }
 
-        // 파일이 새롭게 업로드되지 않았다면 삭제하지 않도록 처리
+        // 파일이 새롭게 업로드되었다면 기존 파일 삭제
+        LectureVO oldLecture = lectureService.lectureDetail(lecture.getLcode());
         if(file.getSize() != 0) {
-            LectureVO oldLecture = lectureService.lectureDetail(lecture.getLcode());
             ServletContext application = request.getSession().getServletContext();
             File oldFile = new File(application.getRealPath("/") + "/resources/upload/lecture/" + oldLecture.getSaveFile());
             if (oldFile.exists()) {
@@ -384,6 +442,8 @@ public class AdminController {
             String saveFileName = UUID.randomUUID().toString() + originalFileName.substring(originalFileName.lastIndexOf("."));     // 파일 이름을 랜덤으로 설정
             lecture.setSaveFile(saveFileName);
             file.transferTo(new File(folder, saveFileName));        // 파일을 업로드 폴더에 저장
+        } else {
+            lecture.setSaveFile(oldLecture.getSaveFile());          // 새로운 파일이 업로드되지 않았다면 VO에 기존 파일 데이터 저장
         }
 
         lectureService.lectureEdit(lecture);
@@ -475,8 +535,8 @@ public class AdminController {
         }
 
         // 파일이 새롭게 업로드되지 않았다면 삭제하지 않도록 처리
+        Teacher oldTeacher = teacherService.teacherDetail(teacher.getTcode());
         if(file.getSize() != 0) {
-            Teacher oldTeacher = teacherService.teacherDetail(teacher.getTcode());
             ServletContext application = request.getSession().getServletContext();
             File oldFile = new File(application.getRealPath("/") + "/resources/upload/teacher/" + oldTeacher.getSaveFile());
             if (oldFile.exists()) {
@@ -489,6 +549,8 @@ public class AdminController {
             String saveFileName = UUID.randomUUID().toString() + originalFileName.substring(originalFileName.lastIndexOf("."));     // 파일 이름을 랜덤으로 설정
             teacher.setSaveFile(saveFileName);
             file.transferTo(new File(folder, saveFileName));        // 파일을 업로드 폴더에 저장
+        } else {
+            teacher.setSaveFile(oldTeacher.getSaveFile());          // 새로운 파일이 업로드되지 않았다면 VO에 기존 파일 데이터 저장
         }
 
         teacherService.teacherEdit(teacher);

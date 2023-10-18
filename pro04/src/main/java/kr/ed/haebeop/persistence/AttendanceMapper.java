@@ -11,4 +11,5 @@ public interface AttendanceMapper {
     public Attendance getAttendance(String id) throws Exception;
     public void addAttend(String id) throws Exception;
     public List<Attendance> attendaceDetail(String id) throws Exception;
+    public int getCount(String id) throws Exception;
 }
