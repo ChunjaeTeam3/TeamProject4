@@ -28,6 +28,7 @@
         </div>
     </div>
 </footer>
+
 <!-- Popper js -->
 <script src="${path}/resources/js/bootstrap/popper.min.js"></script>
 <!-- Bootstrap js -->

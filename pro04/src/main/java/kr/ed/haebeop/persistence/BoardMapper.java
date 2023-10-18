@@ -18,6 +18,9 @@ public interface BoardMapper {
     public void boardDelete(int seq) throws Exception;
     public void boardEdit(Board dto) throws Exception;
     public List<Category> categories() throws Exception;
-    public int getCount(Page page) throws Exception;
+    public int getCountWithPage(Page page) throws Exception;
+    public int getCount() throws Exception;
     public void countUp(int seq) throws Exception;
+    public List<Map<String, Integer>> getCateBoardCnt() throws Exception;
+
 }

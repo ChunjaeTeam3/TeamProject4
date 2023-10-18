@@ -66,7 +66,7 @@
     </select>
 
     <update id="lectureEdit">
-        update lecture set lname=#{lname}, scode=#{scode}, tcode=#{tcode}, lcontent=#{lcontent}, lprice=#{lprice}, maxStudent=#{maxStudent}, sdate=#{sdate}, edate=#{edate}, stime=#{stime}, saveFile=#{saveFile}, state=#{state}, classroom=#{classroom}
+        update lecture set lcode=CONCAT(#{scode},substring(lcode, 3, LENGTH(lcode))), lname=#{lname}, scode=#{scode}, tcode=#{tcode}, lcontent=#{lcontent}, lprice=#{lprice}, maxStudent=#{maxStudent}, sdate=#{sdate}, edate=#{edate}, stime=#{stime}, saveFile=#{saveFile}, state=#{state}, classroom=#{classroom}
         where lcode=#{lcode}
     </update>
 
@@ -80,7 +80,7 @@
     <!-- 폐강 위기 과목 목록 -->
     <select id="closeList" resultType="kr.ed.haebeop.domain.CloseLecture">
         <![CDATA[
-        SELECT l.lcode as lcode, sname, lname, sdate, edate, COUNT(*) AS 'regCnt', state FROM lecture l JOIN subject s ON (l.scode=s.scode) left outer JOIN register r ON (r.lcode=l.lcode)
+        SELECT l.lcode as lcode, sname, lname, sdate, edate, COUNT(r.lcode) AS 'regCnt', state FROM lecture l JOIN subject s ON (l.scode=s.scode) left outer JOIN register r ON (r.lcode=l.lcode)
         WHERE sdate BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5
             ORDER BY sdate limit #{postStart}, #{postCount}
         ]]>

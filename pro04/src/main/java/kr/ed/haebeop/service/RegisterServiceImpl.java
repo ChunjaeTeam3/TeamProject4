@@ -64,4 +64,15 @@ public class RegisterServiceImpl implements RegisterService {
     public List<UserProgress> progressList(String id) throws Exception {
         return registerMapper.progressList(id);
     }
+
+    @Override
+    public int calcProfitPt() throws Exception {
+        return registerMapper.calcProfitPt();
+    }
+
+    @Override
+    public double calcRegPercent() throws Exception {
+        return registerMapper.calcRegPercent();
+    }
+
 }
