@@ -72,7 +72,7 @@
                                         </c:if>
                                         <!-- 로그인 했을 때 -->
                                         <c:if test="${sid ne null}">
-                                            <a href="${path}/notice/detail?seq=${notice.seq}">${notice.title}</a>
+                                            <a href="${path}/notice/detail?seq=${notice.seq}&page=${curPage}">${notice.title}</a>
                                         </c:if>
                                     </th>
                                     <th class="text-center">

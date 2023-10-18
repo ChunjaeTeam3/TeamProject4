@@ -11,7 +11,7 @@
     <title>공지사항 상세보기</title>
     <jsp:include page="../layout/head.jsp"/>
     <style>
-
+        table th {width: 12%;}
     </style>
 </head>
 <body>
@@ -33,49 +33,64 @@
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <table class="table project-table table-centered table-nowrap">
-                                <tbody>
-                                <tr>
-                                    <th class="text-center">제목</th>
-                                    <td>${detail.title}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">작성일</th>
-                                    <td>${detail.regdate}</td>
-                                    <th class="text-center">조회수</th>
-                                    <td>${detail.visited}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6" style="font-size: 15px;">${detail.content}</td>
-                                </tr>
-                                <tr class="d-flex justify-content-between">
-                                    <td colspan="6">
-                                        <c:if test="${detail.seq eq 1}">
-                                            <a href="${path}/notice/detail?seq=${detail.seq+1}">다음</a>
-                                        </c:if>
-                                        <c:if test="${detail.seq ne 1 && detail.seq+1 ne null}">
-                                            <a href="${path}/notice/detail?seq=${detail.seq-1}" class="btn btn-dark">이전</a>
-                                            <a href="${path}/notice/detail?seq=${detail.seq+1}" class="btn btn-dark">다음</a>
-                                        </c:if>
-                                        <c:if test="${ detail.seq+1 eq null}">
-                                            <a href="${path}/notice/detail?seq=${detail.seq-1}" class="btn btn-dark">이전</a>
-                                        </c:if>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
                             <c:if test="${! empty sid && sid eq 'admin'}">
-                                <div class="btn-group float-right">
-                                    <a href="${path}/notice/list" class="btn btn-outline-dark">목록</a>
+                                <div class="btn-group float-right mb-3">
+                                    <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/notice/edit?seq=${detail.seq}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/notice/delete?seq=${detail.seq}" class="btn btn-outline-dark">삭제</a>
                                 </div>
                             </c:if>
                             <c:if test="${! empty sid && sid ne 'admin'}">
                                 <div class="btn-group float-right">
-                                    <a href="${path}/notice/list" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/notice/listpage=${curPage}" class="btn btn-outline-dark">목록</a>
                                 </div>
                             </c:if>
+                            <table class="table project-table table-centered table-nowrap">
+                                <tbody>
+                                <tr>
+                                    <th class="text-center">제목</th>
+                                    <td colspan="3">${detail.title}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">작성일</th>
+                                    <td>
+                                        <fmt:parseDate value="${detail.regdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                        <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd"/>
+                                    </td>
+                                    <th class="text-center">조회수</th>
+                                    <td>${detail.visited}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="font-size: 15px;" class="p-4">${detail.content}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="d-flex justify-content-between">
+                                            <c:if test="${!empty prev}">
+                                                <div class="text-left">
+                                                    <a href="${path}/notice/detail?seq=${prev.seq}&page=${curPage}"><i class="fa-solid fa-angles-left fa-xl"></i>${prev.title}</a>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${empty prev}">
+                                                <div class="text-left">
+                                                    <h6> 첫 번째 글입니다. </h6>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${!empty next}">
+                                                <div class="text-right">
+                                                    <a href="${path}/notice/detail?seq=${next.seq}&page=${curPage}">${next.title}<i class="fa-solid fa-angles-right fa-xl"></i></a>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${empty next}">
+                                                <div class="text-right">
+                                                    <h6> 마지막 글입니다. </h6>
+                                                </div>
+                                            </c:if>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
