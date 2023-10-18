@@ -294,6 +294,16 @@ public class AdminController {
         return "/admin/insertWinner";
     }
 
+    @GetMapping("applyList")
+    public String applyList(HttpServletRequest request, Model model) throws Exception {
+        int eno = Integer.parseInt(request.getParameter("eno"));
+        //WinnerList
+        List<Apply> applyList = winnerService.applyList(eno);
+        model.addAttribute("applyList", applyList);
+        model.addAttribute("eno", eno);
+        return "/admin/applyList";
+    }
+
     @GetMapping("lectureMgmt")
     public String lectureMgmt(HttpServletRequest request, Model model) throws Exception {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -603,5 +613,7 @@ public class AdminController {
 
         return "redirect:/admin/lectureMgmt";
     }
+
+
 
 }
