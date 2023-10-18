@@ -49,7 +49,7 @@ public class TodoController {
 
     @PostMapping("edit")
     @ResponseBody
-    public void todoEdit(@RequestParam("tdno") int tdno, HttpServletRequest request, Model model) throws Exception {
+    public Todo todoEdit(@RequestParam("tdno") int tdno, HttpServletRequest request, Model model) throws Exception {
         Todo todo = todoService.todoGet(tdno);
 
         if(todo.getStatus() == 1) {
@@ -60,5 +60,7 @@ public class TodoController {
         todo.setTdno(tdno);
 
         todoService.todoEdit(todo);
+
+        return todo;
     }
 }

@@ -77,15 +77,15 @@
 <!-- 푸터 끝 -->
 <!-- todoList 완료 시 체크박스 변화 -->
 <script>
-    $(document).ready(function() {
-        $("input[type=checkbox]").change(function() {
-            if (this.checked) {
-                $(this).next(".label-text").css("text-decoration-line", "line-through");
-            } else {
-                $(this).next(".label-text").css("text-decoration-line", "none");
-            }
-        });
-    });
+    // $(document).ready(function() {
+    //     $("input[type=checkbox]").change(function() {
+    //         if (this.checked) {
+    //             $(this).next(".label-text").css("text-decoration-line", "line-through");
+    //         } else {
+    //             $(this).next(".label-text").css("text-decoration-line", "none");
+    //         }
+    //     });
+    // });
 </script>
 <!-- insert ajax -->
 <script>
@@ -130,14 +130,20 @@
             url : "${path}/todo/edit",
             data : test,
             success : function (res){
-                $("#edit" + num).checked;
-                $("#edit" + num).next().css("text-decoration-line", "line-through");
+                if (res.status == 0) {
+                    $("#edit" + num).next().css("text-decoration-line", "none");
+                } else {
+                    $("#edit" + num).next().css("text-decoration-line", "line-through");
+                }
+
             },
             error: function(err){
                 console.log("실패", err)
             }
         })
     }
+
+
 </script>
 </body>
 </html>
