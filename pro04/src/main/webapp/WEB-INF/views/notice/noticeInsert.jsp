@@ -51,7 +51,7 @@
                                     <tbody>
                                     <tr>
                                         <th class="text-center" style="vertical-align: middle; width: 15%;">제목</th>
-                                        <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" required></td>
+                                        <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" class="pl-2" required autofocus></td>
                                     </tr>
                                     <tr>
                                         <td colspan="6" style="font-size: 15px;">
@@ -76,7 +76,6 @@
         <!-- 테이블 영역 끝 -->
     </div>
 </section>
-<!-- 로그인 끝 -->
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->

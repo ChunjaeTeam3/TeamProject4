@@ -23,7 +23,7 @@
                 </trim>
             </if>
         </where>
-        order BY a.par DESC, a.lev ASC, a.qno ASC, qno desc limit #{postStart}, #{postCount}
+        order BY a.par DESC, a.lev ASC, a.qno ASC limit #{postStart}, #{postCount}
     </select>
 
     <!--상세보기-->
