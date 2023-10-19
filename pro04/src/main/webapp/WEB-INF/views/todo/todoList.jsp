@@ -134,7 +134,7 @@
             url : "${path}/todo/edit",
             data : test,
             success : function (res){
-                // $("#edit" + num).checked();
+                $("#edit" + num).checked();
                 $("#edit" + num + " > span").css("text-decoration-line", "line-through");
             },
             error: function(err){

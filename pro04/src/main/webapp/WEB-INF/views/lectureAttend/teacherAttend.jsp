@@ -29,7 +29,7 @@
 <div class="container mt-100">
     <div class="d-flex justify-content-between">
         <h4> 오프라인 강의 출결 </h4>
-        <button class="btn btn-dark" disabled> 출결 기록 저장 </button>
+        <button class="btn btn-dark" id="insertBtn" disabled> 출결 기록 저장 </button>
     </div>
     <hr>
     <p> 강의명 : ${lecture.lname} &nbsp; | &nbsp; 진행 일자 : <c:out value="${today}"/> &nbsp; | &nbsp; 시작 시간 : ${lecture.stime} &nbsp; | &nbsp; 장소 : ${lecture.classroom} </p>
@@ -41,8 +41,8 @@
         </div>
         <div>
             <span class="mr-2 text-secondary"> 일괄변경 </span>
-            <button class="btn btn-primary"> 전체 출석 </button>
-            <button class="btn btn-danger"> 전체 결석 </button>
+            <button class="btn btn-primary" id="changeAttend"> 전체 출석 </button>
+            <button class="btn btn-danger" id="changeAbsent"> 전체 결석 </button>
         </div>
     </div>
     <table class="table table-hover text-center mt-15 mb-100">
@@ -61,56 +61,68 @@
                 <td class="align-middle"> ${attend.id} </td>
                 <td class="align-middle"> ${attend.name} </td>
                 <c:if test="${empty attend.adate}">
-                    <td></td>
-                    <td></td>
+                    <td class="align-middle attendTime">-</td>
+                    <td class="align-middle test${status.count }">-</td>
                     <td class="align-middle">
-                        <label for="attend${status.index}" class="mr-2">
-                            <input type="radio" id="attend${status.index}" name="${attend.id}" value="출석"> 출석
-                        </label>
-                        <label for="absent${status.index}" class="mr-2">
-                            <input type="radio" id="absent${status.index}" name="${attend.id}" value="결석"> 결석
-                        </label>
-                        <label for="tardy${status.index}" class="mr-2">
-                            <input type="radio" id="tardy${status.index}" name="${attend.id}" value="지각"> 지각
-                        </label>
+                        <div class="form-check d-inline-block mr-3">
+                            <input type="radio" id="attend_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                            <label for="attend_${status.index}" class="form-check-label" data-value="출석"> 출석 </label>
+                        </div>
+                        <div class="form-check d-inline-block mr-3">
+                            <input type="radio" id="absent_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                            <label for="absent_${status.index}" class="form-check-label" data-value="결석"> 결석 </label>
+                        </div>
+                        <div class="form-check d-inline-block mr-3">
+                            <input type="radio" id="tardy_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                            <label for="tardy_${status.index}" class="form-check-label" data-value="지각"> 지각 </label>
+                        </div>
                     </td>
                 </c:if>
                 <c:if test="${not empty attend.adate}">
                     <td class="align-middle"> ${attend.adate} </td>
-                    <td class="align-middle"> ${attend.atime} </td>
-                    <td class="d-flex align-items-center justify-content-center">
+                    <td class="align-middle test${status.count} attendTime"><c:if test="${attend.atime eq '00:00:00'}">-</c:if><c:if test="${attend.atime ne '00:00:00'}">${attend.atime}</c:if></td>
+                    <td class="align-middle">
                         <c:if test="${attend.atype eq '출석'}">
-                            <label for="attend${status.index}" class="mr-2">
-                                <input type="radio" id="attend${status.index}" name="${attend.id}" value="출석" checked> 출석
-                            </label>
-                            <label for="absent${status.index}" class="mr-2">
-                                <input type="radio" id="absent${status.index}" name="${attend.id}" value="결석"> 결석
-                            </label>
-                            <label for="tardy${status.index}" class="mr-2">
-                                <input type="radio" id="tardy${status.index}" name="${attend.id}" value="지각"> 지각
-                            </label>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="attend_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input" checked>
+                                <label for="attend_${status.index}" class="form-check-label" data-value="출석"> 출석 </label>
+                            </div>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="absent_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                                <label for="absent_${status.index}" class="form-check-label" data-value="결석"> 결석 </label>
+                            </div>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="tardy_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                                <label for="tardy_${status.index}" class="form-check-label" data-value="지각"> 지각 </label>
+                            </div>
                         </c:if>
                         <c:if test="${attend.atype eq '결석'}">
-                            <label for="attend${status.index}" class="mr-2">
-                                <input type="radio" id="attend${status.index}" name="${attend.id}" value="출석"> 출석
-                            </label>
-                            <label for="absent${status.index}" class="mr-2">
-                                <input type="radio" id="absent${status.index}" name="${attend.id}" value="결석" checked> 결석
-                            </label>
-                            <label for="tardy${status.index}" class="mr-2">
-                                <input type="radio" id="tardy${status.index}" name="${attend.id}" value="지각"> 지각
-                            </label>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="attend_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                                <label for="attend_${status.index}" class="form-check-label" data-value="출석"> 출석 </label>
+                            </div>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="absent_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input" checked>
+                                <label for="absent_${status.index}" class="form-check-label" data-value="결석"> 결석 </label>
+                            </div>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="tardy_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                                <label for="tardy_${status.index}" class="form-check-label" data-value="지각"> 지각 </label>
+                            </div>
                         </c:if>
                         <c:if test="${attend.atype eq '지각'}">
-                            <label for="attend${status.index}" class="mr-2">
-                                <input type="radio" id="attend${status.index}" name="${attend.id}" value="출석"> 출석
-                            </label>
-                            <label for="absent${status.index}" class="mr-2">
-                                <input type="radio" id="absent${status.index}" name="${attend.id}" value="결석"> 결석
-                            </label>
-                            <label for="tardy${status.index}" class="mr-2">
-                                <input type="radio" id="tardy${status.index}" name="${attend.id}" value="지각" checked> 지각
-                            </label>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="attend_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                                <label for="attend_${status.index}" class="form-check-label" data-value="출석"> 출석 </label>
+                            </div>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="absent_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
+                                <label for="absent_${status.index}" class="form-check-label" data-value="결석"> 결석 </label>
+                            </div>
+                            <div class="form-check d-inline-block mr-3">
+                                <input type="radio" id="tardy_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input" checked>
+                                <label for="tardy_${status.index}" class="form-check-label" data-value="지각"> 지각 </label>
+                            </div>
                         </c:if>
                     </td>
                 </c:if>
@@ -123,5 +135,78 @@
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp" />
 <!-- 푸터 끝 -->
+
+<script>
+    // 일괄 출석 버튼
+    $("#changeAttend").on("click", () => {
+        $("[id^=attend]").prop("checked", true);
+        $("#insertBtn").prop("disabled", false);
+    });
+    // 일괄 결석 버튼
+    $("#changeAbsent").on("click", () => {
+        $("[id^=absent]").prop("checked", true);
+        $("#insertBtn").prop("disabled", false);
+    });
+    $("input").on("change", () => {
+        $("#insertBtn").prop("disabled", false);
+    });
+    // 출결 기록 저장 버튼
+    $("#insertBtn").on("click", () => {
+        // 회원 아이디 리스트
+        let dataArray = [];
+        let tiemAt = 1;
+        $("input:checked").each(function(idx) {
+            let atime = 0;
+            if($(".test" + tiemAt).text() != "-"){ atime = $(".test" + tiemAt).text(); }
+            else { atime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(); }
+            if($(this).next("label").attr("data-value") == '결석') { atime = 0; }
+            let data = {
+                "id" : $(this).val(),
+                "atime" : atime,
+                "atype" : $(this).next("label").attr("data-value"),
+                "lcode" : "${lecture.lcode}"
+            };
+            dataArray.push(data);
+            tiemAt++;
+        });
+
+        $.ajax({
+            url: "${path}/lectureAttend/insertAttend",
+            type: "post",
+            dataType: "JSON",
+            traditional: true,
+            data: {dataArray : JSON.stringify(dataArray)},
+            success: function(data) {
+                reloadTable("${lecture.lcode}");
+            },
+            error: function(err) {
+                console.log(err);
+                alert("일괄저장에 실패했습니다. 잠시 후 다시 시도해주세요");
+            }
+        });
+
+        function reloadTable(lcode) {
+            $.ajax({
+                url: "${path}/lectureAttend/reloadTeacherTable",
+                data: {lcode : lcode},
+                type: "post",
+                dataType: "json",
+                success: function(data) {
+                    for(let i=0; i<data.length; i++) {
+                        console.log($(".attendTime:eq("+i+")").text());
+                        $(".attendTime:eq("+i+")").text(data[i].atime);
+                        if(data[i].atime == "00:00:00") {
+                            $(".attendTime:eq("+i+")").text("-");
+                        }
+                    }
+                    console.log(data);
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

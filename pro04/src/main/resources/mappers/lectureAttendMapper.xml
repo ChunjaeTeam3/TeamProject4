@@ -3,10 +3,17 @@
 <mapper namespace="kr.ed.haebeop.persistence.LectureAttendMapper">
 
     <select id="attendListTeacher" resultType="kr.ed.haebeop.domain.LectureAttendVO">
-        SELECT r.lcode, u.id, name, adate, atime, atype
-        FROM register r LEFT OUTER JOIN lectureAttend l ON (r.id=l.id) JOIN user u ON (r.id=u.id)
-        WHERE lcode=#{lcode} AND atype IS NULL
-        ORDER BY name
+        SELECT r.lcode as lcode, u.id as id, name, adate, atime, atype
+        FROM register r LEFT OUTER JOIN lectureAttend l ON (r.lcode=l.lcode AND r.id=l.id) JOIN user u ON (r.id=u.id)
+        WHERE r.lcode=#{lcode} AND adate=CURRENT_DATE ORDER BY name
     </select>
+
+    <insert id="insertAttend">
+        INSERT INTO lectureattend VALUES
+        <foreach collection="dataArray" item="item" separator=" , ">
+            (#{item.id}, #{item.lcode}, default, #{item.atime}, #{item.atype})
+        </foreach>
+        ON DUPLICATE KEY UPDATE atime=values(atime), atype=values(atype)
+    </insert>
 
 </mapper>

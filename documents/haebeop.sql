@@ -15,10 +15,7 @@ CREATE TABLE user(
   birth DATE,
   pt INT(11) DEFAULT 0,
   visited INT(11) DEFAULT 0,
-  isStudy BOOLEAN DEFAULT FALSE,
-  userType VARCHAR(20) DEFAULT 'student');
-  
-SELECT * FROM user;
+  isStudy BOOLEAN DEFAULT false);
   
 -- 회원 더미데이터
 SELECT * FROM user;
@@ -269,23 +266,13 @@ CREATE TABLE teacher(
 	saveFile VARCHAR(300) NOT NULL
 );
 
--- 교재 테이블 생성(교재코드, 교재이름, 교재소개, 저자, 가격)
-CREATE TABLE book (
-	bcode VARCHAR(20) primary key NOT NULL ,
-	bname VARCHAR(100) NOT NULL,
-	content VARCHAR(1000) NOT NULL,
-	author VARCHAR(1000) NOT NULL,
-	price INT(11) NOT NULL
-);
 
-
--- 강의 테이블 (강의코드, 강의명, 과목코드, 강사코드, 교재코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFile), 강의 시작일, 강의 종료일, (오프라인 시)강의 시작시간, 온오프 여부, 강의실)
+-- 강의 테이블 (강의코드, 강의명, 과목코드, 강사코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFile), 강의 시작일, 강의 종료일, (오프라인 시)강의 시작시간, 온오프 여부, 강의실)
 CREATE TABLE lecture(
 	lcode VARCHAR(50) PRIMARY KEY,
 	lname VARCHAR(500) NOT NULL,
 	scode VARCHAR(10) NOT NULL,
 	tcode INT,
-	bcode VARCHAR(10),
 	lcontent VARCHAR(1000) NOT NULL,
 	lprice INT DEFAULT 0,
 	maxStudent INT DEFAULT 0,
@@ -296,9 +283,9 @@ CREATE TABLE lecture(
 	state VARCHAR(10) CHECK(state IN ('on', 'off', 'close')),
 	classroom VARCHAR(10),
 	FOREIGN KEY(scode) REFERENCES SUBJECT(scode),
-	FOREIGN KEY(tcode) REFERENCES teacher(tcode),
-	FOREIGN KEY(bcode) REFERENCES book(bcode)
+	FOREIGN KEY(tcode) REFERENCES teacher(tcode)
 );
+
 
 -- 커리큘럼 (커리큘럼코드, 강의코드, 강좌 제목, 강의 파일, 강의 시간)
 CREATE TABLE curriculum(
@@ -328,7 +315,7 @@ CREATE TABLE register(
 	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE
 );
 
--- 수강생 온라인 강의 수강 정보 테이블
+-- 수강생 강의 수강 정보 테이블
 CREATE TABLE studyInfo(
 	scode INT AUTO_INCREMENT PRIMARY KEY,
 	ccode INT NOT NULL,
@@ -339,28 +326,37 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
-SELECT * FROM register
-
-SELECT r.lcode, u.id, name, adate, atime, atype
-FROM register r LEFT OUTER JOIN lectureAttend l ON (r.id=l.id) JOIN user u ON (r.id=u.id)
-WHERE lcode='ma1' AND aType IS NULL;
-
 -- 오프라인 강의 출석 번호 저장 테이블
 CREATE TABLE saveAttendCode(
 	sno INT AUTO_INCREMENT PRIMARY KEY,
 	lcode VARCHAR(50) NOT NULL,
 	attendCode INT NOT NULL
 );
-
+DROP TABLE lectureAttend;
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
-	ano INT AUTO_INCREMENT PRIMARY KEY,
 	id VARCHAR(20) NOT NULL,
-	adate DATE,
-	atime TIME,
+	lcode VARCHAR(50) NOT NULL,
+	adate DATE DEFAULT CURRENT_DATE,
+	atime TIME DEFAULT CURRENT_TIME,
 	atype VARCHAR(10) NOT NULL,
-	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE
+	CONSTRAINT lectureattend_PK PRIMARY KEY (id, lcode, adate),
+	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE,
+	FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE
 );
+
+DELETE FROM lectureattend
+
+DESC lectureattend;
+
+INSERT INTO lectureAttend VALUES('admin', 'es3', CURRENT_DATE, CURRENT_TIME, '출석')
+ON DUPLICATE KEY UPDATE atime='16:15:15', atype='결석';
+
+UPDATE lectureattend SET atime = 0 WHERE id = 'admin';
+
+INSERT INTO lectureAttend VALUES('admin', 'ma2', CURRENT_DATE, CURRENT_TIME, '출석')
+
+SELECT * FROM lectureattend;
 
 -- TodoList (list 넘버, 제목, 상태)
 CREATE TABLE todo(
@@ -375,7 +371,6 @@ INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
 
 select * from todo where status=FALSE and id='admin' order by tdno asc;
 UPDATE todo SET STATUS=TRUE WHERE tdno=1;
-DROP TABLE todo;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등
