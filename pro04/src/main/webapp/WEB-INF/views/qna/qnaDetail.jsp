@@ -21,7 +21,7 @@
 <!-- 브레드크럼 시작 -->
 <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
     <div class="bradcumbContent">
-        <h2>Q&A 상세보기</h2>
+        <h2>Q&A</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->

@@ -33,15 +33,15 @@
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <c:if test="${! empty sid && sid eq 'admin'}">
+                            <c:if test="${sid eq 'admin'}">
                                 <div class="btn-group float-right mb-3">
                                     <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/notice/edit?seq=${detail.seq}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/notice/delete?seq=${detail.seq}" class="btn btn-outline-dark">삭제</a>
                                 </div>
                             </c:if>
-                            <c:if test="${! empty sid && sid ne 'admin'}">
-                                <div class="btn-group float-right">
+                            <c:if test="${sid ne 'admin'}">
+                                <div class="btn-group float-right mb-3">
                                     <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                 </div>
                             </c:if>

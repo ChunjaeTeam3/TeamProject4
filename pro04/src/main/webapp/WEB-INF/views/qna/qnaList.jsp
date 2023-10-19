@@ -106,12 +106,11 @@
                             </tbody>
                         </table>
                         <!-- 페이지 시작 -->
-                        <!-- pagnation -->
                         <div class="oneMusic-pagination-area wow">
                             <ul class="pagination justify-content-center mb-0">
                                 <c:if test="${curPage > 5}">
                                     <li class="page-item">
-                                        <a href="${path}/qna/list?page=${page.blockStartNum - 1}"
+                                        <a href="${path}/qna/list?page=${page.blockStartNum - 1}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                            class="page-item"><i class="fa-solid fa-arrow-left"></i></a>
                                     </li>
                                 </c:if>
@@ -134,7 +133,8 @@
                                 </c:forEach>
                                 <c:if test="${page.blockLastNum < page.totalPageCount}">
                                     <li class="page-item">
-                                        <a href="${path}/qna/list?page=${page.blockLastNum + 1}" class="page-link"><i class="fa-solid fa-arrow-right"></i></a>
+                                        <a href="${path}/qna/list?page=${page.blockLastNum + 1}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                           class="page-link"><i class="fa-solid fa-arrow-right"></i></a>
                                     </li>
                                 </c:if>
                             </ul>
