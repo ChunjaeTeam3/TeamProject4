@@ -60,7 +60,7 @@
     <select id="calcProfitPt" resultType="integer">
         SELECT IFNULL(SUM(lprice), 0) FROM register r JOIN lecture l ON (r.lcode = l.lcode)
     </select>
-  
+
     <select id="calcRegPercent" resultType="double">
         SELECT ((SELECT COUNT(DISTINCT id) FROM register) / (SELECT COUNT(*) FROM user) * 100)
     </select>

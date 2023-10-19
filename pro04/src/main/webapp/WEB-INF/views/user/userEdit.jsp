@@ -57,12 +57,12 @@
 </div>
 <!--sidemenu End -->
 
-<div class="col-xl-6" style="margin:100px auto;">
+<div class="col-xl-10" style="margin:100px auto;">
     <div class="container justify-content-center gx-4">
         <div class="card box-shadow-b p-2 p-md-3">
             <section class="section" style="padding-top: 20px; padding-bottom: 30px;">
                 <div class="container" style="width:80%;" >
-                    <div class="p-6 shadow rounded content">
+                    <div class="p-6 rounded content">
                         <form name="frm1" id="frm1" action="${path}/user/edit" class="columns is-multiline is-centered" method="post" onsubmit="return updateCheck(this)">
                             <div class="column is-10-tablet">
                                 <label for="id" class="label"> 아이디 </label>
