@@ -331,9 +331,11 @@ CREATE TABLE saveAttendCode(
 	lcode VARCHAR(50) PRIMARY KEY,	/* 과목코드 */
 	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
-SELECT * FROM saveattendcode;
+
 INSERT INTO saveattendcode
 VALUES('es3', FLOOR(100 + RAND() * 899))
+ON DUPLICATE KEY UPDATE attendCode=FLOOR(100 + RAND() * 899);
+SELECT * FROM saveattendcode;
 
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
