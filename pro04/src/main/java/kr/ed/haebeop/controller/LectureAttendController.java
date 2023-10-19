@@ -3,6 +3,7 @@ package kr.ed.haebeop.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.ed.haebeop.domain.LectureAttendVO;
 import kr.ed.haebeop.domain.LectureVO;
+import kr.ed.haebeop.domain.SaveAttendCode;
 import kr.ed.haebeop.service.LectureAttendService;
 import kr.ed.haebeop.service.LectureService;
 import lombok.Getter;
@@ -86,6 +87,15 @@ public class LectureAttendController {
         result.put("result", "success");
         PrintWriter out = response.getWriter();
         out.println(result);
+    }
+
+    @PostMapping("saveAttendCode")
+    public void saveAttendCode(@RequestParam SaveAttendCode saveAttendCode, HttpServletResponse response) throws Exception {
+        lectureAttendService.getAttendCode(saveAttendCode);
+        JSONObject obj = new JSONObject();
+        obj.put("attendCode", saveAttendCode.getAttendCode());
+        PrintWriter out = response.getWriter();
+        out.println(obj);
     }
 
 }

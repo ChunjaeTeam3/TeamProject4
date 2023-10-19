@@ -37,7 +37,7 @@
     <div class="d-flex justify-content-between align-items-baseline">
         <div>
             <span class="mr-2 text-secondary"> 자동 출결 </span>
-            <button class="btn btn-outline-primary"> 출결코드 생성 </button>
+            <button class="btn btn-outline-primary" id="attendCodeBtn"> 출결코드 생성 </button>
         </div>
         <div>
             <span class="mr-2 text-secondary"> 일괄변경 </span>
@@ -181,7 +181,7 @@
             },
             error: function(err) {
                 console.log(err);
-                alert("일괄저장에 실패했습니다. 잠시 후 다시 시도해주세요");
+                alert("출결 기록 저장에 실패했습니다. 잠시 후 다시 시도해주세요");
             }
         });
 
@@ -193,19 +193,32 @@
                 dataType: "json",
                 success: function(data) {
                     for(let i=0; i<data.length; i++) {
-                        console.log($(".attendTime:eq("+i+")").text());
                         $(".attendTime:eq("+i+")").text(data[i].atime);
                         if(data[i].atime == "00:00:00") {
                             $(".attendTime:eq("+i+")").text("-");
                         }
                     }
-                    console.log(data);
                 },
                 error: function(err) {
                     console.log(err);
                 }
             });
         }
+
+        $("#attendCodeBtn").on("click", function () {
+            $.ajax({
+                url: "${path}/lectureAttend/saveAttendCode",
+                data: {"lcode":"${lecture.lcode}"},
+                type: "post",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
     });
 </script>
 </body>

@@ -328,11 +328,13 @@ CREATE TABLE studyInfo(
 
 -- 오프라인 강의 출석 번호 저장 테이블
 CREATE TABLE saveAttendCode(
-	sno INT AUTO_INCREMENT PRIMARY KEY,
-	lcode VARCHAR(50) NOT NULL,
-	attendCode INT NOT NULL
+	lcode VARCHAR(50) PRIMARY KEY,	/* 과목코드 */
+	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
-DROP TABLE lectureAttend;
+SELECT * FROM saveattendcode;
+INSERT INTO saveattendcode
+VALUES('es3', FLOOR(100 + RAND() * 899))
+
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
 	id VARCHAR(20) NOT NULL,
@@ -344,19 +346,6 @@ CREATE TABLE lectureAttend(
 	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE,
 	FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE
 );
-
-DELETE FROM lectureattend
-
-DESC lectureattend;
-
-INSERT INTO lectureAttend VALUES('admin', 'es3', CURRENT_DATE, CURRENT_TIME, '출석')
-ON DUPLICATE KEY UPDATE atime='16:15:15', atype='결석';
-
-UPDATE lectureattend SET atime = 0 WHERE id = 'admin';
-
-INSERT INTO lectureAttend VALUES('admin', 'ma2', CURRENT_DATE, CURRENT_TIME, '출석')
-
-SELECT * FROM lectureattend;
 
 -- TodoList (list 넘버, 제목, 상태)
 CREATE TABLE todo(

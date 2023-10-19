@@ -16,4 +16,15 @@
         ON DUPLICATE KEY UPDATE atime=values(atime), atype=values(atype)
     </insert>
 
+    <insert id="saveAttendCode">
+        <selectKey keyProperty="attendCode" resultType="int" order="AFTER">
+            select attendCode from saveattendcode where lcode=#{lcode}
+        </selectKey>
+
+        INSERT INTO saveattendcode
+        VALUES(#{lcode}, FLOOR(100 + RAND() * 899))
+            ON DUPLICATE KEY UPDATE attendCode=FLOOR(100 + RAND() * 899);
+        SELECT * FROM saveattendcode;
+    </insert>
+
 </mapper>

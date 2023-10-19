@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.LectureAttendVO;
+import kr.ed.haebeop.domain.SaveAttendCode;
 import kr.ed.haebeop.persistence.LectureAttendMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,11 @@ public class LectureAttendServiceImpl implements LectureAttendService {
     @Override
     public void insertAttend(Map<String, Object> dataArray) throws Exception {
         lectureAttendMapper.insertAttend(dataArray);
+    }
+
+    @Override
+    public void getAttendCode(SaveAttendCode saveAttendCode) throws Exception {
+        lectureAttendMapper.saveAttendCode(saveAttendCode);
+
     }
 }
