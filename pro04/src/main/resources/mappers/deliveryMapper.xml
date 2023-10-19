@@ -5,7 +5,7 @@
     <select id="deliveryList" resultType="kr.ed.haebeop.domain.DeliveryVO">
         select a.pno as pno, b.title as title, a.id as id, b.resdate as resdate, a.dstatus as dstatus, a.dno as dno
         from delivery a join payment b on (a.pno = b.pno)
-        order by a.dno desc
+        order by a.pno desc
     </select>
 
     <select id="deliveryDetail" resultType="kr.ed.haebeop.domain.DeliveryVO">

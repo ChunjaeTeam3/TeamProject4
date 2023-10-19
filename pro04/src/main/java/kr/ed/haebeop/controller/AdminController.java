@@ -62,6 +62,9 @@ public class AdminController {
     @Autowired
     private RegisterService registerService;
 
+    @Autowired
+    private DeliveryService deliveryService;
+
     @RequestMapping("dashboard")
     public String dashboard(Model model) throws Exception {
         // 포인트로 얻은 이익 계산
@@ -612,6 +615,40 @@ public class AdminController {
         rttr.addFlashAttribute("msg", "success");
 
         return "redirect:/admin/lectureMgmt";
+    }
+
+    @GetMapping("deliveryMgmt")
+    public String getDeliveryList(Model model) throws Exception{
+
+        List<DeliveryVO> deliveryList = deliveryService.deliveryList();
+        model.addAttribute("deliveryList", deliveryList);
+
+        return "/admin/deliveryMgmt";
+    }
+
+    @GetMapping("deliveryUpdate")
+    public String deliveryUpdateForm(HttpServletRequest request, Model model) throws Exception{
+        int dno = Integer.parseInt(request.getParameter("dno"));
+
+        DeliveryVO delivery = deliveryService.getdelivery(dno);
+        model.addAttribute("delivery", delivery);
+
+        return "/admin/deliveryUpdate";
+    }
+
+    @PostMapping("deliveryUpdate")
+    public String deliveryUpdate(HttpServletRequest request,Model model) throws Exception{
+        int dno = Integer.parseInt(request.getParameter("dno"));
+
+        Delivery delivery = new Delivery();
+        delivery.setDcom(request.getParameter("dcom"));
+        delivery.setDtel(request.getParameter("dtel"));
+        delivery.setDstatus(request.getParameter("dstatus"));
+        delivery.setEdate(request.getParameter("edate"));
+        delivery.setDcode(request.getParameter("dcode"));
+        deliveryService.deliveryUpdate(delivery);
+
+        return "redirect:/admin/deliveryMngt";
     }
 
 

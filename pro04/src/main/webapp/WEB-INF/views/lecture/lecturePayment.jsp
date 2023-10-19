@@ -10,9 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>강의 결제</title>
     <jsp:include page="../layout/head.jsp"/>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <style>
         .card { border: none; margin-bottom: 24px; -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);box-shadow: 0 0 13px 0 rgba(236,236,241,.44);}
-        #infoTel {width: 100%; margin-left: 2px;margin-top: 20px; border-bottom: 2px solid darkgray; padding-bottom: 10px!important;  padding-left: 20px;}
         .form-label {font-weight: bold; color:#000000!important;}
         #bprice { font-weight: bold; font-size: 18px;}
     </style>
