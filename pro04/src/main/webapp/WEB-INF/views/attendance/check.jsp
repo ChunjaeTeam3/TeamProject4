@@ -21,7 +21,7 @@
         }
         .popup {
             position: relative;
-            background-image: url("${path}/resources/images/attendPoint.png");
+            background-image: url("${path}/resources/img/attendPoint.png");
             background-size: cover;
             border-radius: 20px;
             box-shadow: 5px 5px 10px #555;
@@ -38,7 +38,7 @@
             top: 20px;
         }
         .info {
-            margin-top: 20px;
+            margin-top: 140px;
         }
         .point {
             line-height: 100px;
@@ -64,7 +64,7 @@
         <div class="col-md-7" style="margin: 0 auto">
             <div class="container text-center">
                 <h3 class="mb-20" style="font-family:'Roboto', sans-serif; font-weight: bold"> ${calendarInfo.month}월 출석 <i class="fa-regular fa-calendar"></i> </h3>
-                <h4 class="mb-40" style="font-family: 'Poppins', sans-serif;color: #007cf0;font-weight: bold;"> 출석체크하고 포인트 받자 <i class="fa-solid fa-face-laugh-squint fa-bounce"></i> </h4>
+                <h4 class="mb-40" style="color: #1c8137;font-weight: bold;"> 출석체크하고 포인트 받자 <i class="fa-solid fa-face-laugh-squint fa-bounce"></i> </h4>
                 <c:forEach var="i" begin="0" end="5">
                     <div class="d-flex">
                         <c:forEach var="j" begin="0" end="6">
@@ -78,9 +78,9 @@
                                 </div>
                             </c:if>
                             <c:if test="${date > 0 and date <= calendarInfo.endDay and fn:contains(list, ' '+=date+=' ')}">
-                                <div class="column m-1 rounded-lg" style="height: 75px; background-color: #ffaeae; width: 75px; border-radius: 7px;">
+                                <div class="column m-1 rounded-lg" style="height: 75px; background-color: #94cf92; width: 75px; border-radius: 7px;">
                                     <h5 style="font-family: sans-serif"> ${date} </h5>
-                                    <i class="fa-regular fa-heart fa-2xl"></i>
+                                    <i class="fa-solid fa-heart fa-fade fa-2xl"></i>
                                 </div>
                             </c:if>
                         </c:forEach>
@@ -101,6 +101,42 @@
         </div>
     </div>
 </section>
+
+<!-- 적립된 포인트 팝업창 -->
+<c:if test="${!empty point}">
+    <div class="popup-wrapper">
+        <div class="popup">
+            <button class="close-btn" onclick="closePopup()"><i class="fa-solid fa-x"></i></button>
+            <h1 class="info"> 출석체크하고 </h1>
+            <h2 class="point">  </h2>
+            <h1> 받았어요! </h1>
+        </div>
+    </div>
+    <script>
+        $(document).ready(() => {
+            let beforeNum, ranNum = 0;
+            let startRandom = setInterval(() => {
+                let beforeNum = ranNum;
+                while(true) {
+                    if(beforeNum != ranNum) {
+                        break;
+                    }
+                    ranNum = Math.floor(Math.random()*100+10);
+                }
+                $(".point").text(ranNum + ' point');
+            }, 50);
+
+            setTimeout(() => {
+                clearInterval(startRandom);
+                $(".point").text(`${point} point`);
+            }, 1500);
+        });
+
+        function closePopup() {
+            $(".popup-wrapper").css("display","none");
+        }
+    </script>
+</c:if>
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->
