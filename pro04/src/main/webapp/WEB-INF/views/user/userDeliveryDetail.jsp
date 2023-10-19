@@ -2,75 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="javacript" uri="http://www.springframework.org/tags/form" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결제 상세페이지</title>
+    <title>배송 상세페이지</title>
     <jsp:include page="../layout/head.jsp" />
 </head>
 <body>
 <div class="container" style="margin: 100px auto; width: 100%;">
-
-    <!-- section1(product info) End -->
-    <div style=" margin: 30px auto;">
-        <div>
-            <h4><i class="fa-solid fa-cart-shopping" style="color: #2a2b2c; margin-right: 15px;"></i>구매상품</h4>
-        </div>
-        <div class="col-md-12" style="display: flex;border-top: 2px solid darkgray; padding-top: 30px; border-bottom: 2px dashed lightgray;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th >상품명 </th>
-                        <th >수량 </th>
-                        <th>가격</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>빠상중학국어1 </td>
-                    <td>1</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>빠상중학국어1 </td>
-                    <td>1</td>
-                    <td>0</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- section2(pay info) End -->
-    <div style=" margin: 30px auto;">
-        <div>
-            <h4><i class="fa-regular fa-credit-card" style="color: #2c2c2d; margin-right: 15px;"></i>결제정보</h4>
-        </div>
-        <div class="col-md-12" style="display: flex;border-top: 2px solid darkgray; padding-top: 30px; border-bottom: 2px dashed lightgray;">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th width="150">결제방법 </th>
-                    <th width="250">결제가격 </th>
-                    <th>결제일자</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>신용카드</td>
-                        <td>12000</td>
-                        <td>2023-10-23 12:09:31</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- section3(delivery status) End -->
+    <!-- section1(delivery status) End -->
     <div style=" margin: 30px auto;">
         <div>
             <h4><i class="fa-solid fa-bookmark" style="color: #232424; margin-right: 15px;"></i>배송현황</h4>
@@ -122,18 +65,56 @@
             </div>
         </div>
     </div>
-    <%-- <c:if test="${delivery.status eq '1'}"> --%>
-    <div class="row" id="infoTel" style="padding-left: 50px; margin: 0 auto; width: 250px;">
-        <button type="button" class="btn btn-secondary" href="${path}/payment/paymentDelete?${payment.pno}" style="margin-right: 15px;">구매취소</button>
-        <button type="button" class="btn btn-dark" onclick="check()">닫기</button>
-    </div>
-    <%-- </c:if> --%>
-    <script>
-        function check(){
-            window.close();
-        }
-    </script>
 
+    <!-- section2(customer info) End -->
+    <div style=" margin: 30px auto;">
+        <div>
+            <h4><i class="fa-regular fa-address-card" style="color: #2a2b2c; margin-right: 15px;"></i>주문자정보</h4>
+        </div>
+        <div class="col-md-12" style="display: flex;border-top: 2px solid darkgray; padding-top: 30px; border-bottom: 2px dashed lightgray;">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th scope="row">받는 분 </th>
+                    <td>김이름</td>
+                </tr>
+                <tr>
+                    <th scope="row">전화번호 </th>
+                    <td>010-1111-2222</td>
+                </tr>
+                <tr>
+                    <th scope="row">배송지</th>
+                    <td>강원특별자치도 퇴계동 913-7 3층</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- section3(delivery info) End -->
+    <div style=" margin: 30px auto;">
+        <div>
+            <h4><i class="fa-solid fa-truck" style="color: #2c2c2d; margin-right: 15px;"></i>배송정보</h4>
+        </div>
+        <div class="col-md-12" style="display: flex;border-top: 2px solid darkgray; padding-top: 30px; border-bottom: 2px dashed lightgray;">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th scope="row">송장번호 </th>
+                    <td>10-22-3-44235261</td>
+                </tr>
+                <tr>
+                    <th scope="row">배송회사 </th>
+                    <td>한신택배</td>
+                </tr>
+                <tr>
+                    <th scope="row">배달기사 번호</th>
+                    <td>010-1111-2222</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -21,7 +21,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 
     @Override
     public DeliveryVO getdelivery(int dno) throws Exception {
-        return deliveryMapper.getdelivery(dno);
+        return deliveryMapper.deliveryDetail(dno);
     }
 
     @Override

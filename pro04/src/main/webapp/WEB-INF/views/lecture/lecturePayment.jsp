@@ -13,6 +13,8 @@
     <style>
         .card { border: none; margin-bottom: 24px; -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);box-shadow: 0 0 13px 0 rgba(236,236,241,.44);}
         #infoTel {width: 100%; margin-left: 2px;margin-top: 20px; border-bottom: 2px solid darkgray; padding-bottom: 10px!important;  padding-left: 20px;}
+        .form-label {font-weight: bold; color:#000000!important;}
+        #bprice { font-weight: bold; font-size: 18px;}
     </style>
 </head>
 <body>
@@ -33,7 +35,7 @@
 <!-- userPaymentDetail Start -->
 
 <!-- section1(payList table) Start -->
-<div class="row" style="width: 85%; margin: 0 auto; padding-bottom: 50px;">
+<div class="row" style="width: 85%; margin: 100px auto; padding-bottom: 50px;">
     <div class="row" style="padding-left: 50px;">
         <h4><i class="fa-solid fa-wallet" style="color: #343537; padding-right: 15px;"></i>주문상품</h4>
     </div>
@@ -45,19 +47,22 @@
                         <thead>
                         <tr>
                             <th scope="col">상품명</th>
-                            <th scope="col">할인</th>
                             <th scope="col">가격</th>
+                            <th scope="col">할인</th>
+                            <th scope="col">결제금액</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <th scope="row">${lecture.title}</th>
+                            <td>${lecture.lprice}</td>
                             <td><strong> - </strong>${lecture.lprice}</td>
                             <td>0</td>
                         </tr>
                         <c:if test="${book.bname ne null}">
                             <tr>
                                 <th scope="row">${book.bname}</th>
+                                <td>${book.price}</td>
                                 <td>0</td>
                                 <td>${book.price}</td>
                             </tr>
@@ -72,135 +77,66 @@
 <!-- section1(payList table) End -->
 
 <!-- section2(payment & payInfo) Start -->
-<div class="col">
-    <div class="row">
+<div class="col" style="width: 85%; margin: 0 auto; padding-bottom: 50px;">
+    <div class="row" style="padding-left: 50px; margin-bottom: 30px;">
+        <h4><i class="fa-solid fa-file-pen" style="color: #3d3d3e;"></i>결제정보</h4>
+    </div>
+    <form action="${path }/payment/paymentPro.do" method="post" onsubmit="return payCheck(this)">
+        <div class="row" style="margin-bottom: 50px;">
         <div class="col mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="e-profile">
-                        <div class="row">
-                            <div class="col-12 col-sm-auto mb-3">
-                                <div class="mx-auto" style="width: 140px;">
-                                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                        <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+            <div class="accordion" id="accordionPayment" style="width: 90%; margin: 0 auto;">
+                <div class="accordion-item mb-3">
+                    <div id="collapseCC" class="accordion-collapse collapse show" data-bs-parent="#accordionPayment" style="">
+                        <div class="accordion-body">
+                            <div class="mb-3">
+                                <label class="form-label">받는 사람 연락처</label>
+                                <input type="tel" name="tel" id="tel" class="form-control" required>
+                                <input type="hidden" name="name" id="name" value="${user.name }">
+                                <input type="hidden" name="email" id="email" value="${user.email }">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">배송지 주소</label>
+                                <input type="text" name="addr1" id="addr1" placeholder="기본 주소 입력" autocomplete="off" readonly class="form-control" required /><br>
+                                <input type="text" name="addr2" id="addr2" placeholder="상세 주소 입력" autocomplete="off" required class="form-control" required /><br>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="mb-3">
+                                        <input type="text" id="postcode" name="postcode" class="form-control" placeholder="우편번호" autocomplete="off" readonly >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" style="padding-left: 0;">
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-dark"  onclick="findAddr()" style="width:100%;"> 우편번호 </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-                                <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
-                                    <p class="mb-0">@johnny.s</p>
-                                    <div class="text-muted"><small>Last seen 2 hours ago</small></div>
-                                    <div class="mt-2">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fa fa-fw fa-camera"></i>
-                                            <span>Change Photo</span>
-                                        </button>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input" >
+                                        <p class="form-label">결제수단</p>
+                                        <select class="form-control"  aria-label="Default select example" name="method" id="method" style="width: 100%;">
+                                            <option value="신용카드">신용카드</option>
+                                            <option value="체크카드">체크카드</option>
+                                            <option value="계좌이체">계좌이체</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="text-center text-sm-right">
-                                    <span class="badge badge-secondary">administrator</span>
-                                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input" style="width: 100%">
+                                        <p class="form-label">결제사</p>
+                                        <select class="form-control" name="com" id="com" >
+                                            <option value="선택안함">선택안함</option>
+                                        </select>
+                                        <input type="hidden" name="com2" id="com2" value="">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
-                        </ul>
-                        <div class="tab-content pt-3">
-                            <div class="tab-pane active">
-                                <form class="form" novalidate="">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Full Name</label>
-                                                        <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Username</label>
-                                                        <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Email</label>
-                                                        <input class="form-control" type="text" placeholder="user@example.com">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col mb-3">
-                                                    <div class="form-group">
-                                                        <label>About</label>
-                                                        <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6 mb-3">
-                                            <div class="mb-2"><b>Change Password</b></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Current Password</label>
-                                                        <input class="form-control" type="password" placeholder="••••••">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>New Password</label>
-                                                        <input class="form-control" type="password" placeholder="••••••">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                        <input class="form-control" type="password" placeholder="••••••"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                            <div class="mb-2"><b>Keeping in Touch</b></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label>Email Notifications</label>
-                                                    <div class="custom-controls-stacked px-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                            <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                        </div>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                            <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                        </div>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                            <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-end">
-                                            <button class="btn btn-primary" type="submit">Save Changes</button>
-                                        </div>
-                                    </div>
-                                </form>
-
+                            <div class="mb-3" style="margin-top: 20px;">
+                                <label class="form-label">결제 번호</label>
+                                <input type="text" name="account" id="account" class="form-control" required>
+                                <input type="hidden" name="payAmount" id="payAmount">
+                                <input type="hidden" name="payCk" id="payCk" value="no">
                             </div>
                         </div>
                     </div>
@@ -209,25 +145,192 @@
         </div>
 
         <div class="col-12 col-md-3 mb-3">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="px-xl-3">
-                        <button class="btn btn-block btn-secondary">
-                            <i class="fa fa-sign-out"></i>
-                            <span>Logout</span>
-                        </button>
+            <div class="card position-sticky top-0">
+                <div class="p-3 ">
+                    <h5 class="card-title mb-3">결제금액</h5>
+                    <div style="display: flex;">
+                        <span>상품금액</span>
+                        <div class="d-flex justify-content-between mb-1 small" style="margin-left: 210px;">
+                            <span id="bprice">1000${book.price}</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title font-weight-bold">Support</h6>
-                    <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                    <button type="button" class="btn btn-primary">Contact Us</button>
+                    <div style="display: flex;">
+                        <span>포인트 </span>
+                        <div class="d-flex justify-content-between mb-1 small" style=" width: 50%; margin-left: 77px;">
+                             <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" >
+                            <button id="pointApply" class="btn btn-secondary btn-sm">적용</button>
+                            <input type="hidden" name="pt" id="pt" value="" >
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <p><span>SUBTOTAL</span> <strong class="text-dark" class="total" id="subprice" ></strong></p>
+                        <p><span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice" style="colo"></strong></p>
+                    </div>
+                    <input type="button" id="pay" value="결제하기" class="btn btn-dark w-100" style="height: 80px;">
+                    <c:if test="${!empty sid }">
+                        <input type="hidden" id="lno" name="lno" value="${lecture.lno }">
+                        <input type="hidden" id="title" name="title" value="${lecture.title}">
+                        <input type="hidden" name="bcode" id="bcode" value="${book.bcode }">
+                        <input type="hidden" name="tcode" id="tcode" value="${lecture.tcode}">
+                        <input type="hidden" id="sprice" name="sprice" value="${book.price}">
+                        <input type="hidden" id="amount" name="amount" value="1">
+                        <input type="submit" class="btn btn-primary w-100 mt-2" value="구매" style="background-color: #4f5665;">
+                    </c:if>
                 </div>
             </div>
         </div>
     </div>
+    </form>
+    <script>
+        $(document).ready(function(){
+            var cardArr1 = ["현대카드","농협카드","BC카드","KB카드"];
+            var cardArr2 = ["하나카드","농협카드","BC카드","신한카드"];
+            var bankArr = ["카카오뱅크","농협은행","신한은행","기업은행","국민은행"];
+            $("#method").change(function(){
+                var th = $(this).val();
+                if(th==="신용카드"){
+                    $("#com").children("option:not(:first)").remove();
+                    for(var i=0;i<cardArr1.length;i++) {
+                        $("#com").append("<option value='" + cardArr1[i] + "'>" + cardArr1[i] + "</option>");
+                    }
+                } else if(th==="체크카드"){
+                    $("#com").children("option:not(:first)").remove();
+                    for(var i=0;i<cardArr2.length;i++) {
+                        $("#com").append("<option value='"+cardArr2[i]+"'>"+cardArr2[i]+"</option>");
+                    }
+                } else {
+                    $("#com").children("option:not(:first)").remove();
+                    for(var i=0;i<bankArr.length;i++) {
+                        $("#com").append("<option value='"+bankArr[i]+"'>"+bankArr[i]+"</option>");
+                    }
+                }
+            }).change();
+            $("#com").change(function(){
+                $("#com2").val($(this).val());
+            });
+        });
+    </script>
+    <script>
+        //주소 연동 API
+        function findAddr(){
+            new daum.Postcode({
+                oncomplete:function(data){
+                    console.log(data);
+                    var roadAddr = data.roadAddress;
+                    var jibunAddr = data.jibunAddress;
+                    document.getElementById("postcode").value = data.zonecode;
+                    if(roadAddr !== ''){
+                        document.getElementById("addr1").value = roadAddr;
+                    } else if(jibunAddr !== ''){
+                        document.getElementById("addr1").value = jibunAddr;
+                    }
+                    document.getElementById("addr2").focus();
+                }
+            }).open();
+        }
+    </script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        //결제모듈 API 연동
+        $(document).ready(function() {
+            var totalPay = 0;
+            var title;
+            var userPt = ${user.pt};
+
+            console.log($("#bprice").text());
+
+            totalPay = totalPay + parseInt($("#bprice").text());
+
+            $("#subprice").html("<input type='text' readonly id='subprice' value='" + totalPay + "'>");
+            $("#totalprice").html("<input type='text' readonly id='price' name='price' value='" + totalPay + "'>");
+
+
+            $("#point").val(0);
+
+            $("#point").on("input", function() {
+                var pointInput = $("#point");
+                var ptInput = $("#pt");
+                var pointValue = parseInt(pointInput.val());
+                if (!isNaN(pointValue) && pointValue >= 0 && pointValue <= userPt) {
+                    ptInput.val(userPt - pointValue);
+                } else {
+                    ptInput.val("");
+                    alert("잘못된 포인트 입력입니다. 0 이상 " + userPt + " 이하의 값을 입력해주세요.");
+                }
+            });
+
+            $("#pointApply").click(function() {
+                var pointValue = parseInt($("#point").val());
+                if (!isNaN(pointValue) && pointValue >= 0) {
+                    totalPay -= pointValue;
+                    // 합계를 출력
+                    $("#subprice").html("<input type='text' readonly id='subprice' value='" + totalPay + "'>");
+                    $("#totalprice").html("<input type='text' readonly id='price' name='price' value='" + totalPay + "'>");
+                } else {
+                    alert("잘못된 포인트 입력입니다. 0 이상의 값을 입력해주세요.");
+                }
+            });
+
+            $("#pay").click(function(){
+                var email = $("#email").val();
+                var cname = $("#name").val();
+                var tel = $("#tel").val();
+                var addr = $("#addr").val();
+                var postcode = $("#postcode").val();
+                title = $("#title").val();
+                if ($("#price").val() == "") {
+                    alert("구매할 수량을 입력하지 않으셨습니다.");
+                    $("#totalprice").focus();
+                    return;
+                }
+                alert("결제할 금액 : " + totalPay);
+                //상품명_현재시간
+                var d = new Date();
+                var date = d.getFullYear()+''+(d.getMonth()+1)+''+d.getDate()+''+d.getHours()+''+d.getMinutes()+''+d.getSeconds();
+                var IMP = window.IMP; // 생략가능
+                IMP.init('imp11164187'); // 결제 API를 사용하기 위한 코드 입력!
+                IMP.request_pay({		//결제 요청
+                    pg: "T5102001",
+                    merchant_uid : '상품명_' + date, //상점 거래 ID
+                    name :title,				// 결제 명
+                    amount : totalPay,					// 결제금액
+                    buyer_email : email, // 구매자 email
+                    buyer_name : cname,				// 구매자 이름
+                    buyer_tel : tel,		// 구매자 전화번호
+                    buyer_addr : addr,		// 구매자 주소
+                    buyer_postcode : postcode			// 구매자 우편번호
+                }, function(rsp){
+                    if(rsp.success){
+                        console.log(rsp);
+                        var msg = '결제가 완료 되었습니다.';
+                        var r1 = '고유 아이디 : ' +rsp.imp_uid;
+                        var r2 = '상점 거래 아이디 : ' +rsp.merchant_uid;
+                        var r3 = '결제 금액 : ' +rsp.paid_amount;
+                        var r4 = '카드 승인 번호 : '+rsp.apply_num;
+
+                        // 실제 결제 창
+                        // $("#payCk").val("yes");
+                        // $("#payAmount").val(rsp.paid_amount);
+                        // $("#pmethod").val(rsp.pay_method);
+                        // $("#pcom").val(rsp.pg_provider);
+                        // $("#cnum").val(rsp.apply_num);
+                        // alert(msg);
+                        // $("#paymentResult").html(r1+"<br>"+r2+"<br>"+r3+"<br>"+r4);
+                    } else{
+                        //$("#paymentResult").html('결제실패<br>'+'에러내용 : ' +rsp.error_msg);
+                    }
+                    //테스트용이므로 실패시에도 그냥 통과시킴
+                    $("#payCk").val("yes");
+                    $("#payAmount").val(totalPay);
+                    // $("#pmethod").val("신용카드");
+                    // $("#pcom").val("삼성카드");
+                    // $("#cnum").val("123-1234-1234-1278");
+                    $("#paymentResult").text("결제 완료 : "+totalPay);
+                });
+            });
+        });
+    </script>
 </div>
 <!-- section2(payment & payInfo) End -->
 

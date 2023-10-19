@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface DeliveryMapper {
     public List<DeliveryVO> deliveryList() throws Exception;
-    public DeliveryVO getdelivery(int dno) throws Exception;
+    public DeliveryVO deliveryDetail(int dno) throws Exception;
     public void deliveryUpdate (Delivery delivery) throws Exception;
 }

@@ -114,4 +114,16 @@ public class PaymentController {
 
         return "redirect:/user/payment";
     }
+
+    @GetMapping("payDetail")
+    public String getPayment(Model model) throws Exception{
+        return "/user/userPayDetail";
+    }
+
+    @GetMapping("deliveryDetail")
+    public String getDelivery(Model model) throws Exception{
+        return "/user/userDeliveryDetail";
+    }
+
+
 }

@@ -11,6 +11,7 @@ public class DeliveryVO {
     private int pno;
     private String title;
     private String id;
+    private String name;
     private String resdate;
     private String dstatus;
     private String dcom;

@@ -20,12 +20,12 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public Payment getPayment(String id, String lcode) throws Exception {
-        return paymentMapper.getPayment(id, lcode);
+        return paymentMapper.paymentDetail(id, lcode);
     }
 
     @Override
     public boolean payCheck(String id, String lcode) throws Exception {
-        Payment payment = paymentMapper.getPayment(id, lcode);
+        Payment payment = paymentMapper.paymentDetail(id, lcode);
 
         if (payment!= null && payment.getLcode() == lcode) {
             return false;
@@ -41,12 +41,12 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public Lecture getLecture(String lcode) throws Exception {
-        return paymentMapper.getLecture(lcode);
+        return paymentMapper.lectureDetail(lcode);
     }
 
     @Override
     public Book getBook(String bcode) throws Exception {
-        return paymentMapper.getBook(bcode);
+        return paymentMapper.bookDetail(bcode);
     }
 
     @Override
