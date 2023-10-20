@@ -26,6 +26,12 @@
             border-radius: 5px;
         }
     </style>
+    <c:if test="${!empty msg}">
+        <script>
+            var msg="비속어가 존재합니다."
+            alert(msg);
+        </script>
+    </c:if>
 </head>
 <body>
 <!-- 헤더 시작 -->
