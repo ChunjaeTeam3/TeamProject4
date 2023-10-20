@@ -184,9 +184,9 @@ public class UserController {
         model.addAttribute("lectureList", myLecture);
 
 
-        // 최근 학습 목록 불러오기
-        //List<UserProgress> progressList = registerService.progressList(id);
-        //model.addAttribute("progressList", progressList);
+        //최근 학습 목록 불러오기
+        List<UserProgress> progressList = registerService.progressList(id);
+        model.addAttribute("progressList", progressList);
 
         model.addAttribute("curPage", curPage);
         model.addAttribute("page", page);

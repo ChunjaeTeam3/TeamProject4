@@ -134,6 +134,7 @@ public class PaymentController {
         int dno = Integer.parseInt(request.getParameter("dno"));
 
         DeliveryVO delivery = deliveryService.myDeliveryDetail(dno);
+        model.addAttribute("delivery", delivery);
 
         return "/user/userDeliveryDetail";
     }

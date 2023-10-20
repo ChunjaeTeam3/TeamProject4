@@ -26,7 +26,9 @@
                             <c:if test="${delivery.dstatus eq '0'}">
                                 <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
                             </c:if>
+                            <c:if test="${delivery.dstatus ne '0'}">
                             <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">결제완료</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >판매자가 주문을 확인하는 단계</h5>
@@ -40,7 +42,9 @@
                             <c:if test="${delivery.dstatus eq '1'}">
                                 <i class="fa-solid fa-box" style="color: #95addd;"></i>
                             </c:if>
+                            <c:if test="${delivery.dstatus ne '1'}">
                             <i class="fa-solid fa-box" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송준비중</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
@@ -55,7 +59,9 @@
                             <c:if test="${delivery.dstatus eq '2'}">
                                 <i class="fa-solid fa-truck" style="color: #95addd;"></i>
                             </c:if>
+                            <c:if test="${delivery.dstatus ne '2'}">
                             <i class="fa-solid fa-truck" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">발송완료</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
@@ -101,15 +107,30 @@
                 <tbody>
                 <tr>
                     <th scope="row">송장번호 </th>
-                    <td>${delivery.dcode}</td>
+                    <c:if test="${dstatus eq '0'}">
+                        <td>미정</td>
+                    </c:if>
+                    <c:if test="${dstatus ne '0'}">
+                        <td>${delivery.dcode}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <th scope="row">배송회사 </th>
-                    <td>${delivery.dcom}</td>
+                    <c:if test="${dstatus ne '2'}">
+                        <td>미정</td>
+                    </c:if>
+                    <c:if test="${dstatus eq '2'}">
+                        <td>${delivery.dcom}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <th scope="row">배달기사 번호</th>
-                    <td>${delivery.dtel}</td>
+                    <c:if test="${dstatus ne '2'}">
+                        <td>미정</td>
+                    </c:if>
+                    <c:if test="${dstatus eq '2'}">
+                        <td>${delivery.dtel}</td>
+                    </c:if>
                 </tr>
                 </tbody>
             </table>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="javacript" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="javasript" uri="http://www.springframework.org/tags/form" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +83,9 @@
                             <c:if test="${payment.dstatus eq '0'}">
                                 <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
                             </c:if>
+                            <c:if test="${payment.dstatus ne '0'}">
                             <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">결제완료</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >판매자가 주문을 확인하는 단계</h5>
@@ -97,7 +99,9 @@
                             <c:if test="${payment.dstatus eq '1'}">
                                 <i class="fa-solid fa-box" style="color: #95addd;"></i>
                             </c:if>
+                            <c:if test="${payment.dstatus ne '1'}">
                             <i class="fa-solid fa-box" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송준비중</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
@@ -112,7 +116,9 @@
                             <c:if test="${payment.dstatus eq '2'}">
                                 <i class="fa-solid fa-truck" style="color: #95addd;"></i>
                             </c:if>
+                            <c:if test="${payment.dstatus ne '2'}">
                             <i class="fa-solid fa-truck" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">발송완료</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
@@ -122,7 +128,7 @@
             </div>
         </div>
     </div>
-    <c:if test="${payment.dstatus eq '1'}">
+    <c:if test="${payment.dstatus eq '0'}">
     <div class="row" id="infoTel" style="padding-left: 50px; margin: 0 auto; width: 250px;">
         <button type="button" class="btn btn-secondary" href="${path}/payment/paymentDelete?${payment.pno}" style="margin-right: 15px;">구매취소</button>
         <button type="button" class="btn btn-dark" onclick="check()">닫기</button>

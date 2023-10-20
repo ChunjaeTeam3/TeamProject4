@@ -20,4 +20,5 @@ public class DeliveryVO {
     private String edate;
     private String dcode;
     private int dno;
+    private String tel;
 }

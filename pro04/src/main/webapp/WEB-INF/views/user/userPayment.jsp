@@ -115,10 +115,10 @@
         <div class="card col-lg-12"  style="border-top: 1px solid darkgray; border-bottom: 1px solid darkgray;">
             <c:forEach var="payment" items="${paymentList}">
             <div class="card" style=" width: 70%; border: 1px solid lightgray;     margin: 30px auto;">
-                <div class="card-header" style="display: flex;">
-                    <div style="margin-right: 570px; padding-top: 20px;"><strong>결제완료 | ${payment.resdate}</strong> </div>
-                    <div><button type="button" onclick="payCheck2()" class="btn btn-secondary">주문상세</button>
-                         <button type="button" onclick="delCheck()" class="btn btn-secondary" style="margin: 10px;">배송조회</button>
+                <div class="card-header d-flex justify-content-between" style="display: flex;">
+                    <strong style="padding-top: 15px;">결제완료 | ${payment.resdate}</strong>
+                    <div><button type="button" onclick="payCheck2(${payment.pno})" class="btn btn-secondary">주문상세</button>
+                         <button type="button" onclick="delCheck(${payment.dno})" class="btn btn-secondary" style="margin: 10px;">배송조회</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -137,17 +137,18 @@
         </div>
     </div>
     <script>
-        function payCheck2(){
+        function payCheck2(pno) {
             var child;
-            child = window.open("${path}/payment/payDetail?pno=${payment.pno}", "child", "width=700, height=900");
+            child = window.open("${path}/payment/payDetail?pno=" + pno, "child", "width=700, height=900");
         }
     </script>
     <script>
-        function delCheck(){
+        function delCheck(dno) {
             var child;
-            child = window.open("${path}/payment/deliveryDetail?dno=${payment.dno}", "child", "width=700, height=900");
+            child = window.open("${path}/payment/deliveryDetail?dno=" + dno, "child", "width=700, height=900");
         }
     </script>
+
     <!-- section2(payment table) End -->
 
 
