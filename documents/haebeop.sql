@@ -315,6 +315,10 @@ CREATE TABLE register(
 	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE
 );
 
+INSERT INTO register VALUES(DEFAULT, 'ma1', 'admin', FALSE);
+INSERT INTO register VALUES(DEFAULT, 'ma1', 'test11', FALSE);
+INSERT INTO register VALUES(DEFAULT, 'ma1', 'test31', FALSE);
+
 -- 수강생 강의 수강 정보 테이블
 CREATE TABLE studyInfo(
 	scode INT AUTO_INCREMENT PRIMARY KEY,
@@ -332,10 +336,19 @@ CREATE TABLE saveAttendCode(
 	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
 
-INSERT INTO saveattendcode
-VALUES('es3', FLOOR(100 + RAND() * 899))
-ON DUPLICATE KEY UPDATE attendCode=FLOOR(100 + RAND() * 899);
-SELECT * FROM saveattendcode;
+SELECT * FROM lectureattend;
+DELETE FROM lectureattend WHERE adate=CURRENT_DATE AND id!='admin'
+
+SELECT * FROM (
+SELECT r.lcode as lcode, u.id as id, name, adate, atime, atype
+FROM register r LEFT OUTER JOIN lectureAttend l ON (r.lcode=l.lcode AND r.id=l.id) JOIN user u ON (r.id=u.id)
+WHERE r.lcode='ma1' AND adate=CURRENT_DATE
+UNION ALL
+SELECT r.lcode as lcode, u.id as id, NAME, NULL AS adate, NULL AS atime, NULL AS atype
+FROM register r JOIN user u ON (r.id=u.id)
+WHERE r.lcode='ma1') atttendList
+GROUP BY id
+ORDER BY adate DESC, id ASC LIMIT 3
 
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(

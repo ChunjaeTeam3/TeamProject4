@@ -18,12 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +39,26 @@ public class LectureAttendController {
     @Autowired
     private LectureAttendService lectureAttendService;
 
-    @RequestMapping("studentAttend")
-    public String lectureAttend(HttpServletRequest request) throws Exception {
+    @GetMapping("studentAttend")
+    public String lectureAttend(@RequestParam String lcode, Model model, HttpServletRequest request) throws Exception {
+        LectureVO lecture = lectureService.lectureDetail(lcode);
+        model.addAttribute("lecture", lecture);
+
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+        List<LectureAttendVO> attendList = lectureAttendService.attendListStudent(lcode, id);
+        model.addAttribute("attendList", attendList);
+
         return "/lectureAttend/studentAttend";
+    }
+
+    @PostMapping("studentAttend")
+    public String studentAttend(@RequestParam String attendCode, @RequestParam String lcode, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+        lectureAttendService.insertAttendOne(id, lcode, attendCode);
+
+        return "redirect:studentAttend?lcode=" + lcode;
     }
 
     @RequestMapping("teacherAttend")
@@ -90,12 +107,23 @@ public class LectureAttendController {
     }
 
     @PostMapping("saveAttendCode")
-    public void saveAttendCode(@RequestParam SaveAttendCode saveAttendCode, HttpServletResponse response) throws Exception {
-        lectureAttendService.getAttendCode(saveAttendCode);
+    public void saveAttendCode(@RequestParam String lcode, HttpServletResponse response) throws Exception {
+        int attendCode = lectureAttendService.getAttendCode(lcode);
         JSONObject obj = new JSONObject();
-        obj.put("attendCode", saveAttendCode.getAttendCode());
+        obj.put("attendCode", attendCode);
         PrintWriter out = response.getWriter();
         out.println(obj);
+    }
+
+    @PostMapping("delAttendCode")
+    public void delAttendCode(@RequestParam String lcode, HttpServletResponse response) throws Exception {
+        lectureAttendService.delAttendCode(lcode);
+
+        List<LectureAttendVO> attendList = lectureAttendService.attendListTeacher(lcode);
+        JSONObject result = new JSONObject();
+        result.put("result", "success");
+        PrintWriter out = response.getWriter();
+        out.println(result);
     }
 
 }

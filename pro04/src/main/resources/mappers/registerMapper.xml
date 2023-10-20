@@ -56,6 +56,11 @@
                  JOIN lecture l ON (a.lcode = l.lcode)
         ORDER BY scode DESC LIMIT 4
     </select>
+
+    <!-- 수강 인원 수 구하기 -->
+    <select id="regStudentCnt" resultType="int">
+        select count(*) from register where lcode=#{lcode}
+    </select>
   
     <select id="getMyCount" resultType="integer">
         select COUNT(*) from lecture where id=#{id}

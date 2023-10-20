@@ -11,9 +11,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 출석체크 </title>
+    <title> 출결 관리 </title>
     <jsp:include page="../layout/head.jsp" />
 </head>
+<style>
+    #attendPopup {
+        display: none;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 400px;
+        margin-left: -250px;
+        margin-top: -200px;
+        z-index: 100;
+    }
+</style>
 <body>
 <!-- 헤더 시작 -->
 <jsp:include page="../layout/header.jsp"/>
@@ -60,10 +72,10 @@
             <tr>
                 <td class="align-middle"> ${attend.id} </td>
                 <td class="align-middle"> ${attend.name} </td>
-                <c:if test="${empty attend.adate}">
-                    <td class="align-middle attendTime">-</td>
-                    <td class="align-middle test${status.count }">-</td>
-                    <td class="align-middle">
+                <c:if test="${(empty attend.adate) or (attend.atype eq '코드오류')}">
+                    <td class="align-middle attendDate">-</td>
+                    <td class="align-middle test${status.count } attendTime">-</td>
+                    <td class="align-middle attendType">
                         <div class="form-check d-inline-block mr-3">
                             <input type="radio" id="attend_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input">
                             <label for="attend_${status.index}" class="form-check-label" data-value="출석"> 출석 </label>
@@ -78,10 +90,10 @@
                         </div>
                     </td>
                 </c:if>
-                <c:if test="${not empty attend.adate}">
+                <c:if test="${(not empty attend.adate) and (attend.atype ne '코드오류')}">
                     <td class="align-middle"> ${attend.adate} </td>
                     <td class="align-middle test${status.count} attendTime"><c:if test="${attend.atime eq '00:00:00'}">-</c:if><c:if test="${attend.atime ne '00:00:00'}">${attend.atime}</c:if></td>
-                    <td class="align-middle">
+                    <td class="align-middle attendType">
                         <c:if test="${attend.atype eq '출석'}">
                             <div class="form-check d-inline-block mr-3">
                                 <input type="radio" id="attend_${status.index}" name="${attend.id}_atype" value="${attend.id}" class="form-check-input" checked>
@@ -130,6 +142,13 @@
         </c:forEach>
         </tbody>
     </table>
+    <!-- 출석코드 팝업창 -->
+    <div class="bg-gray p-5 position-fixed rounded shadow-lg text-center" id="attendPopup">
+        <h3> ${attend.lname} 출석코드 </h3>
+        <h1 id="attendCode" class="mt-5"></h1>
+        <p id="remainTime"> 남은 시간 | 10:00 </p>
+        <button class="btn btn-primary btn-lg mt-4" id="closePopup"> 출석체크 종료 </button>
+    </div>
 </div>
 
 <!-- 푸터 시작 -->
@@ -137,6 +156,43 @@
 <!-- 푸터 끝 -->
 
 <script>
+    // 테이블을 다시 불러오는 함수
+    function reloadTable(lcode) {
+        $.ajax({
+            url: "${path}/lectureAttend/reloadTeacherTable",
+            data: {lcode : lcode},
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                for(let i=0; i<data.length; i++) {
+                    $(".attendDate:eq("+i+")").text(data[i].adate);
+                    $(".attendTime:eq("+i+")").text(data[i].atime);
+                    if(data[i].atime == "00:00:00") {
+                        $(".attendTime:eq("+i+")").text("-");
+                    }
+                    let html = "";
+                    if(data[i].atype == "출석") {
+                        html = '<div class="form-check d-inline-block mr-3"><input type="radio" id="attend_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input" checked><label for="attend_'+i+'" class="form-check-label" data-value="출석"> 출석 </label>' +
+                            '</div><div class="form-check d-inline-block mr-3"><input type="radio" id="absent_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input"><label for="absent_'+i+'" class="form-check-label" data-value="결석"> 결석 </label>' +
+                            '</div><div class="form-check d-inline-block mr-3"><input type="radio" id="tardy_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input"><label for="tardy_'+i+'" class="form-check-label" data-value="지각"> 지각 </label></div>';
+                    } else if(data[i].atype == "결석") {
+                        html = '<div class="form-check d-inline-block mr-3"><input type="radio" id="attend_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input"><label for="attend_'+i+'" class="form-check-label" data-value="출석"> 출석 </label></div>' +
+                            '<div class="form-check d-inline-block mr-3"><input type="radio" id="absent_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input" checked><label for="absent_'+i+'" class="form-check-label" data-value="결석"> 결석 </label>' +
+                            '</div><div class="form-check d-inline-block mr-3"><input type="radio" id="tardy_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input"><label for="tardy_'+i+'" class="form-check-label" data-value="지각"> 지각 </label></div>';
+                    } else {
+                        html = '<div class="form-check d-inline-block mr-3"><input type="radio" id="attend_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input"><label for="attend_'+i+'" class="form-check-label" data-value="출석"> 출석 </label></div>' +
+                            '<div class="form-check d-inline-block mr-3"><input type="radio" id="absent_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input"><label for="absent_'+i+'" class="form-check-label" data-value="결석"> 결석 </label></div>' +
+                            '<div class="form-check d-inline-block mr-3"><input type="radio" id="tardy_'+i+'" name="'+data[i].id+'_atype" value="'+data[i].id+'" class="form-check-input" checked><label for="tardy_'+i+'" class="form-check-label" data-value="지각"> 지각 </label></div>';
+                    }
+                    $(".attendType:eq("+i+")").html(html);
+                }
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+
     // 일괄 출석 버튼
     $("#changeAttend").on("click", () => {
         $("[id^=attend]").prop("checked", true);
@@ -184,42 +240,65 @@
                 alert("출결 기록 저장에 실패했습니다. 잠시 후 다시 시도해주세요");
             }
         });
+    });
 
-        function reloadTable(lcode) {
-            $.ajax({
-                url: "${path}/lectureAttend/reloadTeacherTable",
-                data: {lcode : lcode},
-                type: "post",
-                dataType: "json",
-                success: function(data) {
-                    for(let i=0; i<data.length; i++) {
-                        $(".attendTime:eq("+i+")").text(data[i].atime);
-                        if(data[i].atime == "00:00:00") {
-                            $(".attendTime:eq("+i+")").text("-");
-                        }
-                    }
-                },
-                error: function(err) {
-                    console.log(err);
-                }
-            });
-        }
+    // 출결코드 생성 버튼
+    let remainTime, timer;
+    $("#attendCodeBtn").on("click", () => {
+        $.ajax({
+            url: "${path}/lectureAttend/saveAttendCode",
+            data: {"lcode":"${lecture.lcode}"},
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                $("#attendCode").text(data.attendCode);
+                $("#attendPopup").show();
 
-        $("#attendCodeBtn").on("click", function () {
-            $.ajax({
-                url: "${path}/lectureAttend/saveAttendCode",
-                data: {"lcode":"${lecture.lcode}"},
-                type: "post",
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+                // 연속으로 출결코드 생성 버튼을 누른 경우
+                if(timer < 599) { clearInterval(remainTime); }
+
+                timer = 599;
+                remainTime = setInterval(() => {
+                    let minute = parseInt(timer / 60, 10);
+                    let second = parseInt(timer % 60, 10);
+                    minute = minute < 10 ? "0" + minute : minute + "";
+                    second = second < 10 ? "0" + second : second + "";
+                    $("#remainTime").text("남은 시간 | " + minute + ":" + second);
+                    timer--;
+                    if(timer <= 0) { endAttend(); }
+                }, 1000);
+            },
+            error: function (err) {
+                alert("실패");
+                console.log(err);
+            }
         });
     });
+
+    // 팝업 종료 버튼
+    $("#closePopup").on("click", () => {
+        endAttend();
+    });
+
+    // 출석체크 종료 함수
+    function endAttend() {
+        timer = 599;
+        clearInterval(remainTime);
+        $.ajax({
+            url: "${path}/lectureAttend/delAttendCode",
+            data: {"lcode":"${lecture.lcode}"},
+            type: "post",
+            dataType: "json",
+            success: function(data) {
+                $("#attendPopup").hide();
+                reloadTable("${lecture.lcode}");
+            },
+            error: function (err) {
+                alert("출석체크 종료에 실패했습니다. 잠시 후 다시 시도해주세요");
+                console.log(err);
+            }
+        });
+    }
 </script>
 </body>
 </html>
