@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Book;
 import java.util.List;
 
 @Service
@@ -54,8 +53,7 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public void addPayment (Delivery delivery,Serve serve,int pt, String id) throws Exception {
-        paymentMapper.dnoUpdate(delivery);
+    public void addPayment (Delivery delivery, Serve serve,int pt, String id) throws Exception {
         paymentMapper.addPayment(delivery, serve, pt, id);
     }
 

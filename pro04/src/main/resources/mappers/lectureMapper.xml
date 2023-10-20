@@ -101,7 +101,7 @@
 <!--    강의코드, 강의명, 과목코드, 강사코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFolder, originFile, saveFile), 강의 시작일, 강의 종료일,-->
 <!--    (오프라인 시)강의 시작시간, 온오프 여부, 강의실-->
     <insert id="lectureInsert">
-        insert into lecture
+        insert into lecture (lcode, lname, scode,tcode, lcontent, lprice, maxStudent, saveFile, sdate,edate,stime, state, classroom)
         values(#{lcode}, #{lname}, #{scode}, #{tcode}, #{lcontent}, #{lprice}, #{maxStudent}, #{saveFile}, #{sdate}, #{edate}, #{stime}, #{state}, #{classroom})
     </insert>
 

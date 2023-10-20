@@ -12,6 +12,6 @@ public class Book {
     private String bname;
     private String content;
     private String author;
-    private int price;
+    private int bprice;
 
 }

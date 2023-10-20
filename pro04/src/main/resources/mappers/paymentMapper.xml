@@ -40,7 +40,7 @@
     </select>
 
     <update id="dnoUpdate">
-        UPDATE payment SET dno = pno WHERE dno IS NULL
+        UPDATE payment SET pno = dno WHERE dno IS NULL
     </update>
 
     <insert id="serveInsert">

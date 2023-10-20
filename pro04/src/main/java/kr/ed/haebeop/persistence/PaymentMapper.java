@@ -3,7 +3,6 @@ package kr.ed.haebeop.persistence;
 import kr.ed.haebeop.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.awt.print.Book;
 import java.util.List;
 
 @Mapper
@@ -23,7 +22,7 @@ public interface PaymentMapper {
     public void paymentDelete (int pno) throws Exception;
     public void deliveryDelete(int pno) throws Exception;
     public void serveDelete(int pno) throws Exception;
-    public void addPayment (Delivery delivery, Serve serve,int pt, String id) throws Exception;
+    public void addPayment (Delivery delivery, Serve serve, int pt, String id) throws Exception;
     public void deletePayment(int pno) throws Exception;
     public List<PaymentVO> paymentList(String id) throws Exception;
     public PaymentVO myPaymentDetail(int pno) throws Exception;

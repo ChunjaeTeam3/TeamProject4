@@ -55,7 +55,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">${lecture.title}</th>
+                            <th scope="row">${lecture.lname}</th>
                             <td>${lecture.lprice}</td>
                             <td><strong> - </strong>${lecture.lprice}</td>
                             <td>0</td>
@@ -152,7 +152,7 @@
                     <div style="display: flex;">
                         <span>상품금액</span>
                         <div class="d-flex justify-content-between mb-1 small" style="margin-left: 210px;">
-                            <span id="bprice">1000${book.bprice}</span>
+                            <span id="bprice">${book.bprice}</span>
                         </div>
                     </div>
                     <div style="display: flex;">
@@ -161,17 +161,18 @@
                              <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" >
                             <button id="pointApply" class="btn btn-secondary btn-sm">적용</button>
                             <input type="hidden" name="pt" id="pt" value="" >
+                            <input type="hidden" name="title" id="title" value="${lecture.lname}외1" >
                         </div>
                     </div>
                     <hr>
                     <div>
                         <p><span>SUBTOTAL</span> <strong class="text-dark" class="total" id="subprice" ></strong></p>
-                        <p><span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice" style="colo"></strong></p>
+                        <p><span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice"></strong></p>
                     </div>
                     <input type="button" id="pay" value="결제하기" class="btn btn-dark w-100" style="height: 80px;">
                     <c:if test="${!empty sid }">
                         <input type="hidden" id="lcode" name="lcode" value="${lecture.lcode }">
-                        <input type="hidden" id="title" name="title" value="${lecture.title}">
+                        <input type="hidden" id="lname" name="lname" value="${lecture.lname}">
                         <input type="hidden" name="bcode" id="bcode" value="${book.bcode }">
                         <input type="hidden" name="tcode" id="tcode" value="${lecture.tcode}">
                         <input type="hidden" id="sprice" name="sprice" value="${book.bprice}">
@@ -236,7 +237,7 @@
         //결제모듈 API 연동
         $(document).ready(function() {
             var totalPay = 0;
-            var title;
+            var paytitle;
             var userPt = ${user.pt};
 
             console.log($("#bprice").text());
@@ -250,13 +251,13 @@
             $("#point").val(0);
 
             $("#point").on("input", function() {
-                var pointInput = $("#point");
-                var ptInput = $("#pt");
-                var pointValue = parseInt(pointInput.val());
+                var pointInput = $("#point").val();
+                var pointValue = parseInt(pointInput);
                 if (!isNaN(pointValue) && pointValue >= 0 && pointValue <= userPt) {
-                    ptInput.val(userPt - pointValue);
+                    $("#pt").val(userPt - pointValue);
+                    console.log("pt: "+$("#pt").val())
                 } else {
-                    ptInput.val("");
+                    $("#pt").val("");
                     alert("잘못된 포인트 입력입니다. 0 이상 " + userPt + " 이하의 값을 입력해주세요.");
                 }
             });
@@ -279,7 +280,7 @@
                 var tel = $("#tel").val();
                 var addr = $("#addr").val();
                 var postcode = $("#postcode").val();
-                title = $("#title").val();
+                paytitle = $("#lname").val();
                 if ($("#price").val() == "") {
                     alert("구매할 수량을 입력하지 않으셨습니다.");
                     $("#totalprice").focus();
@@ -294,7 +295,7 @@
                 IMP.request_pay({		//결제 요청
                     pg: "T5102001",
                     merchant_uid : '상품명_' + date, //상점 거래 ID
-                    name :title,				// 결제 명
+                    name :paytitle,				// 결제 명
                     amount : totalPay,					// 결제금액
                     buyer_email : email, // 구매자 email
                     buyer_name : cname,				// 구매자 이름
