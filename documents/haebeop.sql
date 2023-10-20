@@ -165,7 +165,7 @@ CREATE TABLE qna(
 
 
 -- 자료실 테이블 생성
-CREATE TABLE dataRoom (
+CREATE TABLE dataroom (
   articleNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id VARCHAR(20) NOT NULL,
   title varchar(100) NOT NULL,
@@ -184,12 +184,14 @@ CREATE TABLE fileInfo(
   FOREIGN KEY(articleNo) REFERENCES dataRoom(articleNo) ON DELETE CASCADE 
 );
 
+SELECT * FROM fileinfo;
+
 
 -- 이벤트 글 테이블
 CREATE TABLE event (
 	eno int  PRIMARY KEY AUTO_INCREMENT,
    title VARCHAR(100) NOT NULL,
-   content VARCHAR(1000) NOT NULL,
+   content VARCHAR(5000) NOT NULL,
    STATUS VARCHAR(5) CHECK(status IN(0, 1)),
    sdate DATE,
    edate DATE,
@@ -237,7 +239,10 @@ CREATE TABLE attendance (
    ano INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
    id VARCHAR(20),
    attend DATE DEFAULT current_date);
+	DROP TABLE attendance;
+	SELECT * FROM attendance;
 	
+INSERT INTO attendance VALUES (DEFAULT, 'admin', 231024);
 	
 -- 과목 테이블 (과목코드, 과목명)
 CREATE TABLE subject(
@@ -347,7 +352,7 @@ INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
 
 
-select * from todo where status=FALSE and id='admin' order by tdno asc;
+select * from todo where id='admin' order by tdno asc;
 UPDATE todo SET STATUS=TRUE WHERE tdno=1;
 DROP TABLE todo;
 
