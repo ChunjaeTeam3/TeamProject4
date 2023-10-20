@@ -138,14 +138,12 @@
     </div>
     <script>
         function payCheck2(){
-            var pno = $("#pno").val();
             var child;
             child = window.open("${path}/payment/payDetail?pno=${payment.pno}", "child", "width=700, height=900");
         }
     </script>
     <script>
         function delCheck(){
-            var dno = $("#dno").val();
             var child;
             child = window.open("${path}/payment/deliveryDetail?dno=${payment.dno}", "child", "width=700, height=900");
         }

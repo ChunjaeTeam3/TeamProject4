@@ -159,7 +159,7 @@
                         <span>포인트 </span>
                         <div class="d-flex justify-content-between mb-1 small" style=" width: 50%; margin-left: 77px;">
                              <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" >
-                            <button id="pointApply" class="btn btn-secondary btn-sm">적용</button>
+                            <button type="button" id="pointApply" class="btn btn-secondary btn-sm">적용</button>
                             <input type="hidden" name="pt" id="pt" value="" >
                             <input type="hidden" name="title" id="title" value="${lecture.lname}외1" >
                         </div>
@@ -251,11 +251,10 @@
             $("#point").val(0);
 
             $("#point").on("input", function() {
-                var pointInput = $("#point").val();
-                var pointValue = parseInt(pointInput);
+                var pointValue = parseInt($("#point").val());
                 if (!isNaN(pointValue) && pointValue >= 0 && pointValue <= userPt) {
                     $("#pt").val(userPt - pointValue);
-                    console.log("pt: "+$("#pt").val())
+                    console.log("pt: "+$("#pt").val());
                 } else {
                     $("#pt").val("");
                     alert("잘못된 포인트 입력입니다. 0 이상 " + userPt + " 이하의 값을 입력해주세요.");

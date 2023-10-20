@@ -300,7 +300,6 @@ CREATE TABLE teacher(
 	saveFile VARCHAR(300) NOT NULL
 );
 
-
 INSERT INTO teacher VALUES (DEFAULT,'test0999', '김석우', '010-1111-2222', 'ejlee@email.com', '논술 전문가로, 명쾌한 논리와 풍부한 어휘력을 강조한 논술 교육을 제공합니다.', 'writingTeacher.jpeg');
 INSERT INTO teacher VALUES (DEFAULT,'test9999', '안유진', '010-9876-5432','jwhan@email.com','논술의 스타일과 목표에 따라 학생들을 개별화된 작문 지도로 이끌어, 각자의 논술 능력을 향상시킵니다.','an.png');
 INSERT INTO teacher VALUES (DEFAULT,'test0888', '강영현','010-5555-5555','dhkwon@email.com','경험 많은 영어 강사인 존은 학생들의 영어 작문 및 문법 실력 향상을 중점으로 둡니다.','englishTeacher2.jpeg');

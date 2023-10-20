@@ -11,7 +11,7 @@
         select * from book where bcode=#{bcode}
     </select>
 
-    <select id="paymentDetail" resultType="kr.ed.haebeop.domain.Payment">
+    <select id="paymentDetail" parameterType="hashMap" resultType="kr.ed.haebeop.domain.Payment">
         select * from payment where id=#{id} and lcode=#{lcode}
     </select>
 
@@ -40,14 +40,14 @@
     </select>
 
     <update id="dnoUpdate">
-        UPDATE payment SET pno = dno WHERE dno IS NULL
+        UPDATE payment SET dno = (select dno from delivery order by dno desc LIMIT 1) WHERE dno IS NULL
     </update>
 
     <insert id="serveInsert">
         insert into serve values (default, #{pno}, #{sprice}, #{amount}, default)
     </insert>
 
-    <update id="pointUpdate">
+    <update id="pointUpdate"  parameterType="hashMap">
         UPDATE user SET pt = #{pt} WHERE id = #{id}
     </update>
 

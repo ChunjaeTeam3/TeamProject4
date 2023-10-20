@@ -37,7 +37,7 @@ public class PaymentController {
         String lcode = request.getParameter("lcode");
 
         boolean result = paymentService.payCheck(id, lcode);
-        Payment payment = paymentService.getPayment(id, lcode);
+        Payment payment = paymentService.PaymentDetail(id, lcode);
 
         int curApp = paymentService.getCount(lcode);
 
@@ -99,6 +99,7 @@ public class PaymentController {
         payment.setAccount(request.getParameter("account"));
 
         int pno = paymentService.paymentInsert(payment);
+        System.out.println(pno);
 
         Delivery delivery = new Delivery();
         delivery.setPno(pno);
