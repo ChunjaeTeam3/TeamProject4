@@ -351,5 +351,18 @@ select * from todo where status=FALSE and id='admin' order by tdno asc;
 UPDATE todo SET STATUS=TRUE WHERE tdno=1;
 DROP TABLE todo;
 
+CREATE TABLE lecboard(
+  qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
+  lcode VARCHAR(50) NOT NULL,                   -- 강의코드
+  title VARCHAR(100) NOT NULL,   					-- 제목
+  content VARCHAR(1000) NOT NULL,   				-- 내용
+  author VARCHAR(16),   								-- 작성자
+  resdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 등록일
+  lev INT DEFAULT 0, 									-- 질문(0), 답변(1)
+  par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
+  FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE);
+
+
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등
