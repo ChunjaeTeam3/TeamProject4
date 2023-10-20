@@ -277,6 +277,7 @@ public class AdminController {
     public String winnerList(@RequestParam int eno, Model model) throws Exception {
         List<WinnerDetail> winners = winnerService.winners(eno);
         model.addAttribute("winners", winners);
+        model.addAttribute("eno", eno);
         return "/admin/winnerList";
     }
 

@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Mapper
 public interface LectureMapper {
+    public List<LectureVO> newList() throws Exception;
     public List<LectureVO> lectureList(Page page) throws Exception;
     public LectureVO lectureDetail(String lcode) throws Exception;
     public void lectureInsert(Lecture dto) throws Exception;

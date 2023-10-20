@@ -112,7 +112,7 @@
                         <c:if test="${curPage > 5}">
                             <li class="page-item">
                                 <a class="page-link" href="${path}/admin/userMgmt?page=${page.blockStartNum - 1}" aria-label="Previous">
-                                    <span aria-hidden="true"> << </span>
+                                    <span aria-hidden="true"> </span>
                                 </a>
                             </li>
                         </c:if>

@@ -3,7 +3,6 @@ package kr.ed.haebeop.controller;
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.LecturePage;
-import org.apache.ibatis.session.SqlSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.PrintWriter;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/lecture/*")
@@ -41,17 +35,17 @@ public class LectureController {
     private UserService userService;
     @Autowired
     private StudyInfoService studyInfoService;
+    @Autowired
+    private LecBoardService lecBoardService;
 
     @RequestMapping("list")
     public String lectureList(HttpServletRequest request, Model model) throws Exception {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         String scode = request.getParameter("scode");
-
         LecturePage page = new LecturePage();
         page.setScode(scode);
         page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
         page.setType(request.getParameter("type"));             // 검색 타입 SET
-
         // 페이징에 필요한 데이터 저장
         int total = lectureService.getCount(page);
         page.makeBlock(curPage, total);
@@ -60,17 +54,136 @@ public class LectureController {
 
         // 강의 목록 불러오기
         List<LectureVO> lectureList = lectureService.lectureList(page);
+        List<LectureVO> lectureList2 = lectureService.newList();
         model.addAttribute("lectureList", lectureList);
-
+        model.addAttribute("lectureList2", lectureList2);
         // 과목 목록 불러오기
         List<Subject> subjects = lectureService.subjects();
         model.addAttribute("subjects", subjects);
-
         model.addAttribute("curPage", curPage);
         model.addAttribute("curSubject", scode);
         model.addAttribute("page", page);
-
         return "/lecture/lectureList";
+    }
+
+    @RequestMapping("wrPro")
+    public String writingList(HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        String scode = request.getParameter("scode");
+
+        LecturePage page = new LecturePage();
+        page.setScode(scode);
+        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        page.setType(request.getParameter("type"));             // 검색 타입 SET
+        System.out.println(page);
+        // 페이징에 필요한 데이터 저장
+        int total = lectureService.getCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        // 강의 목록 불러오기
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        Teacher teacher= new Teacher();
+        System.out.println(lectureList);
+        model.addAttribute("lectureList", lectureList);
+        // 과목 목록 불러오기
+        List<Subject> subjects = lectureService.subjects();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("curSubject", scode);
+        model.addAttribute("page", page);
+        return "/lecture/wrSearchResult";
+    }
+
+    @RequestMapping("maPro")
+    public String mathList(HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        String scode = request.getParameter("scode");
+
+        LecturePage page = new LecturePage();
+        page.setScode(scode);
+        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        page.setType(request.getParameter("type"));             // 검색 타입 SET
+        System.out.println(page);
+        // 페이징에 필요한 데이터 저장
+        int total = lectureService.getCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        // 강의 목록 불러오기
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        Teacher teacher= new Teacher();
+        System.out.println(lectureList);
+        model.addAttribute("lectureList", lectureList);
+        // 과목 목록 불러오기
+        List<Subject> subjects = lectureService.subjects();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("curSubject", scode);
+        model.addAttribute("page", page);
+        return "/lecture/maSearchResult";
+    }
+
+    @RequestMapping("koPro")
+    public String koList(HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        String scode = request.getParameter("scode");
+
+        LecturePage page = new LecturePage();
+        page.setScode(scode);
+        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        page.setType(request.getParameter("type"));             // 검색 타입 SET
+        System.out.println(page);
+        // 페이징에 필요한 데이터 저장
+        int total = lectureService.getCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        // 강의 목록 불러오기
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        Teacher teacher= new Teacher();
+        System.out.println(lectureList);
+        model.addAttribute("lectureList", lectureList);
+        // 과목 목록 불러오기
+        List<Subject> subjects = lectureService.subjects();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("curSubject", scode);
+        model.addAttribute("page", page);
+        return "/lecture/koSearchResult";
+    }
+
+    @RequestMapping("chPro")
+    public String chList(HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        String scode = request.getParameter("scode");
+
+        LecturePage page = new LecturePage();
+        page.setScode(scode);
+        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        page.setType(request.getParameter("type"));             // 검색 타입 SET
+        System.out.println(page);
+        // 페이징에 필요한 데이터 저장
+        int total = lectureService.getCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        // 강의 목록 불러오기
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        Teacher teacher= new Teacher();
+        System.out.println(lectureList);
+        model.addAttribute("lectureList", lectureList);
+        // 과목 목록 불러오기
+        List<Subject> subjects = lectureService.subjects();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("curSubject", scode);
+        model.addAttribute("page", page);
+        return "/lecture/chSearchResult";
     }
 
     @RequestMapping("detail")
@@ -95,6 +208,14 @@ public class LectureController {
         List<Review> reviewList = reviewService.reviewList("new", lcode);
         int starAvg = reviewService.starAvg(lcode);
         boolean isReg = registerService.isReg(lcode, sid);
+
+        int total2 = lecBoardService.getCount(page);
+        page.makeBlock(curPage, total2);
+        page.makeLastPageNum(total2);
+        page.makePostStart(curPage, total2);
+
+        List<LecBoard> lecBoardList = lecBoardService.lecBoardList(page);
+        model.addAttribute("lecBoardList", lecBoardList);
 
         if(sid != null) {
             List<Integer> studyInfoList = studyInfoService.getStudyList(sid, lcode);
@@ -136,7 +257,8 @@ public class LectureController {
         HttpSession session = request.getSession();
         review.setId((String) session.getAttribute("sid"));
         reviewService.reviewInsert(review);
-        return "redirect:/lecture/detail?lcode=" + review.getLcode();
+       return "redirect:/lecture/detail?lcode=" + review.getLcode();
+
     }
 
     @GetMapping("register")

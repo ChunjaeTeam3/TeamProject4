@@ -165,7 +165,7 @@ CREATE TABLE qna(
 
 
 -- 자료실 테이블 생성
-CREATE TABLE dataRoom (
+CREATE TABLE dataroom (
   articleNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id VARCHAR(20) NOT NULL,
   title varchar(100) NOT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE fileInfo(
 CREATE TABLE event (
 	eno int  PRIMARY KEY AUTO_INCREMENT,
    title VARCHAR(100) NOT NULL,
-   content VARCHAR(1000) NOT NULL,
+   content VARCHAR(5000) NOT NULL,
    STATUS VARCHAR(5) CHECK(status IN(0, 1)),
    sdate DATE,
    edate DATE,
@@ -237,7 +237,10 @@ CREATE TABLE attendance (
    ano INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
    id VARCHAR(20),
    attend DATE DEFAULT current_date);
+	DROP TABLE attendance;
+	SELECT * FROM attendance;
 	
+INSERT INTO attendance VALUES (DEFAULT, 'admin', 231024);
 	
 -- 과목 테이블 (과목코드, 과목명)
 CREATE TABLE subject(
@@ -350,9 +353,23 @@ INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
 
 
-select * from todo where status=FALSE and id='admin' order by tdno asc;
+select * from todo where id='admin' order by tdno asc;
 UPDATE todo SET STATUS=TRUE WHERE tdno=1;
 DROP TABLE todo;
+
+CREATE TABLE lecboard(
+  qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
+  lcode VARCHAR(50) NOT NULL,                   -- 강의코드
+  title VARCHAR(100) NOT NULL,   					-- 제목
+  content VARCHAR(1000) NOT NULL,   				-- 내용
+  author VARCHAR(16),   								-- 작성자
+  resdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 등록일
+  lev INT DEFAULT 0, 									-- 질문(0), 답변(1)
+  par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
+  FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE);
+
+
 
 --결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
 create table payment(

@@ -1,6 +1,5 @@
 package kr.ed.haebeop.config;
 
-import kr.ed.haebeop.util.AdminInterceptor;
 import kr.ed.haebeop.util.LectureInterceptor;
 import kr.ed.haebeop.util.RegisterInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +45,8 @@ public class ServletContext implements WebMvcConfigurer {
         registry.addResourceHandler("/user/**").addResourceLocations("/WEB-INF/views/user");
         registry.addResourceHandler("/util/**").addResourceLocations("/WEB-INF/views/util");
         registry.addResourceHandler("/todo/**").addResourceLocations("/WEB-INF/views/todo");
+        registry.addResourceHandler("/winner/**").addResourceLocations("/WEB-INF/views/winner");
+        registry.addResourceHandler("/lecBoard/**").addResourceLocations("/WEB-INF/views/lecBoard");
     }
 
     @Override
