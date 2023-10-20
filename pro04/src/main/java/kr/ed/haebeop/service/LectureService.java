@@ -1,12 +1,15 @@
 package kr.ed.haebeop.service;
 
-import kr.ed.haebeop.domain.*;
+import kr.ed.haebeop.domain.CloseLecture;
+import kr.ed.haebeop.domain.Lecture;
+import kr.ed.haebeop.domain.LectureVO;
+import kr.ed.haebeop.domain.Subject;
 import kr.ed.haebeop.util.Page;
 
 import java.util.List;
 
 public interface LectureService {
-
+    public List<LectureVO> newList() throws Exception;
     public List<LectureVO> lectureList(Page page) throws Exception;
     public int getCount(Page page) throws Exception;
     public int lectureCount() throws Exception;
