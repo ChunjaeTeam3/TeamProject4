@@ -31,10 +31,10 @@
 <!-- join Start -->
 <div class="col-xl-6" style="margin:100px auto;">
     <div class="container justify-content-center gx-4">
-        <div class="card box-shadow-b p-2 p-md-3">
+        <div class="card p-2 p-md-3">
             <section class="section" style="padding-top: 20px; padding-bottom: 30px;">
                 <div class="container" style="width:80%;" >
-                    <div class="p-6 shadow rounded content">
+                    <div class="p-6 rounded content">
                             <form name="frm1" id="frm1" action="${path}/user/join" class="columns is-multiline is-centered" method="post" onsubmit="return joinCheck(this)">
                                 <div class="column is-10-tablet">
                                     <label for="id" class="label" style="font-weight: bold !important; font-size: 18px;"> 아이디 </label>
