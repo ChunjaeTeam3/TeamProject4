@@ -94,8 +94,8 @@ public class PaymentMapperImpl implements PaymentMapper{
     }
 
     @Override
-    public void serveDelete(int sno) {
-        sqlSession.delete("payment.serveDelete", sno);
+    public void serveDelete(int pno) {
+        sqlSession.delete("payment.serveDelete", pno);
     }
 
     @Transactional
@@ -108,10 +108,10 @@ public class PaymentMapperImpl implements PaymentMapper{
 
     @Transactional
     @Override
-    public void deletePayment(int pno, int sno) throws Exception {
+    public void deletePayment(int pno) throws Exception {
         paymentDelete(pno);
         deliveryDelete(pno);
-        serveDelete(sno);
+        serveDelete(pno);
     }
 
     @Override
@@ -119,4 +119,8 @@ public class PaymentMapperImpl implements PaymentMapper{
         return sqlSession.selectList("payment.paymentList", id);
     }
 
+    @Override
+    public PaymentVO myPaymentDetail(int pno) throws Exception {
+        return sqlSession.selectOne("payment.myPaymentDetail", pno);
+    }
 }

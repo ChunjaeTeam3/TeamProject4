@@ -34,4 +34,8 @@ public class DeliveryServiceImpl implements DeliveryService{
         deliveryMapper.deliveryUpdate(delivery);
     }
 
+    @Override
+    public DeliveryVO myDeliveryDetail(int dno) throws Exception {
+        return deliveryMapper.myDeliveryDetail(dno);
+    }
 }

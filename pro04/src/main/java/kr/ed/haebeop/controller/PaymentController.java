@@ -1,6 +1,7 @@
 package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.*;
+import kr.ed.haebeop.service.DeliveryService;
 import kr.ed.haebeop.service.PaymentService;
 import kr.ed.haebeop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private DeliveryService deliveryService;
 
     @RequestMapping(value = "payCheck", method = RequestMethod.POST)
     @ResponseBody
@@ -105,7 +109,7 @@ public class PaymentController {
 
 
         Serve serve = new Serve();
-        serve.setBcode(bcode);
+        serve.setPno(pno);
         serve.setSprice(request.getParameter("sprice"));
         serve.setAmount(request.getParameter("amount"));
 
@@ -116,14 +120,32 @@ public class PaymentController {
     }
 
     @GetMapping("payDetail")
-    public String getPayment(Model model) throws Exception{
+    public String getPayment(HttpServletRequest request, Model model) throws Exception{
+        int pno = Integer.parseInt(request.getParameter("pno"));
+
+        PaymentVO payment = paymentService.myPaymentDetail(pno);
+        model.addAttribute("payment", payment);
+
         return "/user/userPayDetail";
     }
 
     @GetMapping("deliveryDetail")
-    public String getDelivery(Model model) throws Exception{
+    public String getDelivery(HttpServletRequest request, Model model) throws Exception{
+        int dno = Integer.parseInt(request.getParameter("dno"));
+
+        DeliveryVO delivery = deliveryService.myDeliveryDetail(dno);
+
         return "/user/userDeliveryDetail";
     }
+
+    @GetMapping("paymentDelete")
+    public String getQnaDelete(HttpServletRequest request, Model model) throws Exception {
+        int pno = Integer.parseInt(request.getParameter("pno"));
+        paymentService.deletePayment(pno);
+        return "redirect:/user/payment";
+    }
+
+
 
 
 }

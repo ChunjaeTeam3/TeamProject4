@@ -22,8 +22,9 @@ public interface PaymentMapper {
     public void pointUpdate(int pt, String id) throws Exception;
     public void paymentDelete (int pno) throws Exception;
     public void deliveryDelete(int pno) throws Exception;
-    public void serveDelete(int sno) throws Exception;
+    public void serveDelete(int pno) throws Exception;
     public void addPayment (Delivery delivery, Serve serve,int pt, String id) throws Exception;
-    public void deletePayment(int pno, int sno) throws Exception;
+    public void deletePayment(int pno) throws Exception;
     public List<PaymentVO> paymentList(String id) throws Exception;
+    public PaymentVO myPaymentDetail(int pno) throws Exception;
 }

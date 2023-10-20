@@ -82,7 +82,7 @@
     <div class="row" style="padding-left: 50px; margin-bottom: 30px;">
         <h4><i class="fa-solid fa-file-pen" style="color: #3d3d3e;"></i>결제정보</h4>
     </div>
-    <form action="${path }/payment/paymentPro.do" method="post" onsubmit="return payCheck(this)">
+    <form action="${path}/payment/paymentPro" method="post" onsubmit="return payCheck(this)">
         <div class="row" style="margin-bottom: 50px;">
         <div class="col mb-3">
             <div class="accordion" id="accordionPayment" style="width: 90%; margin: 0 auto;">
@@ -170,7 +170,7 @@
                     </div>
                     <input type="button" id="pay" value="결제하기" class="btn btn-dark w-100" style="height: 80px;">
                     <c:if test="${!empty sid }">
-                        <input type="hidden" id="lno" name="lno" value="${lecture.lno }">
+                        <input type="hidden" id="lcode" name="lcode" value="${lecture.lcode }">
                         <input type="hidden" id="title" name="title" value="${lecture.title}">
                         <input type="hidden" name="bcode" id="bcode" value="${book.bcode }">
                         <input type="hidden" name="tcode" id="tcode" value="${lecture.tcode}">

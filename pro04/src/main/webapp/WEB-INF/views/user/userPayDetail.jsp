@@ -31,14 +31,14 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>빠상중학국어1 </td>
+                    <td>${payment.lname} </td>
                     <td>1</td>
                     <td>0</td>
                 </tr>
                 <tr>
-                    <td>빠상중학국어1 </td>
+                    <td>${payment.bname}</td>
                     <td>1</td>
-                    <td>0</td>
+                    <td>${payment.bprice}</td>
                 </tr>
                 </tbody>
             </table>
@@ -61,9 +61,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>신용카드</td>
-                        <td>12000</td>
-                        <td>2023-10-23 12:09:31</td>
+                        <td>${payment.method}</td>
+                        <td>${payment.price}</td>
+                        <td>${payment.resdate}</td>
                     </tr>
                 </tbody>
             </table>
@@ -80,7 +80,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.status eq '0'}">
+                            <c:if test="${payment.dstatus eq '0'}">
                                 <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
                             </c:if>
                             <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
@@ -94,7 +94,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.status eq '1'}">
+                            <c:if test="${payment.dstatus eq '1'}">
                                 <i class="fa-solid fa-box" style="color: #95addd;"></i>
                             </c:if>
                             <i class="fa-solid fa-box" style="color: #767779;"></i>
@@ -109,7 +109,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.status eq '2'}">
+                            <c:if test="${payment.dstatus eq '2'}">
                                 <i class="fa-solid fa-truck" style="color: #95addd;"></i>
                             </c:if>
                             <i class="fa-solid fa-truck" style="color: #767779;"></i>
@@ -122,12 +122,12 @@
             </div>
         </div>
     </div>
-    <%-- <c:if test="${delivery.status eq '1'}"> --%>
+    <c:if test="${payment.dstatus eq '1'}">
     <div class="row" id="infoTel" style="padding-left: 50px; margin: 0 auto; width: 250px;">
         <button type="button" class="btn btn-secondary" href="${path}/payment/paymentDelete?${payment.pno}" style="margin-right: 15px;">구매취소</button>
         <button type="button" class="btn btn-dark" onclick="check()">닫기</button>
     </div>
-    <%-- </c:if> --%>
+    </c:if>
     <script>
         function check(){
             window.close();

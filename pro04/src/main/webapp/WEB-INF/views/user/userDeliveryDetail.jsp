@@ -23,7 +23,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.status eq '0'}">
+                            <c:if test="${delivery.dstatus eq '0'}">
                                 <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
                             </c:if>
                             <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
@@ -37,7 +37,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.status eq '1'}">
+                            <c:if test="${delivery.dstatus eq '1'}">
                                 <i class="fa-solid fa-box" style="color: #95addd;"></i>
                             </c:if>
                             <i class="fa-solid fa-box" style="color: #767779;"></i>
@@ -52,7 +52,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.status eq '2'}">
+                            <c:if test="${delivery.dstatus eq '2'}">
                                 <i class="fa-solid fa-truck" style="color: #95addd;"></i>
                             </c:if>
                             <i class="fa-solid fa-truck" style="color: #767779;"></i>
@@ -76,15 +76,15 @@
                 <tbody>
                 <tr>
                     <th scope="row">받는 분 </th>
-                    <td>김이름</td>
+                    <td>${delivery.name}</td>
                 </tr>
                 <tr>
                     <th scope="row">전화번호 </th>
-                    <td>010-1111-2222</td>
+                    <td>${delivery.tel}</td>
                 </tr>
                 <tr>
                     <th scope="row">배송지</th>
-                    <td>강원특별자치도 퇴계동 913-7 3층</td>
+                    <td>${delivery.addr}</td>
                 </tr>
                 </tbody>
             </table>
@@ -101,15 +101,15 @@
                 <tbody>
                 <tr>
                     <th scope="row">송장번호 </th>
-                    <td>10-22-3-44235261</td>
+                    <td>${delivery.dcode}</td>
                 </tr>
                 <tr>
                     <th scope="row">배송회사 </th>
-                    <td>한신택배</td>
+                    <td>${delivery.dcom}</td>
                 </tr>
                 <tr>
                     <th scope="row">배달기사 번호</th>
-                    <td>010-1111-2222</td>
+                    <td>${delivery.dtel}</td>
                 </tr>
                 </tbody>
             </table>

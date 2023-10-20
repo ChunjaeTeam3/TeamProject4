@@ -140,7 +140,7 @@
         function payCheck2(){
             var pno = $("#pno").val();
             var child;
-            child = window.open("${path}/payment/payDetail??pno=${payment.pno}", "child", "width=700, height=900");
+            child = window.open("${path}/payment/payDetail?pno=${payment.pno}", "child", "width=700, height=900");
         }
     </script>
     <script>
