@@ -24,5 +24,7 @@ public class LectureVO {
     private String stime;
     private String state;
     private String classroom;
+    private String bcode;
+    private String bname;
 
 }
