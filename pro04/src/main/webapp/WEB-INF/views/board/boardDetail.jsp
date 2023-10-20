@@ -60,7 +60,7 @@
                                 <tbody>
                                 <tr>
                                     <th class="text-center">제목</th>
-                                    <td colspan="8">${detail.title}</td>
+                                    <td colspan="12">${detail.title}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-center">카테고리</th>
@@ -76,10 +76,10 @@
                                     <td colspan="3">${detail.visited}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="8" style="font-size: 15px;" class="p-4">${detail.content}</td>
+                                    <td colspan="12" style="font-size: 15px;" class="p-4">${detail.content}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="12">
                                         <div class="d-flex justify-content-between">
                                             <c:if test="${!empty prev}">
                                                 <div class="text-left">

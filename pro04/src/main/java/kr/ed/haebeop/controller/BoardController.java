@@ -69,7 +69,6 @@ public class BoardController {
     @GetMapping("detail")	//board/detail?seq=1
     public String getBoardDetail(HttpServletRequest request, Model model) throws Exception {
         BoardVO detail = boardService.boardDetail(Integer.parseInt(request.getParameter("seq")));
-
         BoardVO prev = boardService.boardRef(detail.getSeq(), "prev");
         BoardVO next = boardService.boardRef(detail.getSeq(), "next");
 
@@ -171,7 +170,7 @@ public class BoardController {
         } else {
             boardService.boardEdit(board);
             model.addAttribute("seq", board.getSeq());
-            return "redirect:detail";
+            return "redirect:list";
         }
     }
 

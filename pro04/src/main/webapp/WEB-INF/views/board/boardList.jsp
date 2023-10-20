@@ -92,7 +92,7 @@
                                     <th scope="col" class="text-center" style="width: 5%">#</th>
                                     <th scope="col" class="text-center" style="width: 15%">카테고리</th>
                                     <th scope="col" class="text-center">제목</th>
-                                    <th scope="col" class="text-center" style="width: 15%">작성일</th>
+                                    <th scope="col" class="text-center" style="width: 20%">작성일</th>
                                     <th scope="col" class="text-center" style="width: 10%">작성자</th>
                                     <th scope="col" class="text-center" style="width: 10%">조회수</th>
                                 </tr>
