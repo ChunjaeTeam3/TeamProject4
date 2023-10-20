@@ -83,7 +83,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"> Event: </h6>
                 <a class="collapse-item" href="${path}/admin/eventMgmt"> 이벤트 목록 </a>
-                <a class="collapse-item" href="${path}/admin/applyList"> 당첨자 추첨 </a>
             </div>
         </div>
     </li>

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 글쓰기</title>
+    <title>이벤트 등록하기</title>
     <jsp:include page="../layout/head.jsp"/>
 
     <style>
@@ -34,7 +34,7 @@
 <!-- 브레드크럼 시작 -->
 <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
     <div class="bradcumbContent">
-        <h2>공지사항</h2>
+        <h2>이벤트</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
@@ -42,7 +42,7 @@
     <div class="course_details_area mb-5 mt-5">
         <div class="container">
             <!-- 테이블 영역 시작 -->
-            <form action="${path}/notice/insert" method="post">
+            <form action="${path}/event/insert" method="post">
                 <div class="col-12">
                     <div class="card w-100">
                         <div class="card-body">
@@ -52,6 +52,25 @@
                                     <tr>
                                         <th class="text-center" style="vertical-align: middle; width: 15%;">제목</th>
                                         <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" class="pl-2" required autofocus></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center" style="vertical-align: middle; width: 15%;">이벤트 상태</th>
+                                        <td>
+                                            <div class="panel single-accordion">
+                                                <select name="status" id="status" class="collapseOne" style="border: 1px solid #ced4da; border-radius: 5px; padding: 8px;">
+                                                    <option value="1">진행중</option>
+                                                    <option value="0">종료</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">시작일</th>
+                                        <td><input type="date" name="sdate" id="sdate" class="input" placeholder="시작일 지정해주세요" autocomplete="off" required></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">종료일</th>
+                                        <td><input type="date" name="edate" id="edate" class="input" placeholder="종료일 지정해주세요" autocomplete="off" required></td>
                                     </tr>
                                     <tr>
                                         <td colspan="6" style="font-size: 15px;">
@@ -64,7 +83,7 @@
                                     </tbody>
                                 </table>
                                 <div class="btn-group float-right mr-3">
-                                    <a href="${path}/notice/list" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/event/list" class="btn btn-outline-dark">목록</a>
                                     <input type="submit" class="btn btn-dark" style="height: 100%" value="등록">
                                 </div>
                             </div>
@@ -76,6 +95,20 @@
         <!-- 테이블 영역 끝 -->
     </div>
 </section>
+<script>
+    // 시작일 변경 시 종료일 처리
+    $("#sdate").change(() => {
+        $("#edate").prop("min", $("#sdate").val());
+        // 종료일이 변경한 시작일보다 빠른 경우
+        if($("#edate").val() < $("#sdate").val()) {
+            $("#edate").val($("#sdate").val());
+        }
+    });
+    // 종료일 변경 시 시작일 처리
+    $("#edate").change(() => {
+        $("#sdate").prop("max", $("#edate").val());
+    })
+</script>
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->

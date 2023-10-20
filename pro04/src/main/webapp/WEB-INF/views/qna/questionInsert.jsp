@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 글쓰기</title>
+    <title>Q&A 질문 등록</title>
     <jsp:include page="../layout/head.jsp"/>
 
     <style>
@@ -34,7 +34,7 @@
 <!-- 브레드크럼 시작 -->
 <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
     <div class="bradcumbContent">
-        <h2>공지사항</h2>
+        <h2>Q&A</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
@@ -42,7 +42,7 @@
     <div class="course_details_area mb-5 mt-5">
         <div class="container">
             <!-- 테이블 영역 시작 -->
-            <form action="${path}/notice/insert" method="post">
+            <form action="${path}/qna/questionInsert" method="post">
                 <div class="col-12">
                     <div class="card w-100">
                         <div class="card-body">
@@ -55,7 +55,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="6" style="font-size: 15px;">
-                                            <textarea name="content" id="content" cols="100" rows="8" maxlength="800" class="single-textarea" style="height: 400px; border: 1px solid #cbcbcb"></textarea>
+                                            <textarea name="content" id="content" cols="100" rows="8" maxlength="800" class="single-textarea" style="height: 400px; border: 1px solid #cbcbcb" placeholder="질문 내용을 입력하세요"></textarea>
                                             <script>
                                                 $(document).ready(function () { $("#content").cleditor(); });
                                             </script>
@@ -64,7 +64,7 @@
                                     </tbody>
                                 </table>
                                 <div class="btn-group float-right mr-3">
-                                    <a href="${path}/notice/list" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/qna/list" class="btn btn-outline-dark">목록</a>
                                     <input type="submit" class="btn btn-dark" style="height: 100%" value="등록">
                                 </div>
                             </div>

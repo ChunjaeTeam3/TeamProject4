@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 상세보기</title>
+    <title>자료실 상세보기</title>
     <jsp:include page="../layout/head.jsp"/>
     <style>
         table th {width: 12%;}
@@ -21,7 +21,7 @@
 <!-- 브레드크럼 시작 -->
 <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
     <div class="bradcumbContent">
-        <h2>공지사항</h2>
+        <h2>자료실</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
@@ -35,14 +35,14 @@
                         <div class="table-responsive project-list">
                             <c:if test="${sid eq 'admin'}">
                                 <div class="btn-group float-right mb-3">
-                                    <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
-                                    <a href="${path}/notice/edit?seq=${detail.seq}" class="btn btn-outline-dark">수정</a>
-                                    <a href="${path}/notice/delete?seq=${detail.seq}" class="btn btn-outline-dark">삭제</a>
+                                    <a href="${path}/dataRoom/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/dataRoom/edit?articleNo=${detail.articleNo}" class="btn btn-outline-dark">수정</a>
+                                    <a href="${path}/dataRoom/delete?articleNo=${detail.articleNo}" class="btn btn-outline-dark">삭제</a>
                                 </div>
                             </c:if>
                             <c:if test="${sid ne 'admin'}">
                                 <div class="btn-group float-right mb-3">
-                                    <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/dataRoom/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                 </div>
                             </c:if>
                             <table class="table project-table table-centered table-nowrap">
@@ -57,27 +57,26 @@
                                         <fmt:parseDate value="${detail.regdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
                                         <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd"/>
                                     </td>
-                                    <th class="text-center">조회수</th>
-                                    <td>${detail.visited}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">작성일</th>
-                                    <td>
-                                        <fmt:parseDate value="${detail.regdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
-                                        <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd"/>
-                                    </td>
-                                    <th class="text-center">조회수</th>
-                                    <td>${detail.visited}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="6" style="font-size: 15px;" class="p-4">${detail.content}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="6" style="font-size: 15px;" class="pb-2 pl-4">학습자료(클릭하여 다운로드)</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="border: none;font-size: 15px;padding: 0;" class="pb-1 pl-4">
+                                        <c:forEach var="item" items="${fileList}">
+                                            <a href="${pageContext.request.contextPath}/resources/upload/dataRoom/${item.saveFolder}/${item.saveFile}" download="${item.originFile }" style="font-weight: 500;font-size: 15px;"><i class="fa-solid fa-file"></i> ${item.originFile } </a>
+                                        </c:forEach>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="5">
                                         <div class="d-flex justify-content-between">
                                             <c:if test="${!empty prev}">
                                                 <div class="text-left">
-                                                    <a href="${path}/notice/detail?seq=${prev.seq}&page=${curPage}"><i class="fa-solid fa-angles-left fa-xl"></i>${prev.title}</a>
+                                                    <a href="${path}/dataRoom/detail?articleNo=${prev.articleNo}&page=${curPage}"><i class="fa-solid fa-angles-left fa-xl"></i>&nbsp;${prev.title}</a>
                                                 </div>
                                             </c:if>
                                             <c:if test="${empty prev}">
@@ -87,7 +86,7 @@
                                             </c:if>
                                             <c:if test="${!empty next}">
                                                 <div class="text-right">
-                                                    <a href="${path}/notice/detail?seq=${next.seq}&page=${curPage}">${next.title}<i class="fa-solid fa-angles-right fa-xl"></i></a>
+                                                    <a href="${path}/dataRoom/detail?articleNo=${next.articleNo}&page=${curPage}">${next.title}&nbsp;<i class="fa-solid fa-angles-right fa-xl"></i></a>
                                                 </div>
                                             </c:if>
                                             <c:if test="${empty next}">

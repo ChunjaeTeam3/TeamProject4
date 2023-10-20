@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 상세보기</title>
+    <title>Q&A 상세보기</title>
     <jsp:include page="../layout/head.jsp"/>
     <style>
         table th {width: 12%;}
@@ -21,7 +21,7 @@
 <!-- 브레드크럼 시작 -->
 <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
     <div class="bradcumbContent">
-        <h2>공지사항</h2>
+        <h2>Q&A</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
@@ -33,16 +33,24 @@
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <c:if test="${sid eq 'admin'}">
+                            <c:if test="${! empty sid && sid eq 'admin'}">
                                 <div class="btn-group float-right mb-3">
-                                    <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
-                                    <a href="${path}/notice/edit?seq=${detail.seq}" class="btn btn-outline-dark">수정</a>
-                                    <a href="${path}/notice/delete?seq=${detail.seq}" class="btn btn-outline-dark">삭제</a>
+                                    <a href="${path}/qna/answerInsert?qno=${detail.qno}" class="btn btn-outline-dark">답변등록</a>
+                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
+                                    <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
                                 </div>
                             </c:if>
-                            <c:if test="${sid ne 'admin'}">
-                                <div class="btn-group float-right mb-3">
-                                    <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                            <c:if test="${! empty sid && sid ne 'admin'}">
+                                <div class="btn-group float-right">
+                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${sid ne 'admin' && sid eq detail.author}">
+                                <div class="btn-group float-right">
+                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
+                                    <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
                                 </div>
                             </c:if>
                             <table class="table project-table table-centered table-nowrap">
@@ -54,20 +62,11 @@
                                 <tr>
                                     <th class="text-center">작성일</th>
                                     <td>
-                                        <fmt:parseDate value="${detail.regdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                        <fmt:parseDate value="${detail.resdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
                                         <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd"/>
                                     </td>
-                                    <th class="text-center">조회수</th>
-                                    <td>${detail.visited}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">작성일</th>
-                                    <td>
-                                        <fmt:parseDate value="${detail.regdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
-                                        <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd"/>
-                                    </td>
-                                    <th class="text-center">조회수</th>
-                                    <td>${detail.visited}</td>
+                                    <th class="text-center">작성자</th>
+                                    <td colspan="3">${detail.author}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="6" style="font-size: 15px;" class="p-4">${detail.content}</td>
@@ -77,7 +76,7 @@
                                         <div class="d-flex justify-content-between">
                                             <c:if test="${!empty prev}">
                                                 <div class="text-left">
-                                                    <a href="${path}/notice/detail?seq=${prev.seq}&page=${curPage}"><i class="fa-solid fa-angles-left fa-xl"></i>${prev.title}</a>
+                                                    <a href="${path}/qna/detail?qno=${prev.qno}&page=${curPage}"><i class="fa-solid fa-angles-left fa-xl"></i>${prev.title}</a>
                                                 </div>
                                             </c:if>
                                             <c:if test="${empty prev}">
@@ -87,7 +86,7 @@
                                             </c:if>
                                             <c:if test="${!empty next}">
                                                 <div class="text-right">
-                                                    <a href="${path}/notice/detail?seq=${next.seq}&page=${curPage}">${next.title}<i class="fa-solid fa-angles-right fa-xl"></i></a>
+                                                    <a href="${path}/qna/detail?qno=${next.qno}&page=${curPage}">${next.title}<i class="fa-solid fa-angles-right fa-xl"></i></a>
                                                 </div>
                                             </c:if>
                                             <c:if test="${empty next}">
