@@ -18,6 +18,12 @@
             resize: none;
         }
     </style>
+    <c:if test="${!empty msg}">
+    <script>
+        var msg="비속어가 존재합니다."
+        alert(msg);
+    </script>
+    </c:if>
 </head>
 <body>
 <!-- 헤더 시작 -->
@@ -66,6 +72,8 @@
                                     </td>
                                     <th class="text-center">작성자</th>
                                     <td colspan="3">${detail.nickname}</td>
+                                    <th class="text-center">조회수</th>
+                                    <td colspan="3">${detail.visited}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="8" style="font-size: 15px;" class="p-4">${detail.content}</td>

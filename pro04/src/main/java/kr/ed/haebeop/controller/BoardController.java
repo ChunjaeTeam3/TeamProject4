@@ -6,6 +6,7 @@ import kr.ed.haebeop.domain.Category;
 import kr.ed.haebeop.domain.Comment;
 import kr.ed.haebeop.service.BoardService;
 import kr.ed.haebeop.service.CommentService;
+import kr.ed.haebeop.util.BadWordFiltering;
 import kr.ed.haebeop.util.BoardPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -107,11 +109,27 @@ public class BoardController {
     }
 
     @PostMapping("insert")
-    public String boardInsert(Board board, HttpServletRequest request, Model model) throws Exception {
-        HttpSession session = request.getSession();
-        board.setNickname((String) session.getAttribute("sid"));
-        boardService.boardInsert(board);
-        return "redirect:list";
+    public String boardInsert(Board board, HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
+        String word = board.getContent();
+        String word2 = board.getTitle();
+        BadWordFiltering filter = new BadWordFiltering();
+        Boolean pass = filter.check(word);
+        Boolean pass2 = filter.check(word2);
+        String msg = "";
+        if(pass) {
+            msg = filter.messagePrint(word);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else if(pass2){
+            msg = filter.messagePrint(word2);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+            HttpSession session = request.getSession();
+            board.setNickname((String) session.getAttribute("sid"));
+            boardService.boardInsert(board);
+            return "redirect:list";
+        }
     }
 
     @GetMapping("delete")
@@ -135,10 +153,26 @@ public class BoardController {
     }
 
     @PostMapping("edit")
-    public String boardEdit(Board board, HttpServletRequest request, Model model) throws Exception {
-        boardService.boardEdit(board);
-        model.addAttribute("seq", board.getSeq());
-        return "redirect:detail";
+    public String boardEdit(Board board, HttpServletRequest request,RedirectAttributes rttr, Model model) throws Exception {
+        String word = board.getContent();
+        String word2 = board.getTitle();
+        BadWordFiltering filter = new BadWordFiltering();
+        Boolean pass = filter.check(word);
+        Boolean pass2 = filter.check(word2);
+        String msg = "";
+        if(pass) {
+            msg = filter.messagePrint(word);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else if(pass2){
+            msg = filter.messagePrint(word2);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+            boardService.boardEdit(board);
+            model.addAttribute("seq", board.getSeq());
+            return "redirect:detail";
+        }
     }
 
     //ckeditor를 이용한 이미지 업로드
