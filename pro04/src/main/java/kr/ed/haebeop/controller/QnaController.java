@@ -2,6 +2,7 @@ package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.Qna;
 import kr.ed.haebeop.service.QnaService;
+import kr.ed.haebeop.util.BadWordFiltering;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,14 +70,30 @@ public class QnaController {
 
     //Question 글쓰기 처리
     @PostMapping("questionInsert")
-    public String getQuestionInsertPro(HttpServletRequest request, Model model) throws Exception {
-        HttpSession session = request.getSession();
-        Qna dto = new Qna();
-        dto.setTitle(request.getParameter("title"));
-        dto.setContent(request.getParameter("content"));
-        dto.setAuthor((String) session.getAttribute("sid"));
-        qnaService.questionInsert(dto);
-        return "redirect:list";
+    public String getQuestionInsertPro(Qna qna, RedirectAttributes rttr, HttpServletRequest request, Model model) throws Exception {
+        String word = qna.getContent();
+        String word2 = qna.getTitle();
+        BadWordFiltering filter = new BadWordFiltering();
+        Boolean pass = filter.check(word);
+        Boolean pass2 = filter.check(word2);
+        String msg = "";
+        if(pass) {
+            msg = filter.messagePrint(word);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else if(pass2){
+            msg = filter.messagePrint(word2);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+            HttpSession session = request.getSession();
+            Qna dto = new Qna();
+            dto.setTitle(request.getParameter("title"));
+            dto.setContent(request.getParameter("content"));
+            dto.setAuthor((String) session.getAttribute("sid"));
+            qnaService.questionInsert(dto);
+            return "redirect:list";
+        }
     }
 
     //Question 수정
@@ -88,14 +106,30 @@ public class QnaController {
     }
     //Question 수정처리
     @PostMapping("edit")
-    public String getQnaEditPro(HttpServletRequest request, Model model) throws Exception {
-        int qno = Integer.parseInt(request.getParameter("qno"));
-        Qna dto = new Qna();
-        dto.setQno(qno);
-        dto.setTitle(request.getParameter("title"));
-        dto.setContent(request.getParameter("content"));
-        qnaService.qnaEdit(dto);
-        return "redirect:detail?qno="+qno+"&page=1";
+    public String getQnaEditPro(Qna qna, RedirectAttributes rttr, HttpServletRequest request, Model model) throws Exception {
+        String word = qna.getContent();
+        String word2 = qna.getTitle();
+        BadWordFiltering filter = new BadWordFiltering();
+        Boolean pass = filter.check(word);
+        Boolean pass2 = filter.check(word2);
+        String msg = "";
+        if(pass) {
+            msg = filter.messagePrint(word);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else if(pass2){
+            msg = filter.messagePrint(word2);
+            rttr.addFlashAttribute("msg", msg);
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+            int qno = Integer.parseInt(request.getParameter("qno"));
+            Qna dto = new Qna();
+            dto.setQno(qno);
+            dto.setTitle(request.getParameter("title"));
+            dto.setContent(request.getParameter("content"));
+            qnaService.qnaEdit(dto);
+            return "redirect:detail?qno=" + qno + "&page=1";
+        }
     }
 
     //QnA 삭제
