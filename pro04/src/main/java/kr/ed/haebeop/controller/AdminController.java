@@ -506,6 +506,8 @@ public class AdminController {
 
     @RequestMapping("teacherInsert")
     public String teacherInsert(Model model) throws Exception {
+        List<String> idList = userService.getIdList();
+        model.addAttribute("idList", idList);
         return "/admin/teacherInsert";
     }
 
@@ -525,6 +527,21 @@ public class AdminController {
         }
         teacherService.teacherInsert(teacher);
         return "redirect:/admin/teacherMgmt";
+    }
+
+    @PostMapping("findTeacherID")
+    public void findTeacherID(@RequestParam String tid, HttpServletResponse response) throws Exception {
+        List<String> idList = userService.findTeacherId(tid);
+
+        JSONArray jsonArray = new JSONArray();
+        for(String id : idList) {
+            JSONObject obj = new JSONObject();
+            obj.put("id", id);
+            jsonArray.put(obj);
+        }
+
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
     }
 
     @RequestMapping("teacherEdit")

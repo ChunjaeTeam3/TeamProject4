@@ -87,4 +87,11 @@
     <delete id="delAttendCode">
         delete from saveattendcode where lcode=#{lcode}
     </delete>
+
+    <!-- 강사 로그인 시 자신의 강의 목록 불러오기 -->
+    <select id="teacherLectureList" resultType="kr.ed.haebeop.domain.LectureVO">
+        SELECT  lcode ,lname, sname, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, l.scode as scode, state, classroom
+        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode)
+        WHERE state NOT IN ('close', 'on')
+    </select>
 </mapper>

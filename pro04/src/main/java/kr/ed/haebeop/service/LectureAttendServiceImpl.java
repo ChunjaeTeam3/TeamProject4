@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.LectureAttendVO;
+import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.persistence.LectureAttendMapper;
 import kr.ed.haebeop.persistence.RegisterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,10 @@ public class LectureAttendServiceImpl implements LectureAttendService {
         data.put("idList", absentStudents);
         data.put("atype", atype);
         lectureAttendMapper.insertAbsents(data);
+    }
+
+    @Override
+    public List<LectureVO> teacherLectureList(String tid) throws Exception {
+        return lectureAttendMapper.teacherLectureList(tid);
     }
 }

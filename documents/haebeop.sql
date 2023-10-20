@@ -18,7 +18,6 @@ CREATE TABLE user(
   isStudy BOOLEAN DEFAULT false);
   
 -- 회원 더미데이터
-SELECT * FROM user;
 INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test111','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-11-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test121','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
@@ -184,8 +183,6 @@ CREATE TABLE fileInfo(
   FOREIGN KEY(articleNo) REFERENCES dataRoom(articleNo) ON DELETE CASCADE 
 );
 
-SELECT * FROM fileinfo;
-
 
 -- 이벤트 글 테이블
 CREATE TABLE event (
@@ -223,7 +220,7 @@ create table winnerList(
    FOREIGN key(id) references user(id) on delete cascade);
 
 
---당첨자 발표 글
+-- 당첨자 발표 글
 create table winner(
 	wno int primary key AUTO_INCREMENT,			/* 당첨글 번호 */
    eno int not NULL,									/* 이벤트 글 번호 */
@@ -239,17 +236,12 @@ CREATE TABLE attendance (
    ano INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
    id VARCHAR(20),
    attend DATE DEFAULT current_date);
-	DROP TABLE attendance;
-	SELECT * FROM attendance;
-	
-INSERT INTO attendance VALUES (DEFAULT, 'admin', 231024);
 	
 -- 과목 테이블 (과목코드, 과목명)
 CREATE TABLE subject(
 	scode VARCHAR(10) PRIMARY KEY,
 	sname VARCHAR(200) NOT NULL
 );
-
 
 -- 과목 테이블 더미데이터
 INSERT INTO SUBJECT
@@ -264,6 +256,7 @@ VALUES('fo', '외국어');
 -- 강사 테이블 (강사코드, 강사명, 연락처, 이메일, 강사소개, 강사 이미지)
 CREATE TABLE teacher(
 	tcode INT PRIMARY KEY AUTO_INCREMENT,
+	tid VARCHAR(20) NOT NULL,
 	tname VARCHAR(50) NOT NULL,
 	ttel VARCHAR(20) NOT NULL,
 	temail VARCHAR(100) NOT NULL,
@@ -271,8 +264,6 @@ CREATE TABLE teacher(
 	saveFile VARCHAR(300) NOT NULL
 );
 
-<<<<<<< HEAD
-=======
 -- 교재 테이블 생성(교재코드, 교재이름, 교재소개, 저자, 가격)
 CREATE TABLE book (
 	bcode VARCHAR(20) primary key NOT NULL ,
@@ -281,7 +272,6 @@ CREATE TABLE book (
 	author VARCHAR(1000) NOT NULL,
 	bprice INT(11) NOT NULL
 );
->>>>>>> 05c36fa30590d0f143e38a2e85638685a309024d
 
 -- 강의 테이블 (강의코드, 강의명, 과목코드, 강사코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFile), 강의 시작일, 강의 종료일, (오프라인 시)강의 시작시간, 온오프 여부, 강의실)
 CREATE TABLE lecture(
@@ -335,6 +325,10 @@ INSERT INTO register VALUES(DEFAULT, 'ma1', 'admin', FALSE);
 INSERT INTO register VALUES(DEFAULT, 'ma1', 'test11', FALSE);
 INSERT INTO register VALUES(DEFAULT, 'ma1', 'test31', FALSE);
 
+INSERT INTO register VALUES(DEFAULT, 'es2', 'admin', FALSE);
+INSERT INTO register VALUES(DEFAULT, 'es2', 'test11', FALSE);
+INSERT INTO register VALUES(DEFAULT, 'es2', 'test21', FALSE);
+
 -- 수강생 강의 수강 정보 테이블
 CREATE TABLE studyInfo(
 	scode INT AUTO_INCREMENT PRIMARY KEY,
@@ -351,20 +345,6 @@ CREATE TABLE saveAttendCode(
 	lcode VARCHAR(50) PRIMARY KEY,	/* 과목코드 */
 	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
-
-SELECT * FROM lectureattend;
-DELETE FROM lectureattend WHERE adate=CURRENT_DATE AND id!='admin'
-
-SELECT * FROM (
-SELECT r.lcode as lcode, u.id as id, name, adate, atime, atype
-FROM register r LEFT OUTER JOIN lectureAttend l ON (r.lcode=l.lcode AND r.id=l.id) JOIN user u ON (r.id=u.id)
-WHERE r.lcode='ma1' AND adate=CURRENT_DATE
-UNION ALL
-SELECT r.lcode as lcode, u.id as id, NAME, NULL AS adate, NULL AS atime, NULL AS atype
-FROM register r JOIN user u ON (r.id=u.id)
-WHERE r.lcode='ma1') atttendList
-GROUP BY id
-ORDER BY adate DESC, id ASC LIMIT 3
 
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
@@ -388,10 +368,6 @@ CREATE TABLE todo(
 INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
 
-
-select * from todo where id='admin' order by tdno asc;
-UPDATE todo SET STATUS=TRUE WHERE tdno=1;
-
 CREATE TABLE lecboard(
   qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
   lcode VARCHAR(50) NOT NULL,                   -- 강의코드
@@ -403,9 +379,35 @@ CREATE TABLE lecboard(
   par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
   FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
   FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE);
+        
+-- 배송 테이블 생성(배송번호, 결제번호, 아이디, 주소, 번호, 배송회사, 배송전화번호, 배송상태, 배송시간, 배송예정일자, 배송코드)
+create table delivery(
+	 dno int primary KEY AUTO_INCREMENT,
+	 pno int, 					
+	 id varchar(20),				
+	 addr VARCHAR(200),	
+	 tel varchar(13) not null,				
+	 dcom varchar(100),					
+	 dtel varchar(13),			
+	 dstatus int default 0,				
+	 ddate timestamp default CURRENT_TIMESTAMP,
+	 edate varchar(13),						
+	 dcode varchar(30),
+	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
+);
 
 
---결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
+-- 출고 테이블 생성(출고 번호, 배송코드, 출고 가격, 수량, 출고일자)
+create table serve(
+    sno int primary KEY AUTO_INCREMENT,							
+    bcode VARCHAR(20) NOT NULL,		              
+    sprice int default 1000,					 
+    amount int default 1,				         	
+    resdate timestamp default CURRENT_TIMESTAMP,
+	 FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
+);
+
+-- 결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
 create table payment(
 	   pno INT primary KEY AUTO_INCREMENT,
 	   title VARCHAR(100) NOT NULL,
@@ -425,39 +427,6 @@ create table payment(
 	   FOREIGN KEY (dno) REFERENCES delivery(dno) ON DELETE CASCADE,
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
-
-SELECT * FROM payment;
-        
--- 배송 테이블 생성(배송번호, 결제번호, 아이디, 주소, 번호, 배송회사, 배송전화번호, 배송상태, 배송시간, 배송예정일자, 배송코드)
-create table delivery(
-	 dno int primary KEY AUTO_INCREMENT,
-	 pno int, 					
-	 id varchar(20),				
-	 addr VARCHAR(200),	
-	 tel varchar(13) not null,				
-	 dcom varchar(100),					
-	 dtel varchar(13),			
-	 dstatus int default 0,				
-	 ddate timestamp default CURRENT_TIMESTAMP,
-	 edate varchar(13),						
-	 dcode varchar(30),
-	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
-);
-
-SELECT * FROM delivery;
-
-
--- 출고 테이블 생성(출고 번호, 배송코드, 출고 가격, 수량, 출고일자)
-create table serve(
-    sno int primary KEY AUTO_INCREMENT,							
-    bcode VARCHAR(20) NOT NULL,		              
-    sprice int default 1000,					 
-    amount int default 1,				         	
-    resdate timestamp default CURRENT_TIMESTAMP,
-	 FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
-);
-
-SELECT * FROM serve;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

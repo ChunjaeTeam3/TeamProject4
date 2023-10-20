@@ -26,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TeacherService teacherService;
     @Autowired
     private LectureService lectureService;
     @Autowired
@@ -66,6 +69,9 @@ public class UserController {
         }
 
         if(ps){
+            boolean isTeacher = teacherService.isTeacher(id);
+            session.setAttribute("isTeacher", isTeacher);
+
             session.setAttribute("sid", id);
             userService.updateVisited(id);
             rttr.addFlashAttribute("msg", 1);

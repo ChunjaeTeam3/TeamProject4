@@ -84,4 +84,13 @@ public class UserServiceImpl implements UserService {
         return userMapper.userCntList();
     }
 
+    @Override
+    public List<String> getIdList() throws Exception {
+        return userMapper.getIdList();
+    }
+
+    @Override
+    public List<String> findTeacherId(String tid) throws Exception {
+        return userMapper.findTeacherId(tid);
+    }
 }

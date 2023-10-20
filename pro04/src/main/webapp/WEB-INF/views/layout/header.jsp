@@ -67,6 +67,11 @@
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
+                                <c:if test="${isTeacher}">
+                                    <a href="${path}/lectureAttend/teacherLecture">
+                                        <i class="fa-solid fa-chalkboard fa-xl mr-3" style="color: #fff"></i>
+                                    </a>
+                                </c:if>
                                 <!-- Login/Register -->
                                 <c:if test="${sid eq null}">
                                 <div class="login-register-btn mr-50" style="margin-right: 10px!important;" >

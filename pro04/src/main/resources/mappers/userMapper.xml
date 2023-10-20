@@ -100,4 +100,14 @@
     <select id="userCntList" resultType="java.util.Map">
         SELECT DATE_FORMAT(regdate, '%Y-%m') AS label, COUNT(*) AS cnt FROM user WHERE regdate >= DATE_ADD(NOW(), INTERVAL -1 YEAR) GROUP BY label
     </select>
+
+    <!-- 아이디 리스트 -->
+    <select id="getIdList" resultType="String">
+        SELECT id FROM user
+    </select>
+
+    <!-- 검색된 아이디 리스트 -->
+    <select id="findTeacherId" resultType="String">
+        select id from user where id like concat('%', #{tid}, '%')
+    </select>
 </mapper>

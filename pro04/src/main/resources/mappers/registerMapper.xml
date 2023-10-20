@@ -63,7 +63,7 @@
     </select>
   
     <select id="getMyCount" resultType="integer">
-        select COUNT(*) from lecture where id=#{id}
+        select COUNT(*) from lecture l JOIN register r ON (l.lcode=r.lcode) where id=#{id}
     </select>
 
     <select id="calcProfitPt" resultType="integer">
@@ -71,7 +71,7 @@
     </select>
 
     <select id="calcRegPercent" resultType="double">
-        SELECT ((SELECT COUNT(DISTINCT id) FROM register) / (SELECT COUNT(*) FROM user) * 100)
+        SELECT FORMAT((SELECT COUNT(DISTINCT id) FROM register) / (SELECT COUNT(*) FROM user) * 100, 1)
     </select>
 
 </mapper>

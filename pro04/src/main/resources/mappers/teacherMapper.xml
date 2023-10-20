@@ -32,7 +32,7 @@
 
     <insert id="teacherInsert">
         insert into teacher
-        values(default, #{tname}, #{ttel}, #{temail}, #{tcontent}, #{saveFile})
+        values(default, #{tid}, #{tname}, #{ttel}, #{temail}, #{tcontent}, #{saveFile})
     </insert>
 
     <update id="teacherEdit">
@@ -47,6 +47,10 @@
                 tname LIKE concat('%', #{keyword}, '%')
             </if>
         </where>
+    </select>
+
+    <select id="isTeacher" resultType="integer">
+        select count(*) from teacher where tid=#{id}
     </select>
 
 </mapper>

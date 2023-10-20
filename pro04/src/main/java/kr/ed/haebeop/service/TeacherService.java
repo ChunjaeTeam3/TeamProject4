@@ -14,5 +14,6 @@ public interface TeacherService {
     public void teacherInsert(Teacher teacher) throws Exception;
     public void teacherEdit(Teacher teacher) throws Exception;
     public int getCount(Page page) throws Exception;
+    public boolean isTeacher(String id) throws Exception;
 
 }

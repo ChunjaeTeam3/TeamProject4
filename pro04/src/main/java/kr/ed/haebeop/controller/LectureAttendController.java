@@ -126,4 +126,13 @@ public class LectureAttendController {
         out.println(result);
     }
 
+    @GetMapping("teacherLecture")
+    public String teacherLecture(HttpServletRequest request, Model model) throws Exception {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+        List<LectureVO> lectureList = lectureAttendService.teacherLectureList(id);
+        model.addAttribute("lectureList", lectureList);
+        return "/lectureAttend/teacherLecture";
+    }
+
 }

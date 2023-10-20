@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.LectureAttendVO;
+import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.domain.SaveAttendCode;
 
 import java.util.List;
@@ -13,5 +14,6 @@ public interface LectureAttendService {
     public void insertAttendOne(String id, String lcode, String attendCode) throws Exception;
     public int getAttendCode(String lcode) throws Exception;
     public void delAttendCode(String lcode) throws Exception;
+    public List<LectureVO> teacherLectureList(String tid) throws Exception;
 
 }

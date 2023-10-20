@@ -47,6 +47,43 @@
                 <h2> 새로운 강사 등록 <i class="fa-solid fa-feather"></i> </h2>
                 <form action="${path}/admin/teacherInsert" method="post" enctype="multipart/form-data">
                     <div class="form-group mt-3">
+                        <label for="searchID"> 강사 아이디 </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchID" placeholder="검색할 아이디를 입력해주세요"
+                                   autocomplete="off" aria-label="검색할 아이디를 입력해주세요" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="button" id="button-addon2"
+                                        onclick="findID()"> 검색
+                                </button>
+                            </div>
+                        </div>
+                        <select class="custom-select" id="tid" name="tid" size="8">
+                            <c:forEach var="id" items="${idList}">
+                                <option value="${id}" class="p-2"> ${id} </option>
+                            </c:forEach>
+                        </select>
+                        <script>
+                            function findID() {
+                                let data = {"tid": $("#searchID").val()}
+                                $.ajax({
+                                    url: "${path}/admin/findTeacherID",
+                                    data: data,
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function (result) {
+                                        $("#tid option").remove();
+                                        for (idx in result) {
+                                            $("#tid").append("<option value='" + result[idx].id + "' class='p-2'>" + result[idx].id + "</option>");
+                                        }
+                                    },
+                                    error: function (res, text) {
+                                        alert("문제가 발생하였습니다. 잠시 후 다시 시도해주세요.")
+                                    }
+                                });
+                            }
+                        </script>
+                    </div>
+                    <div class="form-group mt-3">
                         <label for="tname"> 강사명 </label>
                         <input type="text" name="tname" id="tname" class="form-control" autocomplete="off" required>
                     </div>
