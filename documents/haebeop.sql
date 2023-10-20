@@ -67,7 +67,7 @@ CREATE TABLE board(
   visited INT DEFAULT 0,
   FOREIGN KEY(cate) REFERENCES category(cate) ON DELETE CASCADE,
   FOREIGN KEY(nickname) REFERENCES user(id) ON DELETE CASCADE);
-  
+
 /* 자유게시판 더미데이터 */
 INSERT INTO board(cate, title, content, nickname)
 VALUES ('A', '요즘 나만 느끼는 일상 이야기', '안녕하세요! 요즘 일상에서 느끼는 이런 저런 생각들을 나눌 수 있는 자리가 필요해서 이렇게 글을 써봅니다. 평범한 일상에서 느껴지는 작은 기쁨부터 고민, 궁금증까지 다양한 이야기들을 나눠봐요. 함께 이야기 나누면서 조금 더 나를 알아가고 싶어요. 여러분의 이야기도 기대해요!', 'test101');
@@ -183,6 +183,8 @@ CREATE TABLE fileInfo(
   saveFile VARCHAR(300) NOT NULL,
   FOREIGN KEY(articleNo) REFERENCES dataRoom(articleNo) ON DELETE CASCADE 
 );
+
+SELECT * FROM fileinfo;
 
 
 -- 이벤트 글 테이블
@@ -339,9 +341,6 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
-USE team34;
-
-
 -- TodoList (list 넘버, 제목, 상태)
 CREATE TABLE todo(
 	tdno INT PRIMARY KEY AUTO_INCREMENT,
@@ -368,7 +367,6 @@ CREATE TABLE lecboard(
   par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
   FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
   FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE);
-
 
 
 --결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
@@ -404,7 +402,7 @@ create table delivery(
 	 dcom varchar(100),					
 	 dtel varchar(13),			
 	 dstatus int default 0,				
-	 ddate timestamp default current_timestamp,
+	 ddate timestamp default CURRENT_TIMESTAMP,
 	 edate varchar(13),						
 	 dcode varchar(30),
 	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
