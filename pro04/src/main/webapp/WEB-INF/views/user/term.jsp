@@ -33,12 +33,12 @@
 <div class="col-xl-6" style="margin:100px auto;">
     <div class="row justify-content-center gx-4">
         <div>
-            <div class="card box-shadow-b p-2 p-md-3">
+            <div class="card p-2 p-md-3">
                 <section class="section" style="padding-top: 20px; padding-bottom: 30px;">
                     <div class="container">
                         <div class="columns is-desktop is-justify-content-center">
                             <div class="column is-8-desktop">
-                                <div class="p-6 shadow rounded content">
+                                <div class="p-6 rounded content">
                                     <label for="ck_item_all">
                                         <input type="checkbox" id="ck_item_all" name="ck_item" onclick="protocol()">
                                         회원가입 약관에 모두 동의합니다
