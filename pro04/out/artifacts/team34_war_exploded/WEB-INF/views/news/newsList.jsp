@@ -30,7 +30,7 @@
         <div class="col-lg-9" style="margin: 0 auto">
             <c:forEach var="url" items="${urls}" varStatus="status">
                 <!-- Single Post Start -->
-                <div class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
+                <div class="single-blog-post mb-15 wow fadeInUp" data-wow-delay="100ms">
                     <!-- Blog Content -->
                     <div class="blog-content">
                         <!-- 게시 시간 -->

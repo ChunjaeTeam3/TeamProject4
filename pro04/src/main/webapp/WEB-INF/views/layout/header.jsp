@@ -30,39 +30,30 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="albums-store.html">Albums</a></li>
-                                <li><a href="#">Pages</a>
+                                <li><a href="${path}/lecture/list"> 강의 </a></li>
+                                <li><a href="#"> 서비스 </a>
                                     <ul class="dropdown">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="albums-store.html">Albums</a></li>
-                                        <li><a href="event.html">Events</a></li>
-                                        <li><a href="blog.html">News</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="elements.html">Elements</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="#">Dropdown</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                            </ul>
+                                        <li><a href="${path}/board/list"> 커뮤니티 </a></li>
+                                        <li>
+                                            <c:if test="${not empty sid}">
+                                                <a href="${path}/attendance/check"> 출석체크 </a>
+                                            </c:if>
+                                            <c:if test="${empty sid}">
+                                                <a href="${path}/user/login" onclick="return alert('로그인 후 접근 가능한 페이지입니다 :)')"> 출석체크 </a>
+                                            </c:if>
                                         </li>
+                                        <li><a href="${path}/news/list"> 교육뉴스 </a></li>
+                                        <li><a href="${path}/event/list"> 이벤트 </a></li>
                                     </ul>
                                 </li>
-                                <li><a href="event.html">Events</a></li>
-                                <li><a href="blog.html">News</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="#"> 고객지원 </a>
+                                    <ul class="dropdown">
+                                        <li><a href="${path}/notice/list"> 공지사항 </a></li>
+                                        <li><a href="${path}/qna/list"> Q&A </a></li>
+                                        <li><a href="${path}/faq/list"> FAQ </a></li>
+                                        <li><a href="${path}/dataRoom/list"> 자료실 </a></li>
+                                    </ul>
+                                </li>
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
