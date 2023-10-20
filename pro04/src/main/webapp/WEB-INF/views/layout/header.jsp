@@ -13,6 +13,7 @@
 
                     <!-- Nav brand -->
                     <a href="${path}/" class="nav-brand"><img src="${path}/resources/img/logo2.png" alt="해법 로고 이미지" style="width: 80%"></a>
+
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -77,7 +78,7 @@
                                 </c:if>
                                 <c:if test="${sid ne null && sid eq 'admin'}">
                                     <div class="login-register-btn mr-50" style="margin-right: 10px!important;" >
-                                        <a href="${path}" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">ADMIN</a>
+                                        <a href="${path}/admin/dashboard" class="btn btn-primary" style="background-color: #fff; color: #000; border: none;">ADMIN</a>
                                     </div>
                                     <div class="login-register-btn mr-50">
                                         <a href="${path}/user/logout" class="btn btn-primary" style="background-color: #625e5e; color: #fff; border: none;">LOGOUT</a>

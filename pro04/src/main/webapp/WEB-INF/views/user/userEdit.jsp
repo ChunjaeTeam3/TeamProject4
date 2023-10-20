@@ -44,10 +44,10 @@
                             <a class="nav-link" href="${path}/user/edit">내정보</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">수강내역</a>
+                            <a class="nav-link" href="${path}/user/lecture">수강내역</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">주문/배송내역</a>
+                            <a class="nav-link" href="${path}/user/payment">주문/배송내역</a>
                         </li>
                     </ul>
                 </div>
@@ -57,12 +57,12 @@
 </div>
 <!--sidemenu End -->
 
-<div class="col-xl-6" style="margin:100px auto;">
+<div class="col-xl-10" style="margin:100px auto;">
     <div class="container justify-content-center gx-4">
         <div class="card box-shadow-b p-2 p-md-3">
             <section class="section" style="padding-top: 20px; padding-bottom: 30px;">
                 <div class="container" style="width:80%;" >
-                    <div class="p-6 shadow rounded content">
+                    <div class="p-6 rounded content">
                         <form name="frm1" id="frm1" action="${path}/user/edit" class="columns is-multiline is-centered" method="post" onsubmit="return updateCheck(this)">
                             <div class="column is-10-tablet">
                                 <label for="id" class="label"> 아이디 </label>

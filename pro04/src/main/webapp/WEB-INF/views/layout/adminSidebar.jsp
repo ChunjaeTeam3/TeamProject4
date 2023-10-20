@@ -71,7 +71,6 @@
             </div>
         </div>
     </li>
-
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
            aria-expanded="true" aria-controls="collapseFive">
@@ -83,6 +82,19 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"> Event: </h6>
                 <a class="collapse-item" href="${path}/admin/eventMgmt"> 이벤트 목록 </a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix"
+           aria-expanded="true" aria-controls="collapseSix">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span> 배송관리 </span>
+        </a>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"> Delivery: </h6>
+                <a class="collapse-item" href="${path}/admin/deliveryMgmt"> 배송 관리 </a>
             </div>
         </div>
     </li>
