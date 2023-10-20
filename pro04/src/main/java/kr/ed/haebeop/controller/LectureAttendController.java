@@ -6,6 +6,7 @@ import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.domain.SaveAttendCode;
 import kr.ed.haebeop.service.LectureAttendService;
 import kr.ed.haebeop.service.LectureService;
+import kr.ed.haebeop.util.CalendarInfo;
 import lombok.Getter;
 import lombok.Setter;
 import org.checkerframework.checker.units.qual.A;
@@ -25,7 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,13 +44,20 @@ public class LectureAttendController {
 
     @GetMapping("studentAttend")
     public String lectureAttend(@RequestParam String lcode, Model model, HttpServletRequest request) throws Exception {
+        // 해당 강의에 대한 정보
         LectureVO lecture = lectureService.lectureDetail(lcode);
         model.addAttribute("lecture", lecture);
 
+        // 해당 강의에 대한 출석 정보
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("sid");
         List<LectureAttendVO> attendList = lectureAttendService.attendListStudent(lcode, id);
         model.addAttribute("attendList", attendList);
+
+        // 달력 정보 생성
+        CalendarInfo calendarInfo = new CalendarInfo();
+        calendarInfo.setCalendar();
+        model.addAttribute("calendarInfo", calendarInfo);
 
         return "/lectureAttend/studentAttend";
     }

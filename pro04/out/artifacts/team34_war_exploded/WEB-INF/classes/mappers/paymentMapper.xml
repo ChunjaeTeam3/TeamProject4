@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ed.haebeop.persistence.PaymentMapper">
+    <select id="lectureDetail" resultType="kr.ed.haebeop.domain.Lecture">
+        select * from lecture where lcode=#{lcode}
+    </select>
+
+    <select id="bookDetail" resultType="kr.ed.haebeop.domain.Book">
+        select * from book where bcode=#{bcode}
+    </select>
+
+    <select id="paymentDetail" resultType="kr.ed.haebeop.domain.Payment">
+        select * from payment where id=#{id} and lcode=#{lcode}
+    </select>
+
+    <select id="getCount" resultType="integer">
+        select count(*) from payment where lcode=#{lcode}
+    </select>
+
+    <insert id="paymentInsert">
+        insert into payment (pno, title, lcode, bcode,id, tcode, method,com, price,account,resdate) values (DEFAULT, #{title}, #{lcode}, #{bcode}, #{id},#{tcode}, #{method}, #{com}, #{price}, #{account}, default)
+    </insert>
+
+    <select id="paymentNo" resultType="integer">
+        select pno from payment order by pno desc limit 1
+    </select>
+
+    <select id="deliveryList" resultType="kr.ed.haebeop.domain.Delivery">
+        select * from delivery order by dno desc
+    </select>
+
+    <insert id="deliveryInsert">
+        insert into delivery values (default, #{pno}, #{id}, #{addr}, #{tel},'','',default,default,'','')
+    </insert>
+
+    <select id="deliveryNo" resultType="kr.ed.haebeop.domain.Delivery">
+        select dno from delivery order by dno desc limit 1
+    </select>
+
+    <update id="dnoUpdate">
+        UPDATE payment SET dno = pno WHERE dno IS NULL
+    </update>
+
+    <insert id="serveInsert">
+        insert into serve values (default, #{pno}, #{sprice}, #{amount}, default)
+    </insert>
+
+    <update id="pointUpdate">
+        UPDATE user SET pt = #{pt} WHERE id = #{id}
+    </update>
+
+    <delete id="paymentDelete">
+        delete from payment where pno=#{pno}
+    </delete>
+
+    <delete id="deliveryDelete">
+        delete from delivery where pno=#{pno}
+    </delete>
+
+    <delete id="serveDelete">
+        delete from serve where pno=#{pno}
+    </delete>
+
+    <select id="paymentList" resultType="kr.ed.haebeop.domain.PaymentVO">
+        SELECT a.resdate as resdate, b.lname as lname, c.bname as bname, d.dno as dno, a.pno as pno
+        FROM payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) AND a.id = #{id}
+        order by a.resdate desc
+    </select>
+
+    <select id="myPaymentDetail" resultType="kr.ed.haebeop.domain.PaymentVO">
+        select a.price as price, a.resdate as resdate, a.method as method , b.lname as lname, c.bname as bname, b.lprice as lprice, c.bprice as bprice, d.dstatus as dstatus
+        From payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) AND a.pno=#{pno}
+    </select>
+
+
+</mapper>

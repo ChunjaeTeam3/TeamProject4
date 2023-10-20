@@ -48,8 +48,9 @@ public class RootConfig {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName("org.mariadb.jdbc.Driver");
         basicDataSource.setUrl("jdbc:mariadb://localhost:3306/team34");
-        basicDataSource.setUsername("team34");
-        basicDataSource.setPassword("bobo34");
+//        basicDataSource.setUrl("jdbc:mariadb://10.41.1.198:3306/team34");
+        basicDataSource.setUsername("root");
+        basicDataSource.setPassword("1234");
         return basicDataSource;
     }
 
