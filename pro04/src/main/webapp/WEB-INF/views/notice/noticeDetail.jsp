@@ -33,16 +33,16 @@
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <c:if test="${! empty sid && sid eq 'admin'}">
+                            <c:if test="${sid eq 'admin'}">
                                 <div class="btn-group float-right mb-3">
                                     <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/notice/edit?seq=${detail.seq}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/notice/delete?seq=${detail.seq}" class="btn btn-outline-dark">삭제</a>
                                 </div>
                             </c:if>
-                            <c:if test="${! empty sid && sid ne 'admin'}">
-                                <div class="btn-group float-right">
-                                    <a href="${path}/notice/listpage=${curPage}" class="btn btn-outline-dark">목록</a>
+                            <c:if test="${sid ne 'admin'}">
+                                <div class="btn-group float-right mb-3">
+                                    <a href="${path}/notice/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                 </div>
                             </c:if>
                             <table class="table project-table table-centered table-nowrap">
@@ -50,6 +50,15 @@
                                 <tr>
                                     <th class="text-center">제목</th>
                                     <td colspan="3">${detail.title}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">작성일</th>
+                                    <td>
+                                        <fmt:parseDate value="${detail.regdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                        <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd"/>
+                                    </td>
+                                    <th class="text-center">조회수</th>
+                                    <td>${detail.visited}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-center">작성일</th>
@@ -99,7 +108,6 @@
         <!-- 테이블 영역 끝 -->
     </div>
 </section>
-<!-- 로그인 끝 -->
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->

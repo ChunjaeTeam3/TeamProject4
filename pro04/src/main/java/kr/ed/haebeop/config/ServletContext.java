@@ -46,6 +46,8 @@ public class ServletContext implements WebMvcConfigurer {
         registry.addResourceHandler("/user/**").addResourceLocations("/WEB-INF/views/user");
         registry.addResourceHandler("/util/**").addResourceLocations("/WEB-INF/views/util");
         registry.addResourceHandler("/todo/**").addResourceLocations("/WEB-INF/views/todo");
+        registry.addResourceHandler("/winner/**").addResourceLocations("/WEB-INF/views/winner");
+        registry.addResourceHandler("/lecBoard/**").addResourceLocations("/WEB-INF/views/lecBoard");
     }
 
     @Override
@@ -53,7 +55,7 @@ public class ServletContext implements WebMvcConfigurer {
         WebMvcConfigurer.super.addInterceptors(registry);
         registry.addInterceptor(lectureInterceptor()).addPathPatterns("/lecture/player");
         registry.addInterceptor(registerInterceptor()).addPathPatterns("/lecture/register");
-//        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
+        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
     }
 
     @Bean

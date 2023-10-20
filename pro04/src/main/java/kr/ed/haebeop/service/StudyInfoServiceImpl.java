@@ -43,7 +43,7 @@ public class StudyInfoServiceImpl implements StudyInfoService {
     }
 
     @Override
-    public int getCount(String id) throws Exception {
+    public Integer getCount(String id) throws Exception {
         return studyInfoMapper.getCount(id);
     }
 }

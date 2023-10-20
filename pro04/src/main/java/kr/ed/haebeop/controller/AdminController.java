@@ -62,6 +62,9 @@ public class AdminController {
     @Autowired
     private RegisterService registerService;
 
+    @Autowired
+    private DeliveryService deliveryService;
+
     @RequestMapping("dashboard")
     public String dashboard(Model model) throws Exception {
         // 포인트로 얻은 이익 계산
@@ -274,6 +277,7 @@ public class AdminController {
     public String winnerList(@RequestParam int eno, Model model) throws Exception {
         List<WinnerDetail> winners = winnerService.winners(eno);
         model.addAttribute("winners", winners);
+        model.addAttribute("eno", eno);
         return "/admin/winnerList";
     }
 
@@ -292,6 +296,16 @@ public class AdminController {
         model.addAttribute("event", event);
 
         return "/admin/insertWinner";
+    }
+
+    @GetMapping("applyList")
+    public String applyList(HttpServletRequest request, Model model) throws Exception {
+        int eno = Integer.parseInt(request.getParameter("eno"));
+        //WinnerList
+        List<Apply> applyList = winnerService.applyList(eno);
+        model.addAttribute("applyList", applyList);
+        model.addAttribute("eno", eno);
+        return "/admin/applyList";
     }
 
     @GetMapping("lectureMgmt")
@@ -603,5 +617,61 @@ public class AdminController {
 
         return "redirect:/admin/lectureMgmt";
     }
+
+    @GetMapping("deliveryMgmt")
+    public String getDeliveryList(Model model) throws Exception{
+
+        List<DeliveryVO> deliveryList = deliveryService.deliveryList();
+        model.addAttribute("deliveryList", deliveryList);
+
+        return "/admin/deliveryMgmt";
+    }
+
+    @GetMapping("dcodeUpdate")
+    public String dcodeUpdateForm(HttpServletRequest request, Model model) throws Exception{
+        int dno = Integer.parseInt(request.getParameter("dno"));
+
+        DeliveryVO delivery = deliveryService.getdelivery(dno);
+        model.addAttribute("delivery", delivery);
+
+        return "/admin/dcodeUpdate";
+    }
+
+    @PostMapping("dcodeUpdatePro")
+    public String dcodeUpdate(HttpServletRequest request, Model model) throws Exception{
+
+        Delivery del = new Delivery();
+        del.setDcode(request.getParameter("dcode"));
+        deliveryService.dcodeUpdate(del);
+
+        return "redirect:/admin/deliveryMgmt";
+    }
+
+
+    @GetMapping("deliveryUpdate")
+    public String deliveryUpdateForm(HttpServletRequest request, Model model) throws Exception{
+        int dno = Integer.parseInt(request.getParameter("dno"));
+
+        DeliveryVO delivery = deliveryService.getdelivery(dno);
+        model.addAttribute("delivery", delivery);
+
+        return "/admin/deliveryUpdate";
+    }
+
+    @PostMapping("deliveryUpdatePro")
+    public String deliveryUpdate(HttpServletRequest request,Model model) throws Exception{
+
+        Delivery delivery = new Delivery();
+        delivery.setDcom(request.getParameter("dcom"));
+        delivery.setDtel(request.getParameter("dtel"));
+        delivery.setDstatus(request.getParameter("dstatus"));
+        delivery.setEdate(request.getParameter("edate"));
+        delivery.setDcode(request.getParameter("dcode"));
+        deliveryService.deliveryUpdate(delivery);
+
+        return "redirect:/admin/deliveryMgmt";
+    }
+
+
 
 }

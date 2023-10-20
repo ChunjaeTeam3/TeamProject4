@@ -165,7 +165,7 @@ CREATE TABLE qna(
 
 
 -- 자료실 테이블 생성
-CREATE TABLE dataRoom (
+CREATE TABLE dataroom (
   articleNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id VARCHAR(20) NOT NULL,
   title varchar(100) NOT NULL,
@@ -184,12 +184,14 @@ CREATE TABLE fileInfo(
   FOREIGN KEY(articleNo) REFERENCES dataRoom(articleNo) ON DELETE CASCADE 
 );
 
+SELECT * FROM fileinfo;
+
 
 -- 이벤트 글 테이블
 CREATE TABLE event (
 	eno int  PRIMARY KEY AUTO_INCREMENT,
    title VARCHAR(100) NOT NULL,
-   content VARCHAR(1000) NOT NULL,
+   content VARCHAR(5000) NOT NULL,
    STATUS VARCHAR(5) CHECK(status IN(0, 1)),
    sdate DATE,
    edate DATE,
@@ -237,7 +239,10 @@ CREATE TABLE attendance (
    ano INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
    id VARCHAR(20),
    attend DATE DEFAULT current_date);
+	DROP TABLE attendance;
+	SELECT * FROM attendance;
 	
+INSERT INTO attendance VALUES (DEFAULT, 'admin', 231024);
 	
 -- 과목 테이블 (과목코드, 과목명)
 CREATE TABLE subject(
@@ -266,6 +271,17 @@ CREATE TABLE teacher(
 	saveFile VARCHAR(300) NOT NULL
 );
 
+<<<<<<< HEAD
+=======
+-- 교재 테이블 생성(교재코드, 교재이름, 교재소개, 저자, 가격)
+CREATE TABLE book (
+	bcode VARCHAR(20) primary key NOT NULL ,
+	bname VARCHAR(100) NOT NULL,
+	content VARCHAR(1000) NOT NULL,
+	author VARCHAR(1000) NOT NULL,
+	bprice INT(11) NOT NULL
+);
+>>>>>>> 05c36fa30590d0f143e38a2e85638685a309024d
 
 -- 강의 테이블 (강의코드, 강의명, 과목코드, 강사코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFile), 강의 시작일, 강의 종료일, (오프라인 시)강의 시작시간, 온오프 여부, 강의실)
 CREATE TABLE lecture(
@@ -373,8 +389,75 @@ INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
 
 
-select * from todo where status=FALSE and id='admin' order by tdno asc;
+select * from todo where id='admin' order by tdno asc;
 UPDATE todo SET STATUS=TRUE WHERE tdno=1;
+
+CREATE TABLE lecboard(
+  qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
+  lcode VARCHAR(50) NOT NULL,                   -- 강의코드
+  title VARCHAR(100) NOT NULL,   					-- 제목
+  content VARCHAR(1000) NOT NULL,   				-- 내용
+  author VARCHAR(16),   								-- 작성자
+  resdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 등록일
+  lev INT DEFAULT 0, 									-- 질문(0), 답변(1)
+  par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
+  FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE);
+
+
+--결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
+create table payment(
+	   pno INT primary KEY AUTO_INCREMENT,
+	   title VARCHAR(100) NOT NULL,
+		lcode VARCHAR(50) NOT NULL,		
+		bcode VARCHAR(20) NOT NULL,
+		tcode INT,
+	   id varchar(20) not null,	
+	   method varchar(100),		
+	   com varchar(100),			
+	   price int default 1000,
+		dno INT,	
+	   account varchar(100) NOT NULL,
+	   resdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	   FOREIGN KEY (lcode) REFERENCES lecture (lcode) ON DELETE CASCADE,
+	   FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE,
+	   FOREIGN KEY (tcode) REFERENCES teacher (tcode) ON DELETE CASCADE,
+	   FOREIGN KEY (dno) REFERENCES delivery(dno) ON DELETE CASCADE,
+		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
+);
+
+SELECT * FROM payment;
+        
+-- 배송 테이블 생성(배송번호, 결제번호, 아이디, 주소, 번호, 배송회사, 배송전화번호, 배송상태, 배송시간, 배송예정일자, 배송코드)
+create table delivery(
+	 dno int primary KEY AUTO_INCREMENT,
+	 pno int, 					
+	 id varchar(20),				
+	 addr VARCHAR(200),	
+	 tel varchar(13) not null,				
+	 dcom varchar(100),					
+	 dtel varchar(13),			
+	 dstatus int default 0,				
+	 ddate timestamp default CURRENT_TIMESTAMP,
+	 edate varchar(13),						
+	 dcode varchar(30),
+	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
+);
+
+SELECT * FROM delivery;
+
+
+-- 출고 테이블 생성(출고 번호, 배송코드, 출고 가격, 수량, 출고일자)
+create table serve(
+    sno int primary KEY AUTO_INCREMENT,							
+    bcode VARCHAR(20) NOT NULL,		              
+    sprice int default 1000,					 
+    amount int default 1,				         	
+    resdate timestamp default CURRENT_TIMESTAMP,
+	 FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
+);
+
+SELECT * FROM serve;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

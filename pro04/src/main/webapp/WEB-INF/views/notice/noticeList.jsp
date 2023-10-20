@@ -48,7 +48,7 @@
     <!-- 검색 엔진 끝 -->
     <div class="container">
         <!-- 테이블 영역 시작 -->
-        <div class="col-12">
+        <div class="col-12 mb-5">
             <div class="card w-100">
                 <div class="card-body">
                     <div class="table-responsive project-list">
@@ -90,12 +90,11 @@
                             </tbody>
                         </table>
                         <!-- 페이지 시작 -->
-                        <!-- pagnation -->
                         <div class="oneMusic-pagination-area wow">
                             <ul class="pagination justify-content-center mb-0">
                                 <c:if test="${curPage > 5}">
                                     <li class="page-item">
-                                        <a href="${path}/notice/list?page=${page.blockStartNum - 1}"
+                                        <a href="${path}/notice/list?page=${page.blockStartNum - 1}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                            class="page-item"><i class="fa-solid fa-arrow-left"></i></a>
                                     </li>
                                 </c:if>
@@ -118,7 +117,8 @@
                                 </c:forEach>
                                 <c:if test="${page.blockLastNum < page.totalPageCount}">
                                     <li class="page-item">
-                                        <a href="${path}/notice/list?page=${page.blockLastNum + 1}" class="page-link"><i class="fa-solid fa-arrow-right"></i></a>
+                                        <a href="${path}/notice/list?page=${page.blockLastNum + 1}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                           class="page-link"><i class="fa-solid fa-arrow-right"></i></a>
                                     </li>
                                 </c:if>
                             </ul>
@@ -126,7 +126,7 @@
                         <!-- 페이지 끝 -->
                         <c:if test="${sid eq 'admin'}">
                             <div class="btn float-right mt-10">
-                                <a href="${path}/notice/insert" class="primary-btn">글쓰기</a>
+                                <a href="${path}/notice/insert" class="btn btn-outline-dark">글쓰기</a>
                             </div>
                         </c:if>
                     </div>
@@ -136,7 +136,6 @@
     </div>
     <!-- 테이블 영역 끝 -->
 </section>
-<!-- 로그인 끝 -->
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->
