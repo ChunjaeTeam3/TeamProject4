@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.ed.haebeop.persistence.PaymentMapper">
     <select id="lectureDetail" resultType="kr.ed.haebeop.domain.Lecture">
         select * from lecture where lcode=#{lcode}
@@ -60,5 +62,11 @@
     <delete id="serveDelete">
         delete from serve where sno=#{sno}
     </delete>
+
+    <select id="paymentList" resultType="kr.ed.haebeop.domain.PaymentVO">
+        SELECT a.resdate as resdate, b.lname as lname, c.bname as bname, d.dno as dno, a.pno as pno
+        FROM payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno)AND a.id = #{id}
+        order by a.resdate desc
+    </select>
 
 </mapper>

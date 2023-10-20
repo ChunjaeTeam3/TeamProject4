@@ -67,7 +67,7 @@ CREATE TABLE board(
   visited INT DEFAULT 0,
   FOREIGN KEY(cate) REFERENCES category(cate) ON DELETE CASCADE,
   FOREIGN KEY(nickname) REFERENCES user(id) ON DELETE CASCADE);
-
+  
 /* 자유게시판 더미데이터 */
 INSERT INTO board(cate, title, content, nickname)
 VALUES ('A', '요즘 나만 느끼는 일상 이야기', '안녕하세요! 요즘 일상에서 느끼는 이런 저런 생각들을 나눌 수 있는 자리가 필요해서 이렇게 글을 써봅니다. 평범한 일상에서 느껴지는 작은 기쁨부터 고민, 궁금증까지 다양한 이야기들을 나눠봐요. 함께 이야기 나누면서 조금 더 나를 알아가고 싶어요. 여러분의 이야기도 기대해요!', 'test101');
@@ -272,7 +272,7 @@ CREATE TABLE book (
 	bname VARCHAR(100) NOT NULL,
 	content VARCHAR(1000) NOT NULL,
 	author VARCHAR(1000) NOT NULL,
-	price INT(11) NOT NULL
+	bprice INT(11) NOT NULL
 );
 
 
@@ -336,8 +336,8 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
+USE team34;
 
-SELECT SUM(studyTime) FROM studyInfo where id='kimhkk';
 
 -- TodoList (list 넘버, 제목, 상태)
 CREATE TABLE todo(
@@ -371,6 +371,7 @@ create table payment(
 	   FOREIGN KEY (lcode) REFERENCES lecture (lcode) ON DELETE CASCADE,
 	   FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE,
 	   FOREIGN KEY (tcode) REFERENCES teacher (tcode) ON DELETE CASCADE,
+	   FOREIGN KEY (dno) REFERENCES delivery(dno) ON DELETE CASCADE,
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
 
@@ -389,7 +390,6 @@ create table delivery(
 	 ddate timestamp default current_timestamp,
 	 edate varchar(13),						
 	 dcode varchar(30),
-	 FOREIGN KEY (pno) REFERENCES payment(pno) ON DELETE CASCADE,
 	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
 );
 
@@ -407,7 +407,6 @@ create table serve(
 );
 
 SELECT * FROM serve;
-
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

@@ -1,9 +1,6 @@
 package kr.ed.haebeop.persistence;
 
-import kr.ed.haebeop.domain.Delivery;
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.Payment;
-import kr.ed.haebeop.domain.Serve;
+import kr.ed.haebeop.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.awt.print.Book;
@@ -19,7 +16,8 @@ public interface PaymentMapper {
     public int paymentNo() throws Exception;
     public List<Delivery> deliveryList() throws Exception;
     public void deliveryInsert(Delivery delivery) throws Exception;
-    public void dnoUpdate() throws Exception;
+    public int deliveryNo() throws Exception;
+    public void dnoUpdate(Delivery delivery) throws Exception;
     public void serveInsert(Serve serve) throws Exception;
     public void pointUpdate(int pt, String id) throws Exception;
     public void paymentDelete (int pno) throws Exception;
@@ -27,5 +25,5 @@ public interface PaymentMapper {
     public void serveDelete(int sno) throws Exception;
     public void addPayment (Delivery delivery, Serve serve,int pt, String id) throws Exception;
     public void deletePayment(int pno, int sno) throws Exception;
-
+    public List<PaymentVO> paymentList(String id) throws Exception;
 }

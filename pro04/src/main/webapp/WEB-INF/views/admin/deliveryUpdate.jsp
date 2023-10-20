@@ -69,10 +69,11 @@
                         <label for="cus_addr" class="form-label"> 배송지주소 </label>
                     </div>
                 </div>
-        </div>
+            </div>
 
-            <h4 class="mt-5 mb-2"> 배송 정보 </h4>
-            <form name="frm1" id="frm1" action="${path}/deliveryUpdate" method="post" class="border p-4">
+            <div class="container-md p-5 mt-5">
+            <h4 class="mb-2"> 배송 정보 </h4>
+            <form name="frm1" id="frm1" action="${path}/deliveryUpdatePro" method="post" class="border p-4">
                 <div class="row">
                     <div class="form-outline mb-4 col col-4">
                         <input type="hidden" id="dno" name="dno" value="${delivery.dno}">
@@ -100,7 +101,7 @@
                 </div>
                 <div class="row">
                     <div class="form-outline mb-4 col col-8">
-                        <input class="form-control" type="text" name="dcode" id="dcode" value="${delivery.dcode}" required>
+                        <input class="form-control" type="text" name="dcode" id="dcode" value="${delivery.dcode}" readonly>
                         <label for="dcode" class="form-label"> 송장번호 </label>
                     </div>
                     <div class="form-outline mb-4 col col-4">
@@ -122,6 +123,7 @@
                     <button type="submit" class="btn btn-dark btn-block btn-lg gradient-custom-4"> 배송정보 수정 </button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

@@ -1,9 +1,6 @@
 package kr.ed.haebeop.service;
 
-import kr.ed.haebeop.domain.Delivery;
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.Payment;
-import kr.ed.haebeop.domain.Serve;
+import kr.ed.haebeop.domain.*;
 
 import java.awt.print.Book;
 import java.util.List;
@@ -19,4 +16,5 @@ public interface PaymentService {
     public List<Delivery> deliveryList() throws Exception;
     public void deletePayment (int pno, int sno) throws Exception;
     public void pointUpdate(int pt, String id) throws Exception;
+    public List<PaymentVO> paymentList(String id) throws Exception;
 }

@@ -24,7 +24,7 @@
     </update>
 
     <select id="getCount" resultType="integer">
-        SELECT SUM(studyTime) FROM studyInfo where id=#{id};
+        SELECT NVL(SUM(studyTime),0) FROM studyInfo where id=#{id};
     </select>
 
 </mapper>

@@ -25,6 +25,11 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
+    public void dcodeUpdate(Delivery delivery) throws Exception {
+        deliveryMapper.dcodeUpdate(delivery);
+    }
+
+    @Override
     public void deliveryUpdate(Delivery delivery) throws Exception {
         deliveryMapper.deliveryUpdate(delivery);
     }

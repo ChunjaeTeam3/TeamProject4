@@ -63,9 +63,9 @@
                         <c:if test="${book.bname ne null}">
                             <tr>
                                 <th scope="row">${book.bname}</th>
-                                <td>${book.price}</td>
+                                <td>${book.bprice}</td>
                                 <td>0</td>
-                                <td>${book.price}</td>
+                                <td>${book.bprice}</td>
                             </tr>
                         </c:if>
                         </tbody>
@@ -152,7 +152,7 @@
                     <div style="display: flex;">
                         <span>상품금액</span>
                         <div class="d-flex justify-content-between mb-1 small" style="margin-left: 210px;">
-                            <span id="bprice">1000${book.price}</span>
+                            <span id="bprice">1000${book.bprice}</span>
                         </div>
                     </div>
                     <div style="display: flex;">
@@ -174,7 +174,7 @@
                         <input type="hidden" id="title" name="title" value="${lecture.title}">
                         <input type="hidden" name="bcode" id="bcode" value="${book.bcode }">
                         <input type="hidden" name="tcode" id="tcode" value="${lecture.tcode}">
-                        <input type="hidden" id="sprice" name="sprice" value="${book.price}">
+                        <input type="hidden" id="sprice" name="sprice" value="${book.bprice}">
                         <input type="hidden" id="amount" name="amount" value="1">
                         <input type="submit" class="btn btn-primary w-100 mt-2" value="구매" style="background-color: #4f5665;">
                     </c:if>

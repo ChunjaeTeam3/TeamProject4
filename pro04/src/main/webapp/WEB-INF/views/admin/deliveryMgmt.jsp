@@ -44,7 +44,7 @@
             <div class="container-fluid" style="padding: 100px">
                 <div>
                     <%--결제완료 목록--%>
-                    <table class="table" id="pay-table">
+                    <table class="table" id="payment-table">
                         <thead>
                         <tr>
                             <th width="80">번호</th>
@@ -58,7 +58,7 @@
                         <c:forEach items="${deliveryList }" var="delivery" varStatus="status">
                             <tr>
                                 <td>${delivery.dno }</td>
-                                <td ><a href="${path}/admin/deliveryUpdate?dno=${delivery.dno }" style="color: #000000; text-decoration: none;">${delivery.title }</a></td>
+                                <td ><a href="${path}/admin/dcodeUpdate?dno=${delivery.dno }" style="color: #000000; text-decoration: none;">${delivery.title }</a></td>
                                 <td>${delivery.id }</td>
                                 <td>
                                     <fmt:parseDate value="${delivery.resdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss" />
@@ -69,7 +69,7 @@
                         </c:forEach>
                         <c:if test="${empty deliveryList}">
                             <tr>
-                                <td colspan="6" class="has-text-centered"> 결제내역이 없습니다. </td>
+                                <td colspan="6" class="text-center"> 결제내역이 없습니다. </td>
                             </tr>
                         </c:if>
                         </tbody>
@@ -82,10 +82,10 @@
                     <table class="table" id="del-table">
                         <thead>
                         <tr>
-                            <th width="80">송장번호</th>
-                            <th>상품명</th>
-                            <th width="200">배송시작일</th>
-                            <th width="120">배송예정일</th>
+                            <th width="100">송장번호</th>
+                            <th width="300">상품명</th>
+                            <th width="150">배송시작일</th>
+                            <th width="150">배송예정일</th>
                             <th width="100">배송상태</th>
                         </tr>
                         </thead>
@@ -105,7 +105,7 @@
                         </c:forEach>
                         <c:if test="${empty deliveryList}">
                             <tr>
-                                <td colspan="6" class="has-text-centered"> 배송내역이 없습니다. </td>
+                                <td colspan="6" class="text-center"> 배송내역이 없습니다. </td>
                             </tr>
                         </c:if>
                         </tbody>
@@ -117,13 +117,20 @@
 </div>
 <script type="text/javascript">
     jQuery(function ($){
-        $("#pay-table").DataTable();
+        $("#payment-table").DataTable();
     })
 </script>
 <script type="text/javascript">
     jQuery(function ($){
         $("#del-table").DataTable();
     })
+</script>
+<script>
+    function dUpdate(){
+        var dno = $("#dno").val();
+        var child;
+        child = window.open("${path}/admin/dcodeUpdate", "child", "width=900, height=800");
+    }
 </script>
 
 <!-- 푸터 영역 시작 -->

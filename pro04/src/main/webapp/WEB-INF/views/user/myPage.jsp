@@ -133,7 +133,7 @@
                             </c:forEach>
                             <c:if test="${empty myLecture}">
                                 <tr>
-                                    <td colspan="6" class="has-text-centered"> 수강신청한 강의가 없습니다. </td>
+                                    <td colspan="6" class="text-center"> 수강신청한 강의가 없습니다. </td>
                                 </tr>
                             </c:if>
                             </tbody>

@@ -9,10 +9,13 @@
     </select>
 
     <select id="deliveryDetail" resultType="kr.ed.haebeop.domain.DeliveryVO">
-        select dno, title, id, tel, addr,resdate, dstatus
+        select a.dno, b.title, a.id, a.tel, a.addr,b.resdate, a.dstatus
         from delivery a join payment b on (a.pno = b.pno)
-        where dno=#{dno}
+        where a.dno=#{dno}
     </select>
+    <update id="dcodeUpdate">
+        update delivery set dcode=#{dcode} where dno=#{dno}
+    </update>
 
     <update id="deliveryUpdate">
         update delivery set dcom =#{dcom}, dtel=#{dtel}, dstatus=#{dstatus}, edate=#{edate}, dcode=#{dcode} where dno=#{dno}

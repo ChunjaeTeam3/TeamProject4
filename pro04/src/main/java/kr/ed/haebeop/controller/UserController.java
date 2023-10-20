@@ -1,9 +1,6 @@
 package kr.ed.haebeop.controller;
 
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.LectureVO;
-import kr.ed.haebeop.domain.User;
-import kr.ed.haebeop.domain.UserProgress;
+import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.LecturePage;
 import org.json.JSONObject;
@@ -41,6 +38,8 @@ public class UserController {
     private ReviewService reviewService;
     @Autowired
     private StudyInfoService studyInfoService;
+    @Autowired
+    private PaymentService paymentService;
 
     private BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
@@ -156,9 +155,8 @@ public class UserController {
         model.addAttribute("totalAttendance", totalAttendance);
 
         //총 수강시간 가져오기
-        Integer totalStudy = studyInfoService.getCount(id);
-        model.addAttribute("totlStudy", totalStudy);
-
+        int totalStudy = studyInfoService.getCount(id);
+        model.addAttribute("totalStudy", totalStudy);
 
         //총 리뷰일수 가져오기
         int totalReview = reviewService.getCount(id);
@@ -168,9 +166,7 @@ public class UserController {
         int totalLecture = registerService.getMyCount(id);
         model.addAttribute("totalLecture", totalLecture);
 
-
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-
 
         LecturePage page = new LecturePage();
         page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
@@ -182,7 +178,6 @@ public class UserController {
         page.makeBlock(curPage, total);
         page.makeLastPageNum(total);
         page.makePostStart(curPage, total);
-
 
         // 수강신청 목록 불러오기
         List<LectureVO> myLecture = registerService.myLectures(page);
@@ -238,6 +233,9 @@ public class UserController {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
 
+        //나의 결제목록 불러오기
+        List<PaymentVO> paymentList = paymentService.paymentList(id);
+        model.addAttribute("paymentList", paymentList);
 
         return "/user/userPayment";
     }

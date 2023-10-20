@@ -1,9 +1,6 @@
 package kr.ed.haebeop.service;
 
-import kr.ed.haebeop.domain.Delivery;
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.Payment;
-import kr.ed.haebeop.domain.Serve;
+import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.persistence.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +55,7 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public void addPayment (Delivery delivery,Serve serve,int pt, String id) throws Exception {
-        paymentMapper.dnoUpdate();
+        paymentMapper.dnoUpdate(delivery);
         paymentMapper.addPayment(delivery, serve, pt, id);
     }
 
@@ -75,5 +72,10 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public void pointUpdate(int pt, String id) throws Exception {
         paymentMapper.pointUpdate(pt, id);
+    }
+
+    @Override
+    public List<PaymentVO> paymentList(String id) throws Exception {
+        return paymentMapper.paymentList(id);
     }
 }

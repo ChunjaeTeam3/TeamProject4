@@ -1,9 +1,6 @@
 package kr.ed.haebeop.persistence;
 
-import kr.ed.haebeop.domain.Delivery;
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.Payment;
-import kr.ed.haebeop.domain.Serve;
+import kr.ed.haebeop.domain.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -63,8 +60,13 @@ public class PaymentMapperImpl implements PaymentMapper{
     }
 
     @Override
-    public void dnoUpdate() throws Exception {
-        sqlSession.update("payment.dnoUpdate");
+    public int deliveryNo() throws Exception {
+        return sqlSession.selectOne("payment.deliveryNo");
+    }
+
+    @Override
+    public void dnoUpdate(Delivery delivery) throws Exception {
+        sqlSession.update("payment.dnoUpdate", delivery);
     }
 
 
@@ -111,4 +113,10 @@ public class PaymentMapperImpl implements PaymentMapper{
         deliveryDelete(pno);
         serveDelete(sno);
     }
+
+    @Override
+    public List<PaymentVO> paymentList(String id) throws Exception {
+        return sqlSession.selectList("payment.paymentList", id);
+    }
+
 }

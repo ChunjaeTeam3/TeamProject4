@@ -113,34 +113,41 @@
             <h4><i class="fa-solid fa-wallet" style="color: #343537; padding-right: 15px;"></i>결제완료 내역</h4>
         </div>
         <div class="card col-lg-12"  style="border-top: 1px solid darkgray; border-bottom: 1px solid darkgray;">
+            <c:forEach var="payment" items="${paymentList}">
             <div class="card" style=" width: 70%; border: 1px solid lightgray;     margin: 30px auto;">
                 <div class="card-header" style="display: flex;">
-                    <div style="margin-right: 570px; padding-top: 20px;"><strong>결제완료 | 2023-10-18 13:13:35</strong> </div>
+                    <div style="margin-right: 570px; padding-top: 20px;"><strong>결제완료 | ${payment.resdate}</strong> </div>
                     <div><button type="button" onclick="payCheck2()" class="btn btn-secondary">주문상세</button>
                          <button type="button" onclick="delCheck()" class="btn btn-secondary" style="margin: 10px;">배송조회</button>
                     </div>
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                        <div style="border-bottom: 1px dashed darkgray;"><h4>빠삭 중학 국어2</h4></div>
-                        <div style=" float: right; width: 95%;"><div style="border-bottom: 1px dashed darkgray;">ㄴ 영어 입문서</div></div>
+                        <div style="border-bottom: 1px dashed darkgray;"><h4>${payment.lname}</h4></div>
+                        <div style=" float: right; width: 95%;"><div style="border-bottom: 1px dashed darkgray;">ㄴ ${payment.bname}</div></div>
                     </blockquote>
                 </div>
             </div>
+            </c:forEach>
+            <c:if test="${empty paymentList}">
+                <div class="container-md-5" style="margin:30px auto;">
+                    <strong class="text-center">결제내역이 없습니다.</strong>
+                </div>
+            </c:if>
         </div>
     </div>
-    <script>
-        function delCheck(){
-            var dno = $("#dno").val();
-            var child;
-            child = window.open("${path}/payment/deliveryDetail", "child", "width=700, height=900");
-        }
-    </script>
     <script>
         function payCheck2(){
             var pno = $("#pno").val();
             var child;
-            child = window.open("${path}/payment/payDetail", "child", "width=700, height=900");
+            child = window.open("${path}/payment/payDetail??pno=${payment.pno}", "child", "width=700, height=900");
+        }
+    </script>
+    <script>
+        function delCheck(){
+            var dno = $("#dno").val();
+            var child;
+            child = window.open("${path}/payment/deliveryDetail?dno=${payment.dno}", "child", "width=700, height=900");
         }
     </script>
     <!-- section2(payment table) End -->
