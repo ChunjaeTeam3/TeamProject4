@@ -2,6 +2,7 @@ package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.persistence.PaymentMapper;
+import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,12 +108,22 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public List<PaymentVO> paymentList(String id) throws Exception {
-        return paymentMapper.paymentList(id);
+    public List<PaymentVO> paymentList(Page page) throws Exception {
+        return paymentMapper.paymentList(page);
     }
 
     @Override
     public PaymentVO myPaymentDetail(int pno) throws Exception {
         return paymentMapper.myPaymentDetail(pno);
+    }
+
+    @Override
+    public int period(String lcode) throws Exception {
+        return paymentMapper.period(lcode);
+    }
+
+    @Override
+    public int payCount(Page page) throws Exception {
+        return paymentMapper.payCount(page);
     }
 }

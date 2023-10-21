@@ -45,8 +45,8 @@
                 <div class="border p-4">
                     <div class="row">
                         <div class="form-outline mb-4 col col-3">
-                            <input type="text" name="del_no" class="form-control form-control"value="${delivery.del_no}" readonly />
-                            <label class="form-label" for="title"> 배송번호 </label>
+                            <input type="text" name="dno" class="form-control form-control" value="${delivery.dno}" readonly />
+                            <label class="form-label" for="dno"> 배송번호 </label>
                         </div>
 
                         <div class="form-outline mb-4 col col-9">
@@ -56,74 +56,76 @@
                     </div>
                     <div class="row">
                         <div class="form-outline mb-4 col col-6">
-                            <input type="text" class="form-control" id="cus_id" name="cus_id" value="${delivery.custom_id}" readonly>
-                            <label for="cus_id" class="form-label"> 주문자 ID </label>
+                            <input type="text" class="form-control" id="id" name="id" value="${delivery.id}" readonly>
+                            <label for="id" class="form-label"> 주문자 ID </label>
                         </div>
                         <div class="form-outline mb-4 col col-6">
-                            <input type="text" class="form-control" id="cus_tel" name="cus_tel" value="${delivery.cus_tel}" readonly>
-                            <label for="cus_tel" class="form-label"> 주문자 전화번호 </label>
+                            <input type="text" class="form-control" id="tel" name="tel" value="${delivery.tel}" readonly>
+                            <label for="tel" class="form-label"> 주문자 전화번호 </label>
                         </div>
                     </div>
                     <div class="form-outline">
-                        <input class="form-control form-control" type="text" name="cus_addr" id="cus_addr" value="${delivery.del_addr}" readonly>
-                        <label for="cus_addr" class="form-label"> 배송지주소 </label>
+                        <input class="form-control form-control" type="text" name="addr" id="addr" value="${delivery.addr}" readonly>
+                        <label for="addr" class="form-label"> 배송지주소 </label>
                     </div>
                 </div>
             </div>
 
             <div class="container-md p-5 mt-5">
-            <h4 class="mb-2"> 배송 정보 </h4>
-            <form name="frm1" id="frm1" action="${path}/deliveryUpdatePro" method="post" class="border p-4">
-                <div class="row">
-                    <div class="form-outline mb-4 col col-4">
-                        <input type="hidden" id="dno" name="dno" value="${delivery.dno}">
-                        <input type="date" id="resdate" name="resdate" class="form-control" value="${delivery.resdate}" readonly />
-                        <label class="form-label" for="resdate"> 결제일 </label>
+                <h4 class="mb-2"> 배송 정보 </h4>
+                <form name="frm1" id="frm1" action="${path}/admin/deliveryUpdatePro" method="post" class="border p-4">
+                    <div class="row">
+                        <div class="form-outline mb-4 col col-4">
+                            <input type="hidden" id="dno" name="dno" value="${delivery.dno}">
+                            <input type="date" id="resdate" name="resdate" class="form-control" value="${delivery.resdate}" readonly />
+                            <label class="form-label" for="resdate"> 결제일 </label>
+                        </div>
+                        <div class="form-outline mb-4 col col-4">
+                            <input type="date" id="ddate" name="ddate" class="form-control" value="${delivery.ddate}" readonly />
+                            <label class="form-label" for="ddate"> 배송시작일 </label>
+                        </div>
+                        <div class="form-outline mb-4 col col-4">
+                            <input type="date" id="edate" name="edate" class="form-control" value="${delivery.edate}" required />
+                            <label class="form-label" for="edate"> 배송예정일 </label>
+                        </div>
                     </div>
-                    <div class="form-outline mb-4 col col-4">
-                        <input type="date" id="ddate" name="ddate" class="form-control" value="${delivery.ddate}" readonly />
-                        <label class="form-label" for="ddate"> 배송시작일 </label>
+                    <div class="row">
+                        <div class="form-outline mb-4 col col-4">
+                            <input type="text" class="form-control" id="dcom" name="dcom" value="${delivery.dcom}" required>
+                            <label for="dcom" class="form-label"> 배송사 </label>
+                        </div>
+                        <div class="form-outline mb-4 col col-8">
+                            <input type="text" class="form-control" id="dtel" name="dtel" value="${delivery.dtel}" required>
+                            <label for="dtel" class="form-label"> 배송기사 전화번호 </label>
+                        </div>
                     </div>
-                    <div class="form-outline mb-4 col col-4">
-                        <input type="date" id="res_date" name="edate" class="form-control" value="${delivery.edate}" required />
-                        <label class="form-label" for="res_date"> 배송예정일 </label>
+                    <div class="row">
+                        <div class="form-outline mb-4 col col-8">
+                            <input class="form-control" type="text" name="dcode" id="dcode" value="${delivery.dcode}" readonly>
+                            <label for="dcode" class="form-label"> 송장번호 </label>
+                        </div>
+                        <div class="form-outline mb-4 col col-4">
+                            <select class="form-control" name="dstatus" id="dstatus">
+                                <c:forEach var="state" items="${state_list}" varStatus="status">
+                                    <c:if test="${delivery.current_state eq state}">
+                                        <option value="${status.index}" selected> ${state} </option>
+                                    </c:if>
+                                    <c:if test="${delivery.current_state ne state}">
+                                        <option value="${status.index}"> ${state} </option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                            <label for="dstatus" class="form-label"> 배송상태 </label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-outline mb-4 col col-4">
-                        <input type="text" class="form-control" id="dcom" name="dcom" value="${delivery.dcom}" required>
-                        <label for="dcom" class="form-label"> 배송사 </label>
-                    </div>
-                    <div class="form-outline mb-4 col col-8">
-                        <input type="text" class="form-control" id="dtel" name="dtel" value="${delivery.dtel}" required>
-                        <label for="dtel" class="form-label"> 배송기사 전화번호 </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-outline mb-4 col col-8">
-                        <input class="form-control" type="text" name="dcode" id="dcode" value="${delivery.dcode}" readonly>
-                        <label for="dcode" class="form-label"> 송장번호 </label>
-                    </div>
-                    <div class="form-outline mb-4 col col-4">
-                        <select class="form-control" name="dstatus" id="dstatus">
-                            <c:forEach var="state" items="${state_list}" varStatus="status">
-                                <c:if test="${delivery.current_state eq state}">
-                                    <option value="${status.index}" selected> ${state} </option>
-                                </c:if>
-                                <c:if test="${delivery.current_state ne state}">
-                                    <option value="${status.index}"> ${state} </option>
-                                </c:if>
-                            </c:forEach>
-                        </select>
-                        <label for="dstatus" class="form-label"> 배송상태 </label>
-                    </div>
-                </div>
 
-                <div class="d-flex justify-content-center mt-4">
-                    <button type="submit" class="btn btn-dark btn-block btn-lg gradient-custom-4"> 배송정보 수정 </button>
-                </div>
-            </form>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button type="submit" class="btn btn-dark btn-block btn-lg gradient-custom-4"> 배송정보 수정 </button>
+                    </div>
+                </form>
             </div>
+
+
         </div>
     </div>
 </div>

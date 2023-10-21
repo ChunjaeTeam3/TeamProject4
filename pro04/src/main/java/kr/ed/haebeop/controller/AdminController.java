@@ -619,19 +619,28 @@ public class AdminController {
     }
 
     @GetMapping("deliveryMgmt")
-    public String getDeliveryList(Model model) throws Exception{
+    public String getDeliveryList(HttpServletRequest request,Model model) throws Exception{
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        Page page = new Page();
+        int total = deliveryService.getCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
 
         List<DeliveryVO> deliveryList = deliveryService.deliveryList();
         model.addAttribute("deliveryList", deliveryList);
+
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("page", page);
 
         return "/admin/deliveryMgmt";
     }
 
     @GetMapping("dcodeUpdate")
-    public String dcodeUpdateForm(HttpServletRequest request, Model model) throws Exception{
-        int dno = Integer.parseInt(request.getParameter("dno"));
+    public String dcodeUpdateForm(@RequestParam("dno") int dno, Model model) throws Exception{
 
-        DeliveryVO delivery = deliveryService.getdelivery(dno);
+        DeliveryVO delivery = deliveryService.deliveryDetail(dno);
         model.addAttribute("delivery", delivery);
 
         return "/admin/dcodeUpdate";
@@ -640,9 +649,10 @@ public class AdminController {
     @PostMapping("dcodeUpdatePro")
     public String dcodeUpdate(HttpServletRequest request, Model model) throws Exception{
 
-        Delivery del = new Delivery();
-        del.setDcode(request.getParameter("dcode"));
-        deliveryService.dcodeUpdate(del);
+        int dno = Integer.parseInt(request.getParameter("dno"));
+        String dcode = request.getParameter("dcode");
+
+        deliveryService.dcodeUpdate(dcode, dno);
 
         return "redirect:/admin/deliveryMgmt";
     }
@@ -652,7 +662,7 @@ public class AdminController {
     public String deliveryUpdateForm(HttpServletRequest request, Model model) throws Exception{
         int dno = Integer.parseInt(request.getParameter("dno"));
 
-        DeliveryVO delivery = deliveryService.getdelivery(dno);
+        DeliveryVO delivery = deliveryService.deliveryDetail(dno);
         model.addAttribute("delivery", delivery);
 
         return "/admin/deliveryUpdate";
@@ -664,9 +674,9 @@ public class AdminController {
         Delivery delivery = new Delivery();
         delivery.setDcom(request.getParameter("dcom"));
         delivery.setDtel(request.getParameter("dtel"));
-        delivery.setDstatus(request.getParameter("dstatus"));
+        delivery.setDstatus(Integer.parseInt(request.getParameter("dstatus")));
         delivery.setEdate(request.getParameter("edate"));
-        delivery.setDcode(request.getParameter("dcode"));
+        delivery.setDcode(request.getParameter("ddate"));
         deliveryService.deliveryUpdate(delivery);
 
         return "redirect:/admin/deliveryMgmt";

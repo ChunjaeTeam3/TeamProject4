@@ -80,10 +80,10 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${payment.dstatus eq '0'}">
+                            <c:if test="${payment.dstatus == 0}">
                                 <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
                             </c:if>
-                            <c:if test="${payment.dstatus ne '0'}">
+                            <c:if test="${payment.dstatus != 0}">
                             <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
                             </c:if>
                         </div>
@@ -128,7 +128,7 @@
             </div>
         </div>
     </div>
-    <c:if test="${payment.dstatus eq '0'}">
+    <c:if test="${payment.dstatus == 0}">
     <div class="row" id="infoTel" style="padding-left: 50px; margin: 0 auto; width: 250px;">
         <button type="button" class="btn btn-secondary" href="${path}/payment/paymentDelete?${payment.pno}" style="margin-right: 15px;">구매취소</button>
         <button type="button" class="btn btn-dark" onclick="check()">닫기</button>

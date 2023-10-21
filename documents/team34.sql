@@ -17,6 +17,7 @@ CREATE TABLE user(
   visited INT(11) DEFAULT 0,
   isStudy BOOLEAN DEFAULT false);
   
+  USE team34;
 -- 회원 더미데이터
 SELECT * FROM user;
 INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
@@ -438,9 +439,11 @@ create table delivery(
 	 dcode varchar(30),
 	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
 );
-
+USE team34;
+SELECT * FROM payment;
+SELECT * FROM lecture;
 SELECT * FROM delivery;
-
+DELETE FROM delivery WHERE id='kimhkk';
 
 -- 출고 테이블 생성(출고 번호, 배송코드, 출고 가격, 수량, 출고일자)
 create table serve(
@@ -474,6 +477,7 @@ create table payment(
 );
 
 SELECT * FROM payment;
-        
+SELECT * FROM delivery;
+update delivery set dcode='' where dno=3;
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

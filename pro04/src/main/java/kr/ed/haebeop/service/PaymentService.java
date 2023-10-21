@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.*;
+import kr.ed.haebeop.util.Page;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface PaymentService {
     public List<Delivery> deliveryList() throws Exception;
     public void deletePayment (int pno) throws Exception;
     public void pointUpdate(int pt, String id) throws Exception;
-    public List<PaymentVO> paymentList(String id) throws Exception;
+    public List<PaymentVO> paymentList(Page page) throws Exception;
     public PaymentVO myPaymentDetail(int pno) throws Exception;
+    public int period(String lcode) throws Exception;
+    public int payCount(Page page) throws Exception;
 }

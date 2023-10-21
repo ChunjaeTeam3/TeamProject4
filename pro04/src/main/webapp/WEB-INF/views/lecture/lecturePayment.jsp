@@ -159,7 +159,7 @@
                         <span>포인트 </span>
                         <div class="d-flex justify-content-between mb-1 small" style=" width: 50%; margin-left: 77px;">
                              <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" >
-                            <button type="button" id="pointApply" class="btn btn-secondary btn-sm">적용</button>
+                             <input type="button" id="pointApply" class="btn btn-secondary btn-sm">적용</input>
                             <input type="hidden" name="pt" id="pt" value="" >
                             <input type="hidden" name="title" id="title" value="${lecture.lname}외1" >
                         </div>
@@ -239,6 +239,7 @@
             var totalPay = 0;
             var paytitle;
             var userPt = ${user.pt};
+            var ptSet = 0;
 
             console.log($("#bprice").text());
 
@@ -253,24 +254,22 @@
             $("#point").on("input", function() {
                 var pointValue = parseInt($("#point").val());
                 if (!isNaN(pointValue) && pointValue >= 0 && pointValue <= userPt) {
-                    $("#pt").val(userPt - pointValue);
-                    console.log("pt: "+$("#pt").val());
+                    ptSet=pointValue;
+                    console.log("Applied Point: " + appliedPoint);
                 } else {
-                    $("#pt").val("");
+                    ptSet =0;
                     alert("잘못된 포인트 입력입니다. 0 이상 " + userPt + " 이하의 값을 입력해주세요.");
                 }
             });
 
             $("#pointApply").click(function() {
-                var pointValue = parseInt($("#point").val());
-                if (!isNaN(pointValue) && pointValue >= 0) {
-                    totalPay -= pointValue;
-                    // 합계를 출력
-                    $("#subprice").html("<input type='text' readonly id='subprice' value='" + totalPay + "'>");
-                    $("#totalprice").html("<input type='text' readonly id='price' name='price' value='" + totalPay + "'>");
-                } else {
-                    alert("잘못된 포인트 입력입니다. 0 이상의 값을 입력해주세요.");
-                }
+                totalPay += appliedPoint;
+                $("#subprice").html("<input type='text' readonly id='subprice' value='" + totalPay + "'>");
+                $("#totalprice").html("<input type='text' readonly id='price' name='price' value='" + totalPay + "'>");
+
+                appliedPoint = 0;
+
+                $("#point").val(0);
             });
 
             $("#pay").click(function(){

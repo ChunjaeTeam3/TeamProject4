@@ -64,8 +64,11 @@
     </delete>
 
     <select id="paymentList" resultType="kr.ed.haebeop.domain.PaymentVO">
-        SELECT a.resdate as resdate, b.lname as lname, c.bname as bname, d.dno as dno, a.pno as pno
-        FROM payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) AND a.id = #{id}
+        SELECT a.resdate as resdate, b.lname as lname, c.bname as bname, d.dno as dno, a.pno as pno, e.tname as tname, b.lcode as lcode, b.sdate as sdate, b.edate as edate, b.state as state
+        FROM payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) JOIN teacher e ON (a.tcode= e.tcode)
+        <where>
+        AND a.id = #{id}
+        </where>
         order by a.resdate desc
     </select>
 
@@ -74,5 +77,11 @@
         From payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) AND a.pno=#{pno}
     </select>
 
+    <select id="period" resultType="integer">
+        SELECT DATEDIFF(edate,sdate) FROM lecture WHERE lcode=#{lcode}
+    </select>
 
+    <select id="payCount" resultType="integer">
+        select COUNT(*) from payment where id=#{id}
+    </select>
 </mapper>

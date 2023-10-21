@@ -14,9 +14,10 @@ public class DeliveryVO {
     private String name;
     private String addr;
     private String resdate;
-    private String dstatus;
+    private int dstatus;
     private String dcom;
     private String dtel;
+    private String ddate;
     private String edate;
     private String dcode;
     private int dno;

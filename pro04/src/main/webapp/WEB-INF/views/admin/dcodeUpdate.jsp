@@ -21,7 +21,7 @@
         <div class="border p-4">
             <div class="row">
                 <div class="form-outline mb-4 col col-3">
-                    <input type="text" name="del_no" class="form-control form-control"value="${delivery.del_no}" readonly />
+                    <input type="text" name="dno" class="form-control form-control"value="${delivery.dno}" readonly />
                     <label class="form-label" for="title"> 배송번호 </label>
                 </div>
 
@@ -32,16 +32,16 @@
             </div>
             <div class="row">
                 <div class="form-outline mb-4 col col-6">
-                    <input type="text" class="form-control" id="cus_id" name="cus_id" value="${delivery.custom_id}" readonly>
+                    <input type="text" class="form-control" id="cus_id" name="cus_id" value="${delivery.id}" readonly>
                     <label for="cus_id" class="form-label"> 주문자 ID </label>
                 </div>
                 <div class="form-outline mb-4 col col-6">
-                    <input type="text" class="form-control" id="cus_tel" name="cus_tel" value="${delivery.cus_tel}" readonly>
+                    <input type="text" class="form-control" id="cus_tel" name="cus_tel" value="${delivery.tel}" readonly>
                     <label for="cus_tel" class="form-label"> 주문자 전화번호 </label>
                 </div>
             </div>
             <div class="form-outline">
-                <input class="form-control form-control" type="text" name="cus_addr" id="cus_addr" value="${delivery.del_addr}" readonly>
+                <input class="form-control form-control" type="text" name="cus_addr" id="cus_addr" value="${delivery.addr}" readonly>
                 <label for="cus_addr" class="form-label"> 배송지주소 </label>
             </div>
         </div>
@@ -49,16 +49,16 @@
 
     <div class="container-md p-5 mt-5">
         <h4 class="mb-2"> 송장번호 입력 </h4>
-        <form name="frm1" id="frm1" action="${path}/dcodeUpdatePro" method="post" class="border p-4">
+        <form name="frm1" id="frm1" action="${path}/admin/dcodeUpdatePro" method="post" class="border p-4">
             <div class="row">
                 <div class="form-outline mb-4 col col-8" style="display: flex;">
                     <input class="form-control-lg col-12" type="text" name="dcode" id="dcode" value="${delivery.dcode}" required>
+                    <input type="hidden" name="dno" id="dno" value="${delivery.dno}">
                     <button type="submit" class="btn btn-dark btn-lg col-6" style="margin-left: 20px;"> 수정 </button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
 </body>
 </html>

@@ -80,4 +80,8 @@ public class RegisterServiceImpl implements RegisterService {
         return registerMapper.getMyCount(id);
     }
 
+    @Override
+    public int getCount(Page page) throws Exception {
+        return registerMapper.getCount(page);
+    }
 }

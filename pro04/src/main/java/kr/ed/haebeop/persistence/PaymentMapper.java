@@ -1,6 +1,7 @@
 package kr.ed.haebeop.persistence;
 
 import kr.ed.haebeop.domain.*;
+import kr.ed.haebeop.util.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public interface PaymentMapper {
     public void deliveryDelete(int pno) throws Exception;
     public void serveDelete(int pno) throws Exception;
     public void deletePayment(int pno) throws Exception;
-    public List<PaymentVO> paymentList(String id) throws Exception;
+    public List<PaymentVO> paymentList(Page page) throws Exception;
     public PaymentVO myPaymentDetail(int pno) throws Exception;
+    public int period (String lcode) throws Exception;
+    public int payCount(Page page) throws Exception;
 }

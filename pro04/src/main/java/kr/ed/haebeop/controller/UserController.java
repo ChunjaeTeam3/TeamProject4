@@ -3,6 +3,7 @@ package kr.ed.haebeop.controller;
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.LecturePage;
+import kr.ed.haebeop.util.Page;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -210,17 +211,33 @@ public class UserController {
         page.setId(id);
 
         // 페이징에 필요한 데이터 저장
-        int total = lectureService.getCount(page);
+        int total = registerService.getCount(page);
         page.makeBlock(curPage, total);
         page.makeLastPageNum(total);
         page.makePostStart(curPage, total);
 
+        LecturePage page2 = new LecturePage();
+        page2.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        page2.setType(request.getParameter("type"));             // 검색 타입 SET
+        page2.setId(id);
+
+        // 페이징에 필요한 데이터 저장
+        int total2 = paymentService.payCount(page2);
+        page2.makeBlock(curPage, total2);
+        page2.makeLastPageNum(total2);
+        page2.makePostStart(curPage, total2);
+
         // 수강신청 목록 불러오기
         List<LectureVO> myLecture = registerService.myLectures(page);
-        model.addAttribute("lectureList", myLecture);
+        model.addAttribute("myLecture", myLecture);
+
+        // 오프라인 수강신청 목록 불러오기
+        List <PaymentVO> offLecture = paymentService.paymentList(page2);
+        model.addAttribute("offLecture", offLecture);
 
         model.addAttribute("curPage", curPage);
         model.addAttribute("page", page);
+        model.addAttribute("page2", page2);
 
         return "/user/userLecture";
     }
@@ -233,9 +250,27 @@ public class UserController {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
 
+
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        LecturePage page = new LecturePage();
+        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+        page.setType(request.getParameter("type"));             // 검색 타입 SET
+        page.setId(id);
+
+
+        // 페이징에 필요한 데이터 저장
+        int total = paymentService.payCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
         //나의 결제목록 불러오기
-        List<PaymentVO> paymentList = paymentService.paymentList(id);
+        List<PaymentVO> paymentList = paymentService.paymentList(page);
         model.addAttribute("paymentList", paymentList);
+
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("page", page);
 
         return "/user/userPayment";
     }
