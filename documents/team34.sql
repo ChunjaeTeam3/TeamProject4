@@ -1,3 +1,4 @@
+CREATE DATABASE team34;
 USE team34;
 
 -- 회원
@@ -16,15 +17,10 @@ CREATE TABLE user(
   visited INT(11) DEFAULT 0,
   isStudy BOOLEAN DEFAULT false);
   
+  USE team34;
 -- 회원 더미데이터
-SELECT * FROM USER;
-
-
+SELECT * FROM user;
 INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('kimhk','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김현경', 'kimhk@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('kimlh','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김이호', 'kimlh@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('shinye','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '신예은', 'shinye@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('kimbk','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김보경', 'kimbk@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test111','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-11-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test121','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test122','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
@@ -46,6 +42,7 @@ INSERT INTO user VALUES('test82','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZ
 INSERT INTO user VALUES('test91','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test92','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO user VALUES('test101','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-10-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+
 
 -- 커뮤니티 카테고리 테이블 생성
 CREATE TABLE category(
@@ -164,18 +161,44 @@ CREATE TABLE qna(
   author VARCHAR(16),   								-- 작성자
   resdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 등록일
   lev INT DEFAULT 0, 									-- 질문(0), 답변(1)
-  par INT DEFAULT 0,										-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
+  par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
   FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE);
 
+-- 질문글 
+INSERT INTO qna VALUES (DEFAULT, '어떤 주제의 강의를 들어야 할까요?', '공부하고자 하는 분야에 적합한 강의 주제를 선택하기 위한 조언이 필요합니다.', 'test111' ,DEFAULT, DEFAULT, 1);
+INSERT INTO qna VALUES (DEFAULT, '동영상 학습에서 집중력을 높이는 방법이 뭐가 있나요?', '동영상 강의를 보면서 집중력을 유지하고 향상시키는 방법에 대한 조언을 원합니다.', 'test11' ,DEFAULT, DEFAULT, 2);
+INSERT INTO qna VALUES (DEFAULT, '어떻게 강의 동영상을 효율적으로 정리하고 학습할 수 있을까요?', '강의 동영상을 효과적으로 정리하고 학습에 활용하는 방법에 대한 조언이 필요합니다.', 'test12' ,DEFAULT, DEFAULT, 3);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의 시간을 어떻게 최적화할 수 있을까요?', '동영상 강의를 효율적으로 활용하고, 공부 시간을 최적화하는 방법을 알고 싶습니다.', 'test122' ,DEFAULT, DEFAULT, 4);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 볼 때 주의력을 유지하는 방법이 뭐가 있을까요?', '동영상 강의를 보면서 주의력을 높이고, 정보를 효과적으로 이해하는 방법에 대한 조언을 찾고 있습니다.', 'test21 ' ,DEFAULT, DEFAULT, 5);
+INSERT INTO qna VALUES (DEFAULT, '강의 동영상을 저장하고 오프라인에서 어떻게 시청할 수 있을까요?', '강의 동영상을 저장하고, 인터넷 연결 없이 어떻게 시청할 수 있는 방법을 알고 싶습니다.', 'test92' ,DEFAULT, DEFAULT, 6);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 활용하여 스스로 학습 스케줄을 계획하는 방법이 뭐가 있나요?', '동영상 강의를 활용하여 학습 일정을 계획하고, 학습 목표를 달성하는 방법에 대한 조언을 원합니다.', 'test61' ,DEFAULT, DEFAULT, 7);
+INSERT INTO qna VALUES (DEFAULT, '강의 동영상을 더 깊이 이해하기 위한 질문 및 논의 점을 어떻게 찾을 수 있을까요?', '동영상 강의를 더 깊이 이해하고, 관련 질문을 찾는 방법을 알려주세요.', 'test81' ,DEFAULT, DEFAULT, 8);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 보면서 메모를 어떻게 작성하고 정리할 수 있을까요?', '동영상 강의를 보면서 효과적인 메모 작성과 정리 방법을 알고 싶습니다.', 'test91' ,DEFAULT, DEFAULT,9);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 효과적으로 검색하고 필요한 내용을 찾는 방법이 뭐가 있을까요?', '동영상 강의를 효과적으로 검색하고, 원하는 내용을 빠르게 찾는 방법을 알려주세요.', 'test71' ,DEFAULT, DEFAULT,10);
+
+-- 답변글
+INSERT INTO qna VALUES (DEFAULT, '어떤 주제의 강의를 들어야 할까요?','강의 주제를 선택할 때, 관심 있는 분야나 목표에 따라 선택하는 것이 중요합니다. 관심 있는 주제에 대한 학습은 더 효과적일 수 있으며, 목표를 달성하는데 도움이 됩니다.','admin', DEFAULT, 1,1);
+INSERT INTO qna VALUES (DEFAULT, '동영상 학습에서 집중력을 높이는 방법이 뭐가 있나요?','집중력을 높이기 위해 정해진 시간 동안 주의를 집중하고, 학습 환경을 조절하고 휴식을 취하는 등의 방법을 사용할 수 있습니다.','admin', DEFAULT, 1,2);
+INSERT INTO qna VALUES (DEFAULT, '어떻게 강의 동영상을 효과적으로 정리하고 학습할 수 있을까요?','동영상 강의를 정리하기 위해 요약 노트를 작성하고, 중요한 부분을 표시하며, 관련 자료를 정리하는 것이 도움이 됩니다.','admin', DEFAULT, 1,3);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의 시간을 어떻게 최적화할 수 있을까요?','동영상 강의 시간을 최적화하기 위해 목표를 설정하고, 공부 시간을 일정하게 유지하며, 분량을 나누어 학습하는 것이 중요합니다.','admin', DEFAULT, 1,4);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 볼 때 주의력을 유지하는 방법이 뭐가 있을까요?','주의력을 유지하기 위해 학습 공간을 정리하고, 동영상을 공부 목적으로 시청하며, 주의력 향상을 위한 기술을 사용할 수 있습니다.','admin', DEFAULT, 1,5);
+INSERT INTO qna VALUES (DEFAULT, '강의 동영상을 저장하고 오프라인에서 어떻게 시청할 수 있을까요?','동영상을 저장하기 위해 온라인 다운로더를 사용하고, 저장된 동영상을 오프라인 모드에서 시청할 수 있는 앱을 활용할 수 있습니다.','admin', DEFAULT, 1,6);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 활용하여 스스로 학습 스케줄을 계획하는 방법이 뭐가 있나요?','학습 스케줄을 계획하기 위해 목표를 설정하고, 시간을 할당하며, 주간 계획을 세우는 것이 도움이 됩니다.','admin', DEFAULT, 1,7);
+INSERT INTO qna VALUES (DEFAULT, '강의 동영상을 더 깊이 이해하기 위한 질문 및 논의 점을 어떻게 찾을 수 있을까요?','동영상을 더 깊이 이해하기 위해 관련 서적을 찾거나, 동영상에서 제기된 질문을 따라가며 더 많은 정보를 탐구할 수 있습니다.','admin', DEFAULT, 1,8);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 보면서 메모를 어떻게 작성하고 정리할 수 있을까요?','메모를 작성하고 정리하기 위해 중요한 내용을 요약하고, 주요 포인트를 강조하며, 메모를 주기적으로 정리하는 것이 도움이 됩니다.','admin', DEFAULT, 1,9);
+INSERT INTO qna VALUES (DEFAULT, '동영상 강의를 효과적으로 검색하고 필요한 내용을 찾는 방법이 뭐가 있나요?','동영상을 검색하기 위해 키워드를 사용하고, 정확한 제목 또는 주제를 입력하며, 검색 결과를 필터링하는 방법을 사용하여 원하는 내용을 빠르게 찾을 수 있습니다.','admin', DEFAULT, 1,10);
+
+SELECT * FROM qna;
 
 -- 자료실 테이블 생성
-CREATE TABLE dataRoom (
+CREATE TABLE dataroom (
   articleNo int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id VARCHAR(20) NOT NULL,
   title varchar(100) NOT NULL,
   content varchar(2000) NOT NULL,
   regdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- 업로드 된 파일 정보 테이블 생성
 CREATE TABLE fileInfo(
@@ -186,6 +209,9 @@ CREATE TABLE fileInfo(
   saveFile VARCHAR(300) NOT NULL,
   FOREIGN KEY(articleNo) REFERENCES dataRoom(articleNo) ON DELETE CASCADE 
 );
+
+SELECT * FROM fileinfo;
+
 
 -- 이벤트 글 테이블
 CREATE TABLE event (
@@ -239,6 +265,10 @@ CREATE TABLE attendance (
    ano INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
    id VARCHAR(20),
    attend DATE DEFAULT current_date);
+	DROP TABLE attendance;
+	SELECT * FROM attendance;
+	
+INSERT INTO attendance VALUES (DEFAULT, 'admin', 231024);
 	
 -- 과목 테이블 (과목코드, 과목명)
 CREATE TABLE subject(
@@ -246,16 +276,19 @@ CREATE TABLE subject(
 	sname VARCHAR(200) NOT NULL
 );
 
-
+SELECT * FROM SUBJECT;
 -- 과목 테이블 더미데이터
-INSERT INTO subject
-VALUES('es', '논술');
-INSERT INTO subject
-VALUES('ma', '수학');
-INSERT INTO subject
+INSERT INTO SUBJECT
+VALUES('wr', '논술');
+INSERT INTO SUBJECT
 VALUES('en', '영어');
-INSERT INTO subject
-VALUES('fo', '외국어');
+INSERT INTO SUBJECT
+VALUES('ma', '수학');
+INSERT INTO SUBJECT
+VALUES('ko', '국어');
+INSERT INTO SUBJECT
+VALUES('ch', '중국어');
+
 
 -- 강사 테이블 (강사코드, 강사명, 연락처, 이메일, 강사소개, 강사 이미지)
 CREATE TABLE teacher(
@@ -268,6 +301,18 @@ CREATE TABLE teacher(
 	saveFile VARCHAR(300) NOT NULL
 );
 
+INSERT INTO teacher VALUES (DEFAULT,'test0999', '김석우', '010-1111-2222', 'ejlee@email.com', '논술 전문가로, 명쾌한 논리와 풍부한 어휘력을 강조한 논술 교육을 제공합니다.', 'writingTeacher.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test9999', '안유진', '010-9876-5432','jwhan@email.com','논술의 스타일과 목표에 따라 학생들을 개별화된 작문 지도로 이끌어, 각자의 논술 능력을 향상시킵니다.','an.png');
+INSERT INTO teacher VALUES (DEFAULT,'test0888', '강영현','010-5555-5555','dhkwon@email.com','경험 많은 영어 강사인 존은 학생들의 영어 작문 및 문법 실력 향상을 중점으로 둡니다.','englishTeacher2.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test0777' ,'유지민','010-9999-9999','sjlee@email.com','TOEFL 자격증 강사로서 마이클은 학생들을 영어 능력 시험을 준비하는 데 도움을 주며 시험 대비 전략을 강조합니다.','englishTeacher.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test0666', '임창균','010-2222-3335','sjchoi@email.com','수학적 논리와 수학 문제 해결 능력을 강조하며, 학생들이 어려운 문제를 해결하는 방법을 습득하도록 도움을 제공합니다.','mathTeacher.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test0555', '고윤정','010-3333-4444','mhkang@email.com','수학을 흥미롭게 만들기 위해 현실적인 응용과 재미있는 수학 문제를 활용한 수업을 제공합니다.','mathTeacher2.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test0444', '팜하니','010-3333-1117','yhbaek@email.com','문학과 문법을 조화롭게 가르치며, 학생들의 언어 능력을 향상시키고 작문 스킬을 개발합니다.','koreanTeacher.png');
+INSERT INTO teacher VALUES (DEFAULT,'test0333', '이준기','010-2222-3338','hjcho@email.com','문학 작품 해석과 글쓰기 능력 향상에 중점을 둔 강의를 통해 학생들을 지원합니다.','koreanTeacher2.png');
+INSERT INTO teacher VALUES (DEFAULT,'test0222', '송우기','010-2222-3339','jwsong@email.com','문법 교육과 작문 기술 강화를 통해 학생들이 효과적으로 글을 표현할 수 있도록 도와줍니다.','chinaTeacher.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test0111', '진항생','010-2222-3330','myu@email.com','중국어 교육 전문가로, 학생들이 중국어 문자 및 문법을 정확하게 이해하도록 돕습니다.','chinaTeacher2.jpeg');
+
+
 -- 교재 테이블 생성(교재코드, 교재이름, 교재소개, 저자, 가격)
 CREATE TABLE book (
 	bcode VARCHAR(20) primary key NOT NULL ,
@@ -276,6 +321,17 @@ CREATE TABLE book (
 	author VARCHAR(1000) NOT NULL,
 	bprice INT(11) NOT NULL
 );
+
+INSERT INTO book VALUES ('wr01', '논술 작성의 기술', '이 책은 논술을 작성하고 구조화하는 방법에 대한 실용적인 가이드를 제공합니다. 예시와 연습 문제를 통해 논술 작성 능력을 향상시킬 수 있습니다.','김석우',12000);
+INSERT INTO book VALUES ('wr02', '논술의 비밀', '"논술의 비밀"은 효과적인 논술 작성을 위한 전략과 기술을 설명하는 책입니다. 각 섹션은 실용적인 팁과 예시로 구성되어 있어, 논술 능력 향상에 도움이 됩니다.','안유진',10000);
+INSERT INTO book VALUES ('en01', '영어 작문의 기술','이 책은 영어로 효과적인 글을 쓰는 방법에 대한 기술과 전략을 제공합니다. 문법, 구문, 스타일 및 논리적인 구조화에 대한 교육적 내용을 다루며, 다양한 예시와 실습 문제를 제공하여 학습자가 논술 작성 능력을 향상시킬 수 있습니다.','강영현',12000);
+INSERT INTO book VALUES ('en02', '영어 표현의 미학','"영어 표현의 미학"은 영어 작문을 예술로 간주하는 방법에 중점을 둡니다. 논술의 표현력과 스타일을 향상시키는 데 도움이 되는 다양한 문학 작품과 글쓰기 예시를 제공합니다. ','유지민',10000);
+INSERT INTO book VALUES ('ko01', '국어 문법의 이해','이 책은 한국어 문법에 대한 이해를 향상시키는 데 도움을 줍니다. 다양한 문법 규칙과 예시를 제공하여 학습자가 효과적으로 표현할 수 있는 능력을 향상시킵니다.','고윤정',6000);
+INSERT INTO book VALUES ('ko02', '국어 어휘 확장','이 책은 어휘력을 향상시키는데 중점을 두며, 다양한 어휘와 표현을 소개합니다. 어휘 확장을 통해 논술 작성과 글쓰기 능력을 향상시키는데 도움이 됩니다.','임창균',8000);
+INSERT INTO book VALUES ('ma01', '수학의 기초','"수학의 기초"는 수학 개념을 이해하기 위한 기초부터 시작하는 책으로, 수학의 기본 원리와 수학적 사고 방법을 소개합니다. 학생들에게 기초를 강화하고 수학적 지식을 쌓는 데 도움이 됩니다.','팜하니',9000);
+INSERT INTO book VALUES ('ma02', '고급 수학: 응용과 연습','이 책은 고급 수학 주제를 다루며, 수학을 실생활과 다양한 분야에 적용하는 방법을 제공합니다. 더 복잡한 수학 문제를 다루고자 하는 학생들에게 유용할 것입니다.','이준기',8000);
+INSERT INTO book VALUES ('ch01', '중국어 기초 교재','이 책은 중국어의 기초를 가르치는 데 도움을 주는 교재로, 발음, 기본 어휘, 문법, 그리고 일상 대화를 다룹니다. 중국어를 처음 배우는 초보자에게 유용합니다.','송우기',12000);
+INSERT INTO book VALUES ('ch02', '중급 중국어 학습 가이드','"중급 중국어 학습 가이드"는 중급 수준의 학습자를 위한 자료로, 의사소통 능력 향상 및 중국 문화에 대한 이해를 돕는 내용을 다룹니다. 중국어를 더 깊이 공부하고자 하는 학습자에게 유용합니다.','진항생',6000);
 
 
 -- 강의 테이블 (강의코드, 강의명, 과목코드, 강사코드, 교재코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFile), 강의 시작일, 강의 종료일, (오프라인 시)강의 시작시간, 온오프 여부, 강의실)
@@ -294,10 +350,10 @@ CREATE TABLE lecture(
 	stime TIME,
 	state VARCHAR(10) CHECK(state IN ('on', 'off', 'close')),
 	classroom VARCHAR(10),
-	FOREIGN KEY(scode) REFERENCES subject(scode),
+	FOREIGN KEY(scode) REFERENCES SUBJECT(scode),
 	FOREIGN KEY(tcode) REFERENCES teacher(tcode),
 	FOREIGN KEY(bcode) REFERENCES book(bcode)
-);
+); 
 
 -- 커리큘럼 (커리큘럼코드, 강의코드, 강좌 제목, 강의 파일, 강의 시간)
 CREATE TABLE curriculum(
@@ -344,8 +400,15 @@ CREATE TABLE todo(
 	id VARCHAR(20) NOT NULL,
 	tdtitle VARCHAR(200),
 	STATUS BOOLEAN DEFAULT false);
-	
--- 강의 게시판
+
+INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
+INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
+
+
+select * from todo where id='admin' order by tdno asc;
+UPDATE todo SET STATUS=TRUE WHERE tdno=1;
+DROP TABLE todo;
+
 CREATE TABLE lecboard(
   qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
   lcode VARCHAR(50) NOT NULL,                   -- 강의코드
@@ -357,8 +420,8 @@ CREATE TABLE lecboard(
   par INT DEFAULT 0,													-- 질문(자신 레코드의 qno), 답변(질문의 글번호)
   FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE,
   FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE);
-
--- 배송 테이블 생성(배송번호, 결제번호, 아이디, 주소, 번호, 배송회사, 배송전화번호, 배송상태, 배송시간, 배송예정일자, 배송코드)
+  
+  -- 배송 테이블 생성(배송번호, 결제번호, 아이디, 주소, 번호, 배송회사, 배송전화번호, 배송상태, 배송시간, 배송예정일자, 배송코드)
 create table delivery(
 	 dno int primary KEY AUTO_INCREMENT,
 	 pno int, 					
@@ -373,6 +436,32 @@ create table delivery(
 	 dcode varchar(30),
 	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
 );
+
+
+-- 출고 테이블 생성(출고 번호, 결제번호, 배송코드, 출고 가격, 수량, 출고일자)
+create table serve(
+    sno int primary KEY AUTO_INCREMENT,
+	 pno INT,							
+    bcode VARCHAR(20) NOT NULL,		              
+    sprice int default 1000,					 
+    amount int default 1,				         	
+    resdate timestamp default CURRENT_TIMESTAMP,
+    FOREIGN KEY (pno) REFERENCES payment(pno) ON DELETE CASCADE,
+	 FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
+);
+
+
+
+-- 입고 테이블 생성(입고 번호, 교재코드, 수량, 입고가격, 입고일자)  
+create table receive(
+   rno INT primary KEY AUTO_INCREMENT,						
+   bcode VARCHAR(20) NOT NULL,                          
+   amount int default 1,	         			
+   rprice int default 1000,			    		
+   resdate timestamp default CURRENT_TIMESTAMP,
+	FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
+);    
+
 
 --결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
 create table payment(
@@ -395,12 +484,6 @@ create table payment(
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
 
--- 출고 테이블 생성(출고 번호, 배송코드, 출고 가격, 수량, 출고일자)
-create table serve(
-    sno int primary KEY AUTO_INCREMENT,							
-    bcode VARCHAR(20) NOT NULL,		              
-    sprice int default 1000,					 
-    amount int default 1,				         	
-    resdate timestamp default CURRENT_TIMESTAMP,
-	 FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
-);
+
+-- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
+-- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

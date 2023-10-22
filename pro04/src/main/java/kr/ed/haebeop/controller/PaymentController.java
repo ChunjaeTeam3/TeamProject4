@@ -5,13 +5,14 @@ import kr.ed.haebeop.service.DeliveryService;
 import kr.ed.haebeop.service.PaymentService;
 import kr.ed.haebeop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.awt.print.Book;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class PaymentController {
         String lcode = request.getParameter("lcode");
 
         boolean result = paymentService.payCheck(id, lcode);
-        Payment payment = paymentService.getPayment(id, lcode);
+        Payment payment = paymentService.PaymentDetail(id, lcode);
 
         int curApp = paymentService.getCount(lcode);
 
@@ -100,6 +101,7 @@ public class PaymentController {
         payment.setAccount(request.getParameter("account"));
 
         int pno = paymentService.paymentInsert(payment);
+        System.out.println(pno);
 
         Delivery delivery = new Delivery();
         delivery.setPno(pno);
@@ -110,6 +112,7 @@ public class PaymentController {
 
         Serve serve = new Serve();
         serve.setPno(pno);
+        serve.setBcode(bcode);
         serve.setSprice(request.getParameter("sprice"));
         serve.setAmount(request.getParameter("amount"));
 
@@ -134,15 +137,22 @@ public class PaymentController {
         int dno = Integer.parseInt(request.getParameter("dno"));
 
         DeliveryVO delivery = deliveryService.myDeliveryDetail(dno);
+        model.addAttribute("delivery", delivery);
 
         return "/user/userDeliveryDetail";
     }
 
     @GetMapping("paymentDelete")
-    public String getQnaDelete(HttpServletRequest request, Model model) throws Exception {
+    @ResponseBody
+    public ResponseEntity<String> getPaymentDelete(HttpServletRequest request, Model model) {
         int pno = Integer.parseInt(request.getParameter("pno"));
-        paymentService.deletePayment(pno);
-        return "redirect:/user/payment";
+
+        try {
+            paymentService.deletePayment(pno);
+            return new ResponseEntity<>("구매취소 성공", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("구매취소 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

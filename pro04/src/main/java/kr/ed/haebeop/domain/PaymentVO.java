@@ -28,4 +28,5 @@ public class PaymentVO {
     private int price;
     private String account;
     private String resdate;
+    private String state;
 }

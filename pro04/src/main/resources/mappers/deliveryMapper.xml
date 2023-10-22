@@ -3,22 +3,23 @@
 <mapper namespace="kr.ed.haebeop.persistence.DeliveryMapper">
 
     <select id="deliveryList" resultType="kr.ed.haebeop.domain.DeliveryVO">
-        select a.pno as pno, b.title as title, a.id as id, b.resdate as resdate, a.dstatus as dstatus, a.dno as dno
+        select a.pno as pno, a.dcode as dcode, b.title as title, a.id as id, b.resdate as resdate, a.dstatus as dstatus, a.dno as dno
         from delivery a join payment b on (a.pno = b.pno)
         order by a.pno desc
     </select>
 
     <select id="deliveryDetail" resultType="kr.ed.haebeop.domain.DeliveryVO">
-        select a.dno, b.title, a.id, a.tel, a.addr,b.resdate, a.dstatus
+        select a.dno as dno, b.title as title, a.id as id , a.tel as tel, a.addr as addr ,b.resdate as resdate , a.dstatus, a.dcode, a.ddate, a.edate, a.dcom, a.dtel
         from delivery a join payment b on (a.pno = b.pno)
         where a.dno=#{dno}
     </select>
+
     <update id="dcodeUpdate">
         update delivery set dcode=#{dcode} where dno=#{dno}
     </update>
 
     <update id="deliveryUpdate">
-        update delivery set dcom =#{dcom}, dtel=#{dtel}, dstatus=#{dstatus}, edate=#{edate}, dcode=#{dcode} where dno=#{dno}
+        update delivery set dcom =#{dcom}, dtel=#{dtel}, dstatus=#{dstatus}, edate=#{edate} where dno=#{dno}
     </update>
 
     <select id="myDeliveryDetail" resultType="kr.ed.haebeop.domain.DeliveryVO">
@@ -27,4 +28,7 @@
         where dno=#{dno}
     </select>
 
+    <select id="getCount" resultType="integer">
+        select COUNT(*) from delivery
+    </select>
 </mapper>

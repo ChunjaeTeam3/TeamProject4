@@ -67,42 +67,41 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive project-list">
-                                <table class="table project-table table-centered table-nowrap">
-                                    <thead>
+                        <table class="table project-table table-centered table-nowrap">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">강좌명</th>
+                                <th scope="col">강사</th>
+                                <th scope="col">수강기간</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="lecture" items="${myLecture}" >
+                                <c:if test="${lecture.state eq 'on'}">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">강좌명</th>
-                                        <th scope="col">강사</th>
-                                        <th scope="col">수강기간</th>
+                                        <th scope="row">${lecture.lcode}</th>
+                                        <td>${lecture.lname}</td>
+                                        <td>${lecture.tname}</td>
+                                        <td>${lecture.sdate} ~ ${lecture.edate}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="lecture" items="${myLecture}" >
-                                        <c:if test="${item.state eq 'on'}">
-                                        <tr>
-                                            <th scope="row">${lecture.lcode}</th>
-                                            <td>${lecture.lname}</td>
-                                            <td>${lecture.tname}</td>
-                                            <td>${lecture.sdate} ~ ${lecture.edate}</td>
-                                        </tr>
-                                        </c:if>
-                                    </c:forEach>
-                                    <c:if test="${empty myLecture}">
-                                        <tr>
-                                            <td colspan="6" class="text-center"> 수강신청한 강의가 없습니다. </td>
-                                        </tr>
-                                    </c:if>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${empty myLecture}">
+                                <tr>
+                                    <td colspan="6" class="text-center"> 수강신청한 온라인 강의가 없습니다. </td>
+                                </tr>
+                            </c:if>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <nav aria-label="Page navigation example" >
+                    <nav aria-label="Page navigation example">
                         <c:if test="${curPage > 5}">
-                            <a href="${path}/user/payment?page=${page.blockStartNum - 1}"
-                               class="page-link">Previous</a>
+                            <a href="${path}/user/lecture?page=${page.blockStartNum - 1}" class="page-link">Previous</a>
                         </c:if>
                         <c:if test="${page.blockLastNum < page.totalPageCount}">
-                            <a href="${path}/user/payment?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
+                            <a href="${path}/user/lecture?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
                         </c:if>
 
                         <ul class="pagination justify-content-center">
@@ -110,21 +109,19 @@
                                 <c:choose>
                                     <c:when test="${i == curPage}">
                                         <li class="page-item">
-                                            <a href="${path}/user/payment?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                               class="page-link active" aria-label="Page ${i}"
-                                               aria-current="page" style="background-color: #545050; color:#FFFFFF" ;>${i}</a>
+                                            <a href="${path}/user/lecture?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="page-link active" aria-label="Page ${i}" aria-current="page" style="background-color: #545050; color:#FFFFFF">${i}</a>
                                         </li>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="page-item">
-                                            <a href="${path}/user/payment?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                               class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
+                                            <a href="${path}/user/lecture?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                         </ul>
                     </nav>
+
                 </div>
             </div>
         </div>
@@ -140,58 +137,54 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive project-list">
-                                <table class="table project-table table-centered table-nowrap">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">강좌명</th>
-                                        <th scope="col">강사</th>
-                                        <th scope="col">수강기간</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="lecture" items="${myLecture}" >
-                                        <c:if test="${item.state eq 'off'}">
-                                        <tr>
-                                            <th scope="row">${lecture.lcode}</th>
-                                            <td>${lecture.lname}</td>
-                                            <td>${lecture.tname}</td>
-                                            <td>${lecture.sdate} ~ ${lecture.edate}</td>
-                                        </tr>
-                                        </c:if>
-                                    </c:forEach>
-                                    <c:if test="${empty myLecture}">
-                                        <tr>
-                                            <td colspan="6" class="text-center"> 수강신청한 강의가 없습니다. </td>
-                                        </tr>
-                                    </c:if>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <table class="table project-table table-centered table-nowrap">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">강좌명</th>
+                                <th scope="col">강사</th>
+                                <th scope="col">수강기간</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="off" items="${offLecture}" >
+                                <c:if test="${off.state eq 'off'}">
+                                <tr>
+                                    <th scope="row">${off.lcode}</th>
+                                    <td>${off.lname}</td>
+                                    <td>${off.tname}</td>
+                                    <td>${off.sdate} ~ ${off.edate}</td>
+                                </tr>
+                            </c:if>
+                            </c:forEach>
+                            <c:if test="${empty offLecture}">
+                                <tr>
+                                    <td colspan="6" class="text-center"> 수강신청한 오프라인 강의가 없습니다. </td>
+                                </tr>
+                            </c:if>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <nav aria-label="Page navigation example" >
+                    <nav aria-label="Page navigation example">
                         <c:if test="${curPage > 5}">
-                            <a href="${path}/user/payment?page=${page.blockStartNum - 1}"
-                               class="page-link">Previous</a>
+                            <a href="${path}/user/lecture?page=${page2.blockStartNum - 1}" class="page-link">Previous</a>
                         </c:if>
-                        <c:if test="${page.blockLastNum < page.totalPageCount}">
-                            <a href="${path}/user/payment?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
+                        <c:if test="${page2.blockLastNum < page2.totalPageCount}">
+                            <a href="${path}/user/lecture?page=${page2.blockLastNum + 1}" class="page-link">Next page</a>
                         </c:if>
 
                         <ul class="pagination justify-content-center">
-                            <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                            <c:forEach var="i" begin="${page2.blockStartNum}" end="${page2.blockLastNum}">
                                 <c:choose>
                                     <c:when test="${i == curPage}">
                                         <li class="page-item">
-                                            <a href="${path}/user/payment?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                               class="page-link active" aria-label="Page ${i}"
-                                               aria-current="page" style="background-color: #545050; color:#FFFFFF" ;>${i}</a>
+                                            <a href="${path}/user/lecture?page=${i}<c:if test="${!empty page2.keyword}">&type=${page2.type}&keyword=${page2.keyword}</c:if>" class="page-link active" aria-label="Page ${i}" aria-current="page" style="background-color: #545050; color:#FFFFFF">${i}</a>
                                         </li>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="page-item">
-                                            <a href="${path}/user/payment?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                               class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
+                                            <a href="${path}/user/lecture?page=${i}<c:if test="${!empty page2.keyword}">&type=${page2.type}&keyword=${page2.keyword}</c:if>" class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>

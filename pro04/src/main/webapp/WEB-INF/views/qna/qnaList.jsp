@@ -77,7 +77,7 @@
                                             </c:if>
                                             <!-- 답변 글 -->
                                             <c:if test="${list.lev eq 1}">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;⌞${list.title}
+                                                ⌞[답변]${list.title}
                                             </c:if>
                                         </c:if>
                                         <!-- 로그인 했을 때 -->

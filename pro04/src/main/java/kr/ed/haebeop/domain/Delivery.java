@@ -15,7 +15,7 @@ public class Delivery {
     private String tel;
     private String dcom;
     private String dtel;
-    private String dstatus;
+    private int dstatus;
     private String ddate;
     private String edate;
     private String dcode;

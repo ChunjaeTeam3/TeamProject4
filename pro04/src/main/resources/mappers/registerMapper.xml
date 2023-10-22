@@ -69,4 +69,8 @@
         select COUNT(*) from register where id=#{id}
     </select>
 
+    <select id="getCount" resultType="integer">
+        select COUNT(*) from register where id=#{id}
+    </select>
+
 </mapper>
