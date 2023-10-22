@@ -31,8 +31,9 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
+        <p>학습자 맞춤형 학습을 시작해요</p>
         <h2>Login</h2>
     </div>
 </section>

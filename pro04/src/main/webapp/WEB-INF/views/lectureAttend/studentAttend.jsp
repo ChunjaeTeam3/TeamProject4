@@ -24,9 +24,10 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <h2> 나의 출결정보 </h2>
+        <p>${lecture.lname}</p>
+        <h2>출결 정보</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
@@ -121,8 +122,9 @@
         }
 
         // 출결 사항 달력에 표시
+        let date = 0;
         <c:forEach var="item" items="${attendList}">
-            let date = "${fn:substring(item['adate'], 8, 10)}"
+            date = "${fn:substring(item['adate'], 8, 10)}"
             <c:if test="${item['atype'] eq '출석'}">
                 $("#"+date).append("<p class='bg-success' style='color:white'> ${item['atype']} </p>");
             </c:if>
@@ -131,6 +133,9 @@
             </c:if>
             <c:if test="${item['atype'] eq '지각'}">
                 $("#"+date).append("<p class='bg-warning' style='color:white'> ${item['atype']} </p>");
+            </c:if>
+            <c:if test="${item['atype'] eq '코드오류'}">
+                $("#"+date).append("<p class='bg-danger' style='color:white'> ${item['atype']} </p>");
             </c:if>
         </c:forEach>
     });

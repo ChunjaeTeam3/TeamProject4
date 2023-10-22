@@ -19,9 +19,10 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <h2>당첨자 발표</h2>
+        <p>행운의 주인공을 확인해요</p>
+        <h2>이벤트 당첨자 발표</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->

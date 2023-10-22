@@ -21,9 +21,9 @@
 <!-- header End -->
 
 <!-- banner Start -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${paht}/resources/img/bg-img/breadcumb3.jpg);">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <p>See what’s new</p>
+        <p>주문 및 배송 상태를 손쉽게 확인해요</p>
         <h2>주문/배송 내역</h2>
     </div>
 </section>

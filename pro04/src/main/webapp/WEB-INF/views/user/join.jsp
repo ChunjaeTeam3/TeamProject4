@@ -20,9 +20,9 @@
 <!-- header End -->
 
 <!-- banner Start -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${paht}/resources/img/bg-img/breadcumb3.jpg);">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <p>See what’s new</p>
+        <p>해법과 함께 더 나은 학습을 시작해요</p>
         <h2>회원가입</h2>
     </div>
 </section>

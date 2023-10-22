@@ -21,9 +21,9 @@
 <!-- header End -->
 
 <!-- banner Start -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${paht}/resources/img/bg-img/breadcumb3.jpg);">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <p>See what’s new</p>
+        <p>개인정보를 관리해요</p>
         <h2>마이페이지</h2>
     </div>
 </section>
@@ -108,7 +108,14 @@
                         <td class="align-middle">${lecture.lname}</td>
                         <td class="align-middle">${lecture.tname}</td>
                         <td class="align-middle">${lecture.sdate} ~ ${lecture.edate}</td>
-                        <td class="align-middle">${lecture.state}</td>
+                        <td class="align-middle">
+                            <c:if test="${lecture.state eq 'on'}">
+                                온라인 강의
+                            </c:if>
+                            <c:if test="${lecture.state eq 'off'}">
+                                오프라인 강의
+                            </c:if>
+                        </td>
                         <td>
                             <c:if test="${lecture.state eq 'off'}">
                                 <a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}"

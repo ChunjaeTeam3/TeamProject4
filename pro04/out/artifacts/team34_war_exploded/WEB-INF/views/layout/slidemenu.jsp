@@ -78,9 +78,6 @@
             <p class="mb-0 mt-3 text-white"> 상담 문의 </p>
             <h6 class="mb-3 text-warning"> 02-1234-5678 </h6>
         </li>
-        <li class="bg-success">
-            <a href="${path}/" class="d-flex justify-content-between text-white"> HOME <i class="fa-solid fa-angle-right"></i> </a>
-        </li>
         <li>
             <a href="#popular" class="d-flex justify-content-between"> 인기 강의 <i class="fa-solid fa-angle-right"></i> </a>
         </li>

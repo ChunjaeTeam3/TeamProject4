@@ -53,8 +53,9 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
+        <p>포인트 적립해요</p>
         <h2>출석 체크</h2>
     </div>
 </section>
@@ -63,8 +64,8 @@
     <div class="container">
         <div class="col-md-7" style="margin: 0 auto">
             <div class="container text-center">
-                <h3 class="mb-20" style="font-family:'Roboto', sans-serif; font-weight: bold"> ${calendarInfo.month}월 출석 <i class="fa-regular fa-calendar"></i> </h3>
-                <h4 class="mb-40" style="color: #1c8137;font-weight: bold;"> 출석체크하고 포인트 받자 <i class="fa-solid fa-face-laugh-squint fa-bounce"></i> </h4>
+                <h2 class="mb-15" style="font-family:'Roboto', sans-serif; font-weight: bold"> ${calendarInfo.month}월 출석 <i class="fa-regular fa-calendar"></i> </h2>
+                <h5 class="mb-50" style="color: #1c8137;font-weight: bold;"> 출석체크하고 포인트 받자 <i class="fa-solid fa-face-laugh-squint fa-bounce"></i> </h5>
                 <c:forEach var="i" begin="0" end="5">
                     <div class="d-flex">
                         <c:forEach var="j" begin="0" end="6">
@@ -74,12 +75,12 @@
                             </c:if>
                             <c:if test="${date > 0 and date <= calendarInfo.endDay and !fn:contains(list, ' '+=date+=' ')}">
                                 <div class="column m-1 rounded-lg" style="height: 75px; background-color: #DDD; width: 75px; border-radius: 7px;">
-                                    <h5 style="font-family: sans-serif"> ${date} </h5>
+                                    <h5> ${date} </h5>
                                 </div>
                             </c:if>
                             <c:if test="${date > 0 and date <= calendarInfo.endDay and fn:contains(list, ' '+=date+=' ')}">
                                 <div class="column m-1 rounded-lg" style="height: 75px; background-color: #94cf92; width: 75px; border-radius: 7px;">
-                                    <h5 style="font-family: sans-serif"> ${date} </h5>
+                                    <h5> ${date} </h5>
                                     <i class="fa-solid fa-heart fa-fade fa-2xl"></i>
                                 </div>
                             </c:if>
@@ -90,11 +91,11 @@
                 <!-- 오늘 이미 출석체크를 했다면 버튼 비활성화 -->
                 <div class="has-text-centered">
                     <c:if test="${attendChk}">
-                        <button type="button" class="btn btn-dark mb-50" style="width: 150px;" disabled> 출석체크 완료 </button>
+                        <button type="button" class="btn btn-dark btn-lg mb-100" style="width: 150px;" disabled> 출석체크 완료 </button>
                     </c:if>
                     <!-- 오늘 출석체크를 하지 않았다면 버튼 활성화 -->
                     <c:if test="${!attendChk}">
-                        <a href="${path}/attendance/addAttend"  class="btn btn-dark mb-50" style="width: 150px;"> 출석체크 </a>
+                        <a href="${path}/attendance/addAttend"  class="btn btn-dark btn-lg mb-100" style="width: 150px;"> 출석체크 </a>
                     </c:if>
                 </div>
             </div>

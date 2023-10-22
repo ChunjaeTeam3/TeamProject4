@@ -31,9 +31,10 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <h2> 출결 관리 </h2>
+        <p>${lecture.lname}</p>
+        <h2>출결 관리</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
