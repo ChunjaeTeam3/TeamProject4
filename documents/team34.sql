@@ -355,9 +355,6 @@ CREATE TABLE lecture(
 	FOREIGN KEY(bcode) REFERENCES book(bcode)
 ); 
 
-
-
-
 -- 커리큘럼 (커리큘럼코드, 강의코드, 강좌 제목, 강의 파일, 강의 시간)
 CREATE TABLE curriculum(
 	ccode INT PRIMARY KEY AUTO_INCREMENT,
@@ -439,20 +436,31 @@ create table delivery(
 	 dcode varchar(30),
 	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
 );
-USE team34;
-SELECT * FROM payment;
-SELECT * FROM lecture;
-SELECT * FROM delivery;
-DELETE FROM delivery WHERE id='kimhkk';
 
--- 출고 테이블 생성(출고 번호, 배송코드, 출고 가격, 수량, 출고일자)
+
+-- 출고 테이블 생성(출고 번호, 결제번호, 배송코드, 출고 가격, 수량, 출고일자)
 create table serve(
-    sno int primary KEY AUTO_INCREMENT,							
-    pno VARCHAR(20) NOT NULL,		              
+    sno int primary KEY AUTO_INCREMENT,
+	 pno INT,							
+    bcode VARCHAR(20) NOT NULL,		              
     sprice int default 1000,					 
     amount int default 1,				         	
-    resdate timestamp default CURRENT_TIMESTAMP   
+    resdate timestamp default CURRENT_TIMESTAMP,
+    FOREIGN KEY (pno) REFERENCES payment(pno) ON DELETE CASCADE,
+	 FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
 );
+
+
+
+-- 입고 테이블 생성(입고 번호, 교재코드, 수량, 입고가격, 입고일자)  
+create table receive(
+   rno INT primary KEY AUTO_INCREMENT,						
+   bcode VARCHAR(20) NOT NULL,                          
+   amount int default 1,	         			
+   rprice int default 1000,			    		
+   resdate timestamp default CURRENT_TIMESTAMP,
+	FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
+);    
 
 
 --결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
@@ -476,8 +484,6 @@ create table payment(
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
 
-SELECT * FROM payment;
-SELECT * FROM delivery;
-update delivery set dcode='' where dno=3;
+
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

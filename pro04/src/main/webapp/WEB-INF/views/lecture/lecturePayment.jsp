@@ -149,25 +149,29 @@
             <div class="card position-sticky top-0">
                 <div class="p-3 ">
                     <h5 class="card-title mb-3">결제금액</h5>
-                    <div style="display: flex;">
+                    <div style="display: flex; justify-content:space-between;">
                         <span>상품금액</span>
-                        <div class="d-flex justify-content-between mb-1 small" style="margin-left: 210px;">
-                            <span id="bprice">${book.bprice}</span>
-                        </div>
+                        <span id="bprice">${book.bprice}</span>
                     </div>
-                    <div style="display: flex;">
+                    <div style="display: flex; justify-content:space-between;">
                         <span>포인트 </span>
-                        <div class="d-flex justify-content-between mb-1 small" style=" width: 50%; margin-left: 77px;">
-                             <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" >
-                             <input type="button" id="pointApply" class="btn btn-secondary btn-sm">적용</input>
+                        <div class="d-flex small">
+                             <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" style="width: 80px;" >
+                             <input type="button" id="pointApply" class="btn btn-secondary btn-sm" value ="적용" >
                             <input type="hidden" name="pt" id="pt" value="" >
                             <input type="hidden" name="title" id="title" value="${lecture.lname}외1" >
                         </div>
                     </div>
                     <hr>
                     <div>
-                        <p><span>SUBTOTAL</span> <strong class="text-dark" class="total" id="subprice" ></strong></p>
-                        <p><span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice"></strong></p>
+                        <div>
+                            <p style="display: flex; justify-content:space-between;">
+                                <span>SUBTOTAL</span> <strong class="text-dark" id="subprice"></strong>
+                            </p>
+                            <p style="display: flex; justify-content:space-between;">
+                                <span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice"></strong>
+                            </p>
+                        </div>
                     </div>
                     <input type="button" id="pay" value="결제하기" class="btn btn-dark w-100" style="height: 80px;">
                     <c:if test="${!empty sid }">
@@ -186,7 +190,7 @@
     </form>
     <script>
         $(document).ready(function(){
-            var cardArr1 = ["현대카드","농협카드","BC카드","KB카드"];
+            var cardArr1 = ["현대카드","농협카드","BC카드","KB카드","신한카드"];
             var cardArr2 = ["하나카드","농협카드","BC카드","신한카드"];
             var bankArr = ["카카오뱅크","농협은행","신한은행","기업은행","국민은행"];
             $("#method").change(function(){
@@ -235,41 +239,47 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         //결제모듈 API 연동
-        $(document).ready(function() {
+            $(document).ready(function() {
             var totalPay = 0;
             var paytitle;
-            var userPt = ${user.pt};
-            var ptSet = 0;
+            var userPt = parseInt(${user.pt});
 
             console.log($("#bprice").text());
 
             totalPay = totalPay + parseInt($("#bprice").text());
 
-            $("#subprice").html("<input type='text' readonly id='subprice' value='" + totalPay + "'>");
-            $("#totalprice").html("<input type='text' readonly id='price' name='price' value='" + totalPay + "'>");
+            $("#subprice").text(totalPay);
+            $("#totalprice").text(totalPay);
 
 
             $("#point").val(0);
 
             $("#point").on("input", function() {
-                var pointValue = parseInt($("#point").val());
+                var pointInput = $("#point");
+                var ptInput = $("#pt");
+                var pointValue = parseInt(pointInput.val());
                 if (!isNaN(pointValue) && pointValue >= 0 && pointValue <= userPt) {
-                    ptSet=pointValue;
-                    console.log("Applied Point: " + appliedPoint);
+                    ptInput.val(userPt - pointValue);
                 } else {
-                    ptSet =0;
+                    ptInput.val("");
                     alert("잘못된 포인트 입력입니다. 0 이상 " + userPt + " 이하의 값을 입력해주세요.");
                 }
             });
 
             $("#pointApply").click(function() {
-                totalPay += appliedPoint;
-                $("#subprice").html("<input type='text' readonly id='subprice' value='" + totalPay + "'>");
-                $("#totalprice").html("<input type='text' readonly id='price' name='price' value='" + totalPay + "'>");
+                var pointValue = parseInt($("#point").val());
+                if (!isNaN(pointValue) && pointValue >= 0) {
+                    var orPrice = parseInt($("#bprice").text());
+                    var dcPrice = Math.min(pointValue, orPrice);
 
-                appliedPoint = 0;
+                    totalPay = orPrice - dcPrice;
 
-                $("#point").val(0);
+                    // 합계를 출력
+                    $("#subprice").text(totalPay);
+                    $("#totalprice").text(totalPay);
+                } else {
+                    alert("잘못된 포인트 입력입니다. 0 이상의 값을 입력해주세요.");
+                }
             });
 
             $("#pay").click(function(){
@@ -278,7 +288,7 @@
                 var tel = $("#tel").val();
                 var addr = $("#addr").val();
                 var postcode = $("#postcode").val();
-                paytitle = $("#lname").val();
+                paytitle = $("#title").val();
                 if ($("#price").val() == "") {
                     alert("구매할 수량을 입력하지 않으셨습니다.");
                     $("#totalprice").focus();
@@ -329,7 +339,7 @@
                     $("#paymentResult").text("결제 완료 : "+totalPay);
                 });
             });
-        });
+            });
     </script>
 </div>
 <!-- section2(payment & payInfo) End -->

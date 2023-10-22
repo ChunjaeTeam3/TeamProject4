@@ -41,6 +41,8 @@ public class UserController {
     private StudyInfoService studyInfoService;
     @Autowired
     private PaymentService paymentService;
+    @Autowired
+    private TodoService todoService;
 
     private BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
@@ -184,10 +186,13 @@ public class UserController {
         List<LectureVO> myLecture = registerService.myLectures(page);
         model.addAttribute("lectureList", myLecture);
 
-
         //최근 학습 목록 불러오기
         List<UserProgress> progressList = registerService.progressList(id);
         model.addAttribute("progressList", progressList);
+
+        //투두리스트 불러오기
+        List<Todo> todoList = todoService.todoList(id);
+        model.addAttribute("todoList", todoList);
 
         model.addAttribute("curPage", curPage);
         model.addAttribute("page", page);

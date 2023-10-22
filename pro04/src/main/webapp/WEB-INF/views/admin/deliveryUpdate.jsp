@@ -77,15 +77,11 @@
                     <div class="row">
                         <div class="form-outline mb-4 col col-4">
                             <input type="hidden" id="dno" name="dno" value="${delivery.dno}">
-                            <input type="date" id="resdate" name="resdate" class="form-control" value="${delivery.resdate}" readonly />
+                            <input type="date" id="resdate" name="resdate" class="form-control" value="${fn:substring(delivery.resdate, 0, 10)}" readonly />
                             <label class="form-label" for="resdate"> 결제일 </label>
                         </div>
                         <div class="form-outline mb-4 col col-4">
-                            <input type="date" id="ddate" name="ddate" class="form-control" value="${delivery.ddate}" readonly />
-                            <label class="form-label" for="ddate"> 배송시작일 </label>
-                        </div>
-                        <div class="form-outline mb-4 col col-4">
-                            <input type="date" id="edate" name="edate" class="form-control" value="${delivery.edate}" required />
+                            <input type="date" id="edate" name="edate" class="form-control" value="${fn:substring(delivery.edate, 0, 10)}}" required />
                             <label class="form-label" for="edate"> 배송예정일 </label>
                         </div>
                     </div>
@@ -106,14 +102,9 @@
                         </div>
                         <div class="form-outline mb-4 col col-4">
                             <select class="form-control" name="dstatus" id="dstatus">
-                                <c:forEach var="state" items="${state_list}" varStatus="status">
-                                    <c:if test="${delivery.current_state eq state}">
-                                        <option value="${status.index}" selected> ${state} </option>
-                                    </c:if>
-                                    <c:if test="${delivery.current_state ne state}">
-                                        <option value="${status.index}"> ${state} </option>
-                                    </c:if>
-                                </c:forEach>
+                                <option value="0" selected> 배송준비중</option>
+                                <option value="1">배송중 </option>
+                                <option value="2">배송완료</option>
                             </select>
                             <label for="dstatus" class="form-label"> 배송상태 </label>
                         </div>

@@ -18,6 +18,7 @@ public interface PaymentService {
     public void pointUpdate(int pt, String id) throws Exception;
     public List<PaymentVO> paymentList(Page page) throws Exception;
     public PaymentVO myPaymentDetail(int pno) throws Exception;
+
     public int period(String lcode) throws Exception;
     public int payCount(Page page) throws Exception;
 }

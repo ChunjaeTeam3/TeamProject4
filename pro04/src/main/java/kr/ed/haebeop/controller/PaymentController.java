@@ -5,6 +5,8 @@ import kr.ed.haebeop.service.DeliveryService;
 import kr.ed.haebeop.service.PaymentService;
 import kr.ed.haebeop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -110,6 +112,7 @@ public class PaymentController {
 
         Serve serve = new Serve();
         serve.setPno(pno);
+        serve.setBcode(bcode);
         serve.setSprice(request.getParameter("sprice"));
         serve.setAmount(request.getParameter("amount"));
 
@@ -140,10 +143,16 @@ public class PaymentController {
     }
 
     @GetMapping("paymentDelete")
-    public String getQnaDelete(HttpServletRequest request, Model model) throws Exception {
+    @ResponseBody
+    public ResponseEntity<String> getPaymentDelete(HttpServletRequest request, Model model) {
         int pno = Integer.parseInt(request.getParameter("pno"));
-        paymentService.deletePayment(pno);
-        return "redirect:/user/payment";
+
+        try {
+            paymentService.deletePayment(pno);
+            return new ResponseEntity<>("구매취소 성공", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("구매취소 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

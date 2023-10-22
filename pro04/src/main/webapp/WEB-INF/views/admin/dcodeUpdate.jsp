@@ -49,15 +49,35 @@
 
     <div class="container-md p-5 mt-5">
         <h4 class="mb-2"> 송장번호 입력 </h4>
-        <form name="frm1" id="frm1" action="${path}/admin/dcodeUpdatePro" method="post" class="border p-4">
+        <form name="frm1" id="frm1" class="border p-4">
             <div class="row">
                 <div class="form-outline mb-4 col col-8" style="display: flex;">
                     <input class="form-control-lg col-12" type="text" name="dcode" id="dcode" value="${delivery.dcode}" required>
                     <input type="hidden" name="dno" id="dno" value="${delivery.dno}">
-                    <button type="submit" class="btn btn-dark btn-lg col-6" style="margin-left: 20px;"> 수정 </button>
+                    <button type="button" class="btn btn-dark btn-lg col-6" onclick="dcCheck();" style="margin-left: 20px;"> 수정 </button>
                 </div>
             </div>
         </form>
+        <script>
+            function dcCheck() {
+                var dno = $("#dno").val();
+                var dcode = $("#dcode").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "${path}/admin/dcodeUpdatePro",
+                    data: { dno: dno,  dcode: dcode },
+                    success: function(data) {
+                        alert("수정이 완료되었습니다.");
+                        window.close();
+                        window.opener.location.reload();
+                    },
+                    error: function() {
+                        alert("수정 중 오류가 발생했습니다.");
+                    }
+                });
+            }
+        </script>
     </div>
 </div>
 </body>

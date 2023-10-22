@@ -126,4 +126,5 @@ public class PaymentServiceImpl implements PaymentService{
     public int payCount(Page page) throws Exception {
         return paymentMapper.payCount(page);
     }
+
 }

@@ -19,7 +19,7 @@
     </update>
 
     <update id="deliveryUpdate">
-        update delivery set dcom =#{dcom}, dtel=#{dtel}, dstatus=#{dstatus}, edate=#{edate}, ddate=#{ddate} where dno=#{dno}
+        update delivery set dcom =#{dcom}, dtel=#{dtel}, dstatus=#{dstatus}, edate=#{edate} where dno=#{dno}
     </update>
 
     <select id="myDeliveryDetail" resultType="kr.ed.haebeop.domain.DeliveryVO">

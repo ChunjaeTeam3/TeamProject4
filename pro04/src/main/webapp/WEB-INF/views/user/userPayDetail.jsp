@@ -81,10 +81,10 @@
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
                             <c:if test="${payment.dstatus == 0}">
-                                <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
+                                <i class="fa-solid fa-box" style="color: #95addd;"></i>
                             </c:if>
                             <c:if test="${payment.dstatus != 0}">
-                            <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
+                                <i class="fa-solid fa-box" style="color: #767779;"></i>
                             </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">결제완료</p>
@@ -96,16 +96,16 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${payment.dstatus eq '1'}">
-                                <i class="fa-solid fa-box" style="color: #95addd;"></i>
+                            <c:if test="${payment.dstatus == 1}">
+                                <i class="fa-solid fa-truck" style="color: #95addd;"></i>
                             </c:if>
-                            <c:if test="${payment.dstatus ne '1'}">
-                            <i class="fa-solid fa-box" style="color: #767779;"></i>
+                            <c:if test="${payment.dstatus != 1}">
+                                <i class="fa-solid fa-truck" style="color: #767779;"></i>
                             </c:if>
                         </div>
-                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송준비중</p>
-                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
-                            주문상품 준비 및 택배 발송하는 단계</h5>
+                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송중</p>
+                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
+                            배송추적 가능 단계</h5>
                     </div>
                 </div>
             </div>
@@ -113,33 +113,49 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${payment.dstatus eq '2'}">
-                                <i class="fa-solid fa-truck" style="color: #95addd;"></i>
+                            <c:if test="${payment.dstatus == 2}">
+                                <i class="fa-solid fa-square-check" style="color: #95addd;"></i>
                             </c:if>
-                            <c:if test="${payment.dstatus ne '2'}">
-                            <i class="fa-solid fa-truck" style="color: #767779;"></i>
+                            <c:if test="${payment.dstatus != 2}">
+                                <i class="fa-solid fa-square-check" style="color: #767779;"></i>
                             </c:if>
                         </div>
-                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">발송완료</p>
-                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
-                            배송추적 가능 단계</h5>
+                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송완료</p>
+                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
+                            주문자에게 배송이 완료된 단계  </h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <c:if test="${payment.dstatus == 0}">
-    <div class="row" id="infoTel" style="padding-left: 50px; margin: 0 auto; width: 250px;">
-        <button type="button" class="btn btn-secondary" href="${path}/payment/paymentDelete?${payment.pno}" style="margin-right: 15px;">구매취소</button>
-        <button type="button" class="btn btn-dark" onclick="check()">닫기</button>
-    </div>
-    </c:if>
+    <c:choose>
+        <c:when test="${payment.dstatus == 0}">
+            <div class="row" id="infoTel" style="padding-left: 50px; margin: 0 auto; width: 250px;">
+                <a class="btn btn-secondary" href="javascript:void(0);" onclick="delCheck()" style="margin-right: 15px;">구매취소</a>
+                <button type="button" class="btn btn-dark" onclick="check()">닫기</button>
+            </div>
+        </c:when>
+    </c:choose>
     <script>
+        function delCheck() {
+            $.ajax({
+                type: "GET",
+                url: "${path}/payment/paymentDelete?pno=${payment.pno}",
+                success: function(data) {
+                    alert("구매가 취소되었습니다.");
+                    window.close();
+                    window.opener.location.reload();
+                },
+                error: function() {
+                    alert("구매취소 중 오류가 발생했습니다.");
+                }
+            });
+        }
+
         function check(){
             window.close();
         }
     </script>
-
 </div>
 </body>
 </html>

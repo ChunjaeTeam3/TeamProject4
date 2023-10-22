@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Serve {
-    private int sno;
+@NoArgsConstructor
+public class Receive {
+    private int rno;
     private String bcode;
-    private int pno;
-    private String sprice;
-    private String amount;
+    private int amount;
+    private int rprice;
     private String resdate;
 }

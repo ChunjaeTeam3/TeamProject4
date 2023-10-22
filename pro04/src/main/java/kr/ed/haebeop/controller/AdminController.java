@@ -65,6 +65,9 @@ public class AdminController {
     @Autowired
     private DeliveryService deliveryService;
 
+    @Autowired
+    private BookService bookService;
+
     @RequestMapping("dashboard")
     public String dashboard(Model model) throws Exception {
         // 포인트로 얻은 이익 계산
@@ -647,16 +650,15 @@ public class AdminController {
     }
 
     @PostMapping("dcodeUpdatePro")
-    public String dcodeUpdate(HttpServletRequest request, Model model) throws Exception{
-
-        int dno = Integer.parseInt(request.getParameter("dno"));
-        String dcode = request.getParameter("dcode");
-
-        deliveryService.dcodeUpdate(dcode, dno);
-
-        return "redirect:/admin/deliveryMgmt";
+    @ResponseBody
+    public String dcodeUpdate(@RequestParam("dno") int dno, @RequestParam("dcode") String dcode) {
+        try {
+            deliveryService.dcodeUpdate(dcode, dno);
+            return "success";
+        } catch (Exception e) {
+            return "error";
+        }
     }
-
 
     @GetMapping("deliveryUpdate")
     public String deliveryUpdateForm(HttpServletRequest request, Model model) throws Exception{
@@ -669,19 +671,76 @@ public class AdminController {
     }
 
     @PostMapping("deliveryUpdatePro")
-    public String deliveryUpdate(HttpServletRequest request,Model model) throws Exception{
+    public String deliveryUpdate(Delivery delivery, HttpServletRequest request, Model model) throws Exception{
 
-        Delivery delivery = new Delivery();
-        delivery.setDcom(request.getParameter("dcom"));
-        delivery.setDtel(request.getParameter("dtel"));
-        delivery.setDstatus(Integer.parseInt(request.getParameter("dstatus")));
-        delivery.setEdate(request.getParameter("edate"));
-        delivery.setDcode(request.getParameter("ddate"));
         deliveryService.deliveryUpdate(delivery);
 
         return "redirect:/admin/deliveryMgmt";
     }
 
+    @RequestMapping("bookMgmt")
+    public String bookMgmt(HttpServletRequest request, Model model) throws Exception {
 
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        Page page = new Page();
+        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
+
+        // 페이징에 필요한 데이터 저장
+        int total = bookService.getCount(page);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        List<Book> bookList = bookService.bookList(page);
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("page", page);
+
+        return "/admin/bookMgmt";
+    }
+
+
+    @GetMapping("bookInsert")
+    public String bookInsertForm() throws Exception{
+        return "/admin/bookInsert";
+    }
+
+    @PostMapping("bookInsert")
+    public String bookInsert(Book book, HttpServletRequest request, Model model) throws Exception{
+
+        bookService.bookInsert(book);
+        return "redirect:/admin/bookMgmt";
+    }
+
+    @RequestMapping("bookEdit")
+    public String bookEditForm(@RequestParam String bcode, HttpServletRequest request, Model model) throws Exception {
+
+        Book book = bookService.bookDetail(bcode);
+        model.addAttribute("book", book);
+
+        return "/admin/bookEdit";
+    }
+
+    @RequestMapping(value="bookEdit", method=RequestMethod.POST)
+    public String bookEdit(Book book, HttpServletRequest request, Model model) throws Exception {
+        bookService.bookUpdate(book);
+
+        return "redirect:/admin/bookMgmt";
+    }
+
+    @GetMapping("bookReceive")
+    public String bookReceiveForm (@RequestParam String bcode, HttpServletRequest request, Model model) throws Exception{
+        Book book = bookService.bookDetail(bcode);
+        model.addAttribute("book", book);
+        return "/admin/bookMgmt";
+    }
+
+    @PostMapping("bookReceive")
+    public String bookReceive(Receive receive, HttpServletRequest request, Model model) throws Exception{
+        bookService.receive(receive);
+
+        return "redirect:/admin/bookMgmt";
+    }
 
 }

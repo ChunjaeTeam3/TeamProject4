@@ -44,7 +44,7 @@
     </update>
 
     <insert id="serveInsert">
-        insert into serve values (default, #{pno}, #{sprice}, #{amount}, default)
+        insert into serve values (default, #{pno},#{bcode}, #{sprice}, #{amount}, default)
     </insert>
 
     <update id="pointUpdate"  parameterType="hashMap">
@@ -73,7 +73,7 @@
     </select>
 
     <select id="myPaymentDetail" resultType="kr.ed.haebeop.domain.PaymentVO">
-        select a.price as price, a.resdate as resdate, a.method as method , b.lname as lname, c.bname as bname, b.lprice as lprice, c.bprice as bprice, d.dstatus as dstatus
+        select a.price as price, a.resdate as resdate, a.method as method , b.lname as lname, c.bname as bname, b.lprice as lprice, c.bprice as bprice, d.dstatus as dstatus, a.pno as pno
         From payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) AND a.pno=#{pno}
     </select>
 
