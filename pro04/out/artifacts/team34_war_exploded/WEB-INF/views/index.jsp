@@ -76,6 +76,54 @@
 </section>
 <!-- ##### Hero Area End ##### -->
 
+<!-- ##### TodoList Area Start ##### -->
+<c:if test="${not empty sid}">
+<section class="latest-albums-area section-padding-100 bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <jsp:include page="./todo/todoList.jsp" />
+            </div>
+            <div class="col ml-5">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <td> 강의명 </td>
+                            <td> 시작시간 </td>
+                            <td> 강의실 </td>
+                            <td> 비고 </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="lecture" items="${myLectureList}">
+                            <tr>
+                                <td class="text-left align-middle"> ${lecture.lname} </td>
+                                <c:if test="${lecture.state eq 'off'}">
+                                    <td class="align-middle"> ${lecture.stime} </td>
+                                    <td class="align-middle"> ${lecture.classroom} </td>
+                                    <td><a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}" class="btn btn-primary">출석하기</a></td>
+                                </c:if>
+                                <c:if test="${lecture.state eq 'on'}">
+                                    <td class="align-middle"> - </td>
+                                    <td class="align-middle"> - </td>
+                                    <td><a href="${path}/lecture/detail?lcode=${lecture.lcode}" class="btn btn-primary">강의 듣기</a></td>
+                                </c:if>
+                            </tr>
+                        </c:forEach>
+                        <c:if test="${empty myLectureList}">
+                            <tr>
+                                <td colspan="4"> 현재 수강 가능한 강의가 없습니다. </td>
+                            </tr>
+                        </c:if>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</c:if>
+<!-- ##### TodoList Area End ##### -->
+
 <!-- ##### Popular Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100" id="popular">
     <div class="container">
@@ -180,10 +228,10 @@
             <c:forEach var="review" items="${reviews}">
                 <div class="carousel-item">
                     <div class="container rounded border bg-white" style="padding: 50px 120px;">
-                        <c:set var="ran" value="${java.lang.Math.round(java.lang.Math.random() * 4) + 1}"/>
+                        <c:set var="random" value="<%= (int) (java.lang.Math.random() * 4) + 1 %>"/>
                         <div class="row">
                             <div class="col-2">
-                                <img src="${path}/resources/img/user0${ran}.jpg" alt="회원 이미지" class="rounded-circle">
+                                <img src="${path}/resources/img/user0${random}.jpg" alt="회원 이미지" class="rounded-circle">
                             </div>
                             <div class="col">
                                 <h3 class="reviewLectureName"> ${review.lname} </h3>

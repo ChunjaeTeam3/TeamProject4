@@ -80,4 +80,8 @@ public class RegisterServiceImpl implements RegisterService {
         return registerMapper.getMyCount(id);
     }
 
+    @Override
+    public List<LectureVO> ongoingMyLecture(String id) throws Exception {
+        return registerMapper.ongoingMyLecture(id);
+    }
 }

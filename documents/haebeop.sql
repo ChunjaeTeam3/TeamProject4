@@ -428,9 +428,8 @@ create table payment(
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
 
-SELECT * FROM review;
-INSERT INTO review
-VALUES(DEFAULT, 'ma1', 'test31', 5, '너무 좋은 강의입니다!')
+SELECT lname, stime, classroom, state FROM lecture l JOIN register r ON (l.lcode=r.lcode) 
+WHERE id='test31' AND CURRENT_DATE BETWEEN sdate AND edate;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

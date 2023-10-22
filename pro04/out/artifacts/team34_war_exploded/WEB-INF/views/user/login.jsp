@@ -25,6 +25,13 @@
         .chk_box input[type="checkbox"]:checked + .on:after { display: block; }
         .on:after { width: 6px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); position: absolute; left: 6px; top: 2px; }
     </style>
+    <c:if test="${not empty msg}">
+    <script>
+        $(document).ready(() => {
+            $("#msg").text("${msg}");
+        });
+    </script>
+    </c:if>
 </head>
 <body>
 <!-- 헤더 시작 -->
@@ -44,7 +51,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8">
                 <div class="login-content">
-                    <h3>어서오세요<i class="fa-solid fa-face-smile fa-bounce"></i></h3>
+                    <h3>어서오세요 <i class="fa-solid fa-face-smile fa-bounce"></i></h3>
                     <!-- Login Form -->
                     <div class="login-form">
                         <form action="${path}/user/login" method="post">
@@ -60,6 +67,7 @@
                             <div class="form-group">
                                 <label for="pw">비밀번호</label>
                                 <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호를 입력해 주세요">
+                                <p class="text-danger" id="msg"></p>
                             </div>
                             <button type="submit" class="btn oneMusic-btn mt-30">로그인</button>
                         </form>

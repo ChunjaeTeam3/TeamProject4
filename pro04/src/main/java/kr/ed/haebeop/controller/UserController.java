@@ -72,10 +72,9 @@ public class UserController {
 
             session.setAttribute("sid", id);
             userService.updateVisited(id);
-            rttr.addFlashAttribute("msg", 1);
             return "redirect:/";
         } else {
-            rttr.addFlashAttribute("msg", 0);
+            rttr.addFlashAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
             return "redirect:login";
         }
     }

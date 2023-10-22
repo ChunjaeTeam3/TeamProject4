@@ -2,14 +2,18 @@ package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.domain.ReviewVO;
+import kr.ed.haebeop.domain.Todo;
 import kr.ed.haebeop.service.LectureService;
+import kr.ed.haebeop.service.RegisterService;
 import kr.ed.haebeop.service.ReviewService;
+import kr.ed.haebeop.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -17,9 +21,12 @@ public class HomeController {
 
     @Autowired
     private LectureService lectureService;
-
+    @Autowired
+    private RegisterService registerService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private TodoService todoService;
 
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model) throws Exception {
@@ -38,6 +45,16 @@ public class HomeController {
         // 리뷰 목록
         List<ReviewVO> reviews = reviewService.randomReview();
         model.addAttribute("reviews", reviews);
+
+        // 투두리스트 목록
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+        List<Todo> todoList = todoService.todoList(id);
+        model.addAttribute("todoList", todoList);
+
+        // 수강신청한 강의 중 현재 수강기간인 강의 목록
+        List<LectureVO> myLectureList = registerService.ongoingMyLecture(id);
+        model.addAttribute("myLectureList", myLectureList);
 
         return "/index";
     }

@@ -132,9 +132,7 @@
                 </tbody>
             </table>
         </div>
-
-
-        <nav aria-label="Page navigation example" >
+        <nav aria-label="Page navigation example" class="mb-100">
             <c:if test="${curPage > 5}">
                 <a href="${path}/user/myPage?page=${page.blockStartNum - 1}"
                    class="page-link">Previous</a>
@@ -165,58 +163,6 @@
         </nav>
     </section>
     <!-- section2(registertable) End -->
-
-    <!-- section3(recentTable) Start -->
-    <div class="row" style="width: 85%; margin: 0 auto;">
-        <div class="row">
-            <h4>수강하실 강의를 선택해주세요.</h4>
-        </div>
-        <div class="col-lg-10" style="width: 100%;">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive project-list">
-                        <table class="table project-table table-centered table-nowrap">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Projects</th>
-                                <th scope="col">Start Date</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>New admin Design</td>
-                                <td>02/5/2019</td>
-                                <td>
-                                    <span class="text-success font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i> Completed</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- end project-list -->
-
-                    <div class="pt-3">
-                        <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- section2(recentTable) End -->
-
 </div>
 <!-- mypage End -->
 
