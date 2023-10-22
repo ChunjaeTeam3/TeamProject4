@@ -51,12 +51,13 @@ public class LectureController {
         page.makeBlock(curPage, total);
         page.makeLastPageNum(total);
         page.makePostStart(curPage, total);
-
         // 강의 목록 불러오기
         List<LectureVO> lectureList = lectureService.lectureList(page);
-        List<LectureVO> lectureList2 = lectureService.newList();
+        List<LectureVO> lectureList2 = lectureService.lastList(); //마감임박
+        List<LectureVO> lectureList3 = lectureService.newList(); //신규강의
         model.addAttribute("lectureList", lectureList);
         model.addAttribute("lectureList2", lectureList2);
+        model.addAttribute("lectureList3", lectureList3);
         // 과목 목록 불러오기
         List<Subject> subjects = lectureService.subjects();
         model.addAttribute("subjects", subjects);
@@ -114,7 +115,6 @@ public class LectureController {
 
         // 강의 목록 불러오기
         List<LectureVO> lectureList = lectureService.lectureList(page);
-        Teacher teacher= new Teacher();
         System.out.println(lectureList);
         model.addAttribute("lectureList", lectureList);
         // 과목 목록 불러오기
@@ -144,9 +144,9 @@ public class LectureController {
 
         // 강의 목록 불러오기
         List<LectureVO> lectureList = lectureService.lectureList(page);
-        Teacher teacher= new Teacher();
         System.out.println(lectureList);
         model.addAttribute("lectureList", lectureList);
+
         // 과목 목록 불러오기
         List<Subject> subjects = lectureService.subjects();
         model.addAttribute("subjects", subjects);
@@ -174,7 +174,6 @@ public class LectureController {
 
         // 강의 목록 불러오기
         List<LectureVO> lectureList = lectureService.lectureList(page);
-        Teacher teacher= new Teacher();
         System.out.println(lectureList);
         model.addAttribute("lectureList", lectureList);
         // 과목 목록 불러오기
@@ -195,6 +194,7 @@ public class LectureController {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         LecturePage page = new LecturePage();
         page.setLcode(lcode);
+        System.out.println(lcode);
 
         // 페이징에 필요한 데이터 저장
         int total = curriculumService.getCount(page);
@@ -257,8 +257,35 @@ public class LectureController {
         HttpSession session = request.getSession();
         review.setId((String) session.getAttribute("sid"));
         reviewService.reviewInsert(review);
-       return "redirect:/lecture/detail?lcode=" + review.getLcode();
+        String lcode = request.getParameter("lcode");
+        return  "redirect:/lecture/review?lcode="+lcode;
 
+    }
+    @GetMapping("review")
+    public String review(@RequestParam String lcode, HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        LecturePage page = new LecturePage();
+        page.setLcode(lcode);
+        HttpSession session = request.getSession();
+        String sid = (String) session.getAttribute("sid");
+        User user = userService.getUser((String) session.getAttribute("sid"));
+        LectureVO lecture = lectureService.lectureDetail(lcode);
+        model.addAttribute("lecture", lecture);
+        model.addAttribute("user", user);
+        List<Review> reviewList = reviewService.reviewList("new", lcode);
+        int starAvg = reviewService.starAvg(lcode);
+        boolean isReg = registerService.isReg(lcode, sid);
+
+        int total2 = lecBoardService.getCount(page);
+        page.makeBlock(curPage, total2);
+        page.makeLastPageNum(total2);
+        page.makePostStart(curPage, total2);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("starAvg", starAvg);
+        model.addAttribute("isReg", isReg);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+        return "/lecture/review";
     }
 
     @GetMapping("register")
@@ -266,10 +293,34 @@ public class LectureController {
         HttpSession session = request.getSession();
         User user = userService.getUser((String) session.getAttribute("sid"));
         LectureVO lecture = lectureService.lectureDetail(lcode);
+        System.out.println(lecture);
         model.addAttribute("lecture", lecture);
         model.addAttribute("user", user);
         return "/lecture/registerInsert";
     }
+
+    @GetMapping("register2")
+    public String register2(@RequestParam String lcode, HttpServletRequest request, Model model) throws Exception {
+        HttpSession session = request.getSession();
+        User user = userService.getUser((String) session.getAttribute("sid"));
+        LectureVO lecture = lectureService.lectureDetail(lcode);
+        System.out.println(lecture);
+        model.addAttribute("lecture", lecture);
+        model.addAttribute("user", user);
+        return "/lecture/registerInsertPage";
+    }
+
+    @GetMapping("registered")
+    public String registered(@RequestParam String lcode, HttpServletRequest request, Model model) throws Exception {
+        HttpSession session = request.getSession();
+        User user = userService.getUser((String) session.getAttribute("sid"));
+        LectureVO lecture = lectureService.lectureDetail(lcode);
+        System.out.println(lecture);
+        model.addAttribute("lecture", lecture);
+        model.addAttribute("user", user);
+        return "/lecture/registered";
+    }
+
     @GetMapping(value="registerInsert")
     public String registerInsert(@RequestParam String lcode, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
         HttpSession session = request.getSession();
@@ -279,6 +330,17 @@ public class LectureController {
         rttr.addFlashAttribute("msg", result);
 
         return "redirect:/lecture/detail?lcode=" + lcode;
+    }
+
+    @GetMapping(value="registerInsert2")
+    public String registerInsert2(@RequestParam String lcode, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+        String result = registerService.registerInsert(id, lcode);
+
+        rttr.addFlashAttribute("msg", result);
+
+        return "redirect:list" ;
     }
 
     @GetMapping("player")
