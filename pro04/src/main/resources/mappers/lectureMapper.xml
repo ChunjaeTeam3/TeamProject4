@@ -30,6 +30,35 @@
         order by sdate limit #{postStart}, #{postCount}
     </select>
 
+    <select id="lastList" resultType="kr.ed.haebeop.domain.LectureVO">
+        SELECT  lcode ,lname, sname, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, l.scode as scode, state, classroom
+        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode)
+        <where>
+            <if test="type != null">
+                <trim prefixOverrides="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            lname LIKE concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            lcontent LIKE concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'W'.toString()">
+                            tname LIKE concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </if>
+            <if test="scode != null">
+                AND l.scode = #{scode}
+            </if>
+            AND state != 'close'
+            AND edate > current_date
+        </where>
+        order by edate ASC
+        LIMIT 5;
+    </select>
+
     <select id="newList" resultType="kr.ed.haebeop.domain.LectureVO">
         SELECT  lcode ,lname, sname, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, l.scode as scode, state, classroom
         FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode)
@@ -53,9 +82,10 @@
                 AND l.scode = #{scode}
             </if>
             AND state != 'close'
+            AND sdate > current_date
         </where>
-        order by edate ASC;
-
+        order by sdate  ASC
+        LIMIT 5;
     </select>
 
     <!-- lecture의 전체 개수 구하기 -->
@@ -132,7 +162,7 @@
 
     <select id="comparePeriod" resultType="boolean">
         <![CDATA[
-            SELECT (sdate < CURRENT_DATE) FROM lecture WHERE lcode=#{lcode}
+            SELECT (edate < CURRENT_DATE) FROM lecture WHERE lcode=#{lcode}
         ]]>
     </select>
 

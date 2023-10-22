@@ -6,6 +6,7 @@
 
     <jsp:include page="../layout/head.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         input {
             border-radius: 5px;
@@ -28,53 +29,69 @@
 <!-- 브레드크럼 시작 -->
 
 <!-- 브레드크럼 끝 -->
-<div class="has-background-white card-content shadow-down p-6">
-            <form>
-                <div class="col-12">
-                    <div class="card w-auto">
-                        <div class="card-body">
-                            <div class="table-responsive project-list">
-                                <table class="table project-table table-centered table-nowrap">
-                                    <tbody>
-                                    <tr>
-                                        <th class="text-center" style="vertical-align: middle; width: 15%;">제목</th>
-                                        <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" class="pl-2" required autofocus></td>
-                                        <td><input type="text" id="lcode" name="lcode" placeholder="제목을 입력하세요" class="pl-2" value="${lcode}" hidden="hidden"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" style="font-size: 15px;">
-                                            <textarea name="content" id="content" cols="100" rows="8" maxlength="800" class="single-textarea" style="height: 400px; border: 1px solid #cbcbcb" placeholder="질문 내용을 입력하세요"></textarea>
-                                            <script>
-                                                $(document).ready(function () { $("#content").cleditor(); });
-                                            </script>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="btn-group float-right mr-3">
-                                    <button type="button" onclick="backback()" class="button" >목록으로</button>
+<br>
+<br>
+<div class="has-background-white card-content shadow-down p-6" id="board2">
+
+                                <input type="text" id="lcode" name="lcode" placeholder="제목을 입력하세요" class="pl-2" value="${lcode}" hidden="hidden">
+                                <div class="mb-3">
+                                    <label class="form-label" for="title">제목</label>
+                                    <input class="form-control" type="text" name="title" id="title">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contents" class="form-label">내용 입력</label>
+                                    <textarea class="form-control" name="contents" id="contents" rows="3"></textarea>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button" onclick="ListPage()" class="button" >목록으로</button>
                                     <input type="submit" class="btn btn-dark" style="height: 100%" value="등록" onclick="insertPage()">
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+
 </div>
         <!-- 테이블 영역 끝 -->
 <script>
     function insertPage() {
-        // AJAX 요청을 사용하여 글쓰기 페이지를 로드합니다.
-        var title = document.getElementById("title").value
-        var content = document.getElementById("content").value
-        var lcode = document.getElementById("lcode").value
+        // 사용자 입력을 가져옵니다.
+        var title = $("#title").val();
+        var content = $("#contents").val();
+        var lcode = $("#lcode").val();
+
         $.ajax({
-            url: "${path}/lecBoard/questionInsert?lcode=" + lcode, // 글쓰기 페이지의 URL을 여기에 넣어주세요.
-            type: "POST", // GET 요청 사용
-            success: function () {
-                console.log("성공")
-                // 성공적으로 글쓰기 페이지를 불러왔을 때 실행되는 콜백 함수
-                // data는 글쓰기 페이지의 HTML 내용을 포함하고 있습니다.
+            url: "${path}/lecBoard/questionInsert?lcode=${lcode}", // URL을 고정 경로로 지정
+            type: "POST",
+            data: {
+                lcode: lcode,
+                title: title,
+                content: content
+            },
+            success: function (data) {
+                console.log("성공", data);
+                ListPage();
+                // 성공적으로 요청을 처리한 후 할 작업을 여기에 추가하세요.
+
+                // $("#intro").addClass("show active");
+                // $("#board").removeClass("show active");
+                // $("#intro-tab").addClass("active");
+                // $("#board-tab").removeClass("active");
+            },
+            error: function (error) {
+                console.log("에러다에러", error.responseText);
+            }
+        });
+    }
+</script>
+<script>
+
+    function ListPage(){
+        var lcode = $("#lcode").val();
+        $.ajax({
+            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
+            url: "${path}/lecBoard/list",  // 실제 API 엔드포인트로 변경해야 합니다.
+            data: {
+                lcode : lcode
+            },
+            success: function (data) {
+                $("#board").html(data);
             },
             error: function (error) {
                 console.log("에러다에러"+error.responseText)
@@ -82,6 +99,7 @@
         });
     }
 </script>
+
 
 
 <!-- 푸터 시작 -->

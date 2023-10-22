@@ -3,8 +3,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<jsp:include page="../layout/head.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<br>
+<br>
 <div class="col-xl-4 col-md-6 float-right mb-20"  style="z-index: 10">
     <form action="${path}/lecBoard/list" method="get" >
         <div class="form-group ">
@@ -40,7 +44,7 @@
 
                         <tbody>
                         <c:forEach items="${lecBoardList }" var="list" varStatus="status">
-                            <c:if test="${list.lcode} == ${lecture.lcode} ">
+                            <c:if test="${list.lcode eq lecture.lcode}">
                             <tr class="table-hover">
                                 <input type="hidden" value="${list.qno}">
                                 <th class="text-center">${status.count}</th>
@@ -57,16 +61,18 @@
                                         </c:if>
                                     </c:if>
                                     <!-- 로그인 했을 때 -->
-                                    <c:if test="${!empty sid}">
-                                        <!-- 질문 글 -->
+<%--                                    <c:if test="${!empty sid}">--%>
                                         <c:if test="${list.lev eq 0}">
-                                            <a href="${path}/lecBoard/detail?qno=${list.qno}&page=${curPage}">${list.title}</a>
+                                            <input value="${list.qno}" id="qno" hidden="hidden">
+                                            <input value="${curPage}" id="curPage" hidden="hidden">
+                                            <a href="javascript:void(0);" class="ajax-link" data-qno="${list.qno}" data-page="${curPage}">${list.title}</a>
                                         </c:if>
-                                        <!-- 답변 글 -->
                                         <c:if test="${list.lev eq 1}">
-                                            <a href="${path}/lecBoard/detail?qno=${list.qno}&page=${curPage}">&nbsp;&nbsp;&nbsp;&nbsp;⌞${list.title}</a>
+                                            <input value="${list.qno}" id="qno" hidden="hidden">
+                                            <input value="${curPage}" id="curPage" hidden="hidden">
+                                            <a href="javascript:void(0);" class="ajax-link" data-qno="${list.qno}" data-page="${curPage}">&nbsp;&nbsp;&nbsp;&nbsp;⌞${list.title}</a>
                                         </c:if>
-                                    </c:if>
+<%--                                    </c:if>--%>
                                 </th>
                                 <th class="text-center">${list.author}</th>
                                 <th class="text-center">
@@ -118,13 +124,60 @@
                         </ul>
                     </div>
                     <!-- 페이지 끝 -->
-                    <c:if test="${!empty sid && sid != 'admin'}">
+<%--                    <c:if test="${!empty sid && sid != 'admin'}">--%>
                         <div class="btn float-right mt-10">
-                            <a href="${path}/lecBoard/questionInsert" class="btn btn-outline-dark">글쓰기</a>
+                            <input class="btn btn-dark" type="button" onclick="openWritePage()" value="글쓰기"/>
                         </div>
-                    </c:if>
+<%--                    </c:if>--%>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function openWritePage() {
+        // AJAX 요청을 사용하여 글쓰기 페이지를 로드합니다.
+        $.ajax({
+            url: "${path}/lecBoard/questionInsert?lcode=${lecture.lcode}", // 글쓰기 페이지의 URL을 여기에 넣어주세요.
+            type: "GET", // GET 요청 사용
+            success: function (data) {
+                console.log("성공")
+                // 성공적으로 글쓰기 페이지를 불러왔을 때 실행되는 콜백 함수
+                // data는 글쓰기 페이지의 HTML 내용을 포함하고 있습니다.
+                $("#board").html(data); // 모달의 내용으로 페이지 내용을 삽입
+            },
+            error: function (error) {
+                console.log("에러다에러"+error.responseText)
+            }
+        });
+    }
+</script>
+
+<script>
+        $('.ajax-link').click(function (e) {
+            e.preventDefault(); // 기본 클릭 이벤트 방지
+
+            var qno = document.getElementById("qno").value;
+            var page = document.getElementById("curPage").value;
+
+            // Ajax 요청 보내기
+            $.ajax({
+                type: 'GET',
+                url: '${path}/lecBoard/detail',
+                data: {
+                    qno : qno,
+                    page : page
+                },
+                success: function (data) {
+                    // Ajax 요청이 성공했을 때 수행할 작업
+                    // data 변수에 서버에서 반환한 데이터가 포함됩니다.
+                    $("#board").html(data);
+                    originalContent = $("#board").html();
+                },
+                error: function () {
+                    // Ajax 요청이 실패했을 때 수행할 작업
+                    console.log("에러다에러"+error.responseText)
+                }
+            });
+        });
+</script>
