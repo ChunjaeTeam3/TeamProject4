@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> 강사관리 </title>
+    <title> 교재관리 </title>
     <jsp:include page="../layout/head.jsp"></jsp:include>
     <!-- 관리자 페이지 스타일 적용 -->
     <link href="${path}/resources/css/sb-admin-2.css" rel="stylesheet">
@@ -45,7 +45,7 @@
                 <h2> 새로운 교재 등록 <i class="fa-solid fa-book"></i> </h2>
                 <form action="${path}/admin/bookInsert" method="post" enctype="multipart/form-data">
                     <div class="form-group mt-3">
-                        <label for="bcode"> 교재명 </label>
+                        <label for="bcode"> 교재코드 </label>
                         <input type="text" name="bcode" id="bcode" class="form-control" autocomplete="off" required>
                     </div>
                     <div class="form-group mt-3">
