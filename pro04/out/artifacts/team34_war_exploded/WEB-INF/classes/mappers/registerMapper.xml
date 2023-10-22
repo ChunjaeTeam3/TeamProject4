@@ -59,4 +59,8 @@
         WHERE id=#{id} AND CURRENT_DATE BETWEEN sdate AND edate
     </select>
 
+    <select id="getCount" resultType="integer">
+        select COUNT(*) from register where id=#{id}
+    </select>
+
 </mapper>

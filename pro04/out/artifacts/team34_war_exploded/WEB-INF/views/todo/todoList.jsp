@@ -15,14 +15,14 @@
     .option-input.radio::after{border-radius: 50%}
     .line-text span{background: #fff;padding: 0 10px;color: #212529}
     .user-images img{margin-left: -5px}
-    .col-md-6 {box-shadow: 4px 4px 12px;}
+    .todo-shadow {box-shadow: 4px 4px 12px;}
     .input {width: 94%; height: 40px; border-top: none; border-left: none; border-right: none; border-bottom: 3px solid #3D3D3D;}
     .input:focus {outline: none;}
 </style>
 <!-- TodoList 영역 -->
 <section class="todo-area bg-gray">
     <div class="d-flex justify-content-between row bg-white">
-        <div class="col-md-12 col-md-6 pt-3 pb-3">
+        <div class="col-md-12 col-md-6 todo-shadow pt-3 pb-3">
             <div class="bg-white notes">
                 <div class="flex-row align-items-center notes-title p-3">
                     <h4>TodoList<i class="fa-solid fa-feather"></i></h4>

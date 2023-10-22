@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Serve {
     private int sno;
+    private String bcode;
     private int pno;
     private String sprice;
     private String amount;

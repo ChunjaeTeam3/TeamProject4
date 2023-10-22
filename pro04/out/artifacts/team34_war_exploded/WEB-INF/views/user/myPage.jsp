@@ -12,7 +12,7 @@
     <jsp:include page="../layout/head.jsp"/>
     <style>
         .card { border: none; margin-bottom: 24px; -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);box-shadow: 0 0 13px 0 rgba(236,236,241,.44);}
-        #profile {margin-top: 10px;border-radius: 30px;width: 150px;}
+        #profile {margin-top: 10px;border-radius: 30px; width: 150px;}
     </style>
 </head>
 <body>
@@ -87,87 +87,97 @@
         </div>
     </div>
     <!-- section1(info) End -->
-
-    <!-- section2(registerTable) Start -->
-    <section class="pb-5" style="width: 85%; margin: 0 auto;">
-        <h4>수강신청한 강의(<strong style="color:#545050;">${totalLecture}개</strong>)</h4>
-        <div class="table-responsive project-list">
-            <table class="table project-table table-centered table-nowrap text-center">
-                <thead>
-                <tr>
-                    <th scope="col">강좌명</th>
-                    <th scope="col">강사</th>
-                    <th scope="col">수강기간</th>
-                    <th scope="col">타입</th>
-                    <th scope="col">비고</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="lecture" items="${lectureList}" >
+    
+    <div style="display:flex;">
+        <!-- section2(registerTable) Start -->
+        <section class="pb-5" style="width: 85%; margin: 0 auto;">
+            <h4>수강신청한 강의(<strong style="color:#545050;">${totalLecture}개</strong>)</h4>
+            <div class="table-responsive project-list">
+                <table class="table project-table table-centered table-nowrap text-center">
+                    <thead>
                     <tr>
-                        <td class="align-middle">${lecture.lname}</td>
-                        <td class="align-middle">${lecture.tname}</td>
-                        <td class="align-middle">${lecture.sdate} ~ ${lecture.edate}</td>
-                        <td class="align-middle">
-                            <c:if test="${lecture.state eq 'on'}">
-                                온라인 강의
-                            </c:if>
-                            <c:if test="${lecture.state eq 'off'}">
-                                오프라인 강의
-                            </c:if>
-                        </td>
-                        <td>
-                            <c:if test="${lecture.state eq 'off'}">
-                                <a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}"
-                                    class="btn btn-primary">출석하기</a>
-                            </c:if>
-                        </td>
+                        <th scope="col">강좌명</th>
+                        <th scope="col">강사</th>
+                        <th scope="col">수강기간</th>
+                        <th scope="col">타입</th>
+                        <th scope="col">비고</th>
                     </tr>
-                </c:forEach>
-                <c:if test="${empty lectureList}">
-                    <tr>
-                        <td colspan="6" class="text-center"> 수강신청한 강의가 없습니다. </td>
-                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="lecture" items="${lectureList}" >
+                        <tr>
+                            <td class="align-middle">${lecture.lname}</td>
+                            <td class="align-middle">${lecture.tname}</td>
+                            <td class="align-middle">${lecture.sdate} ~ ${lecture.edate}</td>
+                            <td class="align-middle">
+                                <c:if test="${lecture.state eq 'on'}">
+                                    온라인 강의
+                                </c:if>
+                                <c:if test="${lecture.state eq 'off'}">
+                                    오프라인 강의
+                                </c:if>
+                            </td>
+                            <td>
+                                <c:if test="${lecture.state eq 'off'}">
+                                    <a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}"
+                                        class="btn btn-primary">출석하기</a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    <c:if test="${empty lectureList}">
+                        <tr>
+                            <td colspan="6" class="text-center"> 수강신청한 강의가 없습니다. </td>
+                        </tr>
+                    </c:if>
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation example" class="mb-100">
+                <c:if test="${curPage > 5}">
+                    <a href="${path}/user/myPage?page=${page.blockStartNum - 1}"
+                       class="page-link">Previous</a>
                 </c:if>
-                </tbody>
-            </table>
-        </div>
-        <nav aria-label="Page navigation example" class="mb-100">
-            <c:if test="${curPage > 5}">
-                <a href="${path}/user/myPage?page=${page.blockStartNum - 1}"
-                   class="page-link">Previous</a>
-            </c:if>
-            <c:if test="${page.blockLastNum < page.totalPageCount}">
-                <a href="${path}/user/myPage?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
-            </c:if>
+                <c:if test="${page.blockLastNum < page.totalPageCount}">
+                    <a href="${path}/user/myPage?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
+                </c:if>
 
-            <ul class="pagination justify-content-center">
-                <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
-                    <c:choose>
-                        <c:when test="${i == curPage}">
-                            <li class="page-item">
-                                <a href="${path}/user/myPage?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                   class="page-link active" aria-label="Page ${i}"
-                                   aria-current="page" style="background-color: #545050; color:#FFFFFF" ;>${i}</a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item">
-                                <a href="${path}/user/myPage?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                   class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </ul>
-        </nav>
-    </section>
-    <!-- section2(registertable) End -->
+                <ul class="pagination justify-content-center">
+                    <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                        <c:choose>
+                            <c:when test="${i == curPage}">
+                                <li class="page-item">
+                                    <a href="${path}/user/myPage?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                       class="page-link active" aria-label="Page ${i}"
+                                       aria-current="page" style="background-color: #545050; color:#FFFFFF" ;>${i}</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item">
+                                    <a href="${path}/user/myPage?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                       class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </ul>
+            </nav>
+        </section>
+        <!-- section2(registertable) End -->
+
+        <!-- section3(todolist) Start -->
+        <div class="col-lg-5 justify-content-end ml-5">
+            <jsp:include page="../todo/todoList.jsp"/>
+        </div>
+        <!-- section3(todolist) End -->
+    </div>
 </div>
 <!-- mypage End -->
 
 <!-- Footer Start -->
 <jsp:include page="../layout/footer.jsp" />
 <!-- Footer End -->
+
+</script>
 </body>
 </html>

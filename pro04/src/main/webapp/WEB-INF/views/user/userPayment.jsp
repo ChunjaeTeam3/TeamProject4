@@ -53,7 +53,7 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <i class="fa-solid fa-check-to-slot" style="color: #4a4c4f;"></i>
+                            <i class="fa-solid fa-box" style="color: #4a4c4f;"></i>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">결제완료</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >판매자가 주문을 확인하는 단계</h5>
@@ -64,23 +64,23 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <i class="fa-solid fa-box" style="color: #494a4b;"></i>
+                            <i class="fa-solid fa-truck" style="color: #393a3c; "></i>
                         </div>
-                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송준비중</p>
-                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
-                            주문상품 준비 및 택배 발송하는 단계</h5>
+                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송중</p>
+                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
+                            배송추적 가능 단계</h5>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-md-6" >
                 <div class="card bg-pattern">
-                    <div class="card-body" style="height: 200px;">
+                    <div class="card-body" style="height: 200px; ">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <i class="fa-solid fa-truck" style="color: #393a3c; "></i>
+                            <i class="fa-solid fa-square-check" style="color: #2e3033;"></i>
                         </div>
-                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">발송완료</p>
-                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
-                            배송추적 가능 단계</h5>
+                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송완료</p>
+                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
+                            주문자에게 배송이 완료된 단계  </h5>
                     </div>
                 </div>
             </div>
@@ -99,10 +99,10 @@
         <div class="card col-lg-12"  style="border-top: 1px solid darkgray; border-bottom: 1px solid darkgray;">
             <c:forEach var="payment" items="${paymentList}">
             <div class="card" style=" width: 70%; border: 1px solid lightgray;     margin: 30px auto;">
-                <div class="card-header" style="display: flex;">
-                    <div style="margin-right: 570px; padding-top: 20px;"><strong>결제완료 | ${payment.resdate}</strong> </div>
-                    <div><button type="button" onclick="payCheck2()" class="btn btn-secondary">주문상세</button>
-                         <button type="button" onclick="delCheck()" class="btn btn-secondary" style="margin: 10px;">배송조회</button>
+                <div class="card-header d-flex justify-content-between" style="display: flex;">
+                    <strong style="padding-top: 15px;">결제완료 | ${payment.resdate}</strong>
+                    <div><button type="button" onclick="payCheck2(${payment.pno})" class="btn btn-secondary">주문상세</button>
+                         <button type="button" onclick="delCheck(${payment.dno})" class="btn btn-secondary" style="margin: 10px;">배송조회</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -119,21 +119,46 @@
                 </div>
             </c:if>
         </div>
+        <nav aria-label="Page navigation example" style="margin:0 auto;">
+            <c:if test="${curPage > 5}">
+                <a href="${path}/user/lecture?page=${page.blockStartNum - 1}"
+                   class="page-link">Previous</a>
+            </c:if>
+            <c:if test="${page.blockLastNum < page.totalPageCount}">
+                <a href="${path}/user/lecture?page=${page.blockLastNum + 1}" class="page-link">Next page</a>
+            </c:if>
+
+            <ul class="pagination justify-content-center">
+                <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                    <c:choose>
+                        <c:when test="${i == curPage}">
+                            <li class="page-item">
+                                <a href="${path}/user/lecture?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="page-link active" aria-label="Page ${i}" aria-current="page" style="background-color: #545050; color:#FFFFFF">${i}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a href="${path}/user/lecture?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </ul>
+        </nav>
     </div>
     <script>
-        function payCheck2(){
-            var pno = $("#pno").val();
+        function payCheck2(pno) {
             var child;
-            child = window.open("${path}/payment/payDetail?pno=${payment.pno}", "child", "width=700, height=900");
+            child = window.open("${path}/payment/payDetail?pno=" + pno, "child", "width=700, height=900");
         }
     </script>
     <script>
-        function delCheck(){
-            var dno = $("#dno").val();
+        function delCheck(dno) {
             var child;
-            child = window.open("${path}/payment/deliveryDetail?dno=${payment.dno}", "child", "width=700, height=900");
+            child = window.open("${path}/payment/deliveryDetail?dno=" + dno, "child", "width=700, height=900");
         }
     </script>
+
     <!-- section2(payment table) End -->
 
 

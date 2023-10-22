@@ -42,7 +42,8 @@
                 </ul>
             </nav>
             <div class="container-fluid" style="padding: 100px">
-                <div>
+                <h4 style="padding-left: 10px;"><i class="fa-solid fa-check-to-slot" style="color: #595959; padding-right: 10px;"></i>결제완료 목록</h4>
+                <div style="margin-top: 22px;">
                     <%--결제완료 목록--%>
                     <table class="table" id="payment-table">
                         <thead>
@@ -55,16 +56,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${deliveryList }" var="delivery" varStatus="status">
+                        <c:forEach items="${deliveryList }" var="delivery">
                             <tr>
                                 <td>${delivery.dno }</td>
-                                <td ><a href="${path}/admin/dcodeUpdate?dno=${delivery.dno }" style="color: #000000; text-decoration: none;">${delivery.title }</a></td>
+                                <td><a href="javascript:void(0);" onclick="openChildWindow(${delivery.dno})">${delivery.title}</a></td>
                                 <td>${delivery.id }</td>
                                 <td>
                                     <fmt:parseDate value="${delivery.resdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss" />
                                     <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd" />
                                 </td>
-                                <td>${delivery.dstatus}</td>
+                                <td class="text-center">
+                                    <c:if test="${delivery.dstatus == 0}">배송준비중</c:if>
+                                    <c:if test="${delivery.dstatus == 1}">배송중</c:if>
+                                    <c:if test="${delivery.dstatus == 2}">배송완료</c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         <c:if test="${empty deliveryList}">
@@ -74,15 +79,49 @@
                         </c:if>
                         </tbody>
                     </table>
+                    <%--페이지 --%>
+                    <nav aria-label="Page navigation example" class="mt-25 mb-30">
+                            <ul class="pagination justify-content-center">
+                                <c:if test="${curPage > 5}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${path}/admin/deliveryMgmt?page=${page.blockStartNum - 1}" aria-label="Previous">
+                                            <span aria-hidden="true"></span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                                    <c:choose>
+                                        <c:when test="${i == curPage}">
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="${path}/admin/deliveryMgmt?page=${i}">${i}</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+                                                <a class="page-link" href="${path}/admin/deliveryMgmt?page=${i}">${i}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:if test="${page.blockLastNum < page.totalPageCount}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${path}/admin/deliveryMgmt?page=${page.blockLastNum + 1}" aria-label="Next">
+                                            <span aria-hidden="true"> >> </span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                 </div>
             </div>
             <div class="container-fluid" style="padding: 100px">
-                <div>
+                <h4 style="padding-left: 10px;"><i class="fa-solid fa-truck" style="color: #3c3d3e; padding-right: 10px;"></i>배송관리</h4>
+                <div style="margin-top: 22px;">
                     <%--배송관리 목록--%>
                     <table class="table" id="del-table">
                         <thead>
                         <tr>
-                            <th width="100">송장번호</th>
+                            <th width="250">송장번호</th>
                             <th width="300">상품명</th>
                             <th width="150">배송시작일</th>
                             <th width="150">배송예정일</th>
@@ -91,17 +130,25 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${deliveryList }" var="delivery" varStatus="status">
+                            <c:if test="${!empty delivery.dcode}">
                             <tr>
                                 <td>${delivery.dcode }</td>
-                                <td ><a href="${path}/admin/deliveryUpdate?dno=${delivery.dno }" style="color: #000000; text-decoration: none;">${delivery.title }</a></td>
-                                <td>${delivery.id }</td>
+                                <td><a href="${path}/admin/deliveryUpdate?dno=${delivery.dno }" style="color: #000000; text-decoration: none;">${delivery.title }</a></td>
                                 <td>
                                     <fmt:parseDate value="${delivery.resdate }" var="resdate" pattern="yyyy-MM-dd HH:mm:ss" />
                                     <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd" />
                                 </td>
-                                <td>${delivery.edate}</td>
-                                <td>${delivery.dstatus}</td>
+                                <td>
+                                    <c:if test="${empty delivery.edate}">배송준비중</c:if>
+                                    <c:if test="${!empty delivery.edate}">${delivery.edate}</c:if>
+                                </td>
+                                <td>
+                                    <c:if test="${delivery.dstatus eq '0'}">배송준비중</c:if>
+                                    <c:if test="${delivery.dstatus eq '1'}">배송중</c:if>
+                                    <c:if test="${delivery.dstatus eq '2'}">배송완료</c:if>
+                                </td>
                             </tr>
+                            </c:if>
                         </c:forEach>
                         <c:if test="${empty deliveryList}">
                             <tr>
@@ -110,28 +157,50 @@
                         </c:if>
                         </tbody>
                     </table>
+                    <%--페이지 --%>
+                    <nav aria-label="Page navigation example" class="mt-25 mb-30">
+                            <ul class="pagination justify-content-center">
+                                <c:if test="${curPage > 5}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${path}/admin/deliveryMgmt?page=${page.blockStartNum - 1}" aria-label="Previous">
+                                            <span aria-hidden="true"></span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                                    <c:choose>
+                                        <c:when test="${i == curPage}">
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="${path}/admin/deliveryMgmt?page=${i}">${i}</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+                                                <a class="page-link" href="${path}/admin/deliveryMgmt?page=${i}">${i}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:if test="${page.blockLastNum < page.totalPageCount}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${path}/admin/deliveryMgmt?page=${page.blockLastNum + 1}" aria-label="Next">
+                                            <span aria-hidden="true"> >> </span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    jQuery(function ($){
-        $("#payment-table").DataTable();
-    })
-</script>
-<script type="text/javascript">
-    jQuery(function ($){
-        $("#del-table").DataTable();
-    })
-</script>
 <script>
-    function dUpdate(){
-        var dno = $("#dno").val();
-        var child;
-        child = window.open("${path}/admin/dcodeUpdate", "child", "width=900, height=800");
+    function openChildWindow(dno) {
+        var child = window.open("${path}/admin/dcodeUpdate?dno=" + dno, "child", "width=900, height=800");
     }
 </script>
+
 
 <!-- 푸터 영역 시작 -->
 <jsp:include page="../layout/footer.jsp"/>

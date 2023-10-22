@@ -17,5 +17,6 @@ public interface RegisterService {
     public double calcRegPercent() throws Exception;
     public int getMyCount(String id) throws Exception;
     public List<LectureVO> ongoingMyLecture(String id) throws Exception;
+    public int getCount(Page page) throws Exception;
 
 }

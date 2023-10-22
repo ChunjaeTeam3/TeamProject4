@@ -23,10 +23,12 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.dstatus eq '0'}">
-                                <i class="fa-solid fa-check-to-slot" style="color: #95addd;"></i>
+                            <c:if test="${delivery.dstatus == 0}">
+                                <i class="fa-solid fa-box" style="color: #95addd;"></i>
                             </c:if>
-                            <i class="fa-solid fa-check-to-slot" style="color: #767779;"></i>
+                            <c:if test="${delivery.dstatus != 0}">
+                                <i class="fa-solid fa-box" style="color: #767779;"></i>
+                            </c:if>
                         </div>
                         <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">결제완료</p>
                         <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >판매자가 주문을 확인하는 단계</h5>
@@ -37,14 +39,16 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px; border-right: 1px solid darkgray;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.dstatus eq '1'}">
-                                <i class="fa-solid fa-box" style="color: #95addd;"></i>
+                            <c:if test="${delivery.dstatus == 1}">
+                                <i class="fa-solid fa-truck" style="color: #95addd;"></i>
                             </c:if>
-                            <i class="fa-solid fa-box" style="color: #767779;"></i>
+                            <c:if test="${delivery.dstatus != 1}">
+                                <i class="fa-solid fa-truck" style="color: #767779;"></i>
+                            </c:if>
                         </div>
-                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송준비중</p>
-                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
-                            주문상품 준비 및 택배 발송하는 단계</h5>
+                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송중</p>
+                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
+                            배송추적 가능 단계</h5>
                     </div>
                 </div>
             </div>
@@ -52,14 +56,16 @@
                 <div class="card bg-pattern">
                     <div class="card-body" style="height: 200px;">
                         <div class="float-left" style="text-align: center;  font-size: 40px; width: 100%;">
-                            <c:if test="${delivery.dstatus eq '2'}">
-                                <i class="fa-solid fa-truck" style="color: #95addd;"></i>
+                            <c:if test="${delivery.dstatus == 2}">
+                                <i class="fa-solid fa-square-check" style="color: #95addd;"></i>
                             </c:if>
-                            <i class="fa-solid fa-truck" style="color: #767779;"></i>
+                            <c:if test="${delivery.dstatus != 2}">
+                                <i class="fa-solid fa-square-check" style="color: #767779;"></i>
+                            </c:if>
                         </div>
-                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">발송완료</p>
-                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" > 상품발송이 완료되어
-                            배송추적 가능 단계</h5>
+                        <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; text-align: center;">배송완료</p>
+                        <h5 class="font-size-30 mt-0 pt-1" style="font-size: 15px; text-align: center;" >
+                            주문자에게 배송이 완료된 단계  </h5>
                     </div>
                 </div>
             </div>
@@ -101,15 +107,30 @@
                 <tbody>
                 <tr>
                     <th scope="row">송장번호 </th>
-                    <td>${delivery.dcode}</td>
+                    <c:if test="${dstatus == 0}">
+                        <td>미정</td>
+                    </c:if>
+                    <c:if test="${dstatus != 0}">
+                        <td>${delivery.dcode}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <th scope="row">배송회사 </th>
-                    <td>${delivery.dcom}</td>
+                    <c:if test="${dstatus ne '2'}">
+                        <td>미정</td>
+                    </c:if>
+                    <c:if test="${dstatus eq '2'}">
+                        <td>${delivery.dcom}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <th scope="row">배달기사 번호</th>
-                    <td>${delivery.dtel}</td>
+                    <c:if test="${dstatus ne '2'}">
+                        <td>미정</td>
+                    </c:if>
+                    <c:if test="${dstatus eq '2'}">
+                        <td>${delivery.dtel}</td>
+                    </c:if>
                 </tr>
                 </tbody>
             </table>

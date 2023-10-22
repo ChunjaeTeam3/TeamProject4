@@ -21,5 +21,6 @@ public interface RegisterMapper {
     public int calcProfitPt() throws Exception;
     public double calcRegPercent() throws Exception;
     public List<LectureVO> ongoingMyLecture(String id) throws Exception;
+    public int getCount(Page page) throws Exception;
 
 }

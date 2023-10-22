@@ -2,12 +2,14 @@ package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.persistence.PaymentMapper;
+import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Book;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
@@ -16,15 +18,22 @@ public class PaymentServiceImpl implements PaymentService{
     private PaymentMapper paymentMapper;
 
     @Override
-    public Payment getPayment(String id, String lcode) throws Exception {
-        return paymentMapper.paymentDetail(id, lcode);
+    public Payment PaymentDetail(String id, String lcode) throws Exception {
+        Map<String, Object> payment = new HashMap<>();
+        payment.put("id", id);
+        payment.put("lcode", lcode);
+        return paymentMapper.paymentDetail(payment);
     }
 
     @Override
     public boolean payCheck(String id, String lcode) throws Exception {
-        Payment payment = paymentMapper.paymentDetail(id, lcode);
+        Map<String, Object> payment = new HashMap<>();
+        payment.put("id", id);
+        payment.put("lcode", lcode);
 
-        if (payment!= null && payment.getLcode() == lcode) {
+        Payment pay = paymentMapper.paymentDetail(payment);
+
+        if (pay!= null && pay.getLcode() == lcode) {
             return false;
         }
 
@@ -54,9 +63,22 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public void addPayment (Delivery delivery,Serve serve,int pt, String id) throws Exception {
+    @Transactional(rollbackFor = Exception.class)
+    public void addPayment (Delivery delivery, Serve serve, int pt, String id) throws Exception {
+        try {
+        paymentMapper.deliveryInsert(delivery);
+        paymentMapper.serveInsert(serve);
+
+        Map<String, Object> pnt = new HashMap<>();
+        pnt.put("pt", pt);
+        pnt.put("id", id);
+
+        paymentMapper.pointUpdate(pnt);
         paymentMapper.dnoUpdate(delivery);
-        paymentMapper.addPayment(delivery, serve, pt, id);
+
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
@@ -65,22 +87,44 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deletePayment(int pno) throws Exception {
-        paymentMapper.deletePayment(pno);
+        try {
+            paymentMapper.paymentDelete(pno);
+            paymentMapper.deliveryDelete(pno);
+            paymentMapper.serveDelete(pno);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public void pointUpdate(int pt, String id) throws Exception {
-        paymentMapper.pointUpdate(pt, id);
+        Map<String, Object> pnt = new HashMap<>();
+        pnt.put("pt", pt);
+        pnt.put("id", id);
+
+        paymentMapper.pointUpdate(pnt);
     }
 
     @Override
-    public List<PaymentVO> paymentList(String id) throws Exception {
-        return paymentMapper.paymentList(id);
+    public List<PaymentVO> paymentList(Page page) throws Exception {
+        return paymentMapper.paymentList(page);
     }
 
     @Override
     public PaymentVO myPaymentDetail(int pno) throws Exception {
         return paymentMapper.myPaymentDetail(pno);
     }
+
+    @Override
+    public int period(String lcode) throws Exception {
+        return paymentMapper.period(lcode);
+    }
+
+    @Override
+    public int payCount(Page page) throws Exception {
+        return paymentMapper.payCount(page);
+    }
+
 }

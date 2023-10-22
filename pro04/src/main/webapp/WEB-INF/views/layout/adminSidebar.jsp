@@ -75,10 +75,25 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix"
            aria-expanded="true" aria-controls="collapseSix">
+            <i class="fa-solid fa-book"></i>
+            <span> 교재관리 </span>
+        </a>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"> Book: </h6>
+                <a class="collapse-item" href="${path}/admin/bookMgmt"> 교재관리 </a>
+                <a class="collapse-item" href="${path}/admin/bookInsert"> 교재등록 </a>
+            </div>
+        </div>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
+           aria-expanded="true" aria-controls="collapseSeven">
             <i class="fa-solid fa-truck-fast"></i>
             <span> 배송관리 </span>
         </a>
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"> Delivery: </h6>
                 <a class="collapse-item" href="${path}/admin/deliveryMgmt"> 배송 관리 </a>
