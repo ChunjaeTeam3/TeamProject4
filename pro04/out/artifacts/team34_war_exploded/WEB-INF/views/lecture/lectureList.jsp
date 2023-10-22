@@ -74,7 +74,6 @@
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <!-- 모든강좌정보  -->
-
         <section id="menu" class="content-section" style="clear: both;">
             <div class="tabmenu2_wrap" id="gotoTab" style="align-items: center;">
                 <ul class="nav nav-pills btn-group" id="cdTabMnuArea" style="display: flex; align-self: center; margin-left: 250px; ">

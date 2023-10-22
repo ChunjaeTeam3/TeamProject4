@@ -85,7 +85,7 @@
                                 <button class="btn btn-dark" type="button" id="button-addon2" onclick="findTeacher()"> 검색 </button>
                             </div>
                         </div>
-                        <select class="custom-select" id="tcode" name="tcode" size="8">
+                        <select class="custom-select" id="tcode" name="tcode" size="8" required>
                             <c:forEach var="teacher" items="${teachers}">
                                 <c:if test="${teacher.tcode eq detail.tcode}">
                                     <option value="${teacher.tcode}" class="p-2" selected> ${teacher.tname} </option>

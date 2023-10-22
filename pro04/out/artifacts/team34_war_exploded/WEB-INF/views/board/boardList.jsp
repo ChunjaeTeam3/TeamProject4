@@ -26,7 +26,7 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
+<section class="album-catagory section-padding-100-0" style="min-height: 60vh">
     <div class="container mb-70">
         <div class="row">
             <!-- 카테고리 -->

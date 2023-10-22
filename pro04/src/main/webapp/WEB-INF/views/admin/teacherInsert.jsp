@@ -57,7 +57,7 @@
                                 </button>
                             </div>
                         </div>
-                        <select class="custom-select" id="tid" name="tid" size="8">
+                        <select class="custom-select" id="tid" name="tid" size="8" required>
                             <c:forEach var="id" items="${idList}">
                                 <option value="${id}" class="p-2"> ${id} </option>
                             </c:forEach>

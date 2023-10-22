@@ -47,7 +47,7 @@
                 <div class="col-12">
                     <div class="card w-100">
                         <div class="card-body">
-                            <div class="table-responsive project-list">
+                            <div class="table-responsive project-list" style="overflow-x: hidden">
                                 <table class="table project-table table-centered table-nowrap">
                                     <tbody>
                                     <tr>

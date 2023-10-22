@@ -59,19 +59,6 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-           aria-expanded="true" aria-controls="collapseFour">
-            <i class="fa-solid fa-globe"></i>
-            <span> 커뮤니티관리 </span>
-        </a>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header"> Community: </h6>
-                <a class="collapse-item" href="${path}/admin/filterMgmt"> 필터링 단어 관리 </a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
            aria-expanded="true" aria-controls="collapseFive">
             <i class="fa-solid fa-gift"></i>

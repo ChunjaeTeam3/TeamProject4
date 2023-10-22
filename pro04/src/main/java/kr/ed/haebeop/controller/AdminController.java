@@ -170,68 +170,6 @@ public class AdminController {
         return "/admin/qnaMgmt";
     }
 
-    // 필터링 단어 추가 페이지 로딩
-    @RequestMapping(value="filtering", method= RequestMethod.GET)
-    public String filterInsertGet(HttpServletRequest request, Model model) throws Exception {
-        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-
-        // 필터링 단어 목록 페이징 처리
-        Page page = new Page();
-        int total = filterWordService.getCount();
-        page.makeBlock(curPage, total);
-        page.makeLastPageNum(total);
-        page.makePostStart(curPage, total);
-
-        List<FilterWord> filterList = filterWordService.filterList(page);
-        model.addAttribute("filterList", filterList);
-        model.addAttribute("page", page);
-        model.addAttribute("curPage", curPage);
-
-        return "/admin/filterInsert";
-    }
-
-    // 필터링 단어 추가
-    @RequestMapping(value="filterInsert", method= RequestMethod.POST)
-    public String filterInsertGet(@RequestParam String word, Model model) throws Exception {
-        filterWordService.filterInsert(word);
-        return "redirect:/admin/filtering";
-    }
-
-    // 필터링 단어 삭제
-    @GetMapping("filterDelete")
-    public String filterDelete(@RequestParam int fno, Model model) throws Exception {
-        filterWordService.filterDelete(fno);
-        return "redirect:/admin/filtering";
-    }
-
-    // 커뮤니티 관리 페이지 로딩
-    @RequestMapping("boardMgmt")
-    public String boardMgmt(HttpServletRequest request, Model model) throws Exception {
-        int curPage = request.getParameter("page") != null ?Integer.parseInt(request.getParameter("page")) : 1;
-
-        FilterPage page = new FilterPage();
-        int total = filterWordService.getCountBadList();
-        page.makeBlock(curPage, total);
-        page.makeLastPageNum(total);
-        page.makePostStart(curPage, total);
-
-        List<BoardVO> boardList = filterWordService.badList(page);
-        model.addAttribute("list", boardList);
-        model.addAttribute("page", page);
-        model.addAttribute("curPage", curPage);
-
-        return "/admin/boardMgmt";
-    }
-
-    // 커뮤니티 삭제
-    @RequestMapping("boardDelete")
-    public String communityDelete(@RequestParam int seq, HttpServletRequest request, Model model) throws Exception {
-        int curPage = request.getParameter("page") != null ?Integer.parseInt(request.getParameter("page")) : 1;
-        boardService.boardDelete(seq);
-        model.addAttribute("curPage", curPage);
-        return "redirect:/admin/boardMgmt";
-    }
-
     @RequestMapping("eventMgmt")
     public String getEventList(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;

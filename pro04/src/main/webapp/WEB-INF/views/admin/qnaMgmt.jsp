@@ -62,7 +62,7 @@
                                 <fmt:formatDate value="${resdate }" pattern="yyyy-MM-dd" />
                             </td>
                             <td class="align-middle">
-                                <a href="${path }/qna/answerInsert.do?qno=${question.qno}" class="btn btn-dark">답변 추가</a>
+                                <a href="${path }/qna/answerInsert?qno=${question.qno}" class="btn btn-dark">답변 추가</a>
                             </td>
                         </tr>
                     </c:forEach>
