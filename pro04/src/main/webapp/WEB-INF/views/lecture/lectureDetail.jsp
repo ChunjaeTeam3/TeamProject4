@@ -129,6 +129,8 @@
 
                         <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
                             <div class="content">
+                                <br>
+                                <br>
                                 <ul class="course_list">
                                     <c:forEach var="curr" items="${curriculumList}">
                                         <li class="justify-content-between d-flex">
@@ -146,6 +148,8 @@
                                                         class="btn primary-btn text-uppercase"> 강의 듣기 </button>
                                             </c:if>
                                         </li>
+                                        <hr>
+                                        <br>
                                     </c:forEach>
                                     <c:if test="${empty curriculumList}">
                                         <p class="text-center"> 등록된 커리큘럼이 없습니다. </p>
@@ -235,10 +239,9 @@
     console.log(key);
 
     // 모든 탭 엘리먼트에서 'active' 클래스를 제거합니다.
-    $(" #video-tab, #board-tab, #stars-tab").removeClass("active");
+    $(" #video-tab, #board-tab, #stars-tab , #registerPage").removeClass("active");
 
     // 모든 탭 내용 엘리먼트에서 'show active' 클래스를 제거합니다.
-
 
     if(key === "intro"){
         $("#intro-tab").addClass("active");
@@ -253,7 +256,7 @@
         $("#stars-tab").addClass("active");
         $("#stars").addClass("show active");
     } else if(key === "register") {
-        $("#register-tab").addClass("active");
+        $("#registerPage").addClass("show active");
     }
 
 </script>
@@ -378,8 +381,11 @@
                 type: "GET",
                 url: "${path}/lecture/register?lcode=" + lcode,
                 success: function(data) {
-                    $("#korean, #math, #writing, #china").removeClass("show active");
-                    $("#korean-tab, #math-tab, #writing-tab, #china-tab").removeClass("active");
+                    // 모든 탭과 탭 내용 엘리먼트에서 'show active' 클래스를 제거합니다.
+                    $("#intro-tab, #video-tab, #board-tab, #stars-tab, #registerPage").removeClass("show active");
+                    $("#intro, #video, #board, #stars, #registerPage").removeClass("active");
+
+                    // 수강신청 탭만 'show active' 클래스를 추가합니다.
                     $("#registerPage").html(data);
                     $("#registerPage").addClass("show active");
                 },
