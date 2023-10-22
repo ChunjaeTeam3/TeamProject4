@@ -9,6 +9,7 @@ import kr.ed.haebeop.util.Page;
 import java.util.List;
 
 public interface LectureService {
+    public List<LectureVO> lastList() throws Exception;
     public List<LectureVO> newList() throws Exception;
     public List<LectureVO> lectureList(Page page) throws Exception;
     public int getCount(Page page) throws Exception;

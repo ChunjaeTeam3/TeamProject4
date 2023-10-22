@@ -26,6 +26,11 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
+    public List<LectureVO> lastList() throws Exception {
+        return lectureMapper.lastList();
+    }
+
+    @Override
     public List<LectureVO> lectureList(Page page) throws Exception {
         return lectureMapper.lectureList(page);
     }

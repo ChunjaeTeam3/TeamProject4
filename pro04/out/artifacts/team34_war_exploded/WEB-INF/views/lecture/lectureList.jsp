@@ -125,20 +125,24 @@
                                         <div class="row">
                                         <c:forEach items="${lectureList}" var="lecture">
                                         <c:if test="${lecture.scode eq 'wr'}">
+                                            <div class="col-md-12 row" style="margin-bottom: 20px;">
                                         <div class="col-md-2 img">
                                             <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
                                         </div>
                                         <div class="col-md-10 cont_wrap">
                                             <div class="txt_area">
-                                                <h7 class="tit">강사: ${lecture.lname}</h7>
+                                                <h7 class="tit">강사: ${lecture.tcode}</h7>
                                                 <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                 <h8>수강인원 ${lecture.maxStudent}명</h8><br>
                                                 <h8>교재: 수능특강</h8><br>
                                                 <h9>다운로드</h9><br>
                                                 <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                <a href="${path}/lecture/register?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2"><span>수강신청</span></a>
+                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                             </div>
                                         </div>
+                                            </div>
+                                        <hr>
+                                            <br>
                                         </c:if>
                                         </c:forEach>
                                         </div>
@@ -199,6 +203,7 @@
                                     <div class="row">
                                             <c:forEach items="${lectureList}" var="lecture">
                                                 <c:if test="${lecture.scode eq 'ma'}">
+                                                    <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                 <div class="col-md-2 img">
                                                     <img src="${pageContext.request.contextPath}/resources/upload/teacher/${lecture.saveFile}" alt="사진"/>
                                                 </div>
@@ -210,9 +215,12 @@
                                                         <h8>교재: 수능특강</h8><br>
                                                         <h9>다운로드</h9><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <a href="${path}/lecture/register?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2"><span>수강신청</span></a>
+                                                        <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                     </div>
                                                 </div>
+                                                    </div>
+                                                    <hr>
+                                                    <br>
                                                 </c:if>
                                             </c:forEach>
                                     </div>
@@ -274,6 +282,7 @@
                                     <div class="row">
                                         <c:forEach items="${lectureList}" var="lecture">
                                             <c:if test="${lecture.scode eq 'ko'}">
+                                                <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                 <div class="col-md-2 img">
                                                     <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
                                                 </div>
@@ -285,9 +294,12 @@
                                                         <h8>교재: 수능특강</h8><br>
                                                         <h9>다운로드</h9><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <a href="${path}/lecture/register?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2"><span>수강신청</span></a>
+                                                        <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                     </div>
                                                 </div>
+                                                </div>
+                                                <hr>
+                                                <br>
                                         </c:if>
                                         </c:forEach>
                                     </div>
@@ -347,7 +359,8 @@
                                     <div class="row">
                                             <c:forEach items="${lectureList}" var="lecture">
                                                 <c:if test="${lecture.scode eq 'ch'}">
-                                                <div class="col-md-2 img">
+                                                    <div class="col-md-12 row">
+                                                <div class="col-md-2 img" style="margin-bottom: 20px;">
                                                     <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
@@ -358,9 +371,12 @@
                                                         <h8>교재: 수능특강</h8><br>
                                                         <h9>다운로드</h9><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <a href="${path}/lecture/register?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2"><span>수강신청</span></a>
+                                                        <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                     </div>
                                                 </div>
+                                                    </div>
+                                                    <hr>
+                                                    <br>
                                                 </c:if>
                                             </c:forEach>
                                     </div>
@@ -393,6 +409,10 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="tab-pane fade" id="registerPage" role="tabpanel" aria-labelledby="register-tab">
+
+                    </div>
                 </div>
                 </div>
             </div>
@@ -416,38 +436,44 @@
                     <!-- 예를 들어, 서버로부터 lectureList2 배열이 온다고 가정합니다. -->
                     <c:forEach items="${lectureList2}" var="lecture" varStatus="status">
                         <tr class="table-row" >
-                            <td id="row-${status.index}4"><a id="row-${status.index}3" href="${path}/lecture/detail.do?seq=${notice.seq}">${lecture.lname}</a></td>
+                            <td id="row-${status.index}4"><a id="row-${status.index}3" href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></td>
                             <td id="row-${status.index}">~${lecture.edate}</td>
                             <td id="row-${status.index}2">${lecture.state}</td>
                         </tr>
                     </c:forEach>
                     <!-- 추가 데이터 행 -->
-                    <c:if test="${empty lectureList}">
+                    <c:if test="${empty lectureList2}">
                         <tr>
-                            <td colspan="2" class="has-text-centered"> 등록된 자료가 없습니다.</td>
+                            <td colspan="3" class="has-text-centered">  <span style=" font-size: 20px;">마감임박 강의가 없습니다.</span></td>
                         </tr>
                     </c:if>
                     </tbody>
                 </table>
             </div>
             <div class="col-md-6">
-                <h2>신규 강사</h2>
-                <table class="table" id="fileboard-table">
+                <h2>오픈예정 강의</h2>
+                <table class="table" id="new-table">
                     <thead>
                     <tr>
                         <th width="200">제목</th>
+                        <th>기간</th>
+                        <th>접수</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${fileboardList}" var="fileboard" varStatus="status">
-                        <tr>
-                            <td><a href="${path}/fileboard/detail.do?articleno=${fileboard.articleno}"
-                                   style="color: #000000;">${fileboard.title}</a></td>
+                    <!-- 이 부분은 서버로부터 데이터를 동적으로 생성하는 부분입니다. -->
+                    <!-- 예를 들어, 서버로부터 lectureList2 배열이 온다고 가정합니다. -->
+                    <c:forEach items="${lectureList3}" var="lecture" varStatus="status">
+                        <tr class="table-row" >
+                            <td id="row-${status.index}5"><a id="row-${status.index}6" href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></td>
+                            <td id="row-${status.index}7">${lecture.sdate}~</td>
+                            <td id="row-${status.index}8">${lecture.state}</td>
                         </tr>
                     </c:forEach>
-                    <c:if test="${empty fileboardList}">
+                    <!-- 추가 데이터 행 -->
+                    <c:if test="${empty lectureList3}">
                         <tr>
-                            <td colspan="5" class="has-text-centered"> 등록된 자료가 없습니다.</td>
+                            <td colspan="3" class="has-text-centered"> <span style=" font-size: 20px;">오픈예정 강의가 없습니다.</span></td>
                         </tr>
                     </c:if>
                     </tbody>
@@ -594,6 +620,48 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        const firstRow = document.getElementById('row-05'); // 첫 번째 데이터 행을 선택합니다.
+        const firstRow2 = document.getElementById('row-06'); // 첫 번째 데이터 행을 선택합니다.
+        const firstRow3 = document.getElementById('row-07'); // 첫 번째 데이터 행을 선택합니다.
+        const firstRow4 = document.getElementById('row-08'); // 첫 번째 데이터 행을 선택합니다.
+
+        function toggleNeon() {
+            if (firstRow) {
+                if (firstRow.classList.contains("neon-sign")) {
+                    firstRow.classList.remove("neon-sign");
+                } else {
+                    firstRow.classList.add("neon-sign");
+                }
+            }
+            if (firstRow2) {
+                if (firstRow2.classList.contains("neon-sign")) {
+                    firstRow2.classList.remove("neon-sign");
+                } else {
+                    firstRow2.classList.add("neon-sign");
+                }
+            }
+            if (firstRow3) {
+                if (firstRow3.classList.contains("neon-sign")) {
+                    firstRow3.classList.remove("neon-sign");
+                } else {
+                    firstRow3.classList.add("neon-sign");
+                }
+            }
+            if (firstRow4) {
+                if (firstRow4.classList.contains("neon-sign")) {
+                    firstRow4.classList.remove("neon-sign");
+                } else {
+                    firstRow4.classList.add("neon-sign");
+                }
+            }
+        }
+
+        setInterval(toggleNeon, 500); // 1초 간격으로 번쩍이기
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         const firstRow = document.getElementById('row-0'); // 첫 번째 데이터 행을 선택합니다.
         const firstRow2 = document.getElementById('row-02'); // 첫 번째 데이터 행을 선택합니다.
         const firstRow3 = document.getElementById('row-03'); // 첫 번째 데이터 행을 선택합니다.
@@ -632,6 +700,25 @@
 
         setInterval(toggleNeon, 500); // 1초 간격으로 번쩍이기
     });
+</script>
+
+<script>
+    function registerPage(){
+        var lcode = $("#lcode").val();
+        $.ajax({
+            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
+            url: "${path}/lecture/register?lcode=" + lcode,  // 실제 API 엔드포인트로 변경해야 합니다.
+            success: function (data) {
+                $(" #korean,#math, #writing, #china").removeClass("show active");
+                $(" #korean-tab ,#math-tab, #writing-tab, #china-tab").removeClass("active");
+                $("#registerPage").html(data);
+                $("#registerPage").addClass("show active");
+            },
+            error: function (error) {
+                console.log("에러다에러"+error.responseText)
+            }
+        });
+    }
 </script>
 </body>
 
