@@ -30,4 +30,10 @@
         select count(*) from review where id=#{id}
     </select>
 
+    <select id="randomReview" resultType="kr.ed.haebeop.domain.ReviewVO">
+        SELECT l.lcode AS lcode, lname, id, star, content
+        FROM review r JOIN lecture l ON (r.lcode=l.lcode)
+        ORDER BY star, RAND() LIMIT 5
+    </select>
+
 </mapper>

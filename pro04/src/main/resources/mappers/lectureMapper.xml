@@ -136,4 +136,15 @@
         ]]>
     </select>
 
+    <select id="popularLectureList" resultType="kr.ed.haebeop.domain.LectureVO">
+        SELECT l.lcode AS lcode, lname, tname, l.saveFile AS saveFile
+        FROM lecture l JOIN register r ON (l.lcode=r.lcode) JOIN teacher t ON (l.tcode=t.tcode) GROUP BY l.lcode
+        ORDER BY COUNT(*) DESC LIMIT 6
+    </select>
+
+    <select id="stateLectureList" resultType="kr.ed.haebeop.domain.LectureVO">
+        SELECT l.lcode AS lcode, lname, tname, l.saveFile AS saveFile FROM lecture l JOIN teacher t ON (l.tcode=t.tcode)
+        WHERE state=#{state} ORDER BY RAND() LIMIT 6
+    </select>
+
 </mapper>
