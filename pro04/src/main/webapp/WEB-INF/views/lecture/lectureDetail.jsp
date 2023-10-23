@@ -214,6 +214,8 @@
         </section>
     </div>
 </section>
+
+
 <div id="myModal" class="modal" style="display: none; height: 365px;">
     <div class="modal-content">
         <span class="close" style="
@@ -223,8 +225,8 @@
 "></iframe>
     </div>
 </div>
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 <jsp:include page="../layout/footer.jsp"/>
 </body>
@@ -332,25 +334,24 @@
         });
     }
 </script>
-<script>
-
-    function DetailPage(){
-        var lcode = $("#lcode").val();
-        $.ajax({
-            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
-            url: "${path}/lecBoard/detail?qno="+${lecBoard.qno},  // 실제 API 엔드포인트로 변경해야 합니다.
-            data: {
-                lcode : lcode
-            },
-            success: function (data) {
-                $("#board").html(data);
-            },
-            error: function (error) {
-                console.log("에러다에러"+error.responseText)
-            }
-        });
-    }
-</script>
+<%--<script>--%>
+<%--    function DetailPage(){--%>
+<%--        var lcode = $("#lcode").val();--%>
+<%--        $.ajax({--%>
+<%--            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.--%>
+<%--            url: "${path}/lecBoard/detail?qno="+${lecBoard.qno},  // 실제 API 엔드포인트로 변경해야 합니다.--%>
+<%--            data: {--%>
+<%--                lcode : lcode--%>
+<%--            },--%>
+<%--            success: function (data) {--%>
+<%--                $("#board").html(data);--%>
+<%--            },--%>
+<%--            error: function (error) {--%>
+<%--                console.log("에러다에러"+error.responseText)--%>
+<%--            }--%>
+<%--        });--%>
+<%--    }--%>
+<%--</script>--%>
 <script>
     $('.ajax-link').click(function (e) {
         e.preventDefault(); // 기본 클릭 이벤트 방지
