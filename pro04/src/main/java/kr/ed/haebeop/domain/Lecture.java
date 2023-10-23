@@ -22,5 +22,6 @@ public class Lecture {
     private String stime;
     private String state;
     private String classroom;
+    private String bcode;
 
 }

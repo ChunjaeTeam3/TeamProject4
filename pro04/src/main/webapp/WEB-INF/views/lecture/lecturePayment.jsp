@@ -60,14 +60,12 @@
                             <td><strong> - </strong>${lecture.lprice}</td>
                             <td>0</td>
                         </tr>
-                        <c:if test="${book.bname ne null}">
                             <tr>
                                 <th scope="row">${book.bname}</th>
                                 <td>${book.bprice}</td>
                                 <td>0</td>
                                 <td>${book.bprice}</td>
                             </tr>
-                        </c:if>
                         </tbody>
                     </table>
                 </div>
@@ -82,7 +80,7 @@
     <div class="row" style="padding-left: 50px; margin-bottom: 30px;">
         <h4><i class="fa-solid fa-file-pen" style="color: #3d3d3e;"></i>결제정보</h4>
     </div>
-    <form action="${path}/payment/paymentPro" method="post" onsubmit="return payCheck(this)">
+    <form action="${path}/payment/paymentNoBook" method="post" onsubmit="return payCheck(this)">
         <div class="row" style="margin-bottom: 50px;">
         <div class="col mb-3">
             <div class="accordion" id="accordionPayment" style="width: 90%; margin: 0 auto;">

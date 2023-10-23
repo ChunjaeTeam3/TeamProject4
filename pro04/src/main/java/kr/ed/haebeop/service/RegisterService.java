@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.LectureVO;
+import kr.ed.haebeop.domain.Register;
 import kr.ed.haebeop.domain.UserProgress;
 import kr.ed.haebeop.util.Page;
 
@@ -18,5 +19,6 @@ public interface RegisterService {
     public int getMyCount(String id) throws Exception;
     public List<LectureVO> ongoingMyLecture(String id) throws Exception;
     public int getCount(Page page) throws Exception;
+    public void registerInsert2(Register register) throws Exception;
 
 }

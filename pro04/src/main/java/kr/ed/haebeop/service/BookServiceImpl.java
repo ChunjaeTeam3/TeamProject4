@@ -45,4 +45,9 @@ public class BookServiceImpl implements BookService{
     public Book bookDetail(String bcode) throws Exception {
         return bookMapper.bookDetail(bcode);
     }
+
+    @Override
+    public List<Book> findBook(String bname) throws Exception {
+        return bookMapper.findBook(bname);
+    }
 }

@@ -79,11 +79,14 @@
                         <h7 class="tit">강사: ${teacher.tname}</h7><br>
                         <h6 class="tit">${lecture.lname}</h6><br>
                         <input value="${lecture.lcode}" hidden="hidden" id="lcode">
-                        <h8>수강인원 : ${lecture.maxStudent}</h8><br>
+                        <h8>수강인원 : 남은수강인원/${lecture.maxStudent}</h8><br>
                         <h8>교재: 수능특강</h8>
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
                         <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-
+                        <c:if test="!empty ${lecture.bcode}">
+                            <input type="hidden" id="bcode" name="bcode" value="${lecture.bcode}">
+                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        </c:if>
                         <h3>강사 소개</h3>
                             <h8>${teacher.tcontent}</h8><br><br>
                         </div>
@@ -413,6 +416,50 @@
         let obwindow = window.open(documentURL,windowname, " toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no") ;
         obwindow.resizeTo(intWidth, intHeight) ;
         obwindow.moveTo(intXOffset, intYOffset);
+    }
+</script>
+<script>
+    function payCheck() {
+        let id = $("#id").val();
+        let lcode = $("#lcode").val();
+        let bcode = $("#bcode").val()
+        let maxStudent = $("#maxStudent").val();
+
+        if (id) {
+            // 수강생을 모집중인 강의만 신청 받도록 구현
+            let state = ${lecture.state};
+
+            if (state === 'off') {
+                let params = { id: id, lcode: lcode };
+                $.ajax({
+                    url: "${path}/payment/payCheck",
+                    type: "post",
+                    dataType: "json",
+                    data: params,
+                    success: function (data) {
+                        console.log("HI");
+                        let appPass = data.result;
+                        let curApp = data.curApp;
+                        if (curApp >= amt) {
+                            alert("이미 마감되었습니다.");
+                        } else if (!appPass) {
+                            alert("이미 수강신청한 회원입니다.");
+                        } else {
+                            window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+                        }
+                    },
+                    error: function (res) {
+                        alert("잠시 후 다시 시도해주세요.");
+                        console.log(res.responseText);
+                    }
+                });
+            } else {
+                alert("해당 강의는 수강신청 기간이 아닙니다.");
+            }
+        } else {
+            alert("로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.");
+            window.location.href = "${path}/user/login";
+        }
     }
 </script>
 </html>

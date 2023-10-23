@@ -136,6 +136,9 @@
                                                 <h8>교재: 수능특강</h8><br>
                                                 <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                 <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                <c:if test="${lecture.bcode ne null}">
+                                                <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                </c:if>
                                             </div>
                                         </div>
                                             </div>
@@ -210,9 +213,15 @@
                                                         <h7 class="tit">강사: ${lecture.tname}</h7>
                                                         <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                         <h8>수강인원 ${lecture.maxStudent}명</h8><br>
-                                                        <h8>교재: 수능특강</h8><br>
+                                                        <h8>교재: ${lecture.bname}</h8><br>
+
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        <c:if test="${lecture.bcode eq null}">
+                                                            <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
+                                                        <c:if test="${lecture.bcode ne null}">
+                                                            <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px"  class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                                     </div>
@@ -291,6 +300,9 @@
                                                         <h8>교재: 수능특강</h8><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                         <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        <c:if test="${lecture.bcode ne null}">
+                                                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -367,6 +379,9 @@
                                                         <h8>교재: 수능특강</h8><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                         <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        <c:if test="${lecture.bcode ne null}">
+                                                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                                     </div>
@@ -713,6 +728,50 @@
                 console.log("에러다에러"+error.responseText)
             }
         });
+    }
+</script>
+<script>
+    function payCheck() {
+        let id = $("#id").val();
+        let lcode = $("#lcode").val();
+        let bcode = $("#bcode").val()
+        let maxStudent = $("#maxStudent").val();
+
+        if (id) {
+            // 수강생을 모집중인 강의만 신청 받도록 구현
+            let state = ${lecture.state};
+
+            if (state === 'off') {
+                let params = { id: id, lcode: lcode };
+                $.ajax({
+                    url: "${path}/payment/payCheck",
+                    type: "post",
+                    dataType: "json",
+                    data: params,
+                    success: function (data) {
+                        console.log("HI");
+                        let appPass = data.result;
+                        let curApp = data.curApp;
+                        if (curApp >= amt) {
+                            alert("이미 마감되었습니다.");
+                        } else if (!appPass) {
+                            alert("이미 수강신청한 회원입니다.");
+                        } else {
+                            window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+                        }
+                    },
+                    error: function (res) {
+                        alert("잠시 후 다시 시도해주세요.");
+                        console.log(res.responseText);
+                    }
+                });
+            } else {
+                alert("해당 강의는 수강신청 기간이 아닙니다.");
+            }
+        } else {
+            alert("로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.");
+            window.location.href = "${path}/user/login";
+        }
     }
 </script>
 </body>

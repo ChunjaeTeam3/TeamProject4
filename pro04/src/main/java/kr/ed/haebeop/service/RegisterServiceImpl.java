@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.LectureVO;
+import kr.ed.haebeop.domain.Register;
 import kr.ed.haebeop.domain.UserProgress;
 import kr.ed.haebeop.persistence.RegisterMapper;
 import kr.ed.haebeop.persistence.UserMapper;
@@ -88,5 +89,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public int getCount(Page page) throws Exception {
         return registerMapper.getCount(page);
+    }
+
+    @Override
+    public void registerInsert2(Register register) throws Exception {
+        registerMapper.registerInsert2(register);
     }
 }
