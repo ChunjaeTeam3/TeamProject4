@@ -23,6 +23,10 @@
         insert into payment (pno, title, lcode, bcode,id, tcode, method,com, price,account,resdate) values (DEFAULT, #{title}, #{lcode}, #{bcode}, #{id},#{tcode}, #{method}, #{com}, #{price}, #{account}, default)
     </insert>
 
+    <insert id="paymentNoBookInsert">
+        insert into payment(pno, title, lcode, id, tcode,resdate) values (#{pno}, #{title}, #{lcode}, #{id}, #{tcode}, #{resdate})
+    </insert>
+
     <select id="paymentNo" resultType="integer">
         select pno from payment order by pno desc limit 1
     </select>

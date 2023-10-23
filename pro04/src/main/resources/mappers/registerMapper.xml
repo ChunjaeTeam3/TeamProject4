@@ -63,4 +63,8 @@
         select COUNT(*) from register where id=#{id}
     </select>
 
+    <insert id="registerInsert2">
+        insert into register values(default, #{lcode}, #{id}, default);
+    </insert>
+
 </mapper>

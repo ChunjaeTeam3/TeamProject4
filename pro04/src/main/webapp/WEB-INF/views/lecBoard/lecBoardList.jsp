@@ -41,7 +41,7 @@
                         </thead>
 
                         <tbody>
-                        <c:forEach items="${lecBoardList }" var="list" varStatus="status">
+                        <c:forEach items="${lecBoardList}" var="list" varStatus="status">
                             <c:if test="${list.lcode eq lecture.lcode}">
                             <tr class="table-hover">
                                 <input type="hidden" value="${list.qno}">

@@ -34,7 +34,7 @@ public class PaymentController {
 
     @RequestMapping(value = "payCheck", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> appCheck(HttpServletRequest request) throws Exception {
+    public Map<String, Object> payCheck(HttpServletRequest request) throws Exception {
         String id = request.getParameter("id");
         String lcode = request.getParameter("lcode");
 
@@ -88,6 +88,9 @@ public class PaymentController {
         String id = (String) session.getAttribute("sid");
         int pt = Integer.parseInt(request.getParameter("pt"));
 
+        Register register = new Register();
+        register.setId(id);
+        register.setLcode(lcode);
 
         Payment payment = new Payment();
         payment.setLcode(lcode);
@@ -100,7 +103,7 @@ public class PaymentController {
         payment.setPrice(request.getParameter("price"));
         payment.setAccount(request.getParameter("account"));
 
-        int pno = paymentService.paymentInsert(payment);
+        int pno = paymentService.paymentInsert(register, payment);
         System.out.println(pno);
 
         Delivery delivery = new Delivery();
@@ -155,7 +158,12 @@ public class PaymentController {
         }
     }
 
+    @PostMapping("paymentNoBook")
+    public String paymentNoBook (Payment payment,HttpServletRequest request, Model model) throws Exception{
 
+        paymentService.paymentNoBookInsert(payment);
+        return "redirect:/user/payment";
+    }
 
 
 }
