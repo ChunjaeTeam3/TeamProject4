@@ -30,6 +30,9 @@
 <br>
 <br>
 <div class="has-background-white card-content shadow-down p-6" id="board2">
+                                 <div class="btn-group float-right mb-3">
+                                     <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
+                                 </div>
 
                                 <input type="text" id="lcode" name="lcode" placeholder="제목을 입력하세요" class="pl-2" value="${lcode}" hidden="hidden">
                                 <div class="mb-3">
@@ -38,14 +41,15 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="contents" class="form-label">내용 입력</label>
-                                    <textarea class="form-control" name="contents" id="contents" rows="3"></textarea>
+                                    <textarea name="contents" id="contents" cols="100" rows="8" maxlength="800" class="single-textarea" style="height: 400px; border: 1px solid #cbcbcb" placeholder="질문을 입력해주세요"></textarea>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" onclick="ListPage()" class="button" >목록으로</button>
                                     <input type="submit" class="btn btn-dark" style="height: 100%" value="등록" onclick="insertPage()">
                                 </div>
 
 </div>
+<br>
+<br>
         <!-- 테이블 영역 끝 -->
 <script>
     function insertPage() {

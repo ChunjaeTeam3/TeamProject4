@@ -81,10 +81,6 @@
             <div class="comment-list">
                 <div class="single-comment single-reviews justify-content-between d-flex">
                     <div class="user justify-content-between d-flex">
-                        <div class="thumb">
-                            <img src="${path}/resources/img/profile0${random}.png" alt="프로필 이미지"
-                                 style="width: 60px; height: auto;" class="rounded-circle">
-                        </div>
                         <div class="desc">
                             <h5>${review.id}
                                 <div class="star">

@@ -126,7 +126,7 @@
                                         <c:if test="${lecture.scode eq 'wr'}">
                                             <div class="col-md-12 row" style="margin-bottom: 20px;">
                                         <div class="col-md-2 img">
-                                            <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
+                                            <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="사진"/>
                                         </div>
                                         <div class="col-md-10 cont_wrap">
                                             <div class="txt_area">
@@ -134,10 +134,21 @@
                                                 <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                 <h8>수강인원 ${lecture.maxStudent}명</h8><br>
                                                 <h8>교재: ${lecture.bname}</h8><br>
-                                                <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                <c:if test="${lecture.bcode ne null}">
-                                                <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                            <c:if test="${lecture.state eq 'on'}">
+                                                <span>수업방식: 온라인 </span>
+                                            </c:if>
+                                            <c:if test="${lecture.state eq 'off'}">
+                                                <span>수업방식: 오프라인 </span>
+                                            </c:if>
+                                            <c:if test="${lecture.state eq 'close'}">
+                                                <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                            </c:if>
+                                                <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                                                    <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                </c:if>
+                                                <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                                    <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                 </c:if>
                                             </div>
                                         </div>
@@ -215,12 +226,21 @@
                                                         <h8>수강인원 ${lecture.maxStudent}명</h8><br>
                                                         <h8>교재: ${lecture.bname}</h8><br>
 
-                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <c:if test="${lecture.bcode eq null}">
+                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                        <c:if test="${lecture.state eq 'on'}">
+                                                            <span>수업방식: 온라인 </span>
+                                                        </c:if>
+                                                        <c:if test="${lecture.state eq 'off'}">
+                                                            <span>수업방식: 오프라인 </span>
+                                                        </c:if>
+                                                        <c:if test="${lecture.state eq 'close'}">
+                                                            <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                                        </c:if>
+                                                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
                                                             <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                         </c:if>
-                                                        <c:if test="${lecture.bcode ne null}">
-                                                            <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px"  class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                                            <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                         </c:if>
                                                     </div>
                                                 </div>
@@ -298,10 +318,21 @@
                                                         <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                         <h8>수강인원 ${lecture.maxStudent}명</h8><br>
                                                         <h8>교재: ${lecture.bname}</h8><br>
-                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                        <c:if test="${lecture.bcode ne null}">
-                                                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                        <c:if test="${lecture.state eq 'on'}">
+                                                            <span>수업방식: 온라인 </span>
+                                                        </c:if>
+                                                        <c:if test="${lecture.state eq 'off'}">
+                                                            <span>수업방식: 오프라인 </span>
+                                                        </c:if>
+                                                        <c:if test="${lecture.state eq 'close'}">
+                                                            <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                                        </c:if>
+                                                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                                                            <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
+                                                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                                            <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                         </c:if>
                                                     </div>
                                                 </div>
@@ -377,10 +408,21 @@
                                                         <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                         <h8>수강인원 ${lecture.maxStudent}명</h8><br>
                                                         <h8>교재: ${lecture.bname}</h8><br>
-                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                        <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                        <c:if test="${lecture.bcode ne null}">
-                                                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                        <c:if test="${lecture.state eq 'on'}">
+                                                            <span>수업방식: 온라인 </span>
+                                                        </c:if>
+                                                        <c:if test="${lecture.state eq 'off'}">
+                                                            <span>수업방식: 오프라인 </span>
+                                                        </c:if>
+                                                        <c:if test="${lecture.state eq 'close'}">
+                                                            <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                                        </c:if>
+                                                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                                                            <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
+                                                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                                            <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                         </c:if>
                                                     </div>
                                                 </div>
