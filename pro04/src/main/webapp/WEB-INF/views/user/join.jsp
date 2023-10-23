@@ -41,6 +41,7 @@
                                     <div class="columns" style="margin-bottom: 30px;" >
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="id" name="id" placeholder="영문 소문자로만 아이디 입력" pattern="^[a-z]{4,16}" maxlength="16" autocomplete="off" autofocus required >
+                                            <input type="hidden" id="id_chk" name="id_chk" value="no">
                                             <button type="button" class="btn btn-danger" onclick="idCheck()" style="background-color: #000000; border: none;">중복 확인</button>
                                         </div>
                                         <p id="msg" style="color: #807D7DFF; "></p>

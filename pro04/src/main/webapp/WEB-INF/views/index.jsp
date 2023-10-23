@@ -81,10 +81,10 @@
 <section class="latest-albums-area section-padding-100 bg-gray">
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4 col-md-12">
                 <jsp:include page="./todo/todoList.jsp" />
             </div>
-            <div class="col ml-5">
+            <div class="col-lg-7 col-md-12 ml-lg-5 ml-md-0 mt-lg-0 mt-md-3">
                 <table class="table table-hover text-center">
                     <thead>
                         <tr>

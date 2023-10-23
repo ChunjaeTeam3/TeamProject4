@@ -301,7 +301,7 @@ CREATE TABLE teacher(
 	saveFile VARCHAR(300) NOT NULL
 );
 
-INSERT INTO teacher VALUES (DEFAULT,'test0999', '김석우', '010-1111-2222', 'ejlee@email.com', '논술 전문가로, 명쾌한 논리와 풍부한 어휘력을 강조한 논술 교육을 제공합니다.', 'writingTeacher.jpeg');
+INSERT INTO teacher VALUES (DEFAULT,'test101', '김석우', '010-1111-2222', 'ejlee@email.com', '논술 전문가로, 명쾌한 논리와 풍부한 어휘력을 강조한 논술 교육을 제공합니다.', 'writingTeacher.jpeg');
 INSERT INTO teacher VALUES (DEFAULT,'test9999', '안유진', '010-9876-5432','jwhan@email.com','논술의 스타일과 목표에 따라 학생들을 개별화된 작문 지도로 이끌어, 각자의 논술 능력을 향상시킵니다.','an.png');
 INSERT INTO teacher VALUES (DEFAULT,'test0888', '강영현','010-5555-5555','dhkwon@email.com','경험 많은 영어 강사인 존은 학생들의 영어 작문 및 문법 실력 향상을 중점으로 둡니다.','englishTeacher2.jpeg');
 INSERT INTO teacher VALUES (DEFAULT,'test0777' ,'유지민','010-9999-9999','sjlee@email.com','TOEFL 자격증 강사로서 마이클은 학생들을 영어 능력 시험을 준비하는 데 도움을 주며 시험 대비 전략을 강조합니다.','englishTeacher.jpeg');
@@ -394,6 +394,24 @@ CREATE TABLE studyInfo(
 	FOREIGN KEY(ccode) REFERENCES curriculum(ccode) ON DELETE CASCADE
 );
 
+-- 오프라인 강의 출석 번호 저장 테이블
+CREATE TABLE saveAttendCode(
+	lcode VARCHAR(50) PRIMARY KEY,	/* 과목코드 */
+	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
+);
+
+-- 오프라인 강의 출석체크 테이블
+CREATE TABLE lectureAttend(
+	id VARCHAR(20) NOT NULL,
+	lcode VARCHAR(50) NOT NULL,
+	adate DATE DEFAULT CURRENT_DATE,
+	atime TIME DEFAULT CURRENT_TIME,
+	atype VARCHAR(10) NOT NULL,
+	CONSTRAINT lectureattend_PK PRIMARY KEY (id, lcode, adate),
+	FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE,
+	FOREIGN KEY(lcode) REFERENCES lecture(lcode) ON DELETE CASCADE
+);
+
 -- TodoList (list 넘버, 제목, 상태)
 CREATE TABLE todo(
 	tdno INT PRIMARY KEY AUTO_INCREMENT,
@@ -481,7 +499,9 @@ create table receive(
 	FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
 );    
 
+SELECT * FROM USER;
 
+SELECT * FROM book;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등
