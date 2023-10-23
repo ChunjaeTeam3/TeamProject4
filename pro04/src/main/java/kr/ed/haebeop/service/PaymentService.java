@@ -21,4 +21,5 @@ public interface PaymentService {
 
     public int period(String lcode) throws Exception;
     public int payCount(Page page) throws Exception;
+    public void paymentNoBookInsert(Payment payment)throws Exception;
 }

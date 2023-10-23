@@ -743,4 +743,20 @@ public class AdminController {
         return "redirect:/admin/bookMgmt";
     }
 
+    @PostMapping("findBook")
+    public void findBook(@RequestParam String bname, HttpServletResponse response) throws Exception {
+        List<Book> books = bookService.findBook(bname);
+
+        JSONArray jsonArray = new JSONArray();
+        for(Book book : books) {
+            JSONObject obj = new JSONObject();
+            obj.put("bcode", book.getBcode());
+            obj.put("bname", book.getBname());
+            jsonArray.put(obj);
+        }
+
+        PrintWriter out = response.getWriter();
+        out.println(jsonArray);
+    }
+
 }

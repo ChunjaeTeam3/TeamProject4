@@ -155,7 +155,12 @@ public class PaymentController {
         }
     }
 
+    @PostMapping("paymentNoBook")
+    public String paymentNoBook (Payment payment,HttpServletRequest request, Model model) throws Exception{
 
+        paymentService.paymentNoBookInsert(payment);
+        return "redirect:/user/payment";
+    }
 
 
 }
