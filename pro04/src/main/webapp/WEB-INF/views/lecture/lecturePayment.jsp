@@ -167,7 +167,7 @@
                                 <span>SUBTOTAL</span> <strong class="text-dark" id="subprice"></strong>
                             </p>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice"></strong>
+                                <span>TOTAL</span> <strong class="text-dark" id="totalprice" name="price"></strong>
                             </p>
                         </div>
                     </div>

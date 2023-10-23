@@ -83,6 +83,7 @@
                 <h6 class="collapse-header"> Book: </h6>
                 <a class="collapse-item" href="${path}/admin/bookMgmt"> 교재관리 </a>
                 <a class="collapse-item" href="${path}/admin/bookInsert"> 교재등록 </a>
+                <a class="collapse-item" href="${path}/admin/bookReceive"> 교재입고 </a>
             </div>
         </div>
 
