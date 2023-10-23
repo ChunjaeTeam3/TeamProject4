@@ -71,8 +71,7 @@
         <section>
             <div class="row">
                 <div class="col-md-2 img">
-                    <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
-
+                    <img src="${pageContext.request.contextPath}/resources/upload/teacher/${teacher.saveFile}" alt="사진"/>
                 </div>
                 <div class="col-md-10 cont_wrap">
                     <div class="txt_area">
@@ -82,10 +81,11 @@
                         <h8>수강인원 : ${lecture.maxStudent}</h8><br>
                         <h8>교재: ${lecture.bname}</h8>
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
-                        <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                        <c:if test="!empty ${lecture.bcode}">
-                            <input type="hidden" id="bcode" name="bcode" value="${lecture.bcode}">
-                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                            <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        </c:if>
+                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                            <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                         </c:if>
                         <h3>강사 소개</h3>
                             <h8>${teacher.tcontent}</h8><br><br>

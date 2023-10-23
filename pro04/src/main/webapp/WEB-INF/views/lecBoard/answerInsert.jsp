@@ -55,6 +55,8 @@
         </div>
     </div>
 </div>
+<br>
+<br>
     <script>
         $('#answerInsert').click(function (e) {
             e.preventDefault(); // 기본 클릭 이벤트 방지

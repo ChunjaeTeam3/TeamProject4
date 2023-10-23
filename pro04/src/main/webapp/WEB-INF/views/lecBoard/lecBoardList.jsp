@@ -59,7 +59,7 @@
                                         </c:if>
                                     </c:if>
                                     <!-- 로그인 했을 때 -->
-<%--                                    <c:if test="${!empty sid}">--%>
+                                    <c:if test="${!empty sid}">
                                         <c:if test="${list.lev eq 0}">
                                             <input value="${list.qno}" id="qno" hidden="hidden">
                                             <input value="${curPage}" id="curPage" hidden="hidden">
@@ -70,7 +70,7 @@
                                             <input value="${curPage}" id="curPage" hidden="hidden">
                                             <a href="javascript:void(0);" class="ajax-link" data-qno="${list.qno}" data-page="${curPage}">&nbsp;&nbsp;&nbsp;&nbsp;⌞${list.title}</a>
                                         </c:if>
-<%--                                    </c:if>--%>
+                                    </c:if>
                                 </th>
                                 <th class="text-center">${list.author}</th>
                                 <th class="text-center">
@@ -122,11 +122,11 @@
                         </ul>
                     </div>
                     <!-- 페이지 끝 -->
-<%--                    <c:if test="${!empty sid && sid != 'admin'}">--%>
+                    <c:if test="${!empty sid && sid != 'admin'}">
                         <div class="btn float-right mt-10">
                             <input class="btn btn-dark" type="button" onclick="openWritePage()" value="글쓰기"/>
                         </div>
-<%--                    </c:if>--%>
+                    </c:if>
                 </div>
             </div>
         </div>
