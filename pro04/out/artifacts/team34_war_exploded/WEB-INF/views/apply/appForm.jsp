@@ -38,7 +38,7 @@
             <div class="p-2">
                 <div class="field">
                     <p class="control">
-                        <input type="tel" name="tel" id="tel" placeholder="전화번호 입력" maxlength="98" class="form-control p-2" required>
+                        <input type="tel" name="tel" id="tel" placeholder="하이픈(-)을 뺀 전화번호를 입력해 주세요" maxlength="11" pattern="[0-9]{11}" class="form-control p-2" required>
                     </p>
                 </div>
             </div>
