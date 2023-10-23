@@ -70,7 +70,7 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
+<section class="album-catagory section-padding-100-0" style="min-height: 60vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <!-- 모든강좌정보  -->
