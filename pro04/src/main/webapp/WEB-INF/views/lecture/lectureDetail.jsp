@@ -64,7 +64,7 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0" style="margin-left: 150px;">
+<section class="album-catagory section-padding-100-0" style="min-height: 70vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <!-- 모든강좌정보  -->
@@ -93,8 +93,8 @@
         </section>
         <br>
         <section id="menu" class="content-section" style="clear: both;">
-            <div class="tabmenu2_wrap" id="gotoTab" style="align-items: center;">
-                <ul class="nav nav-pills" id="cdTabMnuArea" style="align-self: center; ">
+            <div class="tabmenu2_wrap align-items-center" id="gotoTab">
+                <ul class="nav nav-pills justify-content-center" id="cdTabMnuArea">
                     <li class="nav-item"  style="text-align: center;width: 150px;">
                         <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab" aria-controls="intro"
                                 aria-selected="true"  onclick="ReloadPage()" style="width: 150px;font-size: 20px;text-align: center;">강의 소개</button>
@@ -121,7 +121,7 @@
                             <div class="col-12 mb-5">
                                 <div class="card w-100">
                                     <div class="card-body" style="height: 300px;">
-                            ${lecture.lcontent}
+                                        ${lecture.lcontent}
                                     </div>
                                 </div>
                             </div>
