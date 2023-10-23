@@ -612,10 +612,14 @@ public class AdminController {
     public String dcodeUpdate(@RequestParam("dno") int dno, @RequestParam("dcode") String dcode) {
         try {
             deliveryService.dcodeUpdate(dcode, dno);
+            System.out.println("성공");
             return "success";
         } catch (Exception e) {
+            System.out.println("실패");
             return "error";
         }
+
+
     }
 
     @GetMapping("deliveryUpdate")

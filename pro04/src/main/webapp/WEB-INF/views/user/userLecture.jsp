@@ -62,21 +62,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="lecture" items="${myLecture}" >
-                                <c:if test="${lecture.state eq 'on'}">
+                                <c:forEach var="lecture" items="${myLecture}" >
+                                    <c:if test="${lecture.state eq 'on'}">
                                     <tr onclick="javascript: location.href='${path}/lecture/detail?lcode=${lecture.lcode}';" style="cursor:pointer;">
                                         <th scope="row">${lecture.lcode}</th>
                                         <td class="text-left">${lecture.lname}</td>
                                         <td>${lecture.tname}</td>
                                         <td>${lecture.sdate} ~ ${lecture.edate}</td>
                                     </tr>
-                                </c:if>
-                                <c:if test="${lecture.state eq 'off'}">
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${empty myLecture}">
                                     <tr>
                                         <td colspan="4" class="text-center"> 수강신청한 강의가 없습니다. </td>
                                     </tr>
                                 </c:if>
-                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -135,25 +135,20 @@
                             <tbody>
                             <c:forEach var="lecture" items="${offLecture}" >
                                 <c:if test="${lecture.state eq 'off'}">
-                                    <tr>
-                                        <th scope="row">${lecture.lcode}</th>
-                                        <td class="text-left">${lecture.lname}</td>
-                                        <td>${lecture.tname}</td>
-                                        <td>${lecture.sdate} ~ ${lecture.edate}</td>
-                                        <td><a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}"
-                                               class="btn btn-primary">출석하기</a></td>
-                                    </tr>
-                                </c:if>
-                                <c:if test="${lecture.state eq 'on'}">
-                                    <tr>
-                                        <td colspan="5" class="text-center"> 수강신청한 강의가 없습니다. </td>
-                                    </tr>
+                                <tr>
+                                    <th scope="row">${lecture.lcode}</th>
+                                    <td class="text-left">${lecture.lname}</td>
+                                    <td>${lecture.tname}</td>
+                                    <td>${lecture.sdate} ~ ${lecture.edate}</td>
+                                    <td><a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}"
+                                           class="btn btn-primary">출석하기</a></td>
+                                </tr>
                                 </c:if>
                             </c:forEach>
                             <c:if test="${empty offLecture}">
-                                <tr>
-                                    <td colspan="5"> 수강신청한 강의가 없습니다. </td>
-                                </tr>
+                            <tr>
+                                <td colspan="5"> 수강신청한 강의가 없습니다. </td>
+                            </tr>
                             </c:if>
                             </tbody>
                         </table>

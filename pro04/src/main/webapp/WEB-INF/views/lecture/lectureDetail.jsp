@@ -84,7 +84,6 @@
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
                         <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                         <c:if test="!empty ${lecture.bcode}">
-                            <input type="hidden" id="bcode" name="bcode" value="${lecture.bcode}">
                             <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                         </c:if>
                         <h3>강사 소개</h3>
@@ -441,7 +440,7 @@
                         console.log("HI");
                         let appPass = data.result;
                         let curApp = data.curApp;
-                        if (curApp >= amt) {
+                        if (curApp >= maxStudent) {
                             alert("이미 마감되었습니다.");
                         } else if (!appPass) {
                             alert("이미 수강신청한 회원입니다.");
