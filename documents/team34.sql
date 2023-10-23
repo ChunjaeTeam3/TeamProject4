@@ -400,6 +400,12 @@ CREATE TABLE saveAttendCode(
 	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
 
+SELECT * FROM lectureAttend;
+
+SELECT * FROM register;
+
+INSERT INTO register VALUES(DEFAULT, 'ko1', 'test61', 0);
+
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
 	id VARCHAR(20) NOT NULL,

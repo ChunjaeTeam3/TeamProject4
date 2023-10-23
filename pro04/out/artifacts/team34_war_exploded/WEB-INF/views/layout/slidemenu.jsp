@@ -23,7 +23,7 @@
         background: #fff;
         border-radius: 20px;
         border: 1px solid #333333;
-        z-index: 5;
+        z-index: 150;
     }
 
     .menu ul {

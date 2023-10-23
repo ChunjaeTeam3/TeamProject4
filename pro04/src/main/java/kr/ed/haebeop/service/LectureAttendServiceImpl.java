@@ -68,13 +68,15 @@ public class LectureAttendServiceImpl implements LectureAttendService {
 
         // 2. 출석하지 않은 사람들 모두 결석 처리
         List<String> absentStudents = lectureAttendMapper.absentStudents(lcode);
-        List<String> atype = new ArrayList<>();
-        for(int i=0; i<absentStudents.size(); i++) { atype.add("결석"); }
-        Map data = new HashMap();
-        data.put("lcode", lcode);
-        data.put("idList", absentStudents);
-        data.put("atype", atype);
-        lectureAttendMapper.insertAbsents(data);
+        if(absentStudents.size() > 0) {
+            List<String> atype = new ArrayList<>();
+            for(int i=0; i<absentStudents.size(); i++) { atype.add("결석"); }
+            Map data = new HashMap();
+            data.put("lcode", lcode);
+            data.put("idList", absentStudents);
+            data.put("atype", atype);
+            lectureAttendMapper.insertAbsents(data);
+        }
     }
 
     @Override
