@@ -1,6 +1,7 @@
 package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.LecBoard;
+import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.service.LecBoardService;
 import kr.ed.haebeop.service.LectureService;
 import kr.ed.haebeop.util.Page;
@@ -34,9 +35,12 @@ public class LecBoardController {
         page.makeBlock(curPage, total);
         page.makeLastPageNum(total);
         page.makePostStart(curPage, total);
+        String lcode = request.getParameter("lcode");
 
-
+        LectureVO lecture = lectureService.lectureDetail(lcode);
+        model.addAttribute("lecture",lecture);
         List<LecBoard> lecBoardList = lecBoardService.lecBoardList(page);
+        System.out.println(lecBoardList);
         model.addAttribute("lecBoardList", lecBoardList);     //lecBoard 목록
         model.addAttribute("curPage", curPage);     // 현재 페이지
         model.addAttribute("page", page);           // 페이징 데이터
@@ -68,17 +72,19 @@ public class LecBoardController {
 
     //Question 글쓰기 처리
     @PostMapping("questionInsert")
-    public String getQuestionInsertPro( @RequestParam String lcode,HttpServletRequest request, Model model) throws Exception {
+    public String getQuestionInsertPro( HttpServletRequest request, Model model) throws Exception {
         HttpSession session = request.getSession();
+        String lcode = request.getParameter("lcode");
         LecBoard dto = new LecBoard();
-        System.out.println(lcode);
+        System.out.println(dto);
         dto.setTitle(request.getParameter("title"));
         dto.setContent(request.getParameter("content"));
         dto.setAuthor((String) session.getAttribute("sid"));
         dto.setLcode(request.getParameter("lcode"));
-        lecBoardService.questionInsert(dto);
         System.out.println(dto);
-       return "redirect:/lecture/detail?lcode=" + request.getParameter("lcode");
+        lecBoardService.questionInsert(dto);
+
+        return  "redirect:/lecture/detail?lcode="+lcode;
     }
 
     //Question 수정
