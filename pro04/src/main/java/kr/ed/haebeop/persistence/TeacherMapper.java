@@ -16,5 +16,6 @@ public interface TeacherMapper {
     public void teacherInsert(Teacher teacher) throws Exception;
     public void teacherEdit(Teacher teacher) throws Exception;
     public int getCount(Page page) throws Exception;
+    public int isTeacher(String id) throws Exception;
 
 }

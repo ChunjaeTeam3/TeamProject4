@@ -84,7 +84,7 @@
                                 </button>
                             </div>
                         </div>
-                        <select class="custom-select" id="tcode" name="tcode" size="8">
+                        <select class="custom-select" id="tcode" name="tcode" size="8" required>
                             <c:forEach var="teacher" items="${teachers}">
                                 <option value="${teacher.tcode}" class="p-2"> ${teacher.tname} </option>
                             </c:forEach>

@@ -57,13 +57,14 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
+        <p>해법과 함께 학습 여정을 시작해요</p>
         <h2>강의실</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0" style="margin-left: 150px;">
+<section class="album-catagory section-padding-100-0" style="min-height: 70vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <!-- 모든강좌정보  -->
@@ -78,10 +79,8 @@
                         <h7 class="tit">강사: ${teacher.tname}</h7><br>
                         <h6 class="tit">${lecture.lname}</h6><br>
                         <input value="${lecture.lcode}" hidden="hidden" id="lcode">
-                        <input value="${lecture.maxStudent}" type="hidden" id="maxStudent">
                         <h8>수강인원 : 남은수강인원/${lecture.maxStudent}</h8><br>
                         <h8>교재: 수능특강</h8>
-                        <h9>다운로드</h9><br>
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
                         <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                         <c:if test="!empty ${lecture.bcode}">
@@ -96,8 +95,8 @@
         </section>
         <br>
         <section id="menu" class="content-section" style="clear: both;">
-            <div class="tabmenu2_wrap" id="gotoTab" style="align-items: center;">
-                <ul class="nav nav-pills" id="cdTabMnuArea" style="align-self: center; ">
+            <div class="tabmenu2_wrap align-items-center" id="gotoTab">
+                <ul class="nav nav-pills justify-content-center" id="cdTabMnuArea">
                     <li class="nav-item"  style="text-align: center;width: 150px;">
                         <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab" aria-controls="intro"
                                 aria-selected="true"  onclick="ReloadPage()" style="width: 150px;font-size: 20px;text-align: center;">강의 소개</button>
@@ -124,7 +123,7 @@
                             <div class="col-12 mb-5">
                                 <div class="card w-100">
                                     <div class="card-body" style="height: 300px;">
-                            ${lecture.lcontent}
+                                        ${lecture.lcontent}
                                     </div>
                                 </div>
                             </div>

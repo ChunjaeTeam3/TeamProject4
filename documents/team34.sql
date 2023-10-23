@@ -17,31 +17,34 @@ CREATE TABLE user(
   visited INT(11) DEFAULT 0,
   isStudy BOOLEAN DEFAULT false);
   
-  USE team34;
 -- 회원 더미데이터
 SELECT * FROM user;
 INSERT INTO user VALUES('admin','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '관리자', 'admin@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test111','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-11-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test121','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test122','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test11','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test12','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test13','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test14','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test21','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-02-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test22','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-02-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test31','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-03-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test41','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-04-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test51','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-05-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test52','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-05-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test53','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-05-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test61','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-06-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test71','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-07-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test81','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-08-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test82','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-08-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test91','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test92','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO user VALUES('test101','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '테스트', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-10-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('kimhk','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김현경', 'kimhk@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('kimlh','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김이호', 'kimlh@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('shinye','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '신예은', 'shinye@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('kimbk','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김보경', 'kimbk@edu.com', '010-1234-5678', NULL, NULL, NULL, '2022-10-01', '2000-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test111','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '김이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-11-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test121','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '이이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test122','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '박이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2022-12-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test11','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '최이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test12','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '한이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test13','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '신이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test14','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '백이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-01-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test21','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '구이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-02-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test22','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '오이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-02-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test31','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '이이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-03-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test41','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '서이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-04-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test51','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '권이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-05-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test52','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '황이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-05-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test53','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '최이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-05-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test61','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '민이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-06-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test71','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '강이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-07-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test81','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '배이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-08-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test82','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '유이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-08-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test91','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '조이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test92','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '나이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-09-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO user VALUES('test101','$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS', '송이름', 'test@edu.com', '010-5252-5252', NULL, NULL, NULL, '2023-10-01', '2001-01-01', DEFAULT, DEFAULT, DEFAULT);
 
 
 -- 커뮤니티 카테고리 테이블 생성
@@ -249,7 +252,7 @@ create table winnerList(
    FOREIGN key(id) references user(id) on delete cascade);
 
 
---당첨자 발표 글
+-- 당첨자 발표 글
 create table winner(
 	wno int primary key AUTO_INCREMENT,			/* 당첨글 번호 */
    eno int not NULL,									/* 이벤트 글 번호 */
@@ -265,10 +268,7 @@ CREATE TABLE attendance (
    ano INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
    id VARCHAR(20),
    attend DATE DEFAULT current_date);
-	DROP TABLE attendance;
-	SELECT * FROM attendance;
-	
-INSERT INTO attendance VALUES (DEFAULT, 'admin', 231024);
+   
 	
 -- 과목 테이블 (과목코드, 과목명)
 CREATE TABLE subject(
@@ -405,10 +405,6 @@ INSERT INTO todo VALUES (DEFAULT, 'admin','todo1',DEFAULT);
 INSERT INTO todo VALUES (DEFAULT, 'kimbk','todo2',DEFAULT);
 
 
-select * from todo where id='admin' order by tdno asc;
-UPDATE todo SET STATUS=TRUE WHERE tdno=1;
-DROP TABLE todo;
-
 CREATE TABLE lecboard(
   qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
   lcode VARCHAR(50) NOT NULL,                   -- 강의코드
@@ -429,13 +425,36 @@ create table delivery(
 	 addr VARCHAR(200),	
 	 tel varchar(13) not null,				
 	 dcom varchar(100),					
-	 dtel varchar(13),			
+	 dtel VARCHAR(13),			
 	 dstatus int default 0,				
 	 ddate timestamp default CURRENT_TIMESTAMP,
 	 edate varchar(13),						
 	 dcode varchar(30),
 	 FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE				
 );
+
+
+--결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
+create table payment(
+	   pno INT primary KEY AUTO_INCREMENT,
+	   title VARCHAR(100) NOT NULL,
+		lcode VARCHAR(50) NOT NULL,		
+		bcode VARCHAR(20) NOT NULL,
+		tcode INT,
+	   id varchar(20) not null,	
+	   method varchar(100),		
+	   com varchar(100),			
+	   price int default 1000,
+		dno INT,	
+	   account varchar(100) NOT NULL,
+	   resdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	   FOREIGN KEY (lcode) REFERENCES lecture (lcode) ON DELETE CASCADE,
+	   FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE,
+	   FOREIGN KEY (tcode) REFERENCES teacher (tcode) ON DELETE CASCADE,
+	   FOREIGN KEY (dno) REFERENCES delivery(dno) ON DELETE CASCADE,
+		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
+);
+
 
 
 -- 출고 테이블 생성(출고 번호, 결제번호, 배송코드, 출고 가격, 수량, 출고일자)
@@ -462,27 +481,6 @@ create table receive(
 	FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
 );    
 
-
---결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
-create table payment(
-	   pno INT primary KEY AUTO_INCREMENT,
-	   title VARCHAR(100) NOT NULL,
-		lcode VARCHAR(50) NOT NULL,		
-		bcode VARCHAR(20) NOT NULL,
-		tcode INT,
-	   id varchar(20) not null,	
-	   method varchar(100),		
-	   com varchar(100),			
-	   price int default 1000,
-		dno INT,	
-	   account varchar(100) NOT NULL,
-	   resdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	   FOREIGN KEY (lcode) REFERENCES lecture (lcode) ON DELETE CASCADE,
-	   FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE,
-	   FOREIGN KEY (tcode) REFERENCES teacher (tcode) ON DELETE CASCADE,
-	   FOREIGN KEY (dno) REFERENCES delivery(dno) ON DELETE CASCADE,
-		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
-);
 
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제

@@ -3,12 +3,30 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
-<jsp:include page="../layout/head.jsp"/>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<br>
-<br>
+
+<style>
+    /* 리뷰 작성 시 별점 CSS */
+    .my-star{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        color: transparent;
+        text-shadow: 0 0 0 #f0f0f0;
+        font-size: 1.8em;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .my-star:hover {
+        text-shadow: 0 0 0 #ccc;
+    }
+
+    .my-star.on{
+        text-shadow: 0 0 0 #ffbc00;
+    }
+</style>
+
 <div class="content">
     <div class="review-top row pt-40">
         <div class="col-lg-12">

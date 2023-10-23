@@ -19,5 +19,6 @@ public interface UserService {
     public void updateIsStudy(String id, boolean isStudy) throws Exception;
     public boolean getIsStudy(String id) throws Exception;
     public List<Map<String, Integer>> userCntList() throws Exception;
-
+    public List<String> getIdList() throws Exception;
+    public List<String> findTeacherId(String tid) throws Exception;
 }

@@ -16,7 +16,8 @@ public interface RegisterService {
     public List<UserProgress> progressList(String id) throws Exception;
     public int calcProfitPt() throws Exception;
     public double calcRegPercent() throws Exception;
-    public int getMyCount( String id) throws Exception;
+    public int getMyCount(String id) throws Exception;
+    public List<LectureVO> ongoingMyLecture(String id) throws Exception;
     public int getCount(Page page) throws Exception;
     public void registerInsert2(Register register) throws Exception;
 

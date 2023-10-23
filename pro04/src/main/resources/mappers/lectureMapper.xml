@@ -138,8 +138,8 @@
     <!-- 폐강 위기 과목 목록 -->
     <select id="closeList" resultType="kr.ed.haebeop.domain.CloseLecture">
         <![CDATA[
-        SELECT l.lcode as lcode, sname, lname, sdate, edate, COUNT(r.lcode) AS 'regCnt', state FROM lecture l JOIN subject s ON (l.scode=s.scode) left outer JOIN register r ON (r.lcode=l.lcode)
-        WHERE sdate BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5
+        SELECT l.lcode as lcode, sname, lname, sdate, edate, COUNT(r.lcode) AS 'regCnt', state FROM lecture l JOIN subject s ON (l.scode=s.scode) left OUTER JOIN register r ON (r.lcode=l.lcode)
+        WHERE sdate BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL +7 day) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5
             ORDER BY sdate limit #{postStart}, #{postCount}
         ]]>
     </select>
@@ -148,7 +148,7 @@
         <![CDATA[
         SELECT COUNT(lcode) FROM (
         SELECT l.lcode, COUNT(*) FROM lecture l left outer JOIN register r ON (r.lcode=l.lcode)
-        WHERE sdate BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5) AS a
+        WHERE sdate BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL +7 day) AND state IN ('off','close') GROUP BY r.lcode HAVING COUNT(*) < 5) AS a
         ]]>
     </select>
 
@@ -164,6 +164,17 @@
         <![CDATA[
             SELECT (edate < CURRENT_DATE) FROM lecture WHERE lcode=#{lcode}
         ]]>
+    </select>
+
+    <select id="popularLectureList" resultType="kr.ed.haebeop.domain.LectureVO">
+        SELECT l.lcode AS lcode, lname, tname, l.saveFile AS saveFile
+        FROM lecture l JOIN register r ON (l.lcode=r.lcode) JOIN teacher t ON (l.tcode=t.tcode) GROUP BY l.lcode
+        ORDER BY COUNT(*) DESC LIMIT 6
+    </select>
+
+    <select id="stateLectureList" resultType="kr.ed.haebeop.domain.LectureVO">
+        SELECT l.lcode AS lcode, lname, tname, l.saveFile AS saveFile FROM lecture l JOIN teacher t ON (l.tcode=t.tcode)
+        WHERE state=#{state} ORDER BY RAND() LIMIT 6
     </select>
 
 </mapper>

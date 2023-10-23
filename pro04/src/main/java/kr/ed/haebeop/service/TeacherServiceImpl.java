@@ -53,4 +53,13 @@ public class TeacherServiceImpl implements TeacherService {
     public int getCount(Page page) throws Exception {
         return teacherMapper.getCount(page);
     }
+
+    @Override
+    public boolean isTeacher(String id) throws Exception {
+        if(teacherMapper.isTeacher(id) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
