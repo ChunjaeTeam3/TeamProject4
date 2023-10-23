@@ -56,16 +56,17 @@
                             </div>
                             <div class="column is-10-tablet">
                                 <label for="pw" class="label"> 비밀번호 </label>
-                                <div class="control">
-                                    <input type="password" id="pw" name="pw" class="form-control" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$" maxlength="16" required>
-                                    <p>(최소 8자리에서 최대 16자리까지, 숫자, 영문 대소문자, 특수문자가 각 1 문자 이상 포함되어야 함)</p>
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                        <input type="password" class="form-control" id="pw" name="pw" placeholder="숫자, 영문, 특수문자 1개 이상 / 8자리 이상 16자리 이하"
+                                               pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$" maxlength="16" disabled>
+                                        <input type="hidden" id="pw2" name="pw2" value="${user.pw}">
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-dark" style="width: 100%" onclick="togglePw()"> 비밀번호 변경 </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="column is-10-tablet">
-                                <label for="pw2" class="label"> 비밀번호 확인 </label>
-                                <div class="control">
-                                    <input type="password" class="form-control" name="pw2" id="pw2"   required>
-                                </div>
+                                <p id="msg" style="color: red; display: none"> 변경할 비밀번호를 입력해주세요 : ) </p>
                             </div>
                             <div class="column is-10-tablet">
                                 <label for="name" class="label"> 이름 </label>
@@ -86,20 +87,14 @@
                                     <p>(특수기호 포함하여 000-0000-0000 으로 입력해주세요)</p>
                                 </div>
                             </div>
-                            <div class="column is-10-tablet">
-                                <label for="tel" class="label"> 주소 </label>
+                            <div class="column is-10-tablet" style=" margin-top: 30px;">
+                                <label for="tel" class="label" style="font-weight: bold !important; font-size: 18px;"> 주소 </label>
                                 <div class="control">
-                                    <input type="text" name="addr1" id="addr1" class="form-control" value="${user.addr1 }"  >
-                                    <input type="text" name="addr2" id="addr2" class="form-control mt-3" value="${user.addr2 }">
-                                    <div class="columns"  style="display: flex; margin-top: 20px;">
-                                        <div class="column is-9-tablet">
-                                            <div class="control">
-                                                <input type="text" id="postcode" name="postcode" value="${user.postcode }" class="form-control" style="width: 550px; margin-right: 40px;}">
-                                            </div>
-                                        </div>
-                                        <div class="column is-3-tablet pl-0">
-                                            <button type="button" class="btn btn-secondary" onclick="findAddr()" style="width: 150px;"> 우편번호 검색 </button>
-                                        </div>
+                                    <input type="text" id="addr1" name="addr1" placeholder="기본 주소를 입력해주세요" class="form-control" autocomplete="off" readonly style="margin-bottom: 20px;" value="${user.addr1 }">
+                                    <input type="text" id="addr2" name="addr2" placeholder="상세 주소를 입력해주세요" class="form-control" autocomplete="off" required style="margin-bottom: 20px;" value="${user.addr2 }">
+                                    <div class="input-group">
+                                        <input type="text" id="postcode" name="postcode" placeholder="우편번호를 입력해주세요" class="form-control" autocomplete="off" readonly value="${user.postcode }" >
+                                        <button type="button" class="btn btn-sm btn-outline-primary ml-4" onclick="findAddr()" style="background-color: #000000; border: none; width: 120px;color: #ffffff;font-size: 17px;"> 우편번호  </button>
                                     </div>
                                 </div>
                             </div>
@@ -122,11 +117,13 @@
                             </div>
                         </form>
                         <script>
-                            function updateCheck(f){
-                                if(f.userpw.value!=f.userpw2.value){
-                                    alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-                                    return false;
-                                }
+                            // 비밀번호 input disable Toggle
+                            let read_pw = true;
+                            function togglePw() {
+                                read_pw = !read_pw;
+                                $("#pw").attr("disabled", read_pw);
+                                $("#pw").attr("required", !read_pw);
+                                $("#msg").slideToggle();
                             }
                         </script>
                         <script>
