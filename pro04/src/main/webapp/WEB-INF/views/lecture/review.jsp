@@ -146,7 +146,7 @@
         $(".my-star").click(function() {
             $(this).parent().children('span').removeClass('on');
             $(this).addClass('on').prevAll('span').addClass('on');
-            $("#star").attr("value", $(this).attr("value"));
+            $("#star2").attr("value", $(this).attr("value"));
             return false;
         });
     });
