@@ -656,7 +656,7 @@ public class AdminController {
         model.addAttribute("curPage", curPage);
         model.addAttribute("page", page);
 
-        return "/admin/bookMgmt";
+        return "/admin/book";
     }
 
 

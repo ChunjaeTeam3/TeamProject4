@@ -48,7 +48,7 @@
                 <div class="card-body" style="background-color: lightgray; height: 200px;">
                     <h4 class="mt-2" style="margin-bottom: 0;">${user.name}님,</h4>
                     <p class="" style="color: #000;font-weight: 500;font-size: 19px;/* line-height: 20px; */">오늘도 열공하세요!</p>
-                    <button type="button" class="btn btn-dark" id="profile"><a href="/team34_war/user/edit" style="color:#fff;">프로필 수정</a></button>
+                    <button type="button" class="btn btn-dark" id="profile"><a href="${path}/user/edit" style="color:#fff;">프로필 수정</a></button>
                 </div>
             </div>
         </div>

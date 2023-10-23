@@ -73,7 +73,7 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix"
+        <a class="nav-link collapsed" href="${path}/admin/bookMgmt" data-toggle="collapse" data-target="#collapseSix"
            aria-expanded="true" aria-controls="collapseSix">
             <i class="fa-solid fa-book"></i>
             <span> 교재관리 </span>
@@ -88,7 +88,7 @@
 
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven"
+        <a class="nav-link collapsed" href="${path}/admin/deliveryMgmt" data-toggle="collapse" data-target="#collapseSeven"
            aria-expanded="true" aria-controls="collapseSeven">
             <i class="fa-solid fa-truck-fast"></i>
             <span> 배송관리 </span>
