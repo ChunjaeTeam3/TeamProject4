@@ -110,6 +110,43 @@
                             }
                         </script>
                     </div>
+                    <div class="form-group mt-3">
+                        <label for="bcode"> 교재명 </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="bname" placeholder="검색할 교재명을 입력해주세요"
+                                   autocomplete="off" aria-label="검색할 교재명을 입력해주세요" aria-describedby="button-addon3">
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="button" id="button-addon3"
+                                        onclick="findBook()"> 검색
+                                </button>
+                            </div>
+                        </div>
+                        <select class="custom-select" id="bcode" name="bcode" size="8">
+                            <c:forEach var="book" items="${books}">
+                                <option value="${book.bcode}" class="p-2"> ${book.bname} </option>
+                            </c:forEach>
+                        </select>
+                        <script>
+                            function findBook() {
+                                let data = {"bname": $("#bname").val()}
+                                $.ajax({
+                                    url: "${path}/admin/findBook",
+                                    data: data,
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function (result) {
+                                        $("#bcode option").remove();
+                                        for (idx in result) {
+                                            $("#bcode").append("<option value='" + result[idx].bcode + "' class='p-2'>" + result[idx].bname + "</option>");
+                                        }
+                                    },
+                                    error: function (res, text) {
+                                        alert("문제가 발생하였습니다. 잠시 후 다시 시도해주세요.")
+                                    }
+                                });
+                            }
+                        </script>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group mt-3">

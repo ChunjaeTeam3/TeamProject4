@@ -136,7 +136,19 @@
                                                 <h8>교재: 수능특강</h8><br>
                                                 <h9>다운로드</h9><br>
                                                 <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                <c:if test="${lecture.state eq 'on'}">
+                                                    <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                </c:if>
+                                                <c:if test="${lecture.state eq 'off'}">
+                                                    <c:choose>
+                                                        <c:when test="${empty lecture.bcode}">
+                                                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:if>
                                             </div>
                                         </div>
                                             </div>

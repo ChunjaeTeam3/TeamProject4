@@ -15,4 +15,5 @@ public interface BookMapper {
     public void receive(Receive receive)throws Exception;
     public void bookUpdate(Book book) throws Exception;
     public Book bookDetail(String bcode) throws Exception;
+    public List<Book> findBook(String bname) throws Exception;
 }

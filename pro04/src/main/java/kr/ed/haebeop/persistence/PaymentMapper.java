@@ -28,4 +28,5 @@ public interface PaymentMapper {
     public PaymentVO myPaymentDetail(int pno) throws Exception;
     public int period (String lcode) throws Exception;
     public int payCount(Page page) throws Exception;
+    public void paymentNoBookInsert(Payment payment)throws Exception;
 }

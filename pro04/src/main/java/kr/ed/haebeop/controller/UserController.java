@@ -123,7 +123,8 @@ public class UserController {
     public String userDelete(HttpServletRequest request, Model model) throws Exception {
         String id = request.getParameter("id");
         userService.userDelete(id);
-        return "redirect:list";
+        session.invalidate();
+        return "redirect:/";
     }
 
     @GetMapping("edit")
