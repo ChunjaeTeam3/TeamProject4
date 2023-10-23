@@ -63,17 +63,17 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/bg-img/breadcumb3.jpg');">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
+        <p>해법과 함께 학습 여정을 시작해요</p>
         <h2>강의실</h2>
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
+<section class="album-catagory section-padding-100-0" style="min-height: 60vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <!-- 모든강좌정보  -->
-
         <section id="menu" class="content-section" style="clear: both;">
             <div class="tabmenu2_wrap" id="gotoTab" style="align-items: center;">
                 <ul class="nav nav-pills btn-group" id="cdTabMnuArea" style="display: flex; align-self: center; margin-left: 250px; ">

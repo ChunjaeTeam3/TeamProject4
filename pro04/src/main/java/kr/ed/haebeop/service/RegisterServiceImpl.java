@@ -81,6 +81,11 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
+    public List<LectureVO> ongoingMyLecture(String id) throws Exception {
+        return registerMapper.ongoingMyLecture(id);
+    }
+
+    @Override
     public int getCount(Page page) throws Exception {
         return registerMapper.getCount(page);
     }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Teacher {
 
     private String tcode;
+    private String tid;
     private String tname;
     private String ttel;
     private String temail;

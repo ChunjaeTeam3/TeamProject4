@@ -24,9 +24,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private TeacherService teacherService;
     @Autowired
     private LectureService lectureService;
     @Autowired
@@ -69,12 +70,14 @@ public class UserController {
         }
 
         if(ps){
+            boolean isTeacher = teacherService.isTeacher(id);
+            session.setAttribute("isTeacher", isTeacher);
+
             session.setAttribute("sid", id);
             userService.updateVisited(id);
-            rttr.addFlashAttribute("msg", 1);
             return "redirect:/";
         } else {
-            rttr.addFlashAttribute("msg", 0);
+            rttr.addFlashAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
             return "redirect:login";
         }
     }
@@ -172,15 +175,12 @@ public class UserController {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
         LecturePage page = new LecturePage();
-        page.setKeyword(request.getParameter("keyword"));       // 검색 키워드 SET
-        page.setType(request.getParameter("type"));             // 검색 타입 SET
         page.setId(id);
 
         // 페이징에 필요한 데이터 저장
-        int total = lectureService.getCount(page);
-        page.makeBlock(curPage, total);
-        page.makeLastPageNum(total);
-        page.makePostStart(curPage, total);
+        page.makeBlock(curPage, totalLecture);
+        page.makeLastPageNum(totalLecture);
+        page.makePostStart(curPage, totalLecture);
 
         // 수강신청 목록 불러오기
         List<LectureVO> myLecture = registerService.myLectures(page);

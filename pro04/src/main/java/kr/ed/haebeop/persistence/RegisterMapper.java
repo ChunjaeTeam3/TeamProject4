@@ -10,16 +10,17 @@ import java.util.Map;
 
 @Mapper
 public interface RegisterMapper {
-
     public boolean isReg(Map<String, String> data) throws Exception;
     public boolean isMaxStudent(String lcode) throws Exception;
     public void registerInsert(Map<String, String> data) throws Exception;
     public int isPeriod(String lcode) throws Exception;
     public List<LectureVO> myLectures(Page page) throws Exception;
     public List<UserProgress> progressList(String id) throws Exception;
+    public int regStudentCnt(String lcode) throws Exception;
+    public int getMyCount(String id) throws Exception;
     public int calcProfitPt() throws Exception;
     public double calcRegPercent() throws Exception;
-    public int getMyCount(String id) throws Exception;
+    public List<LectureVO> ongoingMyLecture(String id) throws Exception;
     public int getCount(Page page) throws Exception;
 
 }

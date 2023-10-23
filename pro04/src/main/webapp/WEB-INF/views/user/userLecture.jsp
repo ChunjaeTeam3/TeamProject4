@@ -21,9 +21,9 @@
 <!-- header End -->
 
 <!-- banner Start -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${paht}/resources/img/bg-img/breadcumb3.jpg);">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
-        <p>See what’s new</p>
+        <p>수강신청한 강의 정보를 확인해요</p>
         <h2>수강내역</h2>
     </div>
 </section>
@@ -31,30 +31,15 @@
 
 <!-- userPayment Start -->
 <!-- sidemenu Start -->
-<div class="container-xl" style="float:right;">
-    <div class="row">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="${path}/user/myPage" >${user.name} 님</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${path}/user/edit">내정보</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${path}/user/lecture">수강내역</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${path}/user/payment">주문/배송내역</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<div class="container-fluid d-flex justify-content-end p-0 mt-15">
+    <div class="d-flex justify-content-between">
+        <a class="nav-link active" aria-current="page" href="${path}/user/myPage" >${user.name} 님</a>
+        <a class="nav-link" href="${path}/user/edit">내정보</a>
+        <a class="nav-link" href="${path}/user/lecture">수강내역</a>
+        <a class="nav-link" href="${path}/user/payment">주문/배송내역</a>
     </div>
 </div>
+<!--sidemenu End -->
 
 <div class="container-lg" style="margin: 100px auto; width: 85%;">
 
@@ -67,7 +52,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive project-list">
-                        <table class="table project-table table-centered table-nowrap">
+                        <table class="table project-table table-centered table-nowrap text-center">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -79,19 +64,19 @@
                             <tbody>
                             <c:forEach var="lecture" items="${myLecture}" >
                                 <c:if test="${lecture.state eq 'on'}">
-                                    <tr>
+                                    <tr onclick="javascript: location.href='${path}/lecture/detail?lcode=${lecture.lcode}';" style="cursor:pointer;">
                                         <th scope="row">${lecture.lcode}</th>
-                                        <td>${lecture.lname}</td>
+                                        <td class="text-left">${lecture.lname}</td>
                                         <td>${lecture.tname}</td>
                                         <td>${lecture.sdate} ~ ${lecture.edate}</td>
                                     </tr>
                                 </c:if>
+                                <c:if test="${lecture.state eq 'off'}">
+                                    <tr>
+                                        <td colspan="4" class="text-center"> 수강신청한 강의가 없습니다. </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
-                            <c:if test="${empty myLecture}">
-                                <tr>
-                                    <td colspan="6" class="text-center"> 수강신청한 온라인 강의가 없습니다. </td>
-                                </tr>
-                            </c:if>
                             </tbody>
                         </table>
                     </div>
@@ -137,29 +122,37 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive project-list">
-                        <table class="table project-table table-centered table-nowrap">
+                        <table class="table project-table table-centered table-nowrap text-center">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">강좌명</th>
                                 <th scope="col">강사</th>
                                 <th scope="col">수강기간</th>
+                                <th scope="col">비고</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="off" items="${offLecture}" >
-                                <c:if test="${off.state eq 'off'}">
-                                <tr>
-                                    <th scope="row">${off.lcode}</th>
-                                    <td>${off.lname}</td>
-                                    <td>${off.tname}</td>
-                                    <td>${off.sdate} ~ ${off.edate}</td>
-                                </tr>
-                            </c:if>
+                            <c:forEach var="lecture" items="${offLecture}" >
+                                <c:if test="${lecture.state eq 'off'}">
+                                    <tr>
+                                        <th scope="row">${lecture.lcode}</th>
+                                        <td class="text-left">${lecture.lname}</td>
+                                        <td>${lecture.tname}</td>
+                                        <td>${lecture.sdate} ~ ${lecture.edate}</td>
+                                        <td><a href="${path}/lectureAttend/studentAttend?lcode=${lecture.lcode}"
+                                               class="btn btn-primary">출석하기</a></td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${lecture.state eq 'on'}">
+                                    <tr>
+                                        <td colspan="5" class="text-center"> 수강신청한 강의가 없습니다. </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                             <c:if test="${empty offLecture}">
                                 <tr>
-                                    <td colspan="6" class="text-center"> 수강신청한 오프라인 강의가 없습니다. </td>
+                                    <td colspan="5"> 수강신청한 강의가 없습니다. </td>
                                 </tr>
                             </c:if>
                             </tbody>
@@ -196,13 +189,9 @@
         </div>
     </div>
     <!-- section3(offline Table) End -->
-
-
 </div>
 <!--sidemenu End -->
 <!-- userPayment End -->
-
-
 
 <!-- Footer Start -->
 <jsp:include page="../layout/footer.jsp" />
