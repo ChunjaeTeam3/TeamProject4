@@ -64,7 +64,7 @@
                             <tbody>
                             <c:forEach var="lecture" items="${myLecture}" >
                                 <c:if test="${lecture.state eq 'on'}">
-                                    <tr onclick="javascript: location.href='${path}/lecture/list?lcode=${lecture.lcode}';" style="cursor:pointer;">
+                                    <tr onclick="javascript: location.href='${path}/lecture/detail?lcode=${lecture.lcode}';" style="cursor:pointer;">
                                         <th scope="row">${lecture.lcode}</th>
                                         <td class="text-left">${lecture.lname}</td>
                                         <td>${lecture.tname}</td>

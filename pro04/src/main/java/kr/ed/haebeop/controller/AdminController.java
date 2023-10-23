@@ -68,6 +68,9 @@ public class AdminController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @RequestMapping("dashboard")
     public String dashboard(Model model) throws Exception {
         // 포인트로 얻은 이익 계산
@@ -75,6 +78,8 @@ public class AdminController {
         model.addAttribute("profitPt", profitPt);
 
         // 도서 판매로 얻은 이익 계산
+        int profitBook = paymentService.calcProfitBook();
+        model.addAttribute("profitBook", profitBook);
 
         // 회원 중 수강신청한 사람 비율
         double regPercent = registerService.calcRegPercent();

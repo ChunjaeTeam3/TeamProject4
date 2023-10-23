@@ -137,4 +137,9 @@ public class PaymentServiceImpl implements PaymentService{
     public void paymentNoBookInsert(Payment payment) throws Exception {
         paymentMapper.paymentNoBookInsert(payment);
     }
+
+    @Override
+    public int calcProfitBook() throws Exception {
+        return paymentMapper.calcProfitBook();
+    }
 }

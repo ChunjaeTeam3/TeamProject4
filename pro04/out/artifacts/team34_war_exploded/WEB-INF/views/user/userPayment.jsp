@@ -160,10 +160,10 @@
     </script>
 
     <!-- section2(payment table) End -->
-
-
-
 </div>
 <!-- userPayment End -->
+
+<jsp:include page="../layout/footer.jsp"/>
+
 </body>
 </html>

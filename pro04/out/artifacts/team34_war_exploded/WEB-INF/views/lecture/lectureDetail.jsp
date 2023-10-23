@@ -64,7 +64,7 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0" style="margin-left: 150px;">
+<section class="album-catagory section-padding-100-0" style="min-height: 70vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <!-- 모든강좌정보  -->
@@ -76,15 +76,17 @@
                 </div>
                 <div class="col-md-10 cont_wrap">
                     <div class="txt_area">
-                        <h7 class="tit">강사: ${teacher.tname}</h7><br>
+                        <h7 class="tit">강사: ${lecture.tname}</h7><br>
                         <h6 class="tit">${lecture.lname}</h6><br>
                         <input value="${lecture.lcode}" hidden="hidden" id="lcode">
-                        <h8>수강인원 : 남은수강인원/${lecture.maxStudent}</h8><br>
-                        <h8>교재: 수능특강</h8>
-                        <h9>다운로드</h9><br>
+                        <h8>수강인원 : ${lecture.maxStudent}</h8><br>
+                        <h8>교재: ${lecture.bname}</h8>
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
                         <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-
+                        <c:if test="!empty ${lecture.bcode}">
+                            <input type="hidden" id="bcode" name="bcode" value="${lecture.bcode}">
+                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        </c:if>
                         <h3>강사 소개</h3>
                             <h8>${teacher.tcontent}</h8><br><br>
                         </div>
@@ -93,8 +95,8 @@
         </section>
         <br>
         <section id="menu" class="content-section" style="clear: both;">
-            <div class="tabmenu2_wrap" id="gotoTab" style="align-items: center;">
-                <ul class="nav nav-pills" id="cdTabMnuArea" style="align-self: center; ">
+            <div class="tabmenu2_wrap align-items-center" id="gotoTab">
+                <ul class="nav nav-pills justify-content-center" id="cdTabMnuArea">
                     <li class="nav-item"  style="text-align: center;width: 150px;">
                         <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab" aria-controls="intro"
                                 aria-selected="true"  onclick="ReloadPage()" style="width: 150px;font-size: 20px;text-align: center;">강의 소개</button>
@@ -121,7 +123,7 @@
                             <div class="col-12 mb-5">
                                 <div class="card w-100">
                                     <div class="card-body" style="height: 300px;">
-                            ${lecture.lcontent}
+                                        ${lecture.lcontent}
                                     </div>
                                 </div>
                             </div>
@@ -130,6 +132,8 @@
 
                         <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
                             <div class="content">
+                                <br>
+                                <br>
                                 <ul class="course_list">
                                     <c:forEach var="curr" items="${curriculumList}">
                                         <li class="justify-content-between d-flex">
@@ -147,6 +151,8 @@
                                                         class="btn primary-btn text-uppercase"> 강의 듣기 </button>
                                             </c:if>
                                         </li>
+                                        <hr>
+                                        <br>
                                     </c:forEach>
                                     <c:if test="${empty curriculumList}">
                                         <p class="text-center"> 등록된 커리큘럼이 없습니다. </p>
@@ -208,6 +214,8 @@
         </section>
     </div>
 </section>
+
+
 <div id="myModal" class="modal" style="display: none; height: 365px;">
     <div class="modal-content">
         <span class="close" style="
@@ -217,8 +225,8 @@
 "></iframe>
     </div>
 </div>
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 <jsp:include page="../layout/footer.jsp"/>
 </body>
@@ -236,10 +244,9 @@
     console.log(key);
 
     // 모든 탭 엘리먼트에서 'active' 클래스를 제거합니다.
-    $(" #video-tab, #board-tab, #stars-tab").removeClass("active");
+    $(" #video-tab, #board-tab, #stars-tab , #registerPage").removeClass("active");
 
     // 모든 탭 내용 엘리먼트에서 'show active' 클래스를 제거합니다.
-
 
     if(key === "intro"){
         $("#intro-tab").addClass("active");
@@ -254,7 +261,7 @@
         $("#stars-tab").addClass("active");
         $("#stars").addClass("show active");
     } else if(key === "register") {
-        $("#register-tab").addClass("active");
+        $("#registerPage").addClass("show active");
     }
 
 </script>
@@ -327,25 +334,24 @@
         });
     }
 </script>
-<script>
-
-    function DetailPage(){
-        var lcode = $("#lcode").val();
-        $.ajax({
-            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
-            url: "${path}/lecBoard/detail?qno="+${lecBoard.qno},  // 실제 API 엔드포인트로 변경해야 합니다.
-            data: {
-                lcode : lcode
-            },
-            success: function (data) {
-                $("#board").html(data);
-            },
-            error: function (error) {
-                console.log("에러다에러"+error.responseText)
-            }
-        });
-    }
-</script>
+<%--<script>--%>
+<%--    function DetailPage(){--%>
+<%--        var lcode = $("#lcode").val();--%>
+<%--        $.ajax({--%>
+<%--            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.--%>
+<%--            url: "${path}/lecBoard/detail?qno="+${lecBoard.qno},  // 실제 API 엔드포인트로 변경해야 합니다.--%>
+<%--            data: {--%>
+<%--                lcode : lcode--%>
+<%--            },--%>
+<%--            success: function (data) {--%>
+<%--                $("#board").html(data);--%>
+<%--            },--%>
+<%--            error: function (error) {--%>
+<%--                console.log("에러다에러"+error.responseText)--%>
+<%--            }--%>
+<%--        });--%>
+<%--    }--%>
+<%--</script>--%>
 <script>
     $('.ajax-link').click(function (e) {
         e.preventDefault(); // 기본 클릭 이벤트 방지
@@ -379,8 +385,11 @@
                 type: "GET",
                 url: "${path}/lecture/register?lcode=" + lcode,
                 success: function(data) {
-                    $("#korean, #math, #writing, #china").removeClass("show active");
-                    $("#korean-tab, #math-tab, #writing-tab, #china-tab").removeClass("active");
+                    // 모든 탭과 탭 내용 엘리먼트에서 'show active' 클래스를 제거합니다.
+                    $("#intro-tab, #video-tab, #board-tab, #stars-tab, #registerPage").removeClass("show active");
+                    $("#intro, #video, #board, #stars, #registerPage").removeClass("active");
+
+                    // 수강신청 탭만 'show active' 클래스를 추가합니다.
                     $("#registerPage").html(data);
                     $("#registerPage").addClass("show active");
                 },
@@ -408,6 +417,50 @@
         let obwindow = window.open(documentURL,windowname, " toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no") ;
         obwindow.resizeTo(intWidth, intHeight) ;
         obwindow.moveTo(intXOffset, intYOffset);
+    }
+</script>
+<script>
+    function payCheck() {
+        let id = $("#id").val();
+        let lcode = $("#lcode").val();
+        let bcode = $("#bcode").val()
+        let maxStudent = $("#maxStudent").val();
+
+        if (id) {
+            // 수강생을 모집중인 강의만 신청 받도록 구현
+            let state = ${lecture.state};
+
+            if (state === 'off') {
+                let params = { id: id, lcode: lcode };
+                $.ajax({
+                    url: "${path}/payment/payCheck",
+                    type: "post",
+                    dataType: "json",
+                    data: params,
+                    success: function (data) {
+                        console.log("HI");
+                        let appPass = data.result;
+                        let curApp = data.curApp;
+                        if (curApp >= amt) {
+                            alert("이미 마감되었습니다.");
+                        } else if (!appPass) {
+                            alert("이미 수강신청한 회원입니다.");
+                        } else {
+                            window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+                        }
+                    },
+                    error: function (res) {
+                        alert("잠시 후 다시 시도해주세요.");
+                        console.log(res.responseText);
+                    }
+                });
+            } else {
+                alert("해당 강의는 수강신청 기간이 아닙니다.");
+            }
+        } else {
+            alert("로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.");
+            window.location.href = "${path}/user/login";
+        }
     }
 </script>
 </html>

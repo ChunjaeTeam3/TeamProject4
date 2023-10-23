@@ -479,6 +479,7 @@ create table payment(
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
 
+SELECT IFNULL(SUM(lprice), 0) FROM lecture l JOIN payment p ON (l.lcode=p.lcode)
 
 
 -- 출고 테이블 생성(출고 번호, 결제번호, 배송코드, 출고 가격, 수량, 출고일자)
@@ -505,9 +506,6 @@ create table receive(
 	FOREIGN KEY (bcode) REFERENCES book (bcode) ON DELETE CASCADE    
 );    
 
-SELECT * FROM USER;
-
-SELECT * FROM book;
 
 -- 핵심 기능: 공지사항, 자료실, 회원, 자유게시판, 강의별 댓글,  교재와 시범강의, 결제
 -- 부가 기능: 파일업로드, 채팅, 타계정 또는 SNS 로그인, 수강평, 달력, 가입 시 축하 이메일 보내기, 비밀번호 변경 시 이메일 보내기, 온라인 평가, 진도관리, 학습 스케줄러, 나의 강의실 등

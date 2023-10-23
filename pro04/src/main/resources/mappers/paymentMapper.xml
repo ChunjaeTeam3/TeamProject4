@@ -88,4 +88,8 @@
     <select id="payCount" resultType="integer">
         select COUNT(*) from payment where id=#{id}
     </select>
+
+    <select id="calcProfitBook" resultType="integer">
+        SELECT IFNULL(SUM(lprice), 0) FROM lecture l JOIN payment p ON (l.lcode=p.lcode)
+    </select>
 </mapper>

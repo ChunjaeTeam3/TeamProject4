@@ -4,8 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
-<jsp:include page="../layout/head.jsp"/>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <br>
 <br>
@@ -43,7 +41,7 @@
                         </thead>
 
                         <tbody>
-                        <c:forEach items="${lecBoardList }" var="list" varStatus="status">
+                        <c:forEach items="${lecBoardList}" var="list" varStatus="status">
                             <c:if test="${list.lcode eq lecture.lcode}">
                             <tr class="table-hover">
                                 <input type="hidden" value="${list.qno}">
