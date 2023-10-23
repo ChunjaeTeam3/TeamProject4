@@ -22,7 +22,6 @@ public class LecBoardController {
 
     //lecBoard 목록
     @GetMapping("list")
-    @ResponseBody
     public String getlecBoardList( HttpServletRequest request, Model model) throws Exception {
         //Page
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -47,7 +46,6 @@ public class LecBoardController {
 
     //lecBoard 상세보기
     @GetMapping("detail")
-    @ResponseBody
     public String getlecBoardDetail(HttpServletRequest request, Model model) throws Exception {
         int qno = Integer.parseInt(request.getParameter("qno"));
         LecBoard detail = lecBoardService.lecBoardDetail(qno);
@@ -85,7 +83,6 @@ public class LecBoardController {
 
     //Question 수정
     @GetMapping("edit")
-    @ResponseBody
     public String getlecBoardEdit(HttpServletRequest request, Model model) throws Exception {
         int qno = Integer.parseInt(request.getParameter("qno"));
         LecBoard detail = lecBoardService.lecBoardDetail(qno);
@@ -94,7 +91,6 @@ public class LecBoardController {
     }
     //Question 수정처리
     @PostMapping("edit")
-    @ResponseBody
     public String getlecBoardEditPro(HttpServletRequest request, Model model) throws Exception {
         int qno = Integer.parseInt(request.getParameter("qno"));
         LecBoard dto = new LecBoard();
@@ -107,7 +103,6 @@ public class LecBoardController {
 
     //lecBoard 삭제
     @GetMapping("delete")
-    @ResponseBody
     public String getlecBoardDelete(HttpServletRequest request, Model model) throws Exception {
         int qno = Integer.parseInt(request.getParameter("qno"));
         lecBoardService.lecBoardDelete(qno);
@@ -116,7 +111,6 @@ public class LecBoardController {
 
     //답변 등록
     @GetMapping("answerInsert")
-    @ResponseBody
     public String getAnswerInsert(HttpServletRequest request, Model model) throws Exception {
         int qno = Integer.parseInt(request.getParameter("qno"));
         LecBoard detail = lecBoardService.lecBoardDetail(qno);
@@ -126,7 +120,6 @@ public class LecBoardController {
 
     //답변 등록 처리
     @PostMapping("answerInsert")
-    @ResponseBody
     public String getAnswerInsertPro(LecBoard lecBoard, HttpServletRequest request, Model model) throws Exception {
         HttpSession session = request.getSession();
         lecBoard.setAuthor((String) session.getAttribute("sid"));

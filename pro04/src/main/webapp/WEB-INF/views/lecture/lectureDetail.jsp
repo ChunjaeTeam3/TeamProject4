@@ -79,9 +79,8 @@
                         <h7 class="tit">강사: ${teacher.tname}</h7><br>
                         <h6 class="tit">${lecture.lname}</h6><br>
                         <input value="${lecture.lcode}" hidden="hidden" id="lcode">
-                        <h8>수강인원 : 남은수강인원/${lecture.maxStudent}</h8><br>
+                        <h8>수강인원 : ${lecture.maxStudent}</h8><br>
                         <h8>교재: 수능특강</h8>
-                        <h9>다운로드</h9><br>
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
                         <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
 
