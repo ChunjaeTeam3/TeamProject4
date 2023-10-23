@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
+
 @Mapper
 public interface LecBoardMapper {
     public List<LecBoard> lecBoardList(Page page) throws Exception;
