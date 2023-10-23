@@ -82,9 +82,11 @@
                         <h8>수강인원 : ${lecture.maxStudent}</h8><br>
                         <h8>교재: ${lecture.bname}</h8>
                         <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
-                        <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                        <c:if test="!empty ${lecture.bcode}">
-                            <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" onclick="payCheck()" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                            <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        </c:if>
+                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                            <a href="javascript:void(0);" data-lcode="${lecture.lcode}, ${lecture.bcode}" id="pay" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
                         </c:if>
                         <h3>강사 소개</h3>
                             <h8>${teacher.tcontent}</h8><br><br>
@@ -419,48 +421,54 @@
     }
 </script>
 <script>
-    function payCheck() {
-        let id = $("#id").val();
-        let lcode = $("#lcode").val();
-        let bcode = $("#bcode").val()
-        let maxStudent = $("#maxStudent").val();
+    $(document).ready(function() {
+        $(".pay-button").click(function() {
+            var lcodeAndBcode = $(this).data("lcode").split(", ");
+            var lcode = lcodeAndBcode[0];
+            var bcode = lcodeAndBcode[1];
 
-        if (id) {
-            // 수강생을 모집중인 강의만 신청 받도록 구현
-            let state = ${lecture.state};
-
-            if (state === 'off') {
-                let params = { id: id, lcode: lcode };
-                $.ajax({
-                    url: "${path}/payment/payCheck",
-                    type: "post",
-                    dataType: "json",
-                    data: params,
-                    success: function (data) {
-                        console.log("HI");
-                        let appPass = data.result;
-                        let curApp = data.curApp;
-                        if (curApp >= maxStudent) {
-                            alert("이미 마감되었습니다.");
-                        } else if (!appPass) {
-                            alert("이미 수강신청한 회원입니다.");
-                        } else {
-                            window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
-                        }
-                    },
-                    error: function (res) {
-                        alert("잠시 후 다시 시도해주세요.");
-                        console.log(res.responseText);
+            $.ajax({
+                type: "GET",
+                url: "${path}/payment/check?lcode=" + lcode,
+                success: function(data) {
+                    if (data.duplicate === 'false') {
+                        // 이미 등록된 경우 알림 메시지를 표시
+                        alert("이 강의에 이미 등록되었습니다.");
+                    } else if (data.loginRequired) {
+                        // 로그인이 필요한 경우 로그인 페이지로 리다이렉트
+                        alert("로그인이 필요합니다.");
+                        window.location.href = "${path}/user/login";
+                    } else {
+                        // 중복 신청이 아닌 경우 수강신청 요청을 보냅니다.
+                        $.ajax({
+                            type: "GET",
+                            url: "${path}/payment/pay?lcode=" + lcode + "&bcode=" + bcode,
+                            success: function(data) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode,
+                                    success: function(registerData) {
+                                        window.location.href ="${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+                                        console.log("payment 실행 완료");
+                                    },
+                                    error: function(registerError) {
+                                        console.log("에러다에러" + registerError.responseText);
+                                    }
+                                });
+                            },
+                            error: function(error) {
+                                console.log("에러다에러" + error.responseText);
+                            }
+                        });
                     }
-                });
-            } else {
-                alert("해당 강의는 수강신청 기간이 아닙니다.");
-            }
-        } else {
-            alert("로그인이 필요한 서비스입니다. 로그인 후 다시 시도해주세요.");
-            window.location.href = "${path}/user/login";
-        }
-    }
+                },
+                error: function(duplicateError) {
+                    console.log("중복 신청 확인 중 에러: " + duplicateError.responseText);
+                }
+            });
+        });
+    });
+
 </script>
 </html>
 

@@ -1,15 +1,14 @@
 package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.*;
-import kr.ed.haebeop.service.DeliveryService;
-import kr.ed.haebeop.service.PaymentService;
-import kr.ed.haebeop.service.UserService;
+import kr.ed.haebeop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,10 +26,16 @@ public class PaymentController {
     private UserService userService;
 
     @Autowired
+    private RegisterService registerService;
+
+    @Autowired
     private PaymentService paymentService;
 
     @Autowired
     private DeliveryService deliveryService;
+
+    @Autowired
+    private LectureService lectureService;
 
     @RequestMapping(value = "payCheck", method = RequestMethod.POST)
     @ResponseBody
@@ -47,7 +52,7 @@ public class PaymentController {
             result = true;
         } else {
             // 이미 수강신청한 경우
-            if (payment.getLcode() == lcode) {
+            if (payment != null && payment.getLcode().equals(lcode)) {
                 result = false; // 해당 강의에 대한 신청은 거부
             } else {
                 result = true; // 다른 신청에 대한 신청은 허용
@@ -61,11 +66,10 @@ public class PaymentController {
     }
 
     @GetMapping("payment")
-    public String getpaymentForm (HttpServletRequest request, Model model) throws Exception{
-        String lcode = request.getParameter("lcode");
-        String bcode = request.getParameter("bcode");
-
+    public String getpaymentForm (@RequestParam String lcode, @RequestParam String bcode, HttpServletRequest request, Model model) throws Exception{
+        HttpSession session = request.getSession();
         String id = (String) session.getAttribute("sid");
+
         User user = userService.getUser(id);
 
         Lecture lecture = paymentService.getLecture(lcode);
@@ -88,10 +92,6 @@ public class PaymentController {
         String id = (String) session.getAttribute("sid");
         int pt = Integer.parseInt(request.getParameter("pt"));
 
-        Register register = new Register();
-        register.setId(id);
-        register.setLcode(lcode);
-
         Payment payment = new Payment();
         payment.setLcode(lcode);
         payment.setTitle(request.getParameter("title"));
@@ -103,7 +103,7 @@ public class PaymentController {
         payment.setPrice(request.getParameter("price"));
         payment.setAccount(request.getParameter("account"));
 
-        int pno = paymentService.paymentInsert(register, payment);
+        int pno = paymentService.paymentInsert(id, lcode, payment);
         System.out.println(pno);
 
         Delivery delivery = new Delivery();
@@ -165,5 +165,60 @@ public class PaymentController {
         return "redirect:/user/payment";
     }
 
+
+    @GetMapping("pay")
+    public String payment(@RequestParam String lcode, @RequestParam String bcode,  HttpServletRequest request, Model model) throws Exception {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+
+        if (id == null) {
+            return "redirect:/user/login";
+        }
+
+        if (!paymentService.already(lcode, id)) {
+            User user = userService.getUser(id);
+            LectureVO lecture = lectureService.lectureDetail(lcode);
+            model.addAttribute("lecture", lecture);
+            model.addAttribute("user", user);
+            return "redirect:/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+        } else {
+            return "redirect:/lecture/list";
+        }
+
+    }
+
+    //@GetMapping(value="registerInsert")
+    //public String registerInsert(@RequestParam String lcode, @RequestParam String bcode, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+    //    HttpSession session = request.getSession();
+      //  String id = (String) session.getAttribute("sid");
+
+        //String result = paymentService.registerInsert(id, lcode);
+
+
+        //rttr.addFlashAttribute("msg", result);
+
+        //return "redirect:/payment/payment?lcode=" + lcode+"&bcode="+bcode;
+    //}
+
+    @GetMapping("check")
+    @ResponseBody
+    public Map<String, Boolean> check(@RequestParam String lcode, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("sid");
+        Map<String, Boolean> response = new HashMap<>();
+
+        if (id == null) {
+            // 사용자가 로그인되지 않은 경우
+            response.put("duplicate", false);
+            response.put("loginRequired", true);
+        } else {
+            // 사용자가 로그인된 경우 중복 신청 확인
+            boolean register = paymentService.already(lcode, id);
+            response.put("duplicate", register);
+            response.put("loginRequired", false);
+        }
+
+        return response;
+    }
 
 }

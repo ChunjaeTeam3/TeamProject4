@@ -30,7 +30,7 @@
             <span> 고객지원관리 </span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        <a class="nav-link collapsed" href="${path}/admin/lectureMgmt" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa-solid fa-video"></i>
             <span> 강의관리 </span>
@@ -45,7 +45,7 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+        <a class="nav-link collapsed" href="${path}/admin/teacherMgmt" data-toggle="collapse" data-target="#collapseThree"
            aria-expanded="true" aria-controls="collapseThree">
             <i class="fa-solid fa-chalkboard-user"></i>
             <span> 강사관리 </span>
@@ -59,7 +59,7 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+        <a class="nav-link collapsed" href="${path}/admin/eventMgmt" data-toggle="collapse" data-target="#collapseFive"
            aria-expanded="true" aria-controls="collapseFive">
             <i class="fa-solid fa-gift"></i>
             <span> 이벤트관리 </span>
@@ -73,31 +73,29 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="${path}/admin/bookMgmt" data-toggle="collapse" data-target="#collapseSix"
-           aria-expanded="true" aria-controls="collapseSix">
-            <i class="fa-solid fa-book"></i>
-            <span> 교재관리 </span>
-        </a>
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header"> Book: </h6>
-                <a class="collapse-item" href="${path}/admin/bookMgmt"> 교재관리 </a>
-                <a class="collapse-item" href="${path}/admin/bookInsert"> 교재등록 </a>
-                <a class="collapse-item" href="${path}/admin/bookReceive"> 교재입고 </a>
-            </div>
-        </div>
-
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="${path}/admin/deliveryMgmt" data-toggle="collapse" data-target="#collapseSeven"
-           aria-expanded="true" aria-controls="collapseSeven">
+        <a class="nav-link collapsed" href="${path}/admin/deliveryMgmt" data-toggle="collapse" data-target="#collapsesix"
+           aria-expanded="true" aria-controls="collapsesix">
             <i class="fa-solid fa-truck-fast"></i>
             <span> 배송관리 </span>
         </a>
-        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionSidebar">
+        <div id="collapsesix" class="collapse" aria-labelledby="headingsix" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"> Delivery: </h6>
                 <a class="collapse-item" href="${path}/admin/deliveryMgmt"> 배송 관리 </a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="${path}/admin/bookMgmt" data-toggle="collapse" data-target="#collapseseven"
+           aria-expanded="true" aria-controls="collapseseven">
+            <i class="fa-solid fa-book"></i>
+            <span> 교재관리 </span>
+        </a>
+        <div id="collapseseven" class="collapse" aria-labelledby="headingseven" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"> Book: </h6>
+                <a class="collapse-item" href="${path}/admin/bookMgmt"> 교재 관리 </a>
+                <a class="collapse-item" href="${path}/admin/bookInsert"> 교재 등록 </a>
             </div>
         </div>
     </li>
