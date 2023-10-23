@@ -133,7 +133,7 @@
                                                 <h7 class="tit">강사: ${lecture.tname}</h7>
                                                 <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                 <h8>수강인원 ${lecture.maxStudent}명</h8><br>
-                                                <h8>교재: 수능특강</h8><br>
+                                                <h8>교재: ${lecture.bname}</h8><br>
                                                 <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                 <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                 <c:if test="${lecture.bcode ne null}">
@@ -298,7 +298,7 @@
                                                         <h7 class="tit">강사: ${lecture.tname}</h7>
                                                         <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                         <h8>수강인원 ${lecture.maxStudent}명</h8><br>
-                                                        <h8>교재: 수능특강</h8><br>
+                                                        <h8>교재: ${lecture.bname}</h8><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                         <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                         <c:if test="${lecture.bcode ne null}">
@@ -377,7 +377,7 @@
                                                         <h7 class="tit">강사: ${lecture.tname}</h7>
                                                         <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
                                                         <h8>수강인원 ${lecture.maxStudent}명</h8><br>
-                                                        <h8>교재: 수능특강</h8><br>
+                                                        <h8>교재: ${lecture.bname}</h8><br>
                                                         <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                         <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                         <c:if test="${lecture.bcode ne null}">
