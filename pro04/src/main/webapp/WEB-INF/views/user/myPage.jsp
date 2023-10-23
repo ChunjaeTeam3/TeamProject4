@@ -69,8 +69,8 @@
                     <div class="float-left" style=" margin-right: 10px;  font-size: 40px; width: 100%;">
                         <i class="fa-solid fa-user-clock" style="color: #1e1e1f;"></i>
                     </div>
-                    <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; line-height: 20px;">수강시간</p>
-                    <h5 class="font-size-30 mt-0 pt-1" style="font-size: 25px; line-height: 60px; margin-bottom: 0;" >총 ${totalStudy}시간</h5>
+                    <p class="font-size-30 mt-0 pt-1" style="color: #000;font-weight: 500; font-size: 20px; line-height: 20px;">포인트</p>
+                    <h5 class="font-size-30 mt-0 pt-1" style="font-size: 25px; line-height: 60px; margin-bottom: 0;" >총 ${user.pt} 포인트</h5>
                 </div>
             </div>
         </div>

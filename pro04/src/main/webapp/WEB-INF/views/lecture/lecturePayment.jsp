@@ -145,7 +145,7 @@
 
         <div class="col-12 col-md-3 mb-3">
             <div class="card position-sticky top-0">
-                <div class="p-3 ">
+                <div class="p-3 " id="paypay">
                     <h5 class="card-title mb-3">결제금액</h5>
                     <div style="display: flex; justify-content:space-between;">
                         <span>상품금액</span>
@@ -164,10 +164,10 @@
                     <div>
                         <div>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>SUBTOTAL</span> <strong class="text-dark" id="subprice"></strong>
+                                <span>총금액</span> <strong class="text-dark" id="subprice"></strong>
                             </p>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>TOTAL</span> <strong class="text-dark" id="totalprice" name="price"></strong>
+                                <span></span> <strong class="text-dark" id="totalprice" ></strong>
                             </p>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
             totalPay = totalPay + parseInt($("#bprice").text());
 
             $("#subprice").text(totalPay);
-            $("#totalprice").text(totalPay);
+            $("#totalprice").html("<input type='hidden' id='price' name='price' value='" + totalPay + "'>");
 
 
             $("#point").val(0);
@@ -274,7 +274,8 @@
 
                     // 합계를 출력
                     $("#subprice").text(totalPay);
-                    $("#totalprice").text(totalPay);
+                    $("#totalprice").html("<input type='hidden' id='price' name='price' value='" + totalPay + "'>");
+
                 } else {
                     alert("잘못된 포인트 입력입니다. 0 이상의 값을 입력해주세요.");
                 }
