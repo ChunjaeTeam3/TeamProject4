@@ -66,8 +66,7 @@
                             <tbody>
                             <c:forEach items="${qnaList }" var="list" varStatus="status">
                                 <tr class="table-hover">
-                                    <input type="hidden" value="${list.qno}">
-                                    <th class="text-center">${status.count}</th>
+                                    <th class="text-center">${list.qno}</th>
                                     <th>
                                         <!-- 로그인 하지 않았을 때 -->
                                         <c:if test="${empty sid}">

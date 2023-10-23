@@ -10,8 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>당첨자 발표 상세보기</title>
     <jsp:include page="../layout/head.jsp"/>
+    <link rel="stylesheet" href="${path}/resources/css/firework.css">
     <style>
         table th {width: 12%;}
+        body{
+            -ms-overflow-style: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -25,7 +33,7 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
+<section class="album-catagory section-padding-100-0" style="min-height: 532px;">
     <div class="course_details_area mb-5 mt-5">
         <div class="container">
             <!-- 테이블 영역 시작 -->
@@ -72,4 +80,5 @@
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->
 </body>
+<script src="${path}/resources/js/firework.js"></script>
 </html>
