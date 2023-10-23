@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface BookMapper {
+    public List<Book> booklist() throws Exception;
     public List<Book> bookList(Page page) throws Exception;
     public int getCount(Page page) throws Exception;
     public void bookInsert(Book book) throws Exception;

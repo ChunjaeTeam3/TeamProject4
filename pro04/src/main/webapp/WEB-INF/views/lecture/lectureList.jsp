@@ -137,6 +137,7 @@
                                                 <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
                                                 <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                 <c:if test="${lecture.bcode ne null}">
+                                                <input type="hidden" name="id" id="id" value="${sid}">
                                                 <a href="${path}/lecture/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}" style="margin-left: 600px" onclick="payCheck()" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                 </c:if>
                                             </div>
