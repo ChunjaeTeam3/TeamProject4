@@ -26,5 +26,4 @@ public class LectureVO {
     private String classroom;
     private String bcode;
     private String bname;
-
 }

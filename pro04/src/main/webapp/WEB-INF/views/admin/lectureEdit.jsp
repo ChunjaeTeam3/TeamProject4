@@ -122,7 +122,7 @@
                         <div class="col">
                             <div class="form-group mt-3">
                                 <label for="lprice"> 강의 단가 </label>
-                                <input type="number" min="1000" name="lprice" id="lprice" class="form-control" value="${detail.lprice}">
+                                <input type="number" min="0" name="lprice" id="lprice" class="form-control" value="${detail.lprice}">
                             </div>
                         </div>
                         <div class="col">

@@ -2,6 +2,7 @@ package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.persistence.PaymentMapper;
+import kr.ed.haebeop.persistence.RegisterMapper;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ import java.util.Map;
 
 @Service
 public class PaymentServiceImpl implements PaymentService{
+
+    @Autowired
+    private RegisterMapper registerMapper;
 
     @Autowired
     private PaymentMapper paymentMapper;
@@ -56,7 +60,9 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public int paymentInsert(Payment payment) throws Exception {
+    @Transactional
+    public int paymentInsert(Register register, Payment payment) throws Exception {
+        registerMapper.registerInsert2(register);
         paymentMapper.paymentInsert(payment);
         int pno = paymentMapper.paymentNo();
         return pno;

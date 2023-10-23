@@ -693,6 +693,7 @@ public class AdminController {
         page.makePostStart(curPage, total);
 
         List<Book> bookList = bookService.bookList(page);
+        System.out.println(bookList);
         model.addAttribute("bookList", bookList);
         model.addAttribute("curPage", curPage);
         model.addAttribute("page", page);

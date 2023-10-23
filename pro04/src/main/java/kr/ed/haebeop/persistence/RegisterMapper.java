@@ -1,6 +1,7 @@
 package kr.ed.haebeop.persistence;
 
 import kr.ed.haebeop.domain.LectureVO;
+import kr.ed.haebeop.domain.Register;
 import kr.ed.haebeop.domain.UserProgress;
 import kr.ed.haebeop.util.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,5 +22,6 @@ public interface RegisterMapper {
     public double calcRegPercent() throws Exception;
     public int getMyCount(String id) throws Exception;
     public int getCount(Page page) throws Exception;
+    public void registerInsert2(Register register) throws Exception;
 
 }
