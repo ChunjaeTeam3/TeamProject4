@@ -217,7 +217,7 @@
                                                 <c:if test="${lecture.scode eq 'ma'}">
                                                     <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                 <div class="col-md-2 img">
-                                                    <img src="${pageContext.request.contextPath}/resources/upload/teacher/${lecture.saveFile}" alt="사진"/>
+                                                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="사진"/>
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
                                                     <div class="txt_area">
@@ -310,7 +310,7 @@
                                             <c:if test="${lecture.scode eq 'ko'}">
                                                 <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                 <div class="col-md-2 img">
-                                                    <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
+                                                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="사진"/>
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
                                                     <div class="txt_area">
@@ -400,7 +400,7 @@
                                                 <c:if test="${lecture.scode eq 'ch'}">
                                                     <div class="col-md-12 row">
                                                 <div class="col-md-2 img" style="margin-bottom: 20px;">
-                                                    <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
+                                                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="사진"/>
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
                                                     <div class="txt_area">
