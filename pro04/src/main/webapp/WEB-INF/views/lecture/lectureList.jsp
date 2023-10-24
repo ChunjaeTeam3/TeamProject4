@@ -130,20 +130,20 @@
                                         </div>
                                         <div class="col-md-10 cont_wrap">
                                             <div class="txt_area">
-                                                <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
-                                                <h8>수강인원 ${lecture.maxStudent}명</h8><br>
+                                                <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}" style= "font-size: 25px;;" >${lecture.lname}</a></h6>
+                                                <h7 class="tit">강사: ${lecture.tname}</h7><br>
+                                                <h8>수강인원: ${lecture.maxStudent}명</h8><br>
                                                 <h8>교재: ${lecture.bname}</h8><br>
-                                                <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
-                                            <c:if test="${lecture.state eq 'on'}">
-                                                <span>수업방식: 온라인 </span>
-                                            </c:if>
-                                            <c:if test="${lecture.state eq 'off'}">
-                                                <span>수업방식: 오프라인 </span>
-                                            </c:if>
-                                            <c:if test="${lecture.state eq 'close'}">
-                                                <span style="color: red; font-weight: bold;"> 폐강 </span>
-                                            </c:if>
+                                                <span>접수기간:  ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                <c:if test="${lecture.state eq 'on'}">
+                                                    <span>강의유형: <strong>온라인</strong> </span>
+                                                </c:if>
+                                                <c:if test="${lecture.state eq 'off'}">
+                                                    <span>강의유형:  <strong>오프라인</strong> </span>
+                                                </c:if>
+                                                <c:if test="${lecture.state eq 'close'}">
+                                                    <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                                </c:if>
                                                 <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
                                                     <a href="${path}/lecture/register2?lcode=${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                                 </c:if>
@@ -221,17 +221,17 @@
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
                                                     <div class="txt_area">
-                                                        <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                        <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
-                                                        <h8>수강인원 ${lecture.maxStudent}명</h8><br>
+                                                        <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}" style= "font-size: 25px;;" >${lecture.lname}</a></h6>
+                                                        <h7 class="tit">강사: ${lecture.tname}</h7><br>
+                                                        <h8>수강인원: ${lecture.maxStudent}명</h8><br>
                                                         <h8>교재: ${lecture.bname}</h8><br>
 
-                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                        <span>접수기간:  ${lecture.sdate} ~ ${lecture.edate}</span><br>
                                                         <c:if test="${lecture.state eq 'on'}">
-                                                            <span>수업방식: 온라인 </span>
+                                                            <span>강의유형: <strong>온라인</strong> </span>
                                                         </c:if>
                                                         <c:if test="${lecture.state eq 'off'}">
-                                                            <span>수업방식: 오프라인 </span>
+                                                            <span>강의유형:  <strong>오프라인</strong> </span>
                                                         </c:if>
                                                         <c:if test="${lecture.state eq 'close'}">
                                                             <span style="color: red; font-weight: bold;"> 폐강 </span>
@@ -314,16 +314,16 @@
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
                                                     <div class="txt_area">
-                                                        <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                        <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
-                                                        <h8>수강인원 ${lecture.maxStudent}명</h8><br>
+                                                        <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}" style= "font-size: 25px;;" >${lecture.lname}</a></h6>
+                                                        <h7 class="tit">강사: ${lecture.tname}</h7><br>
+                                                        <h8>수강인원: ${lecture.maxStudent}명</h8><br>
                                                         <h8>교재: ${lecture.bname}</h8><br>
-                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                        <span>접수기간:  ${lecture.sdate} ~ ${lecture.edate}</span><br>
                                                         <c:if test="${lecture.state eq 'on'}">
-                                                            <span>수업방식: 온라인 </span>
+                                                            <span>강의유형: <strong>온라인</strong> </span>
                                                         </c:if>
                                                         <c:if test="${lecture.state eq 'off'}">
-                                                            <span>수업방식: 오프라인 </span>
+                                                            <span>강의유형:  <strong>오프라인</strong> </span>
                                                         </c:if>
                                                         <c:if test="${lecture.state eq 'close'}">
                                                             <span style="color: red; font-weight: bold;"> 폐강 </span>
@@ -404,16 +404,16 @@
                                                 </div>
                                                 <div class="col-md-10 cont_wrap">
                                                     <div class="txt_area">
-                                                        <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                        <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
-                                                        <h8>수강인원 ${lecture.maxStudent}명</h8><br>
+                                                        <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}" style= "font-size: 25px;;" >${lecture.lname}</a></h6>
+                                                        <h7 class="tit">강사: ${lecture.tname}</h7><br>
+                                                        <h8>수강인원: ${lecture.maxStudent}명</h8><br>
                                                         <h8>교재: ${lecture.bname}</h8><br>
-                                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                        <span>접수기간:  ${lecture.sdate} ~ ${lecture.edate}</span><br>
                                                         <c:if test="${lecture.state eq 'on'}">
-                                                            <span>수업방식: 온라인 </span>
+                                                            <span>강의유형: <strong>온라인</strong> </span>
                                                         </c:if>
                                                         <c:if test="${lecture.state eq 'off'}">
-                                                            <span>수업방식: 오프라인 </span>
+                                                            <span>강의유형:  <strong>오프라인</strong> </span>
                                                         </c:if>
                                                         <c:if test="${lecture.state eq 'close'}">
                                                             <span style="color: red; font-weight: bold;"> 폐강 </span>
@@ -480,7 +480,7 @@
                     <tr>
                         <th width="200">제목</th>
                         <th>기간</th>
-                        <th>접수</th>
+                        <th>강의유형</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -490,7 +490,15 @@
                         <tr class="table-row" >
                             <td id="row-${status.index}4"><a id="row-${status.index}3" href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></td>
                             <td id="row-${status.index}">~${lecture.edate}</td>
-                            <td id="row-${status.index}2">${lecture.state}</td>
+                            <c:if test="${lecture.state eq 'on'}">
+                                <td id="row-${status.index}2">온라인</td>
+                            </c:if>
+                            <c:if test="${lecture.state eq 'off'}">
+                                <td id="row-${status.index}2">오프라인</td>
+                            </c:if>
+                            <c:if test="${lecture.state eq 'close'}">
+                                <td id="row-${status.index}2">정원미달</td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                     <!-- 추가 데이터 행 -->
@@ -509,7 +517,7 @@
                     <tr>
                         <th width="200">제목</th>
                         <th>기간</th>
-                        <th>접수</th>
+                        <th>강의유형</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -519,7 +527,15 @@
                         <tr class="table-row" >
                             <td id="row-${status.index}5"><a id="row-${status.index}6" href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></td>
                             <td id="row-${status.index}7">${lecture.sdate}~</td>
-                            <td id="row-${status.index}8">${lecture.state}</td>
+                            <c:if test="${lecture.state eq 'on'}">
+                                <td id="row-${status.index}2">온라인</td>
+                            </c:if>
+                            <c:if test="${lecture.state eq 'off'}">
+                                <td id="row-${status.index}2">오프라인</td>
+                            </c:if>
+                            <c:if test="${lecture.state eq 'close'}">
+                                <td id="row-${status.index}2">정원미달</td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                     <!-- 추가 데이터 행 -->
