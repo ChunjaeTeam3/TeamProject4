@@ -479,8 +479,6 @@ create table payment(
 		FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE
 );
 
-SELECT IFNULL(SUM(lprice), 0) FROM lecture l JOIN payment p ON (l.lcode=p.lcode)
-
 
 -- 출고 테이블 생성(출고 번호, 결제번호, 배송코드, 출고 가격, 수량, 출고일자)
 create table serve(

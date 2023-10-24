@@ -48,7 +48,7 @@
         </div>
     </div>
     <!-- 검색 엔진 끝 -->
-    <div class="container">
+    <div class="container" style="min-height: 60vh">
         <!-- 테이블 영역 시작 -->
         <div class="col-12 mb-5">
             <div class="card w-100">

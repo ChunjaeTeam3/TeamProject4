@@ -26,8 +26,8 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
-    <div class="course_details_area mb-5 mt-5">
+<section class="album-catagory section-padding-100-0 pb-5">
+    <div class="course_details_area mb-100 mt-5">
         <div class="container">
             <!-- 테이블 영역 시작 -->
             <div class="col-12">

@@ -104,7 +104,7 @@ public class DataRoomController {
     @GetMapping("detail")
     public String detail(HttpServletRequest request, Model model) throws Exception {
         int articleNo = request.getParameter("articleNo") != null ? Integer.parseInt(request.getParameter("articleNo")) : 0;
-        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 0;
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         DataRoom dataRoom = dataRoomService.dataRoomDetail(articleNo);
         DataRoom prev = dataRoomService.dataRoomRef(articleNo, "prev");
         DataRoom next = dataRoomService.dataRoomRef(articleNo, "next");

@@ -91,11 +91,11 @@
                 <!-- 오늘 이미 출석체크를 했다면 버튼 비활성화 -->
                 <div class="has-text-centered">
                     <c:if test="${attendChk}">
-                        <button type="button" class="btn btn-dark btn-lg mb-100" style="width: 150px;" disabled> 출석체크 완료 </button>
+                        <button type="button" class="btn btn-dark mb-100" style="width: 150px;" disabled> 출석체크 완료 </button>
                     </c:if>
                     <!-- 오늘 출석체크를 하지 않았다면 버튼 활성화 -->
                     <c:if test="${!attendChk}">
-                        <a href="${path}/attendance/addAttend"  class="btn btn-dark btn-lg mb-100" style="width: 150px;"> 출석체크 </a>
+                        <a href="${path}/attendance/addAttend"  class="btn btn-dark mb-100" style="width: 150px;"> 출석체크 </a>
                     </c:if>
                 </div>
             </div>
@@ -107,7 +107,7 @@
 <c:if test="${!empty point}">
     <div class="popup-wrapper">
         <div class="popup">
-            <button class="close-btn" onclick="closePopup()"><i class="fa-solid fa-x"></i></button>
+            <button class="close-btn" onclick="closePopup()"><i class="fa-solid fa-x" style="color: white"></i></button>
             <h1 class="info"> 출석체크하고 </h1>
             <h2 class="point">  </h2>
             <h1> 받았어요! </h1>
