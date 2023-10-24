@@ -35,6 +35,9 @@
         <div class="col-12">
             <div class="card w-100">
                 <div class="card-body">
+                    <div class="btn-group float-right mb-3">
+                    <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
+                    </div>
                     <div class="table-responsive project-list">
                         <table class="table project-table table-centered table-nowrap">
                             <tbody>
@@ -54,7 +57,6 @@
                             </tbody>
                         </table>
                         <div class="btn-group float-right mr-3">
-                            <button type="button" onclick="ListPage()" class="button" >목록으로</button>
                             <input type="submit" class="btn btn-dark" style="height: 100%" value="등록" onclick="editPage()">
                         </div>
                     </div>
@@ -64,6 +66,8 @@
     </form>
 
 </div>
+<br>
+<br>
 
 <script>
 
