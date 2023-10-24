@@ -74,7 +74,7 @@ public class WinnerController {
     public String getWinnerDelete(HttpServletRequest request, Model model) throws Exception {
         int wno = Integer.parseInt(request.getParameter("wno"));
         winnerService.winnerDelete(wno);
-        return "redirect:/admin/selectWinner";
+        return "redirect:list";
     }
 
     //ckeditor를 이용한 이미지 업로드
