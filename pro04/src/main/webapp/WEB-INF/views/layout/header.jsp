@@ -44,6 +44,7 @@
                                         </li>
                                         <li><a href="${path}/news/list"> 교육뉴스 </a></li>
                                         <li><a href="${path}/event/list"> 이벤트 </a></li>
+                                        <li><a href="${path}/winner/list"> 당첨자 발표 </a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#"> 고객지원 </a>
