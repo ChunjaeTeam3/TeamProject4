@@ -15,72 +15,105 @@
     <ul class="list-group thumb_list_wrap">
         <li class="list-group-item">
             <div class="container">
-                <form id="searchkorean" class="row g-3">
-                    <div class="col-auto">
+                <form id="searchKo" class="d-flex justify-content-end">
+                    <div>
                         <div class="col-auto">
-                            <input class="form-control" type="text" id="ko" name="ko" autocomplete="off" value="ko" hidden="hidden">
+                            <input class="form-control" type="text" id="ko" name="ko"
+                                   autocomplete="off" value="ko" hidden="hidden">
                         </div>
-                        <select style="height: 36px;font-size: 16px" id="koType" name="koType" class="form-select">
+                        <select style="height: 36px;font-size: 16px" id="koType"
+                                name="koType" class="form-select">
                             <option value="T">제목</option>
                             <option value="C">내용</option>
                             <option value="W">강사이름</option>
                         </select>
                     </div>
-                    <div class="col-auto">
-                        <input class="form-control" type="text" id="koKeyword" name="koKeyword" placeholder="검색어를 입력하세요" autocomplete="off" value="${page.keyword}">
+                    <div>
+                        <input class="form-control" type="text" id="koKeyword"
+                               name="koKeyword" placeholder="검색어를 입력하세요" autocomplete="off"
+                               value="${page.keyword}">
                     </div>
-                    <div class="col-auto">
-                        <input type="button" class="btn btn-prikory" value="검색" onclick="searchKorean()" />
+                    <div>
+                        <input type="button" class="btn btn-primary" value="검색"
+                               onclick="searchKorean()"/>
                     </div>
                 </form>
                 <br>
                 <div class="row">
-
                     <c:forEach items="${lectureList}" var="lecture">
                         <c:if test="${lecture.scode eq 'ko'}">
-                            <div class="col-md-2 img">
-                                <img src="${path}/resources/img/teacher/an.png" alt="사진"/>
-                            </div>
-                            <div class="col-md-10 cont_wrap">
-                                <div class="txt_area">
-                                    <h7 class="tit">강사: ${lecture.tcode}</h7>
-                                    <h6 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h6><br>
-                                    <h8>수강인원 ${lecture.maxStudent}명</h8><br>
-                                    <h8>교재: 수능특강</h8><br>
-                                    <h9>다운로드</h9><br>
-                                    <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate} | 접수상태:${lecture.state}</span>
-                                    <a href="${path}/lecture/register?lcode=${lecture.lcode}" style="korgin-left: 600px" class="btn btn-prikory btn_L_col2"><span>수강신청</span></a>
+                            <div class="col-md-12 row" style="margin-bottom: 20px;">
+                                <div class="col-md-2 img">
+                                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
+                                         alt="사진"/>
+                                </div>
+                                <div class="col-md-10 cont_wrap">
+                                    <div class="txt_area">
+                                        <h7 class="tit">강사: ${lecture.tname}</h7>
+                                        <h6 class="tit"><a
+                                                href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
+                                        </h6><br>
+                                        <h8>수강인원 ${lecture.maxStudent}명</h8>
+                                        <br>
+                                        <h8>교재: ${lecture.bname}</h8>
+                                        <br>
+                                        <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                        <c:if test="${lecture.state eq 'on'}">
+                                            <span>수업방식: 온라인 </span>
+                                        </c:if>
+                                        <c:if test="${lecture.state eq 'off'}">
+                                            <span>수업방식: 오프라인 </span>
+                                        </c:if>
+                                        <c:if test="${lecture.state eq 'close'}">
+                                            <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                        </c:if>
+                                        <c:if test="${not empty sid}">
+                                            <div class="d-flex justify-content-end">
+                                                <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                                                    <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
+                                                       class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                </c:if>
+                                                <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                                    <a href="javascript:void(0);"
+                                                       data-lcode="${lecture.lcode}, ${lecture.bcode}"
+                                                       id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                                </c:if>
+                                            </div>
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
+                            <br>
                         </c:if>
                     </c:forEach>
-
                     <c:if test="${empty lectureList}">
-                        <div class="col-md-10 cont_wrap">
-                            <div class="txt_area" style="text-align: center">
-                                <h4>결과가 없습니다.</h4>
-                            </div>
-                        </div>
+                        <h5 style="margin: 20px auto"> 해당하는 강의가 없습니다. </h5>
                     </c:if>
                 </div>
                 <nav class="pagination justify-content-center mb-6" aria-label="pagination">
                     <c:if test="${curPage > 5}">
-                        <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="btn btn-prikory">Previous</a>
+                        <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                           class="btn btn-primary">Previous</a>
                     </c:if>
                     <c:if test="${page.blockLastNum < page.totalPageCount}">
-                        <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="btn btn-prikory">Next page</a>
+                        <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                           class="btn btn-primary">Next page</a>
                     </c:if>
                     <ul class="pagination">
-                        <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                        <c:forEach var="i" begin="${page.blockStartNum}"
+                                   end="${page.blockLastNum}">
                             <c:choose>
                                 <c:when test="${i == curPage}">
                                     <li class="page-item active">
-                                        <span class="page-link" aria-label="Page ${i}">${i}</span>
+                                                                    <span class="page-link"
+                                                                          aria-label="Page ${i}">${i}</span>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="page-item">
-                                        <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" class="page-link" aria-label="Page ${i}">${i}</a>
+                                        <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                           class="page-link" aria-label="Page ${i}">${i}</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>

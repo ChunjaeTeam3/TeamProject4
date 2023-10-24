@@ -58,7 +58,7 @@
                 <button id="stop" class="ml-2 player_btn"><i class="fa-solid fa-stop"></i></button>
                 <button id="backward" class="ml-2 player_btn"><i class="fa-solid fa-backward"></i></button>
                 <button id="forward" class="ml-2 player_btn"><i class="fa-solid fa-forward"></i></button>
-                <span id="currentTime" class="ml-3">00:52 / 02:30</span>
+                <span id="currentTime" class="ml-3">00:00 / 00:00</span>
             </div>
             <div class="d-flex">
                 <div class="form-group mb-0">

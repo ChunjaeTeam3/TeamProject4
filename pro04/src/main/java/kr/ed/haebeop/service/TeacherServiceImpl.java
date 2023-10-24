@@ -62,4 +62,9 @@ public class TeacherServiceImpl implements TeacherService {
             return false;
         }
     }
+
+    @Override
+    public String getTid(String lcode) throws Exception {
+        return teacherMapper.getTid(lcode);
+    }
 }

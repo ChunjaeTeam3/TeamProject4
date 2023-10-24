@@ -346,7 +346,7 @@ public class LectureController {
 
         rttr.addFlashAttribute("msg", result);
 
-        return "redirect:list" ;
+        return "redirect:/lecture/detail?lcode=" + lcode;
     }
 
     @GetMapping("player")

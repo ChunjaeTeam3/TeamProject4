@@ -71,24 +71,44 @@
         <section>
             <div class="row">
                 <div class="col-md-2 img">
-                    <img src="${pageContext.request.contextPath}/resources/upload/teacher/${teacher.saveFile}" alt="사진"/>
+                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="사진"/>
                 </div>
                 <div class="col-md-10 cont_wrap">
                     <div class="txt_area">
-                        <h7 class="tit">강사: ${lecture.tname}</h7><br>
-                        <h6 class="tit">${lecture.lname}</h6><br>
+                        <h3 class="tit">${lecture.lname}</h3>
+                        <p class="tit">강사: ${lecture.tname}</p>
                         <input value="${lecture.lcode}" hidden="hidden" id="lcode">
-                        <h8>수강인원 : ${lecture.maxStudent}</h8><br>
-                        <h8>교재: ${lecture.bname}</h8>
-                        <span>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</span>
-                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
-                            <a href="javascript:void(0);" data-lcode="${lecture.lcode}" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                        <p>수강인원 : ${lecture.maxStudent}</p>
+                        <c:if test="${lecture.state eq 'on'}">
+                            <p>교재 : <a href="${path}/dataRoom/list" class="btn btn-link">자료실로 이동</a></p>
                         </c:if>
-                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
-                            <a href="javascript:void(0);" data-lcode="${lecture.lcode}, ${lecture.bcode}" id="pay" style="margin-left: 600px" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                        <c:if test="${lecture.state eq 'off'}">
+                            <p>교재 : ${lecture.bname}</p>
                         </c:if>
-                        <h3>강사 소개</h3>
-                            <h8>${teacher.tcontent}</h8><br><br>
+                        <p>신청기간 ${lecture.sdate} ~ 종료기간 ${lecture.edate}</p>
+                        <c:if test="${not empty sid}">
+                            <div class="d-flex justify-content-end">
+                                <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                                    <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
+                                       class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                </c:if>
+                                <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                    <a href="javascript:void(0);"
+                                       data-lcode="${lecture.lcode}, ${lecture.bcode}"
+                                       id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                </c:if>
+                            </div>
+                        </c:if>
+                        <h4 class="mb-15 mt-50"><i class="fa-solid fa-chalkboard-user"></i> 강사 소개</h4>
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="${pageContext.request.contextPath}/resources/upload/teacher/${teacher.saveFile}" alt="사진"/>
+                                </div>
+                                <div class="col">
+                                    <h5> ${teacher.tname} </h5>
+                                    <p>${teacher.tcontent}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,9 +151,7 @@
 
 
                         <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
-                            <div class="content">
-                                <br>
-                                <br>
+                            <div class="content mt-30 pb-5">
                                 <ul class="course_list">
                                     <c:forEach var="curr" items="${curriculumList}">
                                         <li class="justify-content-between d-flex">
@@ -203,11 +221,6 @@
                         <div class="tab-pane fade" id="stars" role="tabpanel" aria-labelledby="stars-tab">
 
                         </div>
-
-                        <div class="tab-pane fade" id="registerPage" role="tabpanel" aria-labelledby="register-tab">
-
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -260,8 +273,6 @@
     } else if(key === "stars") {
         $("#stars-tab").addClass("active");
         $("#stars").addClass("show active");
-    } else if(key === "register") {
-        $("#registerPage").addClass("show active");
     }
 
 </script>
@@ -334,24 +345,6 @@
         });
     }
 </script>
-<%--<script>--%>
-<%--    function DetailPage(){--%>
-<%--        var lcode = $("#lcode").val();--%>
-<%--        $.ajax({--%>
-<%--            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.--%>
-<%--            url: "${path}/lecBoard/detail?qno="+${lecBoard.qno},  // 실제 API 엔드포인트로 변경해야 합니다.--%>
-<%--            data: {--%>
-<%--                lcode : lcode--%>
-<%--            },--%>
-<%--            success: function (data) {--%>
-<%--                $("#board").html(data);--%>
-<%--            },--%>
-<%--            error: function (error) {--%>
-<%--                console.log("에러다에러"+error.responseText)--%>
-<%--            }--%>
-<%--        });--%>
-<%--    }--%>
-<%--</script>--%>
 <script>
     $('.ajax-link').click(function (e) {
         e.preventDefault(); // 기본 클릭 이벤트 방지
@@ -376,30 +369,6 @@
     });
 </script>
 
-
-<script>
-    $(document).ready(function() {
-        $(".register").click(function() {
-            var lcode = $(this).data("lcode"); // 클릭한 요소의 data-lcode 값을 가져옵니다.
-            $.ajax({
-                type: "GET",
-                url: "${path}/lecture/register?lcode=" + lcode,
-                success: function(data) {
-                    // 모든 탭과 탭 내용 엘리먼트에서 'show active' 클래스를 제거합니다.
-                    $("#intro-tab, #video-tab, #board-tab, #stars-tab, #registerPage").removeClass("show active");
-                    $("#intro, #video, #board, #stars, #registerPage").removeClass("active");
-
-                    // 수강신청 탭만 'show active' 클래스를 추가합니다.
-                    $("#registerPage").html(data);
-                    $("#registerPage").addClass("show active");
-                },
-                error: function(error) {
-                    console.log("에러다에러" + error.responseText);
-                }
-            });
-        });
-    });
-</script>
 <script>
     function openLecture(ccode, lcode) {
         let screenSizeWidth,screenSizeHeight;

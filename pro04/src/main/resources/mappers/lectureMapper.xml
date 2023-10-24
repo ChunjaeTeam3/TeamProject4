@@ -114,8 +114,8 @@
     </select>
     
     <select id="lectureDetail" resultType="kr.ed.haebeop.domain.LectureVO">
-        SELECT lcode, lname, l.scode as scode, sname, l.tcode as tcode, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, state, classroom
-        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode)
+        SELECT lcode, lname, l.scode as scode, sname, l.tcode as tcode, tname, l.bcode AS bcode, bname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, state, classroom
+        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode) JOIN book b ON (l.bcode=b.bcode)
         WHERE lcode = #{lcode}
     </select>
 
