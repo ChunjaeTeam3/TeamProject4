@@ -214,6 +214,7 @@ public class PaymentController {
         } else {
             // 사용자가 로그인된 경우 중복 신청 확인
             boolean register = paymentService.already(lcode, id);
+            System.out.println(register);
             response.put("duplicate", register);
             response.put("loginRequired", false);
         }
