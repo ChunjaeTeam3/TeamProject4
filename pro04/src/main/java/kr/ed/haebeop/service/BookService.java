@@ -8,6 +8,7 @@ import kr.ed.haebeop.util.Page;
 import java.util.List;
 
 public interface BookService {
+    public List<Book> booklist() throws Exception;
     public List<Book> bookList(Page page) throws Exception;
     public int getCount(Page page) throws Exception;
     public void bookInsert(Book book) throws Exception;

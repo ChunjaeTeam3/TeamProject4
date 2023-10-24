@@ -88,4 +88,14 @@
     <select id="payCount" resultType="integer">
         select COUNT(*) from payment where id=#{id}
     </select>
+
+    <select id="already" resultType="boolean" parameterType="hashMap">
+        SELECT if(COUNT(*)=1, false, true) FROM payment WHERE lcode=#{lcode} AND id=#{id}
+    </select>
+
+    <select id="isMaxStudent" resultType="boolean" parameterType="hashMap">
+        SELECT IF(maxStudent=COUNT(*), FALSE, TRUE) FROM payment p JOIN lecture l ON (p.lcode=l.lcode) GROUP BY p.lcode HAVING p.lcode=#{lcode}
+        UNION ALL
+        SELECT true AS result FROM DUAL LIMIT 1;
+    </select>
 </mapper>

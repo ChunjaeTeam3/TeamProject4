@@ -54,7 +54,12 @@
                 <div class="form-outline mb-4 col col-8" style="display: flex;">
                     <input class="form-control-lg col-12" type="text" name="dcode" id="dcode" value="${delivery.dcode}" required>
                     <input type="hidden" name="dno" id="dno" value="${delivery.dno}">
+                    <c:if test="${empty delivery.dcode}">
+                    <button type="button" class="btn btn-dark btn-lg col-6" onclick="dcCheck();" style="margin-left: 20px;"> 추가 </button>
+                    </c:if>
+                    <c:if test="${!empty delivery.dcode}">
                     <button type="button" class="btn btn-dark btn-lg col-6" onclick="dcCheck();" style="margin-left: 20px;"> 수정 </button>
+                    </c:if>
                 </div>
             </div>
         </form>
@@ -72,8 +77,10 @@
                         window.close();
                         window.opener.location.reload();
                     },
-                    error: function() {
-                        alert("수정 중 오류가 발생했습니다.");
+                    error: function(error) {
+                        alert("수정이 완료되었습니다.");
+                        window.close();
+                        console.log(error.responseText);
                     }
                 });
             }

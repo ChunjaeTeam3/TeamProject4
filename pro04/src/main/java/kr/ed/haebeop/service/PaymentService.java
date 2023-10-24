@@ -6,7 +6,6 @@ import kr.ed.haebeop.util.Page;
 import java.util.List;
 
 public interface PaymentService {
-    public int paymentInsert(Register register, Payment payment) throws Exception ;
     public Payment PaymentDetail(String id, String lcode) throws Exception;
     public boolean payCheck(String id, String lcode) throws Exception;
     public int getCount(String lcode) throws Exception;
@@ -21,4 +20,7 @@ public interface PaymentService {
     public int period(String lcode) throws Exception;
     public int payCount(Page page) throws Exception;
     public void paymentNoBookInsert(Payment payment)throws Exception;
+
+    public boolean already(String lcode, String id) throws Exception;
+    public int paymentInsert(String id, String lcode, Payment payment) throws Exception;
 }
