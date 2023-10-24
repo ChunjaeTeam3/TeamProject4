@@ -79,6 +79,8 @@ public class PaymentServiceImpl implements PaymentService{
 
         if (isMaxStudent) {
             paymentMapper.paymentInsert(payment);
+            registerMapper.registerInsert(data);
+
             int pno = paymentMapper.paymentNo();
 
             return pno;

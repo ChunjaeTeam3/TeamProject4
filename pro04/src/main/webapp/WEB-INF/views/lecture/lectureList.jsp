@@ -134,10 +134,10 @@
                                             </form>
                                             <br>
                                             <div class="row">
-                                                <c:set var="cnt" value="0" />
+                                                <c:set var="cnt" value="0"/>
                                                 <c:forEach items="${lectureList}" var="lecture">
                                                     <c:if test="${lecture.scode eq 'wr'}">
-                                                        <c:set var="cnt" value="${cnt += 1}" />
+                                                        <c:set var="cnt" value="${cnt += 1}"/>
                                                         <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                             <div class="col-md-2 img">
                                                                 <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
@@ -172,7 +172,8 @@
                                                                             <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
                                                                                 <a href="javascript:void(0);"
                                                                                    data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                                                                   id="pay"
+                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
                                                                             </c:if>
                                                                         </div>
                                                                     </c:if>
@@ -253,10 +254,10 @@
                                             </form>
                                             <br>
                                             <div class="row">
-                                                <c:set var="cnt" value="0" />
+                                                <c:set var="cnt" value="0"/>
                                                 <c:forEach items="${lectureList}" var="lecture">
                                                     <c:if test="${lecture.scode eq 'ma'}">
-                                                        <c:set var="cnt" value="${cnt += 1}" />
+                                                        <c:set var="cnt" value="${cnt += 1}"/>
                                                         <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                             <div class="col-md-2 img">
                                                                 <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
@@ -292,7 +293,8 @@
                                                                             <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
                                                                                 <a href="javascript:void(0);"
                                                                                    data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                                                                   id="pay"
+                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
                                                                             </c:if>
                                                                         </div>
                                                                     </c:if>
@@ -373,10 +375,10 @@
                                             </form>
                                             <br>
                                             <div class="row">
-                                                <c:set var="cnt" value="0" />
+                                                <c:set var="cnt" value="0"/>
                                                 <c:forEach items="${lectureList}" var="lecture">
                                                     <c:if test="${lecture.scode eq 'ko'}">
-                                                        <c:set var="cnt" value="${cnt += 1}" />
+                                                        <c:set var="cnt" value="${cnt += 1}"/>
                                                         <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                             <div class="col-md-2 img">
                                                                 <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
@@ -411,7 +413,8 @@
                                                                             <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
                                                                                 <a href="javascript:void(0);"
                                                                                    data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                                                                   id="pay"
+                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
                                                                             </c:if>
                                                                         </div>
                                                                     </c:if>
@@ -490,10 +493,10 @@
                                             </form>
                                             <br>
                                             <div class="row">
-                                                <c:set var="cnt" value="0" />
+                                                <c:set var="cnt" value="0"/>
                                                 <c:forEach items="${lectureList}" var="lecture">
                                                     <c:if test="${lecture.scode eq 'ch'}">
-                                                        <c:set var="cnt" value="${cnt += 1}" />
+                                                        <c:set var="cnt" value="${cnt += 1}"/>
                                                         <div class="col-md-12 row">
                                                             <div class="col-md-2 img" style="margin-bottom: 20px;">
                                                                 <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
@@ -528,7 +531,8 @@
                                                                             <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
                                                                                 <a href="javascript:void(0);"
                                                                                    data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                                                                   id="pay"
+                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
                                                                             </c:if>
                                                                         </div>
                                                                     </c:if>

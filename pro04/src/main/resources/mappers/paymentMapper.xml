@@ -102,4 +102,8 @@
         UNION ALL
         SELECT true AS result FROM DUAL LIMIT 1;
     </select>
+
+    <delete id="deleteRegister">
+
+    </delete>
 </mapper>
