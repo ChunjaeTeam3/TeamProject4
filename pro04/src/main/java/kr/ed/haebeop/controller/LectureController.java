@@ -3,6 +3,7 @@ package kr.ed.haebeop.controller;
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.LecturePage;
+import org.apache.ibatis.session.SqlSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import java.util.List;
 @RequestMapping("/lecture/*")
 public class LectureController {
     @Autowired
+    private HttpSession session;
+    @Autowired
     private LectureService lectureService;
     @Autowired
     private TeacherService teacherService;
@@ -40,6 +43,9 @@ public class LectureController {
 
     @RequestMapping("list")
     public String lectureList(HttpServletRequest request, Model model) throws Exception {
+
+        String id = (String) session.getAttribute("sid");
+
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         String scode = request.getParameter("scode");
         LecturePage page = new LecturePage();

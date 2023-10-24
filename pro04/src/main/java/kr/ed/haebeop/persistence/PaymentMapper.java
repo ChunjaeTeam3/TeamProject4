@@ -29,4 +29,7 @@ public interface PaymentMapper {
     public int period (String lcode) throws Exception;
     public int payCount(Page page) throws Exception;
     public void paymentNoBookInsert(Payment payment)throws Exception;
+
+    public boolean already(Map<String, String> data) throws Exception;
+    public boolean isMaxStudent(String lcode) throws Exception;
 }
