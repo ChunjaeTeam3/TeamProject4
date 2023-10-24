@@ -25,4 +25,6 @@ public interface RegisterMapper {
     public int getCount(Page page) throws Exception;
     public void registerInsert2(Register register) throws Exception;
 
+    public void registerDelete(Map<String, String> data) throws Exception;
+
 }
