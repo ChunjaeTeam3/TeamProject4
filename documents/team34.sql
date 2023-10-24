@@ -1,3 +1,4 @@
+DROP DATABASE team34;
 CREATE DATABASE team34;
 USE team34;
 
@@ -400,11 +401,6 @@ CREATE TABLE saveAttendCode(
 	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
 
-SELECT * FROM lectureAttend;
-
-SELECT * FROM register;
-
-INSERT INTO register VALUES(DEFAULT, 'ko1', 'test61', 0);
 
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
@@ -458,7 +454,7 @@ create table delivery(
 );
 
 
---결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
+-- 결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
 create table payment(
 	   pno INT primary KEY AUTO_INCREMENT,
 	   title VARCHAR(100) NOT NULL,

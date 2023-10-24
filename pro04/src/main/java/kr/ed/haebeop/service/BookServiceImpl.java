@@ -17,6 +17,11 @@ public class BookServiceImpl implements BookService{
     private BookMapper bookMapper;
 
     @Override
+    public List<Book> booklist() throws Exception {
+        return bookMapper.booklist();
+    }
+
+    @Override
     public List<Book> bookList(Page page) throws Exception {
         return bookMapper.bookList(page);
     }

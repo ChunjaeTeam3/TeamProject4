@@ -6,26 +6,29 @@
 <br>
 <br>
 <div class="has-background-white card-content shadow-down p-6" id="board2">
+    <input id="qno" value="${detail.qno}" hidden="hidden">
+    <input id="lcode" value="${detail.lcode}" hidden="hidden">
+    <input id="qno2" value="${prev.qno}" hidden="hidden">
+    <input id="curPage" value="${curPage}" hidden="hidden">
+    <input id="qno3" value="${next.qno}" hidden="hidden">
     <c:if test="${! empty sid && sid eq 'admin'}">
         <div class="btn-group float-right mb-3">
-            <a href="javascript:void(0);" id="answer" class="btn btn-outline-dark">답변등록</a>
+            <a href="javascript:void(0);"  class="btn btn-outline-dark answer">답변등록</a>
             <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
-            <a href="javascript:void(0);" id="edit" data-qno="${list.qno}"  class="btn btn-outline-dark">수정</a>
-            <a href="javascript:void(0);" id="delete" class="btn btn-outline-dark">삭제</a>
-      <input id="qno" value="${detail.qno}" hidden="hidden">
-      <input id="lcode" value="${detail.lcode}" hidden="hidden">
+            <a href="javascript:void(0);"  data-qno="${list.qno}"  class="btn btn-outline-dark edit">수정</a>
+            <a href="javascript:void(0);"  class="btn btn-outline-dark delete">삭제</a>
         </div>
     </c:if>
-    <c:if test="${! empty sid && sid ne 'admin'}">
+    <c:if test="${! empty sid && sid ne 'admin' && sid ne detail.author}">
         <div class="btn-group float-right">
-            <a href="${path}/lecBoard/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+            <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
         </div>
     </c:if>
     <c:if test="${sid ne 'admin' && sid eq detail.author}">
         <div class="btn-group float-right">
-            <a href="${path}/lecBoard/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
-            <a href="${path}/lecBoard/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
-            <a href="${path}/lecBoard/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
+            <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
+            <a href="javascript:void(0);" id="edit" data-qno="${list.qno}"  class="btn btn-outline-dark edit">수정</a>
+            <a href="javascript:void(0);" id="delete" class="btn btn-outline-dark delete">삭제</a>
         </div>
     </c:if>
     <table class="table project-table table-centered table-nowrap">
@@ -44,14 +47,14 @@
             <td colspan="3">${detail.author}</td>
         </tr>
         <tr>
-            <td colspan="6" style="font-size: 15px;" class="p-4">${detail.content}</td>
+            <td colspan="6" style="font-size: 15px; height:300px;" class="p-4">${detail.content}</td>
         </tr>
         <tr>
             <td colspan="5">
                 <div class="d-flex justify-content-between">
                     <c:if test="${!empty prev}">
                         <div class="text-left">
-                            <a href="${path}/lecBoard/detail?qno=${prev.qno}&page=${curPage}"><i class="fa-solid fa-angles-left fa-xl"></i>${prev.title}</a>
+                            <a href="javascript:void(0);" onclick="prevPage()"><i class="fa-solid fa-angles-left fa-xl"></i>${prev.title}</a>
                         </div>
                     </c:if>
                     <c:if test="${empty prev}">
@@ -61,7 +64,7 @@
                     </c:if>
                     <c:if test="${!empty next}">
                         <div class="text-right">
-                            <a href="${path}/lecBoard/detail?qno=${next.qno}&page=${curPage}">${next.title}<i class="fa-solid fa-angles-right fa-xl"></i></a>
+                            <a href="javascript:void(0);" onclick="nextPage()">${next.title}<i class="fa-solid fa-angles-right fa-xl"></i></a>
                         </div>
                     </c:if>
                     <c:if test="${empty next}">
@@ -78,7 +81,7 @@
 </div>
 
 <script>
-    $('#edit').click(function (e) {
+    $('.edit').click(function (e) {
         e.preventDefault(); // 기본 클릭 이벤트 방지
 
         var qno = document.getElementById("qno").value;
@@ -88,7 +91,7 @@
             type: 'GET',
             url: '${path}/lecBoard/edit',
             data: {
-                qno : qno,
+                qno: qno,
             },
             success: function (data) {
                 // Ajax 요청이 성공했을 때 수행할 작업
@@ -98,13 +101,13 @@
             },
             error: function () {
                 // Ajax 요청이 실패했을 때 수행할 작업
-                console.log("에러다에러"+error.responseText)
+                console.log("에러다에러" + error.responseText)
             }
         });
     });
 </script>
 <script>
-    $('#delete').click(function (e) {
+    $('.delete').click(function (e) {
         e.preventDefault(); // 기본 클릭 이벤트 방지
 
         var qno = document.getElementById("qno").value;
@@ -114,7 +117,7 @@
             type: 'GET',
             url: '${path}/lecBoard/delete',
             data: {
-                qno : qno,
+                qno: qno,
             },
             success: function (data) {
                 // Ajax 요청이 성공했을 때 수행할 작업
@@ -124,7 +127,7 @@
             },
             error: function () {
                 // Ajax 요청이 실패했을 때 수행할 작업
-                console.log("에러다에러"+error.responseText)
+                console.log("에러다에러" + error.responseText)
             }
         });
     });
@@ -148,7 +151,47 @@
     }
 </script>
 <script>
-    $('#answer').click(function (e) {
+    function prevPage(){
+        var qno = $("#qno2").val();
+        var curPage = $("curPage").val();
+        $.ajax({
+            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
+            url: "${path}/lecBoard/detail",  // 실제 API 엔드포인트로 변경해야 합니다.
+            data: {
+                qno : qno,
+                curPage : curPage
+            },
+            success: function (data) {
+                $("#board").html(data);
+            },
+            error: function (error) {
+                console.log("에러다에러"+error.responseText)
+            }
+        });
+    }
+</script>
+<script>
+    function nextPage(){
+        var qno = $("#qno3").val();
+        var curPage = $("curPage").val();
+        $.ajax({
+            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
+            url: "${path}/lecBoard/detail",  // 실제 API 엔드포인트로 변경해야 합니다.
+            data: {
+                qno : qno,
+                curPage : curPage
+            },
+            success: function (data) {
+                $("#board").html(data);
+            },
+            error: function (error) {
+                console.log("에러다에러"+error.responseText)
+            }
+        });
+    }
+</script>
+<script>
+    $('.answer').click(function (e) {
         e.preventDefault(); // 기본 클릭 이벤트 방지
 
         var qno = document.getElementById("qno").value;
@@ -158,7 +201,7 @@
             type: 'GET',
             url: '${path}/lecBoard/answerInsert',
             data: {
-                qno : qno,
+                qno: qno,
             },
             success: function (data) {
                 // Ajax 요청이 성공했을 때 수행할 작업
@@ -168,7 +211,7 @@
             },
             error: function () {
                 // Ajax 요청이 실패했을 때 수행할 작업
-                console.log("에러다에러"+error.responseText)
+                console.log("에러다에러" + error.responseText)
             }
         });
     });

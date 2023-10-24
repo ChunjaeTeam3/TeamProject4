@@ -80,7 +80,7 @@
     <div class="row" style="padding-left: 50px; margin-bottom: 30px;">
         <h4><i class="fa-solid fa-file-pen" style="color: #3d3d3e;"></i>결제정보</h4>
     </div>
-    <form action="${path}/payment/paymentNoBook" method="post" onsubmit="return payCheck(this)">
+    <form action="${path}/payment/paymentPro" method="post" onsubmit="return payCheck(this)">
         <div class="row" style="margin-bottom: 50px;">
         <div class="col mb-3">
             <div class="accordion" id="accordionPayment" style="width: 90%; margin: 0 auto;">
@@ -145,7 +145,7 @@
 
         <div class="col-12 col-md-3 mb-3">
             <div class="card position-sticky top-0">
-                <div class="p-3 ">
+                <div class="p-3 " id="paypay">
                     <h5 class="card-title mb-3">결제금액</h5>
                     <div style="display: flex; justify-content:space-between;">
                         <span>상품금액</span>
@@ -164,10 +164,10 @@
                     <div>
                         <div>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>SUBTOTAL</span> <strong class="text-dark" id="subprice"></strong>
+                                <span>총금액</span> <strong class="text-dark" id="subprice"></strong>
                             </p>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice"></strong>
+                                <span></span> <strong class="text-dark" id="totalprice" ></strong>
                             </p>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                     <c:if test="${!empty sid }">
                         <input type="hidden" id="lcode" name="lcode" value="${lecture.lcode }">
                         <input type="hidden" id="lname" name="lname" value="${lecture.lname}">
-                        <input type="hidden" name="bcode" id="bcode" value="${book.bcode }">
+                        <input type="hidden" name="bcode" id="bcode" value="${lecture.bcode }">
                         <input type="hidden" name="tcode" id="tcode" value="${lecture.tcode}">
                         <input type="hidden" id="sprice" name="sprice" value="${book.bprice}">
                         <input type="hidden" id="amount" name="amount" value="1">
@@ -247,7 +247,7 @@
             totalPay = totalPay + parseInt($("#bprice").text());
 
             $("#subprice").text(totalPay);
-            $("#totalprice").text(totalPay);
+            $("#totalprice").html("<input type='hidden' id='price' name='price' value='" + totalPay + "'>");
 
 
             $("#point").val(0);
@@ -274,7 +274,8 @@
 
                     // 합계를 출력
                     $("#subprice").text(totalPay);
-                    $("#totalprice").text(totalPay);
+                    $("#totalprice").html("<input type='hidden' id='price' name='price' value='" + totalPay + "'>");
+
                 } else {
                     alert("잘못된 포인트 입력입니다. 0 이상의 값을 입력해주세요.");
                 }

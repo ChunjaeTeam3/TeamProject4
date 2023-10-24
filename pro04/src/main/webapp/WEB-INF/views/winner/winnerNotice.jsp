@@ -121,7 +121,7 @@
                         <!-- 페이지 끝 -->
                         <c:if test="${sid eq 'admin'}">
                             <div class="btn float-right mt-10">
-                                <a href="${path}/winner/insert" class="btn btn-outline-dark">글쓰기</a>
+                                <a href="${path}/admin/eventMgmt" class="btn btn-outline-dark">글쓰기</a>
                             </div>
                         </c:if>
                     </div>

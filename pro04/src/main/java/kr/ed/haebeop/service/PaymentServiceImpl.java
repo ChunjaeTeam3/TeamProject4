@@ -22,6 +22,15 @@ public class PaymentServiceImpl implements PaymentService{
     private PaymentMapper paymentMapper;
 
     @Override
+    public boolean already(String lcode, String id) throws Exception {
+        Map<String, String> data = new HashMap<>();
+        data.put("lcode", lcode);
+        data.put("id", id);
+        return paymentMapper.already(data);
+    }
+
+
+    @Override
     public Payment PaymentDetail(String id, String lcode) throws Exception {
         Map<String, Object> payment = new HashMap<>();
         payment.put("id", id);
@@ -61,12 +70,23 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     @Transactional
-    public int paymentInsert(Register register, Payment payment) throws Exception {
-        registerMapper.registerInsert2(register);
-        paymentMapper.paymentInsert(payment);
-        int pno = paymentMapper.paymentNo();
-        return pno;
+    public int paymentInsert(String id, String lcode, Payment payment) throws Exception {
+        Map<String, String> data = new HashMap<>();
+        data.put("lcode", lcode);
+        data.put("id", id);
+
+        boolean isMaxStudent = paymentMapper.isMaxStudent(lcode);
+
+        if (isMaxStudent) {
+            paymentMapper.paymentInsert(payment);
+            int pno = paymentMapper.paymentNo();
+
+            return pno;
+        } else {
+            return -1;
+        }
     }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -137,7 +157,6 @@ public class PaymentServiceImpl implements PaymentService{
     public void paymentNoBookInsert(Payment payment) throws Exception {
         paymentMapper.paymentNoBookInsert(payment);
     }
-
     @Override
     public int calcProfitBook() throws Exception {
         return paymentMapper.calcProfitBook();

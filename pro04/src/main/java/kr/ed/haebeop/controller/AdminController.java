@@ -296,6 +296,9 @@ public class AdminController {
         List<Teacher> teachers = teacherService.teacherList();
         model.addAttribute("teachers", teachers);
 
+        List<Book> books = bookService.booklist();
+        model.addAttribute("books", books);
+
         return "/admin/lectureInsert";
     }
 
@@ -614,10 +617,14 @@ public class AdminController {
     public String dcodeUpdate(@RequestParam("dno") int dno, @RequestParam("dcode") String dcode) {
         try {
             deliveryService.dcodeUpdate(dcode, dno);
+            System.out.println("성공");
             return "success";
         } catch (Exception e) {
+            System.out.println("실패");
             return "error";
         }
+
+
     }
 
     @GetMapping("deliveryUpdate")
@@ -675,10 +682,10 @@ public class AdminController {
     }
 
     @RequestMapping("bookEdit")
-    public String bookEditForm(@RequestParam String bcode, HttpServletRequest request, Model model) throws Exception {
+   public String bookEditForm(@RequestParam String bcode, HttpServletRequest request, Model model) throws Exception {
 
         Book book = bookService.bookDetail(bcode);
-        model.addAttribute("book", book);
+       model.addAttribute("book", book);
 
         return "/admin/bookEdit";
     }
@@ -687,21 +694,21 @@ public class AdminController {
     public String bookEdit(Book book, HttpServletRequest request, Model model) throws Exception {
         bookService.bookUpdate(book);
 
-        return "redirect:/admin/bookMgmt";
+       return "redirect:/admin/bookMgmt";
     }
 
     @GetMapping("bookReceive")
     public String bookReceiveForm (@RequestParam String bcode, HttpServletRequest request, Model model) throws Exception{
-        Book book = bookService.bookDetail(bcode);
-        model.addAttribute("book", book);
-        return "/admin/bookMgmt";
+          Book book = bookService.bookDetail(bcode);
+          model.addAttribute("book", book);
+       return "/admin/bookReceive";
     }
 
     @PostMapping("bookReceive")
     public String bookReceive(Receive receive, HttpServletRequest request, Model model) throws Exception{
         bookService.receive(receive);
 
-        return "redirect:/admin/bookMgmt";
+       return "redirect:/admin/bookMgmt";
     }
 
     @PostMapping("findBook")
