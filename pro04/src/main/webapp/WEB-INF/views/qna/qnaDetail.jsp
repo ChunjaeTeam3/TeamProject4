@@ -35,8 +35,13 @@
                     <div class="card-body">
                         <div class="table-responsive project-list">
                             <div class="btn-group float-right mb-3">
-                                <c:if test="${sid eq 'admin'}">
+                                <c:if test="${sid eq 'admin' && detail.lev eq 0}">
                                     <a href="${path}/qna/answerInsert?qno=${detail.qno}" class="btn btn-outline-dark">답변등록</a>
+                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
+                                    <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
+                                </c:if>
+                                <c:if test="${sid eq 'admin' && detail.lev eq 1}">
                                     <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
@@ -44,7 +49,7 @@
                                 <c:if test="${sid ne 'admin' && sid ne detail.author}">
                                     <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                 </c:if>
-                                <c:if test="${sid eq detail.author || sid ne 'admin'}">
+                                <c:if test="${sid eq detail.author && sid ne 'admin'}">
                                     <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
