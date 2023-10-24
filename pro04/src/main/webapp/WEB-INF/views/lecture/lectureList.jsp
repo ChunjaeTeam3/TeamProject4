@@ -799,13 +799,13 @@
                 type: "GET",
                 url: "${path}/payment/check?lcode=" + lcode,
                 success: function(data) {
-                    if (data.duplicate === 'false') {
-                        // 이미 등록된 경우 알림 메시지를 표시
-                        alert("이 강의에 이미 등록되었습니다.");
-                    } else if (data.loginRequired) {
+                    if (data.loginRequired) {
                         // 로그인이 필요한 경우 로그인 페이지로 리다이렉트
                         alert("로그인이 필요합니다.");
                         window.location.href = "${path}/user/login";
+                    } else if(data.duplicate === false) {
+                        // 이미 등록된 경우 알림 메시지를 표시
+                        alert("이 강의에 이미 등록되었습니다.");
                     } else {
                         // 중복 신청이 아닌 경우 수강신청 요청을 보냅니다.
                         $.ajax({
