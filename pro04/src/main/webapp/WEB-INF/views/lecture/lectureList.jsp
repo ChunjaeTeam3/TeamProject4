@@ -591,7 +591,7 @@
         </section>
         <br>
         <br>
-        <section class="container">
+        <section class="container mb-100">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <h2>마감임박 강의</h2>
@@ -608,11 +608,15 @@
                         <!-- 예를 들어, 서버로부터 lectureList2 배열이 온다고 가정합니다. -->
                         <c:forEach items="${lectureList2}" var="lecture" varStatus="status">
                             <tr class="table-row">
-                                <td id="row-${status.index}4"><a id="row-${status.index}3"
-                                                                 href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
+                                <td id="row-${status.index}4">
+                                    <a id="row-${status.index}3" href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
                                 </td>
                                 <td id="row-${status.index}">~${lecture.edate}</td>
-                                <td id="row-${status.index}2">${lecture.state}</td>
+                                <td id="row-${status.index}2">
+                                    <c:if test="${lecture.state eq 'on'}"> 온라인 </c:if>
+                                    <c:if test="${lecture.state eq 'off'}"> 오프라인 </c:if>
+                                    <c:if test="${lecture.state eq 'close'}"> 정원미달 </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         <!-- 추가 데이터 행 -->
@@ -644,7 +648,11 @@
                                                                  href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
                                 </td>
                                 <td id="row-${status.index}7">${lecture.sdate}~</td>
-                                <td id="row-${status.index}8">${lecture.state}</td>
+                                <td id="row-${status.index}8">
+                                    <c:if test="${lecture.state eq 'on'}"> 온라인 </c:if>
+                                    <c:if test="${lecture.state eq 'off'}"> 오프라인 </c:if>
+                                    <c:if test="${lecture.state eq 'close'}"> 정원미달 </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         <!-- 추가 데이터 행 -->

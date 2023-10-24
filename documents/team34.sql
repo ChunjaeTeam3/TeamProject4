@@ -523,7 +523,7 @@ CREATE TABLE todo(
 	STATUS BOOLEAN DEFAULT false);
 
 
-CREATE TABLE lecboard(
+CREATE TABLE lecBoard(
   qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
   lcode VARCHAR(50) NOT NULL,                   -- 강의코드
   title VARCHAR(100) NOT NULL,   					-- 제목

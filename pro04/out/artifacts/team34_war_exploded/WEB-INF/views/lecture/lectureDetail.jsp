@@ -16,6 +16,7 @@
             /*height: 200px; *//* 원하는 높이로 설정 */
             /* 다른 스타일 속성 추가 가능 */
         }
+
         .tabmenu {
             display: -webkit-box;
             display: -ms-flexbox;
@@ -42,7 +43,7 @@
             max-width: 650px; /* 원하는 최대 가로 크기 */
         }
 
-        .modal {  /* 모달의 창 위치조절 */
+        .modal { /* 모달의 창 위치조절 */
             display: none;
             position: fixed;
             top: 50%; /* 화면 상단에서 50% 위치로 이동 */
@@ -57,7 +58,8 @@
 <jsp:include page="../layout/header.jsp"/>
 <!-- 헤더 끝 -->
 <!-- 브레드크럼 시작 -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
+<section class="breadcumb-area bg-img bg-overlay"
+         style="background-image: url('${path}/resources/img/breadcrumb.jpg');">
     <div class="bradcumbContent">
         <p>해법과 함께 학습 여정을 시작해요</p>
         <h2>강의실</h2>
@@ -70,10 +72,11 @@
         <!-- 모든강좌정보  -->
         <section>
             <div class="row">
-                <div class="col-md-2 img">
-                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="사진"/>
+                <div class="col-3 img">
+                    <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}" alt="강의 이미지"
+                         class="w-100 rounded"/>
                 </div>
-                <div class="col-md-10 cont_wrap">
+                <div class="col">
                     <div class="txt_area">
                         <h3 class="tit">${lecture.lname}</h3>
                         <p class="tit">강사: ${lecture.tname}</p>
@@ -99,39 +102,52 @@
                                 </c:if>
                             </div>
                         </c:if>
+                        <hr>
                         <h4 class="mb-15 mt-50"><i class="fa-solid fa-chalkboard-user"></i> 강사 소개</h4>
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="${pageContext.request.contextPath}/resources/upload/teacher/${teacher.saveFile}" alt="사진"/>
-                                </div>
-                                <div class="col">
-                                    <h5> ${teacher.tname} </h5>
-                                    <p>${teacher.tcontent}</p>
-                                </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5> ${teacher.tname} </h5>
+                                <p>${teacher.tcontent}</p>
+                            </div>
+                            <div class="col-2">
+                                <img src="${pageContext.request.contextPath}/resources/upload/teacher/${teacher.saveFile}" alt="강사 이미지" class="rounded"/>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
         <br>
         <section id="menu" class="content-section" style="clear: both;">
             <div class="tabmenu2_wrap align-items-center" id="gotoTab">
                 <ul class="nav nav-pills justify-content-center" id="cdTabMnuArea">
-                    <li class="nav-item"  style="text-align: center;width: 150px;">
-                        <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab" aria-controls="intro"
-                                aria-selected="true"  onclick="ReloadPage()" style="width: 150px;font-size: 20px;text-align: center;">강의 소개</button>
+                    <li class="nav-item" style="text-align: center;width: 150px;">
+                        <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro"
+                                type="button" role="tab" aria-controls="intro"
+                                aria-selected="true" onclick="ReloadPage()"
+                                style="width: 150px;font-size: 20px;text-align: center;">강의 소개
+                        </button>
                     </li>
-                    <li class="nav-item"  style="text-align: center;width: 150px;">
-                        <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video" type="button" role="tab" aria-controls="intro"
-                                aria-selected="true"  onclick="ReloadPage()" style="width: 150px;font-size: 20px;text-align: center;">강의 목차</button>
+                    <li class="nav-item" style="text-align: center;width: 150px;">
+                        <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video"
+                                type="button" role="tab" aria-controls="intro"
+                                aria-selected="true" onclick="ReloadPage()"
+                                style="width: 150px;font-size: 20px;text-align: center;">강의 목차
+                        </button>
                     </li>
-                    <li class="nav-item"  style="text-align: center;width: 150px;">
-                        <button class="nav-link" id="board-tab" data-bs-toggle="tab" data-bs-target="#board" type="button" role="tab" aria-controls="intro"
-                                aria-selected="true"  onclick="ListPage()" style="width: 150px;font-size: 20px;text-align: center;">질문 게시판</button>
+                    <li class="nav-item" style="text-align: center;width: 150px;">
+                        <button class="nav-link" id="board-tab" data-bs-toggle="tab" data-bs-target="#board"
+                                type="button" role="tab" aria-controls="intro"
+                                aria-selected="true" onclick="ListPage()"
+                                style="width: 150px;font-size: 20px;text-align: center;">질문 게시판
+                        </button>
                     </li>
-                    <li class="nav-item"  style="text-align: center;width: 150px;">
-                        <button class="nav-link" id="stars-tab" data-bs-toggle="tab" data-bs-target="#stars" type="button" role="tab" aria-controls="intro"
-                                aria-selected="true"  onclick="reviewPage()" style="width: 150px;font-size: 20px;text-align: center;">수강후기</button>
+                    <li class="nav-item" style="text-align: center;width: 150px;">
+                        <button class="nav-link" id="stars-tab" data-bs-toggle="tab" data-bs-target="#stars"
+                                type="button" role="tab" aria-controls="intro"
+                                aria-selected="true" onclick="reviewPage()"
+                                style="width: 150px;font-size: 20px;text-align: center;">수강후기
+                        </button>
                     </li>
                 </ul>
                 <!-- 내용 -->
@@ -162,11 +178,13 @@
                                             </p>
 
                                             <c:if test="${lecture.state eq 'on' and (empty sid or isReg)}">
-                                                <button class="btn disable-primary-btn text-uppercase" disabled> 강의 듣기 </button>
+                                                <button class="btn disable-primary-btn text-uppercase" disabled> 강의 듣기
+                                                </button>
                                             </c:if>
                                             <c:if test="${(lecture.state eq 'on') and (not empty sid) and (not isReg)}">
                                                 <button onclick="openLecture(${curr.ccode}, '${curr.lcode}')"
-                                                        class="btn primary-btn text-uppercase"> 강의 듣기 </button>
+                                                        class="btn primary-btn text-uppercase"> 강의 듣기
+                                                </button>
                                             </c:if>
                                         </li>
                                         <hr>
@@ -182,7 +200,9 @@
                                     <ul class="pagination justify-content-center">
                                         <c:if test="${curPage > 5}">
                                             <li class="page-item">
-                                                <a class="page-link" href="${path}/lecture/detail?page=${page.blockStartNum - 1}" aria-label="Previous">
+                                                <a class="page-link"
+                                                   href="${path}/lecture/detail?page=${page.blockStartNum - 1}"
+                                                   aria-label="Previous">
                                                     <span aria-hidden="true"><<</span>
                                                 </a>
                                             </li>
@@ -191,19 +211,23 @@
                                             <c:choose>
                                                 <c:when test="${i == curPage}">
                                                     <li class="page-item active" aria-current="page">
-                                                        <a class="page-link" href="${path}/lecture/detail?page=${i}">${i}</a>
+                                                        <a class="page-link"
+                                                           href="${path}/lecture/detail?page=${i}">${i}</a>
                                                     </li>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="page-item">
-                                                        <a class="page-link" href="${path}/lecture/detail?page=${i}">${i}</a>
+                                                        <a class="page-link"
+                                                           href="${path}/lecture/detail?page=${i}">${i}</a>
                                                     </li>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
                                         <c:if test="${page.blockLastNum < page.totalPageCount}">
                                             <li class="page-item">
-                                                <a class="page-link" href="${path}/lecture/detail?page=${page.blockLastNum + 1}" aria-label="Next">
+                                                <a class="page-link"
+                                                   href="${path}/lecture/detail?page=${page.blockLastNum + 1}"
+                                                   aria-label="Next">
                                                     <span aria-hidden="true">>></span>
                                                 </a>
                                             </li>
@@ -247,7 +271,7 @@
 
 <script>
     // 모달의 초기 내용을 저장할 변수
-  let originalContent = null;
+    let originalContent = null;
 
 
     // 모달의 초기 내용을 저장
@@ -261,16 +285,16 @@
 
     // 모든 탭 내용 엘리먼트에서 'show active' 클래스를 제거합니다.
 
-    if(key === "intro"){
+    if (key === "intro") {
         $("#intro-tab").addClass("active");
         $("#intro").addClass("show active");
-    } else if(key === "video") {
+    } else if (key === "video") {
         $("#video-tab").addClass("active");
         $("#video").addClass("show active");
-    } else if(key === "board") {
+    } else if (key === "board") {
         $("#board-tab").addClass("active");
         $("#board").addClass("show active");
-    } else if(key === "stars") {
+    } else if (key === "stars") {
         $("#stars-tab").addClass("active");
         $("#stars").addClass("show active");
     }
@@ -289,7 +313,7 @@
                 $("#board").html(data); // 모달의 내용으로 페이지 내용을 삽입
             },
             error: function (error) {
-                console.log("에러다에러"+error.responseText)
+                console.log("에러다에러" + error.responseText)
             }
         });
     }
@@ -309,38 +333,38 @@
 </script>
 <!-- 테이블 영역 끝 -->
 <script>
-        function ListPage(){
-            var lcode = $("#lcode").val();
-            $.ajax({
-                type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
-                url: "${path}/lecBoard/list",  // 실제 API 엔드포인트로 변경해야 합니다.
-                data: {
-                    lcode : lcode
-                },
-                success: function (data) {
-                    $("#board").html(data);
-                },
-                error: function (error) {
-                    console.log("에러다에러"+error.responseText)
-                }
-            });
-        }
+    function ListPage() {
+        var lcode = $("#lcode").val();
+        $.ajax({
+            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
+            url: "${path}/lecBoard/list",  // 실제 API 엔드포인트로 변경해야 합니다.
+            data: {
+                lcode: lcode
+            },
+            success: function (data) {
+                $("#board").html(data);
+            },
+            error: function (error) {
+                console.log("에러다에러" + error.responseText)
+            }
+        });
+    }
 </script>
 
 <script>
-    function reviewPage(){
+    function reviewPage() {
         var lcode = $("#lcode").val();
         $.ajax({
             type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
             url: "${path}/lecture/review",  // 실제 API 엔드포인트로 변경해야 합니다.
             data: {
-                lcode : lcode
+                lcode: lcode
             },
             success: function (data) {
                 $("#stars").html(data);
             },
             error: function (error) {
-                console.log("에러다에러"+error.responseText)
+                console.log("에러다에러" + error.responseText)
             }
         });
     }
@@ -363,7 +387,7 @@
             },
             error: function () {
                 // Ajax 요청이 실패했을 때 수행할 작업
-                console.log("에러다에러"+error.responseText)
+                console.log("에러다에러" + error.responseText)
             }
         });
     });
@@ -371,26 +395,26 @@
 
 <script>
     function openLecture(ccode, lcode) {
-        let screenSizeWidth,screenSizeHeight;
+        let screenSizeWidth, screenSizeHeight;
         if (self.screen) {
-            screenSizeWidth = screen.width ;
+            screenSizeWidth = screen.width;
             screenSizeHeight = screen.height;
         }
         let documentURL = "${path}/lecture/player?ccode=" + ccode;    //팝업창에 출력될 페이지 URL
         let windowname = "강의 플레이어";
         let intWidth = screenSizeWidth;
         let intHeight = screenSizeHeight;
-        let intXOffset = 0 ;
-        let intYOffset = 0 ;
+        let intXOffset = 0;
+        let intYOffset = 0;
 
-        let obwindow = window.open(documentURL,windowname, " toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no") ;
-        obwindow.resizeTo(intWidth, intHeight) ;
+        let obwindow = window.open(documentURL, windowname, " toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no");
+        obwindow.resizeTo(intWidth, intHeight);
         obwindow.moveTo(intXOffset, intYOffset);
     }
 </script>
 <script>
-    $(document).ready(function() {
-        $(".pay-button").click(function() {
+    $(document).ready(function () {
+        $(".pay-button").click(function () {
             var lcodeAndBcode = $(this).data("lcode").split(", ");
             var lcode = lcodeAndBcode[0];
             var bcode = lcodeAndBcode[1];
@@ -398,12 +422,12 @@
             $.ajax({
                 type: "GET",
                 url: "${path}/payment/check?lcode=" + lcode,
-                success: function(data) {
+                success: function (data) {
                     if (data.loginRequired) {
                         // 로그인이 필요한 경우 로그인 페이지로 리다이렉트
                         alert("로그인이 필요합니다.");
                         window.location.href = "${path}/user/login";
-                    } else if(data.duplicate === false) {
+                    } else if (data.duplicate === false) {
                         // 이미 등록된 경우 알림 메시지를 표시
                         alert("이 강의에 이미 등록되었습니다.");
                     } else {
@@ -411,26 +435,26 @@
                         $.ajax({
                             type: "GET",
                             url: "${path}/payment/pay?lcode=" + lcode + "&bcode=" + bcode,
-                            success: function(data) {
+                            success: function (data) {
                                 $.ajax({
                                     type: "GET",
                                     url: "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode,
-                                    success: function(registerData) {
-                                        window.location.href ="${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+                                    success: function (registerData) {
+                                        window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
                                         console.log("payment 실행 완료");
                                     },
-                                    error: function(registerError) {
+                                    error: function (registerError) {
                                         console.log("에러다에러" + registerError.responseText);
                                     }
                                 });
                             },
-                            error: function(error) {
+                            error: function (error) {
                                 console.log("에러다에러" + error.responseText);
                             }
                         });
                     }
                 },
-                error: function(duplicateError) {
+                error: function (duplicateError) {
                     console.log("중복 신청 확인 중 에러: " + duplicateError.responseText);
                 }
             });

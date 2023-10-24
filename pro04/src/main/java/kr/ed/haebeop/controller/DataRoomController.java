@@ -62,10 +62,10 @@ public class DataRoomController {
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
-    public String write(DataRoom dataRoom, @RequestParam("upfile") MultipartFile[] files, HttpServletRequest request, Model model, RedirectAttributes rttr) throws Exception {
+    public String write(DataRoom dataRoom, @RequestParam("upfile") MultipartFile[] files, HttpServletRequest req, Model model, RedirectAttributes rttr) throws Exception {
         String sid = (String) session.getAttribute("sid");
         if(sid != null && sid.equals("admin")) {
-            String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/dataRoom/");           // 업로드 경로 설정
+            String realPath = req.getRealPath("/resources/upload/dataRoom/");           // 업로드 경로 설정
             String today = new SimpleDateFormat("yyMMdd").format(new Date());
             String saveFolder = realPath + today;
             File folder = new File(saveFolder);
