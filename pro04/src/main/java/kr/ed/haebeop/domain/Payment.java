@@ -16,7 +16,7 @@ public class Payment {
     private String id;
     private String method;
     private String com;
-    private String price;
+    private int price;
     private String account;
     private int dno;
     private String resdate;

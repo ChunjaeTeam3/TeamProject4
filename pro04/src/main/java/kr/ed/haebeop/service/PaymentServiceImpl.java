@@ -116,11 +116,16 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deletePayment(int pno) throws Exception {
+    public void deletePayment(String lcode, String id, int pno) throws Exception {
+        Map<String, String> data = new HashMap<>();
+        data.put("lcode", lcode);
+        data.put("id", id);
+
         try {
             paymentMapper.paymentDelete(pno);
             paymentMapper.deliveryDelete(pno);
             paymentMapper.serveDelete(pno);
+            registerMapper.registerDelete(data);
         } catch (Exception e) {
             throw e;
         }

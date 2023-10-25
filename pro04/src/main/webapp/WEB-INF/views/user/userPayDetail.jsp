@@ -140,7 +140,11 @@
         function delCheck() {
             $.ajax({
                 type: "GET",
-                url: "${path}/payment/paymentDelete?pno=${payment.pno}",
+                url: "${path}/payment/paymentDelete",
+                data: {
+                    pno: ${payment.pno},
+                    lcode: "${payment.lcode}"
+                },
                 success: function(data) {
                     alert("구매가 취소되었습니다.");
                     window.close();
@@ -151,6 +155,7 @@
                 }
             });
         }
+
 
         function check(){
             window.close();
