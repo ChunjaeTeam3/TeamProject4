@@ -6,7 +6,7 @@
 "해법(Haebeop)" 이라는 온라인/오프라인 강의 및 커뮤니티 사이트입니다.
 <br><br>
 
-<p align="center"><img alt="member" src="https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/453577b7-1bfd-4d8b-8d91-6fe433b7c284"></p>
+<p align="center"><img alt="member" src="https://github.com/ChunjaeTeam3/TeamProject4/assets/80402477/0eb61d85-b362-442c-aa59-6a7194edd67f"></p>
 <br>
 
 ## 🕰️ 개발 기간
