@@ -50,8 +50,8 @@ public class EventController {
     }
 
     @GetMapping("detail")
-    public String getEventDetail(@RequestParam("page") int curPage, HttpServletRequest request, Model model) throws Exception {
-        int eno = Integer.parseInt(request.getParameter("eno"));
+    public String getEventDetail(@RequestParam("eno") int eno, HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         Event detail = eventService.eventDetail(eno);
         model.addAttribute("detail", detail);
 

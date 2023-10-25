@@ -11,26 +11,16 @@
     <input id="qno2" value="${prev.qno}" hidden="hidden">
     <input id="curPage" value="${curPage}" hidden="hidden">
     <input id="qno3" value="${next.qno}" hidden="hidden">
-    <c:if test="${! empty sid && sid eq 'admin'}">
-        <div class="btn-group float-right mb-3">
+    <div class="d-flex justify-content-end">
+        <c:if test="${!empty sid && sid eq tid}">
             <a href="javascript:void(0);"  class="btn btn-outline-dark answer">답변등록</a>
-            <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
-            <a href="javascript:void(0);"  data-qno="${list.qno}"  class="btn btn-outline-dark edit">수정</a>
-            <a href="javascript:void(0);"  class="btn btn-outline-dark delete">삭제</a>
-        </div>
-    </c:if>
-    <c:if test="${! empty sid && sid ne 'admin' && sid ne detail.author}">
-        <div class="btn-group float-right">
-            <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
-        </div>
-    </c:if>
-    <c:if test="${sid ne 'admin' && sid eq detail.author}">
-        <div class="btn-group float-right">
-            <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
+        </c:if>
+        <a href="javascript:void(0);" onclick="ListPage()" class="btn btn-outline-dark">목록</a>
+        <c:if test="${sid eq 'admin' || sid eq detail.author}">
             <a href="javascript:void(0);" id="edit" data-qno="${list.qno}"  class="btn btn-outline-dark edit">수정</a>
             <a href="javascript:void(0);" id="delete" class="btn btn-outline-dark delete">삭제</a>
-        </div>
-    </c:if>
+        </c:if>
+    </div>
     <table class="table project-table table-centered table-nowrap">
         <tbody>
         <tr>

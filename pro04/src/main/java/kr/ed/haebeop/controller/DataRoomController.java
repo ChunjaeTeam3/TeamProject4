@@ -62,14 +62,14 @@ public class DataRoomController {
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.POST)
-    public String write(DataRoom dataRoom, @RequestParam("upfile") MultipartFile[] files, HttpServletRequest request, Model model, RedirectAttributes rttr) throws Exception {
+    public String write(DataRoom dataRoom, @RequestParam("upfile") MultipartFile[] files, HttpServletRequest req, Model model, RedirectAttributes rttr) throws Exception {
         String sid = (String) session.getAttribute("sid");
         if(sid != null && sid.equals("admin")) {
-            String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/dataRoom/");           // 업로드 경로 설정
+            String realPath = req.getRealPath("/resources/upload/dataRoom/");           // 업로드 경로 설정
             String today = new SimpleDateFormat("yyMMdd").format(new Date());
             String saveFolder = realPath + today;
             File folder = new File(saveFolder);
-            if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성
+            if(!folder.exists()) {                                  // 폴더가 존재하지 않으면 폴더 생성
                 folder.mkdirs();
             }
             List<FileInfo> fileInfoList = new ArrayList<>();        // 첨부파일 정보를 리스트로 생성
@@ -104,7 +104,7 @@ public class DataRoomController {
     @GetMapping("detail")
     public String detail(HttpServletRequest request, Model model) throws Exception {
         int articleNo = request.getParameter("articleNo") != null ? Integer.parseInt(request.getParameter("articleNo")) : 0;
-        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 0;
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         DataRoom dataRoom = dataRoomService.dataRoomDetail(articleNo);
         DataRoom prev = dataRoomService.dataRoomRef(articleNo, "prev");
         DataRoom next = dataRoomService.dataRoomRef(articleNo, "next");

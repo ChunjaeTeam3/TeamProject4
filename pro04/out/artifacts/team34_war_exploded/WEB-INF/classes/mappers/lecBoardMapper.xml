@@ -28,7 +28,7 @@
 
     <!--상세보기-->
     <select id="lecBoardDetail" resultType="kr.ed.haebeop.domain.LecBoard">
-        select * from lecBoard where qno=#{qno} and lcode=#{lcode}
+        select * from lecBoard where qno=#{qno}
     </select>
 
     <select id="lecBoardRef" parameterType="hashMap" resultType="kr.ed.haebeop.domain.LecBoard">
@@ -49,12 +49,12 @@
 
     <!--질문 상세보기-->
     <select id="questionDetail" resultType="kr.ed.haebeop.domain.LecBoard">
-        select * from lecBoard where par=#{par} and lev=0 and lcode=#{lcode}
+        select * from lecBoard where par=#{par} and lev=0
     </select>
 
     <!--답변 상세보기-->
     <select id="answerDetail" resultType="kr.ed.haebeop.domain.LecBoard">
-        select * from lecBoard where par=#{par} and lev=1 and lcode=#{lcode}
+        select * from lecBoard where par=#{par} and lev=1
     </select>
 
     <!--lecBoard 글 카운트-->
@@ -82,7 +82,7 @@
 
     <!--질문 글 등록-->
     <insert id="questionInsert">
-        insert into lecBoard values (default, #{title}, #{content}, #{author}, default, 0, default,#{lcode})
+        insert into lecBoard values (default,#{lcode}, #{title}, #{content}, #{author}, default, 0, default)
     </insert>
 
     <!-- 질문 par = qno-->
@@ -92,7 +92,7 @@
 
     <!--답변 글 등록-->
     <insert id="answerInsert">
-        insert into lecBoard values (default, #{title}, #{content}, #{author}, default, 1, #{par},#{lcode})
+        insert into lecBoard values (default,#{lcode}, #{title}, #{content}, #{author}, default, 1, #{par})
     </insert>
 
     <!-- 글 수정-->

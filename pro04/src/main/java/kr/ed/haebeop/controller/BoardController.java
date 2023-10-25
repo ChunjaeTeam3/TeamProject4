@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -67,8 +68,31 @@ public class BoardController {
     }
 
     @GetMapping("detail")	//board/detail?seq=1
-    public String getBoardDetail(HttpServletRequest request, Model model) throws Exception {
-        BoardVO detail = boardService.boardDetail(Integer.parseInt(request.getParameter("seq")));
+    public String getBoardDetail(@RequestParam("seq") int seq, HttpServletRequest request, Model model) throws Exception {
+
+        HttpSession session = request.getSession();
+        Cookie[] cookieFromRequest = request.getCookies();
+        String cookieValue = null;
+        for(int i=0; i<cookieFromRequest.length; i++) {
+            // 요청 정보로부터 쿠키를 가져옴
+            cookieValue = cookieFromRequest[0].getValue();
+        }
+        // 쿠키 세션 입력
+        if(session.getAttribute(seq + ":cookie") == null) {
+            session.setAttribute(seq + ":cookie", seq + ":" + cookieValue);
+        } else {
+            session.setAttribute(seq + ":cookie ex", session.getAttribute(seq + ":cookie"));
+            if(!session.getAttribute(seq + ":cookie").equals(seq + ":" + cookieValue)) {
+                session.setAttribute(seq+":cookie", seq + ":" + cookieValue);
+            }
+        }
+
+        // 쿠키와 세션이 없는 경우 조회수 카운트
+        if(!session.getAttribute(seq + ":cookie").equals(session.getAttribute(seq + ":cookie ex"))) {
+            boardService.updateVisitedCount(seq);
+        }
+
+        BoardVO detail = boardService.boardDetail(seq);
         BoardVO prev = boardService.boardRef(detail.getSeq(), "prev");
         BoardVO next = boardService.boardRef(detail.getSeq(), "next");
 

@@ -1,3 +1,4 @@
+DROP DATABASE team34;
 CREATE DATABASE team34;
 USE team34;
 SELECT * FROM user;
@@ -501,6 +502,7 @@ CREATE TABLE saveAttendCode(
 	attendCode INT NOT NULL				/* 과목코드별 출석코드 */
 );
 
+
 -- 오프라인 강의 출석체크 테이블
 CREATE TABLE lectureAttend(
 	id VARCHAR(20) NOT NULL,
@@ -521,7 +523,7 @@ CREATE TABLE todo(
 	STATUS BOOLEAN DEFAULT false);
 
 
-CREATE TABLE lecboard(
+CREATE TABLE lecBoard(
   qno int PRIMARY KEY AUTO_INCREMENT,   			-- 번호
   lcode VARCHAR(50) NOT NULL,                   -- 강의코드
   title VARCHAR(100) NOT NULL,   					-- 제목
@@ -550,9 +552,15 @@ CREATE TABLE delivery(
 );
 
 
+<<<<<<< HEAD
+-- 결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
+create table payment(
+	   pno INT primary KEY AUTO_INCREMENT,
+=======
 --결제 테이블 생성(고유번호, 결제제목, 강의코드, 교재코드, 강사코드, 아이디, 결제방법, 결제회사, 결제금액, 배송번호, 계좌번호, 결제일자)
 CREATE TABLE payment(
 	   pno INT PRIMARY KEY AUTO_INCREMENT,
+>>>>>>> be9d7cc0c79ed87fb8261d186e5592ee24da495a
 	   title VARCHAR(100) NOT NULL,
 		lcode VARCHAR(50) NOT NULL,		
 		bcode VARCHAR(20) NOT NULL,

@@ -79,6 +79,8 @@ public class PaymentServiceImpl implements PaymentService{
 
         if (isMaxStudent) {
             paymentMapper.paymentInsert(payment);
+            registerMapper.registerInsert(data);
+
             int pno = paymentMapper.paymentNo();
 
             return pno;
@@ -114,11 +116,16 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deletePayment(int pno) throws Exception {
+    public void deletePayment(String lcode, String id, int pno) throws Exception {
+        Map<String, String> data = new HashMap<>();
+        data.put("lcode", lcode);
+        data.put("id", id);
+
         try {
             paymentMapper.paymentDelete(pno);
             paymentMapper.deliveryDelete(pno);
             paymentMapper.serveDelete(pno);
+            registerMapper.registerDelete(data);
         } catch (Exception e) {
             throw e;
         }
@@ -157,5 +164,8 @@ public class PaymentServiceImpl implements PaymentService{
     public void paymentNoBookInsert(Payment payment) throws Exception {
         paymentMapper.paymentNoBookInsert(payment);
     }
-
+    @Override
+    public int calcProfitBook() throws Exception {
+        return paymentMapper.calcProfitBook();
+    }
 }

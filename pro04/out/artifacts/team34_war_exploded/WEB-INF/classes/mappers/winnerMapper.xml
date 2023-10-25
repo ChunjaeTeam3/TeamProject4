@@ -21,7 +21,22 @@
     </update>
     <!-- 당첨자 발표 게시글 목록 -->
     <select id="winnerList" resultType="kr.ed.haebeop.domain.Winner">
-        select * from winner order by resdate desc
+        select * from winner
+        <where>
+            <if test="type != null">
+                <trim prefixOverrides="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            title LIKE concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            content LIKE concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </if>
+        </where>
+        order by resdate desc
     </select>
     <!-- 당첨자 발표 게시글 카운트 -->
     <select id="winnerListCount" resultType="integer">

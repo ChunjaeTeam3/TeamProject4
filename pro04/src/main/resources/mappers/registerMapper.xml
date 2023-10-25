@@ -67,4 +67,8 @@
         insert into register values(default, #{lcode}, #{id}, default);
     </insert>
 
+    <delete id="registerDelete" parameterType="hashMap">
+        delete from register where id=#{id} and lcode=#{lcode}
+    </delete>
+
 </mapper>

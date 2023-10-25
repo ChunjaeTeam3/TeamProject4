@@ -17,5 +17,6 @@ public interface TeacherMapper {
     public void teacherEdit(Teacher teacher) throws Exception;
     public int getCount(Page page) throws Exception;
     public int isTeacher(String id) throws Exception;
+    public String getTid(String lcode) throws Exception;
 
 }

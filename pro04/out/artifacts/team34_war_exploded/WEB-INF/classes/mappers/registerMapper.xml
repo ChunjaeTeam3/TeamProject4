@@ -63,4 +63,12 @@
         select COUNT(*) from register where id=#{id}
     </select>
 
+    <insert id="registerInsert2">
+        insert into register values(default, #{lcode}, #{id}, default);
+    </insert>
+
+    <delete id="registerDelete" parameterType="hashMap">
+        delete from register where id=#{id} and lcode=#{lcode}
+    </delete>
+
 </mapper>

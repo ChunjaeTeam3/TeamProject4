@@ -69,6 +69,9 @@
                             <div class="bg-white col" style="height: 160px; width: 10%;"></div>
                         </c:if>
                         <c:if test="${date > 0 and date <= calendarInfo.endDay}">
+                            <c:if test="${date < 10}">
+                                <c:set var="date" value="0${date}"/>
+                            </c:if>
                             <div class="bg-white col" id="${date}" style="height: 160px; width: 10%;">
                                 <h5 class="pt-3"> ${date} </h5>
                             </div>

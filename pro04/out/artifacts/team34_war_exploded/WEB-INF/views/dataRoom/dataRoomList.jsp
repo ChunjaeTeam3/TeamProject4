@@ -10,9 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자료실 목록</title>
     <jsp:include page="../layout/head.jsp"/>
-    <style>
-
-    </style>
 </head>
 <body>
 <!-- 헤더 시작 -->
@@ -26,7 +23,7 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
+<section class="album-catagory section-padding-100-0" style="min-height: 60vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <div class="col-xl-4 col-md-6 float-right mb-20"  style="z-index: 10">

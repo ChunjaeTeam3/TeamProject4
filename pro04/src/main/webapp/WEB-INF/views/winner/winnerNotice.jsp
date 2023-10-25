@@ -23,12 +23,12 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
+<section class="album-catagory section-padding-100-0" style="min-height: 60vh">
     <!-- 검색 엔진 시작 -->
     <div class="container">
         <div class="col-xl-4 col-md-6 float-right mb-20"  style="z-index: 10">
             <form action="${path}/winner/list" method="get" >
-                <div class="form-group ">
+                <div class="form-group">
                     <div class="input-group-append">
                         <div class="panel single-accordion" style="border: 1px solid #ced4da; border-radius: 0.25rem;">
                             <select id="type" name="type" class="collapseOne" style="border: none;padding: 8px;">

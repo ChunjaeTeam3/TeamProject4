@@ -60,14 +60,12 @@
                             <td><strong> - </strong>${lecture.lprice}</td>
                             <td>0</td>
                         </tr>
-                        <c:if test="${book.bname ne null}">
                             <tr>
                                 <th scope="row">${book.bname}</th>
                                 <td>${book.bprice}</td>
                                 <td>0</td>
                                 <td>${book.bprice}</td>
                             </tr>
-                        </c:if>
                         </tbody>
                     </table>
                 </div>
@@ -147,7 +145,7 @@
 
         <div class="col-12 col-md-3 mb-3">
             <div class="card position-sticky top-0">
-                <div class="p-3 ">
+                <div class="p-3 " id="paypay">
                     <h5 class="card-title mb-3">결제금액</h5>
                     <div style="display: flex; justify-content:space-between;">
                         <span>상품금액</span>
@@ -156,7 +154,7 @@
                     <div style="display: flex; justify-content:space-between;">
                         <span>포인트 </span>
                         <div class="d-flex small">
-                             <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" value="0" style="width: 80px;" >
+                             <input type="number" class="form-control" name="point" id="point" max="${user.pt}" min="0" style="width: 80px;" >
                              <input type="button" id="pointApply" class="btn btn-secondary btn-sm" value ="적용" >
                             <input type="hidden" name="pt" id="pt" value="" >
                             <input type="hidden" name="title" id="title" value="${lecture.lname}외1" >
@@ -166,10 +164,10 @@
                     <div>
                         <div>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>SUBTOTAL</span> <strong class="text-dark" id="subprice"></strong>
+                                <span>총금액</span> <strong class="text-dark" id="subprice"></strong>
                             </p>
                             <p style="display: flex; justify-content:space-between;">
-                                <span>TOTAL</span> <strong class="text-dark" id="totalprice" name="totalprice"></strong>
+                                <span></span> <strong class="text-dark" id="totalprice" ></strong>
                             </p>
                         </div>
                     </div>
@@ -177,11 +175,11 @@
                     <c:if test="${!empty sid }">
                         <input type="hidden" id="lcode" name="lcode" value="${lecture.lcode }">
                         <input type="hidden" id="lname" name="lname" value="${lecture.lname}">
-                        <input type="hidden" name="bcode" id="bcode" value="${book.bcode }">
+                        <input type="hidden" name="bcode" id="bcode" value="${lecture.bcode }">
                         <input type="hidden" name="tcode" id="tcode" value="${lecture.tcode}">
                         <input type="hidden" id="sprice" name="sprice" value="${book.bprice}">
                         <input type="hidden" id="amount" name="amount" value="1">
-                        <input type="submit" class="btn btn-primary w-100 mt-2" value="구매" style="background-color: #4f5665;">
+                        <input type="submit" class="btn btn-primary w-100 mt-2" value="구매" style="background-color: #4f5665;display: none;">
                     </c:if>
                 </div>
             </div>
@@ -249,7 +247,7 @@
             totalPay = totalPay + parseInt($("#bprice").text());
 
             $("#subprice").text(totalPay);
-            $("#totalprice").text(totalPay);
+            $("#totalprice").html("<input type='hidden' id='price' name='price' value='" + totalPay + "'>");
 
 
             $("#point").val(0);
@@ -266,21 +264,26 @@
                 }
             });
 
-            $("#pointApply").click(function() {
-                var pointValue = parseInt($("#point").val());
-                if (!isNaN(pointValue) && pointValue >= 0) {
-                    var orPrice = parseInt($("#bprice").text());
-                    var dcPrice = Math.min(pointValue, orPrice);
+                $("#pointApply").click(function() {
+                    var pointValue = $("#point").val();
+                    pointValue = pointValue.trim();
+                    if (pointValue === "") {
+                        pointValue = "0";
+                    }
+                    pointValue = partInt(pointValue);
 
-                    totalPay = orPrice - dcPrice;
+                    if (!isNaN(pointValue) && pointValue >= 0) {
+                        var orPrice = parseInt($("#bprice").text());
+                        var dcPrice = Math.min(pointValue, orPrice);
 
-                    // 합계를 출력
-                    $("#subprice").text(totalPay);
-                    $("#totalprice").text(totalPay);
-                } else {
-                    alert("잘못된 포인트 입력입니다. 0 이상의 값을 입력해주세요.");
-                }
-            });
+                        totalPay = orPrice - dcPrice;
+
+                        $("#subprice").text(totalPay);
+                        $("#totalprice").html("<input type='hidden' id='price' name='price' value='" + totalPay + "'>");
+                    } else {
+                        alert(" 0 이상의 숫자를 입력해주세요.");
+                    }
+                });
 
             $("#pay").click(function(){
                 var email = $("#email").val();
@@ -319,6 +322,8 @@
                         var r3 = '결제 금액 : ' +rsp.paid_amount;
                         var r4 = '카드 승인 번호 : '+rsp.apply_num;
 
+                        document.forms[0].submit();
+
                         // 실제 결제 창
                         // $("#payCk").val("yes");
                         // $("#payAmount").val(rsp.paid_amount);
@@ -328,8 +333,9 @@
                         // alert(msg);
                         // $("#paymentResult").html(r1+"<br>"+r2+"<br>"+r3+"<br>"+r4);
                     } else{
-                        //$("#paymentResult").html('결제실패<br>'+'에러내용 : ' +rsp.error_msg);
+                        alert('결제에 실패했습니다. 에러 내용: ' + rsp.error_msg);
                     }
+
                     //테스트용이므로 실패시에도 그냥 통과시킴
                     $("#payCk").val("yes");
                     $("#payAmount").val(totalPay);

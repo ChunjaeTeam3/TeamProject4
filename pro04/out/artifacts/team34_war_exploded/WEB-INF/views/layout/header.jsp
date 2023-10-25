@@ -43,7 +43,12 @@
                                             </c:if>
                                         </li>
                                         <li><a href="${path}/news/list"> 교육뉴스 </a></li>
-                                        <li><a href="${path}/event/list"> 이벤트 </a></li>
+                                        <li><a href="#"> 이벤트 </a>
+                                            <ul class="dropdown">
+                                                <li><a href="${path}/event/list"> 이벤트 목록 </a></li>
+                                                <li><a href="${path}/winner/list"> 당첨자 목록 </a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li><a href="#"> 고객지원 </a>

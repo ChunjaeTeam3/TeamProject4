@@ -84,7 +84,6 @@
                                     </tbody>
                                 </table>
                                 <div class="btn-group float-right mr-3">
-                                    <a href="${path}/event/list" class="btn btn-outline-dark">목록</a>
                                     <input type="submit" class="btn btn-dark" style="height: 100%" value="등록">
                                 </div>
                             </div>

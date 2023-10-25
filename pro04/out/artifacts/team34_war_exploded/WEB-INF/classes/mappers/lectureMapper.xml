@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.ed.haebeop.persistence.LectureMapper">
     <select id="lectureList" resultType="kr.ed.haebeop.domain.LectureVO">
-        SELECT  lcode ,lname, sname, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, l.scode as scode, state, classroom
-        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode)
+        SELECT  lcode ,lname, sname, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, l.scode as scode, state, classroom, b.bcode,b.bname
+        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode) JOIN book b ON (b.bcode=l.bcode)
         <where>
             <if test="type != null">
                 <trim prefixOverrides="OR">
@@ -114,8 +114,8 @@
     </select>
     
     <select id="lectureDetail" resultType="kr.ed.haebeop.domain.LectureVO">
-        SELECT lcode, lname, l.scode as scode, sname, l.tcode as tcode, tname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, state, classroom
-        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode)
+        SELECT lcode, lname, l.scode as scode, sname, l.tcode as tcode, tname, l.bcode AS bcode, bname, lcontent, lprice, maxStudent, sdate, edate, stime, l.saveFile as saveFile, state, classroom
+        FROM subject s JOIN lecture l ON (s.scode=l.scode) JOIN teacher t ON (t.tcode=l.tcode) JOIN book b ON (l.bcode=b.bcode)
         WHERE lcode = #{lcode}
     </select>
 
@@ -131,8 +131,8 @@
 <!--    강의코드, 강의명, 과목코드, 강사코드, 강의 소개, 강의 단가, 수강인원, 강의 썸네일(saveFolder, originFile, saveFile), 강의 시작일, 강의 종료일,-->
 <!--    (오프라인 시)강의 시작시간, 온오프 여부, 강의실-->
     <insert id="lectureInsert">
-        insert into lecture (lcode, lname, scode,tcode, lcontent, lprice, maxStudent, saveFile, sdate,edate,stime, state, classroom)
-        values(#{lcode}, #{lname}, #{scode}, #{tcode}, #{lcontent}, #{lprice}, #{maxStudent}, #{saveFile}, #{sdate}, #{edate}, #{stime}, #{state}, #{classroom})
+        insert into lecture (lcode, lname, scode,tcode, lcontent, lprice, maxStudent, saveFile, sdate,edate,stime, state, classroom, bcode)
+        values(#{lcode}, #{lname}, #{scode}, #{tcode}, #{lcontent}, #{lprice}, #{maxStudent}, #{saveFile}, #{sdate}, #{edate}, #{stime}, #{state}, #{classroom}, #{bcode})
     </insert>
 
     <!-- 폐강 위기 과목 목록 -->

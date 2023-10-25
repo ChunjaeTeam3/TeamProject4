@@ -60,7 +60,7 @@
                                         <th class="text-center" style="vertical-align: middle; width: 15%;">카테고리</th>
                                         <td>
                                             <div class="panel single-accordion">
-                                                <select name="cate" id="cate" class="collapseOne" style="border: 1px solid #ced4da; border-radius: 5px; padding: 8px;">
+                                                <select name="cate" id="cate" class="collapseOne w-100" style="border: 1px solid #ced4da; border-radius: 5px; padding: 8px;">
                                                     <c:forEach var="category" items="${categories}">
                                                         <option value="${category.cate}">${category.cateName}</option>
                                                     </c:forEach>

@@ -6,10 +6,12 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -47,12 +49,12 @@ public class RootConfig {
     public BasicDataSource dataSource() {                           // 데이터베이스 설정
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        basicDataSource.setUrl("jdbc:mariadb://localhost:3306/team34");
-        basicDataSource.setUsername("root");
-        basicDataSource.setPassword("1234");
-//        basicDataSource.setUrl("jdbc:mariadb://10.41.1.198:3306/team34");
-//        basicDataSource.setUsername("team34");
-//        basicDataSource.setPassword("bobo34");
+//        basicDataSource.setUrl("jdbc:mariadb://localhost:3306/team34");
+//        basicDataSource.setUsername("root");
+//        basicDataSource.setPassword("1234");
+        basicDataSource.setUrl("jdbc:mariadb://10.41.1.198:3306/team34");
+        basicDataSource.setUsername("team34");
+        basicDataSource.setPassword("bobo34");
         return basicDataSource;
     }
 
@@ -63,5 +65,4 @@ public class RootConfig {
         commonsMultipartResolver.setMaxInMemorySize(100000000);
         return commonsMultipartResolver;
     }
-
 }

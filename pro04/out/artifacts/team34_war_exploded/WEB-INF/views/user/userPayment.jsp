@@ -149,21 +149,21 @@
     <script>
         function payCheck2(pno) {
             var child;
-            child = window.open("${path}/payment/payDetail?pno=" + pno, "child", "width=700, height=900");
+            child = window.open("${path}/payment/payDetail?pno=" + pno, "child", "width=1200, height=900");
         }
     </script>
     <script>
         function delCheck(dno) {
             var child;
-            child = window.open("${path}/payment/deliveryDetail?dno=" + dno, "child", "width=700, height=900");
+            child = window.open("${path}/payment/deliveryDetail?dno=" + dno, "child", "width=1200, height=900");
         }
     </script>
 
     <!-- section2(payment table) End -->
-
-
-
 </div>
 <!-- userPayment End -->
+
+<jsp:include page="../layout/footer.jsp"/>
+
 </body>
 </html>

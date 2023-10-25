@@ -6,7 +6,7 @@
     <select id="attendListTeacher" parameterType="hashMap" resultType="kr.ed.haebeop.domain.LectureAttendVO">
         SELECT * FROM (
           SELECT r.lcode as lcode, u.id as id, name, adate, atime, atype
-          FROM register r LEFT OUTER JOIN lectureAttend l ON (r.lcode=l.lcode AND r.id=l.id) JOIN user u ON (r.id=u.id)
+          FROM register r LEFT OUTER JOIN lectureattend l ON (r.lcode=l.lcode AND r.id=l.id) JOIN user u ON (r.id=u.id)
           WHERE r.lcode=#{lcode} AND adate=CURRENT_DATE
           UNION ALL
           SELECT r.lcode as lcode, u.id as id, NAME, NULL AS adate, NULL AS atime, NULL AS atype
@@ -38,7 +38,7 @@
         <selectKey keyColumn="dbAttendCode" keyProperty="dbAttendCode" resultType="hashmap" order="BEFORE">
         <![CDATA[
             SELECT attendCode AS dbAttendCode FROM lecture l JOIN saveattendcode s ON (l.lcode=s.lcode)
-            WHERE l.lcode='ma1' AND (CURRENT_TIME-stime) >= 0
+            WHERE l.lcode=#{lcode} AND (CURRENT_TIME-stime) >= 0
             UNION ALL
             SELECT NULL AS attendCode LIMIT 1 ]]>
         </selectKey>

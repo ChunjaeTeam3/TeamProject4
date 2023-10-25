@@ -13,6 +13,7 @@ public interface BoardService {
     public int getCount(Page page) throws Exception;
     public int getCount() throws Exception;
     public BoardVO boardDetail(int seq) throws Exception;
+    public void updateVisitedCount(int seq) throws Exception;
     public BoardVO boardRef(int seq, String type) throws Exception;
     public void boardInsert(Board dto) throws Exception;
     public void boardDelete(int seq) throws Exception;

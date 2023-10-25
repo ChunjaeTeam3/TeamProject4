@@ -77,7 +77,7 @@
     </select>
 
     <select id="myPaymentDetail" resultType="kr.ed.haebeop.domain.PaymentVO">
-        select a.price as price, a.resdate as resdate, a.method as method , b.lname as lname, c.bname as bname, b.lprice as lprice, c.bprice as bprice, d.dstatus as dstatus, a.pno as pno
+        select a.price as price, a.resdate as resdate, a.method as method , b.lname as lname, c.bname as bname, b.lprice as lprice, c.bprice as bprice, d.dstatus as dstatus, a.pno as pno, b.lcode as lcode
         From payment a JOIN lecture b ON (a.lcode=b.lcode) JOIN book c ON (a.bcode=c.bcode) JOIN delivery d ON (a.dno = d.dno) AND a.pno=#{pno}
     </select>
 
@@ -87,6 +87,10 @@
 
     <select id="payCount" resultType="integer">
         select COUNT(*) from payment where id=#{id}
+    </select>
+
+    <select id="calcProfitBook" resultType="integer">
+        SELECT IFNULL(SUM(lprice), 0) FROM lecture l JOIN payment p ON (l.lcode=p.lcode)
     </select>
 
     <select id="already" resultType="boolean" parameterType="hashMap">

@@ -4,6 +4,7 @@ import kr.ed.haebeop.domain.LecBoard;
 import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.service.LecBoardService;
 import kr.ed.haebeop.service.LectureService;
+import kr.ed.haebeop.service.TeacherService;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class LecBoardController {
     private LecBoardService lecBoardService;
     @Autowired
     private LectureService lectureService;
+    @Autowired
+    private TeacherService teacherService;
 
     //lecBoard 목록
     @GetMapping("list")
@@ -59,6 +62,10 @@ public class LecBoardController {
         LecBoard next = lecBoardService.lecBoardRef(qno, "next");
         model.addAttribute("prev", prev);
         model.addAttribute("next", next);
+
+        String tid = teacherService.getTid(detail.getLcode());
+        model.addAttribute("tid", tid);
+
         model.addAttribute("curPage", request.getParameter("page"));
         return "/lecBoard/lecBoardDetail";
     }

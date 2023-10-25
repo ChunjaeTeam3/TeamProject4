@@ -53,4 +53,8 @@
         select count(*) from teacher where tid=#{id}
     </select>
 
+    <select id="getTid" resultType="String">
+        select tid from teacher t join lecture l on (t.tcode=l.tcode) where lcode=#{lcode}
+    </select>
+
 </mapper>

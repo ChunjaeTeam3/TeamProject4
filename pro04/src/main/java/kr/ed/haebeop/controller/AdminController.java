@@ -68,6 +68,9 @@ public class AdminController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @RequestMapping("dashboard")
     public String dashboard(Model model) throws Exception {
         // 포인트로 얻은 이익 계산
@@ -75,6 +78,8 @@ public class AdminController {
         model.addAttribute("profitPt", profitPt);
 
         // 도서 판매로 얻은 이익 계산
+        int profitBook = paymentService.calcProfitBook();
+        model.addAttribute("profitBook", profitBook);
 
         // 회원 중 수강신청한 사람 비율
         double regPercent = registerService.calcRegPercent();
@@ -298,12 +303,12 @@ public class AdminController {
     }
 
     @RequestMapping(value="lectureInsert", method=RequestMethod.POST)
-    public String lectureInsert(Lecture lecture, @RequestParam("upfile") MultipartFile file, HttpServletRequest request, Model model, RedirectAttributes rttr) throws Exception {
+    public String lectureInsert(Lecture lecture, @RequestParam("upfile") MultipartFile file, HttpServletRequest req, Model model, RedirectAttributes rttr) throws Exception {
 
         int nextLcode = lectureService.lectureCount() + 1;
         lecture.setLcode(lecture.getScode() + nextLcode);
 
-        String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/lecture/");           // 업로드 경로 설정
+        String realPath = req.getRealPath("/resources/upload/lecture/");           // 업로드 경로 설정
         File folder = new File(realPath);
         if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성
             folder.mkdirs();
@@ -379,7 +384,7 @@ public class AdminController {
 
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/lecture/");           // 업로드 경로 설정
+        String realPath = request.getRealPath("/resources/upload/lecture/");           // 업로드 경로 설정
         File folder = new File(realPath);
         if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성
             folder.mkdirs();
@@ -456,9 +461,8 @@ public class AdminController {
     }
 
     @RequestMapping(value="teacherInsert", method=RequestMethod.POST)
-    public String teacherInsertPost(Teacher teacher, @RequestParam("upfile") MultipartFile file, HttpServletRequest request, Model model, RedirectAttributes rttr) throws Exception {
-
-        String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/teacher/");           // 업로드 경로 설정
+    public String teacherInsertPost(Teacher teacher, @RequestParam("upfile") MultipartFile file, HttpServletRequest req, Model model, RedirectAttributes rttr) throws Exception {
+        String realPath = req.getRealPath("/resources/upload/teacher/");
         File folder = new File(realPath);
         if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성
             folder.mkdirs();
@@ -503,7 +507,7 @@ public class AdminController {
 
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/teacher/");           // 업로드 경로 설정
+        String realPath = request.getRealPath("/resources/upload/teacher/");
         File folder = new File(realPath);
         if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성
             folder.mkdirs();
@@ -550,7 +554,7 @@ public class AdminController {
     public String curriculumInsert(@RequestParam(value="upfile", required=false) MultipartFile[] files, @RequestParam String lcode, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
         String[] cnames = request.getParameterValues("cname");
 
-        String realPath = request.getSession().getServletContext().getRealPath("/resources/upload/curriculum/");           // 업로드 경로 설정
+        String realPath = request.getRealPath("/resources/upload/curriculum/");         // 업로드 경로 설정
         String saveFolder = realPath + lcode;
         File folder = new File(saveFolder);
         if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성

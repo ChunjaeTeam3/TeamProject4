@@ -54,7 +54,7 @@ public class ServletContext implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         WebMvcConfigurer.super.addInterceptors(registry);
         registry.addInterceptor(lectureInterceptor()).addPathPatterns("/lecture/player");
-        registry.addInterceptor(registerInterceptor()).addPathPatterns("/lecture/register");
+        registry.addInterceptor(registerInterceptor()).addPathPatterns("/lecture/register2");
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
     }
 

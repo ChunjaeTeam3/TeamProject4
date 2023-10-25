@@ -90,7 +90,11 @@ public class PaymentController {
         String lcode = request.getParameter("lcode");
         String bcode = request.getParameter("bcode");
         String id = (String) session.getAttribute("sid");
-        int pt = Integer.parseInt(request.getParameter("pt"));
+        int pt = 0;
+        String ptpt = request.getParameter("pt");
+        if (ptpt != null && !ptpt.isEmpty()) {
+            pt = Integer.parseInt(ptpt);
+        }
 
         Payment payment = new Payment();
         payment.setLcode(lcode);
@@ -100,7 +104,7 @@ public class PaymentController {
         payment.setTcode(request.getParameter("tcode"));
         payment.setMethod(request.getParameter("method"));
         payment.setCom(request.getParameter("com"));
-        payment.setPrice(request.getParameter("price"));
+        payment.setPrice(Integer.parseInt(request.getParameter("price")));
         payment.setAccount(request.getParameter("account"));
 
         int pno = paymentService.paymentInsert(id, lcode, payment);
@@ -147,16 +151,17 @@ public class PaymentController {
 
     @GetMapping("paymentDelete")
     @ResponseBody
-    public ResponseEntity<String> getPaymentDelete(HttpServletRequest request, Model model) {
-        int pno = Integer.parseInt(request.getParameter("pno"));
+    public ResponseEntity<String> getPaymentDelete(@RequestParam String lcode, @RequestParam int pno, HttpSession session, Model model) {
+        String id = (String) session.getAttribute("sid");
 
         try {
-            paymentService.deletePayment(pno);
+            paymentService.deletePayment(lcode, id, pno);
             return new ResponseEntity<>("구매취소 성공", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("구매취소 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @PostMapping("paymentNoBook")
     public String paymentNoBook (Payment payment,HttpServletRequest request, Model model) throws Exception{

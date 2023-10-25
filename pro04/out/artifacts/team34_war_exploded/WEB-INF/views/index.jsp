@@ -81,10 +81,10 @@
 <section class="latest-albums-area section-padding-100 bg-gray">
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4 col-md-12">
                 <jsp:include page="./todo/todoList.jsp" />
             </div>
-            <div class="col ml-5">
+            <div class="col-lg-7 col-md-12 ml-lg-5 ml-md-0 mt-lg-0 mt-md-3">
                 <table class="table table-hover text-center">
                     <thead>
                         <tr>
@@ -169,7 +169,7 @@
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${offLectures}">
-                <div class="col-4">
+                <div class="col-4 text-center">
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <img src="${path}/resources/upload/lecture/${lecture.saveFile}" alt="${lecture.lname} 커버 이미지">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
@@ -195,7 +195,7 @@
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${onLectures}">
-                <div class="col-4">
+                <div class="col-4 text-center">
                     <img src="${path}/resources/upload/lecture/${lecture.saveFile}" alt="${lecture.lname} 커버 이미지">
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
@@ -289,35 +289,55 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/v3.js"></script>
-    <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.js"></script>
-    <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U0301/cssjs/JSON-js/fc535e9cc8/json2.min.js"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverMapKey}"></script>
     <script>
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new daum.maps.LatLng(37.4786713,126.8864968), // 지도의 중심좌표
-                level: 2, // 지도의 확대 레벨
-                draggable: false
-            };
-        var map = new daum.maps.Map(mapContainer, mapOption);
-        // 마커가 표시될 위치입니다
-        var markerPosition  = new daum.maps.LatLng(37.4786713,126.8864968);
-        // 마커를 생성합니다
-        var marker = new daum.maps.Marker({
-            position: markerPosition
+        let mapOptions = {
+            center: new naver.maps.LatLng(37.4786713,126.8864968),
+            zoom: 17,
+            draggable: false,
+            keyboardShortcuts: false,
+            logoControl: false,
+            mapDataControlOptions: false,
+            scrollWheel: false
+        };
+
+        let map = new naver.maps.Map('map', mapOptions);
+
+        let marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.4786713,126.8864968),
+            map: map
         });
-        // 마커가 지도 위에 표시되도록 설정합니다
-        marker.setMap(map);
-        var iwContent = '<div style="padding:5px;">마리오아울렛 2관</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-            iwPosition = new daum.maps.LatLng(37.4786713,126.8864968); //인포윈도우 표시 위치입니다
-        // 인포윈도우를 생성합니다
-        var infowindow = new daum.maps.InfoWindow({
-            position : iwPosition,
-            content : iwContent
-        });
-        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-        infowindow.open(map, marker);
     </script>
+
+<%--    <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/v3.js"></script>--%>
+<%--    <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.js"></script>--%>
+<%--    <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U0301/cssjs/JSON-js/fc535e9cc8/json2.min.js"></script>--%>
+<%--    <script>--%>
+<%--        var mapContainer = document.getElementById('map'), // 지도를 표시할 div--%>
+<%--            mapOption = {--%>
+<%--                center: new daum.maps.LatLng(37.4786713,126.8864968), // 지도의 중심좌표--%>
+<%--                level: 2, // 지도의 확대 레벨--%>
+<%--                draggable: false--%>
+<%--            };--%>
+<%--        var map = new daum.maps.Map(mapContainer, mapOption);--%>
+<%--        // 마커가 표시될 위치입니다--%>
+<%--        var markerPosition  = new daum.maps.LatLng(37.4786713,126.8864968);--%>
+<%--        // 마커를 생성합니다--%>
+<%--        var marker = new daum.maps.Marker({--%>
+<%--            position: markerPosition--%>
+<%--        });--%>
+<%--        // 마커가 지도 위에 표시되도록 설정합니다--%>
+<%--        marker.setMap(map);--%>
+<%--        var iwContent = '<div style="padding:5px;">마리오아울렛 2관</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다--%>
+<%--            iwPosition = new daum.maps.LatLng(37.4786713,126.8864968); //인포윈도우 표시 위치입니다--%>
+<%--        // 인포윈도우를 생성합니다--%>
+<%--        var infowindow = new daum.maps.InfoWindow({--%>
+<%--            position : iwPosition,--%>
+<%--            content : iwContent--%>
+<%--        });--%>
+<%--        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다--%>
+<%--        infowindow.open(map, marker);--%>
+<%--    </script>--%>
 </section>
 <!-- ##### Location Area Start ##### -->
 

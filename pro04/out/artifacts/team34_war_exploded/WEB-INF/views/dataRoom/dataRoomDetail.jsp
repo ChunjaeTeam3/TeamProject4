@@ -68,7 +68,7 @@
                                 <tr>
                                     <td colspan="6" style="border: none;font-size: 15px;padding: 0;" class="pb-1 pl-4">
                                         <c:forEach var="item" items="${fileList}">
-                                            <a href="${pageContext.request.contextPath}/resources/upload/dataRoom/${item.saveFolder}/${item.saveFile}" download="${item.originFile }" style="font-weight: 500;font-size: 15px;"><i class="fa-solid fa-file"></i> ${item.originFile } </a>
+                                            <a href="${path}/resources/upload/dataRoom/${item.saveFolder}/${item.saveFile}" download="${item.originFile }" style="font-weight: 500;font-size: 15px;"><i class="fa-solid fa-file"></i> ${item.originFile } </a>
                                         </c:forEach>
                                     </td>
                                 </tr>

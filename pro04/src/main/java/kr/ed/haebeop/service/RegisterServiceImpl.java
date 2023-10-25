@@ -95,4 +95,6 @@ public class RegisterServiceImpl implements RegisterService {
     public void registerInsert2(Register register) throws Exception {
         registerMapper.registerInsert2(register);
     }
+
+
 }

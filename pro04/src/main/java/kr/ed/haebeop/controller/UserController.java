@@ -85,6 +85,7 @@ public class UserController {
     //로그아웃
     @GetMapping("logout")
     public String logout(HttpSession session) throws Exception {
+        userService.updateIsStudy((String) session.getAttribute("sid"), false);
         session.invalidate();
         return "redirect:/";
     }

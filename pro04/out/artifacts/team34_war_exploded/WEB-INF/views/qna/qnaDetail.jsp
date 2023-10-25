@@ -26,34 +26,35 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
-<section class="album-catagory section-padding-100-0">
-    <div class="course_details_area mb-5 mt-5">
+<section class="album-catagory section-padding-100-0 pb-5">
+    <div class="course_details_area mb-100 mt-5">
         <div class="container">
             <!-- 테이블 영역 시작 -->
             <div class="col-12">
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <c:if test="${! empty sid && sid eq 'admin'}">
-                                <div class="btn-group float-right mb-3">
+                            <div class="btn-group float-right mb-3">
+                                <c:if test="${sid eq 'admin' && detail.lev eq 0}">
                                     <a href="${path}/qna/answerInsert?qno=${detail.qno}" class="btn btn-outline-dark">답변등록</a>
                                     <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
-                                </div>
-                            </c:if>
-                            <c:if test="${! empty sid && sid ne 'admin'}">
-                                <div class="btn-group float-right">
-                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
-                                </div>
-                            </c:if>
-                            <c:if test="${sid ne 'admin' && sid eq detail.author}">
-                                <div class="btn-group float-right">
+                                </c:if>
+                                <c:if test="${sid eq 'admin' && detail.lev eq 1}">
                                     <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
                                     <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
                                     <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
-                                </div>
-                            </c:if>
+                                </c:if>
+                                <c:if test="${sid ne 'admin' && sid ne detail.author}">
+                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                </c:if>
+                                <c:if test="${sid eq detail.author && sid ne 'admin'}">
+                                    <a href="${path}/qna/list?page=${curPage}" class="btn btn-outline-dark">목록</a>
+                                    <a href="${path}/qna/edit?qno=${detail.qno}" class="btn btn-outline-dark">수정</a>
+                                    <a href="${path}/qna/delete?qno=${detail.qno}" class="btn btn-outline-dark">삭제</a>
+                                </c:if>
+                            </div>
                             <table class="table project-table table-centered table-nowrap">
                                 <tbody>
                                 <tr>

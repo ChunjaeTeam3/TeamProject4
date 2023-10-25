@@ -8,6 +8,8 @@ import kr.ed.haebeop.service.RegisterService;
 import kr.ed.haebeop.service.ReviewService;
 import kr.ed.haebeop.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@PropertySource("classpath:application-API-KEY.properties")     // application-API-KEY.properties에 저장된 키 값 가져오기
 public class HomeController {
 
     @Autowired
@@ -27,6 +30,9 @@ public class HomeController {
     private ReviewService reviewService;
     @Autowired
     private TodoService todoService;
+
+    @Value("${Naver-Map-API-KEY}")
+    private String naverMapKey;
 
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model) throws Exception {
@@ -55,6 +61,9 @@ public class HomeController {
         // 수강신청한 강의 중 현재 수강기간인 강의 목록
         List<LectureVO> myLectureList = registerService.ongoingMyLecture(id);
         model.addAttribute("myLectureList", myLectureList);
+
+        // Naver Map API Key
+        model.addAttribute("naverMapKey", naverMapKey);
 
         return "/index";
     }
