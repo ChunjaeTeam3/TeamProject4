@@ -93,11 +93,11 @@
                 </div>
                 <nav class="pagination justify-content-center mb-6" aria-label="pagination">
                     <c:if test="${curPage > 5}">
-                        <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                        <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                            class="btn btn-primary">Previous</a>
                     </c:if>
                     <c:if test="${page.blockLastNum < page.totalPageCount}">
-                        <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                        <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                            class="btn btn-primary">Next page</a>
                     </c:if>
                     <ul class="pagination">
@@ -112,7 +112,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li class="page-item">
-                                        <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                        <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                            class="page-link" aria-label="Page ${i}">${i}</a>
                                     </li>
                                 </c:otherwise>

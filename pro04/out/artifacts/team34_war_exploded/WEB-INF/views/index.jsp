@@ -169,7 +169,7 @@
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${offLectures}">
-                <div class="col-4">
+                <div class="col-4 text-center">
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <img src="${path}/resources/upload/lecture/${lecture.saveFile}" alt="${lecture.lname} 커버 이미지">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
@@ -195,7 +195,7 @@
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${onLectures}">
-                <div class="col-4">
+                <div class="col-4 text-center">
                     <img src="${path}/resources/upload/lecture/${lecture.saveFile}" alt="${lecture.lname} 커버 이미지">
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>

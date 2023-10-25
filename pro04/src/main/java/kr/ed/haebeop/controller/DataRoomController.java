@@ -69,7 +69,7 @@ public class DataRoomController {
             String today = new SimpleDateFormat("yyMMdd").format(new Date());
             String saveFolder = realPath + today;
             File folder = new File(saveFolder);
-            if(!folder.exists()) {          // 폴더가 존재하지 않으면 폴더 생성
+            if(!folder.exists()) {                                  // 폴더가 존재하지 않으면 폴더 생성
                 folder.mkdirs();
             }
             List<FileInfo> fileInfoList = new ArrayList<>();        // 첨부파일 정보를 리스트로 생성

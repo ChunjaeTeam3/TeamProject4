@@ -140,7 +140,7 @@
                                                         <c:set var="cnt" value="${cnt += 1}"/>
                                                         <div class="col-md-12 row" style="margin-bottom: 20px;">
                                                             <div class="col-md-2 img">
-                                                                <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
+                                                                <img src="${path}/resources/upload/lecture/${lecture.saveFile}"
                                                                      alt="사진"/>
                                                             </div>
                                                             <div class="col-md-10 cont_wrap">
@@ -191,11 +191,11 @@
                                             <!-- 페이징 처리 -->
                                             <nav class="pagination justify-content-center mb-6" aria-label="pagination">
                                                 <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Previous</a>
                                                 </c:if>
                                                 <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Next page</a>
                                                 </c:if>
                                                 <ul class="pagination">
@@ -210,7 +210,7 @@
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="page-item">
-                                                                    <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                                        class="page-link" aria-label="Page ${i}">${i}</a>
                                                                 </li>
                                                             </c:otherwise>
@@ -311,11 +311,11 @@
                                             </div>
                                             <nav class="pagination justify-content-center mb-6" aria-label="pagination">
                                                 <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Previous</a>
                                                 </c:if>
                                                 <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Next page</a>
                                                 </c:if>
                                                 <ul class="pagination">
@@ -330,7 +330,7 @@
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="page-item">
-                                                                    <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                                        class="page-link" aria-label="Page ${i}">${i}</a>
                                                                 </li>
                                                             </c:otherwise>
@@ -431,11 +431,11 @@
                                             </div>
                                             <nav class="pagination justify-content-center mb-6" aria-label="pagination">
                                                 <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Previous</a>
                                                 </c:if>
                                                 <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Next page</a>
                                                 </c:if>
                                                 <ul class="pagination">
@@ -450,7 +450,7 @@
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="page-item">
-                                                                    <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                                        class="page-link" aria-label="Page ${i}">${i}</a>
                                                                 </li>
                                                             </c:otherwise>
@@ -549,11 +549,11 @@
                                             </div>
                                             <nav class="pagination justify-content-center mb-6" aria-label="pagination">
                                                 <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Previous</a>
                                                 </c:if>
                                                 <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list.do?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                        class="btn btn-primary">Next page</a>
                                                 </c:if>
                                                 <ul class="pagination">
@@ -568,7 +568,7 @@
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="page-item">
-                                                                    <a href="${path}/lecture/list.do?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
+                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
                                                                        class="page-link" aria-label="Page ${i}">${i}</a>
                                                                 </li>
                                                             </c:otherwise>
