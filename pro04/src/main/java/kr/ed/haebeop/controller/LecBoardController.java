@@ -43,7 +43,6 @@ public class LecBoardController {
         LectureVO lecture = lectureService.lectureDetail(lcode);
         model.addAttribute("lecture",lecture);
         List<LecBoard> lecBoardList = lecBoardService.lecBoardList(page);
-        System.out.println(lecBoardList);
         model.addAttribute("lecBoardList", lecBoardList);     //lecBoard 목록
         model.addAttribute("curPage", curPage);     // 현재 페이지
         model.addAttribute("page", page);           // 페이징 데이터

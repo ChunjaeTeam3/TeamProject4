@@ -127,13 +127,9 @@
 <!-- ##### Popular Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100" id="popular">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading style-2">
-                    <p> 수강생들이 추천하는 </p>
-                    <h2> 인기 강의 </h2>
-                </div>
-            </div>
+        <div class="section-heading style-2">
+            <p> 수강생들이 추천하는 </p>
+            <h2> 인기 강의 </h2>
         </div>
         <div class="row">
             <div class="col-12">
@@ -145,7 +141,7 @@
                                 <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                                     <h5>${lecture.lname}</h5>
                                 </a>
-                                <p>${lecture.tname}</p>
+                                <p>${lecture.tname} 선생님</p>
                             </div>
                         </div>
                     </c:forEach>
@@ -159,13 +155,9 @@
 <!-- ##### Offline Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100 mt-50 mb-50 bg-gray wow fadeInUp" id="offline">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading style-2">
-                    <p> 실시간 대면을 통한 최고의 학습 경험 </p>
-                    <h2> 오프라인 강의 </h2>
-                </div>
-            </div>
+        <div class="section-heading style-2">
+            <p> 실시간 대면을 통한 최고의 학습 경험 </p>
+            <h2> 오프라인 강의 </h2>
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${offLectures}">
@@ -173,7 +165,7 @@
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <img src="${path}/resources/upload/lecture/${lecture.saveFile}" alt="${lecture.lname} 커버 이미지">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
-                        <p class="text-center">${lecture.tname}</p>
+                        <p class="text-center">${lecture.tname} 선생님</p>
                     </a>
                 </div>
             </c:forEach>
@@ -185,13 +177,9 @@
 <!-- ##### Online Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100 mt-50 mb-50 wow fadeInUp" id="online">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading style-2">
-                    <p> 언제 어디서든 해법과 함께 </p>
-                    <h2> 온라인 강의 </h2>
-                </div>
-            </div>
+        <div class="section-heading style-2">
+            <p> 언제 어디서든 해법과 함께 </p>
+            <h2> 온라인 강의 </h2>
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${onLectures}">
@@ -200,7 +188,7 @@
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
                     </a>
-                    <p class="text-center">${lecture.tname}</p>
+                    <p class="text-center">${lecture.tname} 선생님</p>
                 </div>
             </c:forEach>
         </div>
@@ -210,19 +198,15 @@
 
 <!-- ##### Review Area Start ##### -->
 <section class="latest-albums-area mt-50 bg-gray wow fadeInUp" style="padding: 150px 0px;" id="reviews">
-    <div class="row w-100">
-        <div class="col-12">
-            <div class="section-heading style-2">
-                <p> 다른 수강생들이 들려주는 </p>
-                <h2> 수강평 </h2>
-            </div>
-        </div>
+    <div class="section-heading style-2">
+        <p> 다른 수강생들이 들려주는 </p>
+        <h2> 수강평 </h2>
     </div>
     <div id="carouselExampleIndicators" class="carousel slide container" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <c:forEach var="idx" begin="1" end="${fn:length(reviews)}">
+                <li class="carousel-list" data-target="#carouselExampleIndicators" data-slide-to="${idx}"></li>
+            </c:forEach>
         </ol>
         <div class="carousel-inner">
             <c:forEach var="review" items="${reviews}">
@@ -244,7 +228,8 @@
             </c:forEach>
             <script>
                 $(document).ready(() => {
-                    $(".carousel-item:eq(1)").addClass("active");
+                    $(".carousel-item:eq(0)").addClass("active");
+                    $(".carousel-list:eq(0)").addClass("active");
                 });
             </script>
         </div>
@@ -257,6 +242,9 @@
             <span class="sr-only">Next</span>
         </button>
     </div>
+    <c:if test="${empty reviews}">
+        <p class="text-center"> 등록된 수강평이 없습니다. </p>
+    </c:if>
 </section>
 <!-- ##### Review Area End ##### -->
 

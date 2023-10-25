@@ -108,7 +108,6 @@ public class PaymentController {
         payment.setAccount(request.getParameter("account"));
 
         int pno = paymentService.paymentInsert(id, lcode, payment);
-        System.out.println(pno);
 
         Delivery delivery = new Delivery();
         delivery.setPno(pno);
@@ -116,13 +115,11 @@ public class PaymentController {
         delivery.setAddr(request.getParameter("addr1") + "<br>" + request.getParameter("addr2") + "<br>" + request.getParameter("postcode"));
         delivery.setTel(request.getParameter("tel"));
 
-
         Serve serve = new Serve();
         serve.setPno(pno);
         serve.setBcode(bcode);
         serve.setSprice(request.getParameter("sprice"));
         serve.setAmount(request.getParameter("amount"));
-
 
         paymentService.addPayment(delivery, serve, pt, id);
 
@@ -219,7 +216,6 @@ public class PaymentController {
         } else {
             // 사용자가 로그인된 경우 중복 신청 확인
             boolean register = paymentService.already(lcode, id);
-            System.out.println(register);
             response.put("duplicate", register);
             response.put("loginRequired", false);
         }

@@ -3,11 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Calendar" %>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,23 +13,17 @@
     <style>
         #gotoTab {
             width: 100%; /* 너비를 100%로 설정 */
-            /*height: 200px; *//* 원하는 높이로 설정 */
-            /* 다른 스타일 속성 추가 가능 */
         }
 
-        .tabmenu {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            position: relative;
-            width: calc(100% - 1px);
-            margin-top: 2.5rem;
-            -ms-flex-wrap: nowrap;
-            flex-wrap: nowrap;
+        .lecture {
+            border: 1px solid transparent;
         }
 
-        .neon-sign {
-            animation: neon 0.5s ease-in-out infinite alternate;
+        .lecture:hover {
+            border: 1px solid #333;
+            border-radius: 5px;
+            box-shadow: #ddd 10px 10px 10px;
+            transition: 0.5s;
         }
 
         @keyframes neon {
@@ -73,524 +62,121 @@
     </div>
 </section>
 <!-- 브레드크럼 끝 -->
+
 <section class="album-catagory section-padding-100-0" style="min-height: 100vh">
-    <!-- 검색 엔진 시작 -->
     <div class="container">
-        <!-- 모든강좌정보 -->
         <section id="menu" class="content-section" style="clear: both;">
             <div class="tabmenu2_wrap" id="gotoTab" style="align-items: center;">
-                <ul class="nav nav-pills btn-group d-flex justify-content-center" id="cdTabMnuArea">
-                    <li class="nav-item" style="text-align: center;width: 150px;">
-                        <a class="nav-link active" id="writing-tab" data-bs-toggle="#writing" data-bs-target="#writing"
+                <ul class="nav nav-pills btn-group d-flex justify-content-center" id="cbTabMnuArea">
+                    <li class="nav-item text-center" style="width: 150px">
+                        <a class="nav-link active show" id="" data-bs-toggle="#" data-bs-target="#"
                            type="button" role="tab" aria-controls="intro"
-                           aria-selected="true" href="#intro" style="width: 150px;font-size: 20px;text-align: center;">논술</a>
+                           aria-selected="true" href="#" style="width: 150px;font-size: 20px;text-align: center;">전체</a>
                     </li>
-                    <li class="nav-item" style="text-align: center;width: 150px;">
-                        <a class="nav-link" id="math-tab" data-bs-toggle="tab" data-bs-target="#math" type="button"
-                           role="tab" aria-controls="intro"
-                           aria-selected="true" href="#intro" style="width: 150px;font-size: 20px;text-align: center;">수학</a>
-                    </li>
-                    <li class="nav-item" style="text-align: center;width: 150px;">
-                        <a class="nav-link" id="korean-tab" data-bs-toggle="tab" data-bs-target="#korean" type="button"
-                           role="tab" aria-controls="intro"
-                           aria-selected="true" href="#intro" style="width: 150px;font-size: 20px;text-align: center;">국어</a>
-                    </li>
-                    <li class="nav-item" style="text-align: center;width: 150px;">
-                        <a class="nav-link" id="china-tab" data-bs-toggle="tab" data-bs-target="#china" type="button"
-                           role="tab" aria-controls="intro"
-                           aria-selected="true" href="#intro" style="width: 150px;font-size: 20px;text-align: center;">중국어</a>
-                    </li>
+                    <c:forEach var="subject" items="${subjects}">
+                        <li class="nav-item text-center" style="width: 150px">
+                            <a class="nav-link" id="${subject.scode}" data-bs-toggle="#${subject.scode}"
+                               data-bs-target="#${subject.scode}"
+                               type="button" role="tab" aria-controls="intro"
+                               aria-selected="true" href="#"
+                               style="width: 150px;font-size: 20px;text-align: center;">${subject.sname}</a>
+                        </li>
+                    </c:forEach>
                 </ul>
                 <!-- 내용 -->
-                <div class="container" style="min-height: 30vh">
-                    <div class="tab-content" id="content">
-                        <div class="tab-pane fade show active" id="writing" role="tabpanel" aria-labelledby="writing-tab">
-                            <div class="container mt-5">
-                                <ul class="list-group thumb_list_wrap">
-                                    <li class="list-group-item">
-                                        <div class="container">
-                                            <form id="searchForm" class="d-flex justify-content-end">
-                                                <div>
-                                                    <div class="col-auto">
-                                                        <input class="form-control" type="text" id="scode" name="scode"
-                                                               autocomplete="off" value="wr" hidden="hidden">
+                <div class="container mb-100" style="min-height: 30vh">
+                    <div role="tabpanel">
+                        <div class="container mt-5">
+                            <form action="${path}/notice/list" method="get">
+                                <div class="form-group d-flex justify-content-end">
+                                    <div class="input-group-append">
+                                        <div class="panel single-accordion"
+                                             style="border: 1px solid #ced4da; border-radius: 0.25rem;">
+                                            <select id="type" name="type" class="collapseOne"
+                                                    style="border: none;padding: 8px;">
+                                                <option value="T">제목</option>
+                                                <option value="C">내용</option>
+                                                <option value="W">강사이름</option>
+                                            </select>
+                                        </div>
+                                        <input class="form-control" type="text" id="keyword" name="keyword"
+                                               placeholder="검색어를 입력하세요" autocomplete="off">
+                                        <input class="btn btn-dark" type="button" id="project-search-addon" value="검색"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row mt-50" id="lectureList">
+                                <c:forEach var="lecture" items="${lectureList}">
+                                    <div class="col-md-12 row mt-1 p-3 lecture">
+                                        <div class="col-md-3 img">
+                                            <img src="${path}/resources/upload/lecture/${lecture.saveFile}"
+                                                 alt="강의 이미지"/>
+                                        </div>
+                                        <div class="col cont_wrap">
+                                            <div class="txt_area">
+                                                <h4 class="tit"><a href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a></h4>
+                                                <p> <i class="fa-solid fa-user"></i> ${lecture.tname} 선생님</p>
+                                                <span>수강인원:  ${lecture.maxStudent}명</span><br>
+                                                <span>교&nbsp; &nbsp; &nbsp; &nbsp; 재: ${lecture.bname}</span><br>
+                                                <span>접수기간: ${lecture.sdate} ~ ${lecture.edate}</span><br>
+                                                <c:if test="${lecture.state eq 'on'}">
+                                                    <span>수업방식: 온라인 </span>
+                                                </c:if>
+                                                <c:if test="${lecture.state eq 'off'}">
+                                                    <span>수업방식: 오프라인 </span>
+                                                </c:if>
+                                                <c:if test="${lecture.state eq 'close'}">
+                                                    <span style="color: red; font-weight: bold;"> 폐강 </span>
+                                                </c:if>
+                                                <c:if test="${not empty sid}">
+                                                    <div class="d-flex justify-content-end">
+                                                        <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
+                                                            <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
+                                                               class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
+                                                        </c:if>
+                                                        <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
+                                                            <a href="javascript:void(0);" data-lcode="${lecture.lcode}, ${lecture.bcode}"
+                                                               id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
+                                                        </c:if>
                                                     </div>
-                                                    <select style="height: 36px;font-size: 16px" id="type" name="type"
-                                                            class="form-select">
-                                                        <option value="T">제목</option>
-                                                        <option value="C">내용</option>
-                                                        <option value="W">강사이름</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <input class="form-control" type="text" id="keyword" name="keyword"
-                                                           placeholder="검색어를 입력하세요" autocomplete="off"
-                                                           value="${page.keyword}">
-                                                </div>
-                                                <div>
-                                                    <input type="button" class="btn btn-primary" value="검색"
-                                                           onclick="searchByAjax()"/>
-                                                </div>
-                                            </form>
-                                            <br>
-                                            <div class="row">
-                                                <c:set var="cnt" value="0"/>
-                                                <c:forEach items="${lectureList}" var="lecture">
-                                                    <c:if test="${lecture.scode eq 'wr'}">
-                                                        <c:set var="cnt" value="${cnt += 1}"/>
-                                                        <div class="col-md-12 row" style="margin-bottom: 20px;">
-                                                            <div class="col-md-2 img">
-                                                                <img src="${path}/resources/upload/lecture/${lecture.saveFile}"
-                                                                     alt="사진"/>
-                                                            </div>
-                                                            <div class="col-md-10 cont_wrap">
-                                                                <div class="txt_area">
-                                                                    <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                                    <h6 class="tit"><a
-                                                                            href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
-                                                                    </h6><br>
-                                                                    <h8>수강인원 ${lecture.maxStudent}명</h8>
-                                                                    <br>
-                                                                    <h8>교재: ${lecture.bname}</h8>
-                                                                    <br>
-                                                                    <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
-                                                                    <c:if test="${lecture.state eq 'on'}">
-                                                                        <span>수업방식: 온라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'off'}">
-                                                                        <span>수업방식: 오프라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'close'}">
-                                                                        <span style="color: red; font-weight: bold;"> 폐강 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${not empty sid}">
-                                                                        <div class="d-flex justify-content-end">
-                                                                            <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
-                                                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
-                                                                                   class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                            <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
-                                                                                <a href="javascript:void(0);"
-                                                                                   data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay"
-                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                        </div>
-                                                                    </c:if>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <br>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:if test="${cnt eq 0}">
-                                                    <h5 style="margin: 20px auto"> 해당하는 강의가 없습니다. </h5>
                                                 </c:if>
                                             </div>
-                                            <!-- 페이징 처리 -->
-                                            <nav class="pagination justify-content-center mb-6" aria-label="pagination">
-                                                <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Previous</a>
-                                                </c:if>
-                                                <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Next page</a>
-                                                </c:if>
-                                                <ul class="pagination">
-                                                    <c:forEach var="i" begin="${page.blockStartNum}"
-                                                               end="${page.blockLastNum}">
-                                                        <c:choose>
-                                                            <c:when test="${i == curPage}">
-                                                                <li class="page-item active">
-                                                                    <span class="page-link"
-                                                                          aria-label="Page ${i}">${i}</span>
-                                                                </li>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <li class="page-item">
-                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                                       class="page-link" aria-label="Page ${i}">${i}</a>
-                                                                </li>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </ul>
-                                            </nav>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </c:forEach>
                             </div>
-                        </div>
 
-                        <div class="tab-pane fade" id="math" role="tabpanel" aria-labelledby="math-tab">
-                            <div class="container mt-5">
-                                <ul class="list-group thumb_list_wrap">
-                                    <li class="list-group-item">
-                                        <div class="container">
-                                            <form id="searchMath" class="d-flex justify-content-end">
-                                                <div>
-                                                    <div class="col-auto">
-                                                        <input class="form-control" type="text" id="ma" name="ma"
-                                                               autocomplete="off" value="ma" hidden="hidden">
-                                                    </div>
-                                                    <select style="height: 36px;font-size: 16px" id="mathType"
-                                                            name="mathType" class="form-select">
-                                                        <option value="T">제목</option>
-                                                        <option value="C">내용</option>
-                                                        <option value="W">강사이름</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <input class="form-control" type="text" id="mathKeyword"
-                                                           name="mathKeyword" placeholder="검색어를 입력하세요"
-                                                           autocomplete="off" value="${page.keyword}">
-                                                </div>
-                                                <div>
-                                                    <input type="button" class="btn btn-primary" value="검색"
-                                                           onclick="searchMath()"/>
-                                                </div>
-                                            </form>
-                                            <br>
-                                            <div class="row">
-                                                <c:set var="cnt" value="0"/>
-                                                <c:forEach items="${lectureList}" var="lecture">
-                                                    <c:if test="${lecture.scode eq 'ma'}">
-                                                        <c:set var="cnt" value="${cnt += 1}"/>
-                                                        <div class="col-md-12 row" style="margin-bottom: 20px;">
-                                                            <div class="col-md-2 img">
-                                                                <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
-                                                                     alt="사진"/>
-                                                            </div>
-                                                            <div class="col-md-10 cont_wrap">
-                                                                <div class="txt_area">
-                                                                    <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                                    <h6 class="tit"><a
-                                                                            href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
-                                                                    </h6><br>
-                                                                    <h8>수강인원 ${lecture.maxStudent}명</h8>
-                                                                    <br>
-                                                                    <h8>교재: ${lecture.bname}</h8>
-                                                                    <br>
-
-                                                                    <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
-                                                                    <c:if test="${lecture.state eq 'on'}">
-                                                                        <span>수업방식: 온라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'off'}">
-                                                                        <span>수업방식: 오프라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'close'}">
-                                                                        <span style="color: red; font-weight: bold;"> 폐강 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${not empty sid}">
-                                                                        <div class="d-flex justify-content-end">
-                                                                            <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
-                                                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
-                                                                                   class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                            <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
-                                                                                <a href="javascript:void(0);"
-                                                                                   data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay"
-                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                        </div>
-                                                                    </c:if>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <br>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:if test="${cnt eq 0}">
-                                                    <h5 style="margin: 20px auto"> 해당하는 강의가 없습니다. </h5>
-                                                </c:if>
-                                            </div>
-                                            <nav class="pagination justify-content-center mb-6" aria-label="pagination">
-                                                <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Previous</a>
-                                                </c:if>
-                                                <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Next page</a>
-                                                </c:if>
-                                                <ul class="pagination">
-                                                    <c:forEach var="i" begin="${page.blockStartNum}"
-                                                               end="${page.blockLastNum}">
-                                                        <c:choose>
-                                                            <c:when test="${i == curPage}">
-                                                                <li class="page-item active">
-                                                                    <span class="page-link"
-                                                                          aria-label="Page ${i}">${i}</span>
-                                                                </li>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <li class="page-item">
-                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                                       class="page-link" aria-label="Page ${i}">${i}</a>
-                                                                </li>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </li>
+                            <!-- 페이징 처리 -->
+                            <nav class="Page navigation d-flex justify-content-center mt-5 mb-6">
+                                <ul class="pagination">
+                                    <c:if test="${curPage > 5}">
+                                        <li class="page-item"><a href="#" class="page-link paging" id="${page.blockStartNum - 1}" data-value=""> << </a></li>
+                                    </c:if>
+                                    <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                                        <c:choose>
+                                            <c:when test="${i == curPage}">
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link paging" id="${i}" data-value="">${i}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link paging" id="${i}" data-value="">${i}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <c:if test="${page.blockLastNum < page.totalPageCount}">
+                                        <li class="page-item"><a href="#" class="page-link paging" id="${page.blockLastNum + 1}" data-value=""> >> </a></li>
+                                    </c:if>
                                 </ul>
-                            </div>
-                        </div>
-
-
-                        <div class="tab-pane fade" id="korean" role="tabpanel" aria-labelledby="korean-tab">
-                            <div class="container mt-5">
-                                <ul class="list-group thumb_list_wrap">
-                                    <li class="list-group-item">
-                                        <div class="container">
-                                            <form id="searchKo" class="d-flex justify-content-end">
-                                                <div>
-                                                    <div class="col-auto">
-                                                        <input class="form-control" type="text" id="ko" name="ko"
-                                                               autocomplete="off" value="ko" hidden="hidden">
-                                                    </div>
-                                                    <select style="height: 36px;font-size: 16px" id="koType"
-                                                            name="koType" class="form-select">
-                                                        <option value="T">제목</option>
-                                                        <option value="C">내용</option>
-                                                        <option value="W">강사이름</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <input class="form-control" type="text" id="koKeyword"
-                                                           name="koKeyword" placeholder="검색어를 입력하세요" autocomplete="off"
-                                                           value="${page.keyword}">
-                                                </div>
-                                                <div>
-                                                    <input type="button" class="btn btn-primary" value="검색"
-                                                           onclick="searchKorean()"/>
-                                                </div>
-                                            </form>
-                                            <br>
-                                            <div class="row">
-                                                <c:set var="cnt" value="0"/>
-                                                <c:forEach items="${lectureList}" var="lecture">
-                                                    <c:if test="${lecture.scode eq 'ko'}">
-                                                        <c:set var="cnt" value="${cnt += 1}"/>
-                                                        <div class="col-md-12 row" style="margin-bottom: 20px;">
-                                                            <div class="col-md-2 img">
-                                                                <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
-                                                                     alt="사진"/>
-                                                            </div>
-                                                            <div class="col-md-10 cont_wrap">
-                                                                <div class="txt_area">
-                                                                    <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                                    <h6 class="tit"><a
-                                                                            href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
-                                                                    </h6><br>
-                                                                    <h8>수강인원 ${lecture.maxStudent}명</h8>
-                                                                    <br>
-                                                                    <h8>교재: ${lecture.bname}</h8>
-                                                                    <br>
-                                                                    <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
-                                                                    <c:if test="${lecture.state eq 'on'}">
-                                                                        <span>수업방식: 온라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'off'}">
-                                                                        <span>수업방식: 오프라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'close'}">
-                                                                        <span style="color: red; font-weight: bold;"> 폐강 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${not empty sid}">
-                                                                        <div class="d-flex justify-content-end">
-                                                                            <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
-                                                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
-                                                                                   class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                            <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
-                                                                                <a href="javascript:void(0);"
-                                                                                   data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay"
-                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                        </div>
-                                                                    </c:if>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <br>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:if test="${cnt eq 0}">
-                                                    <h5 style="margin: 20px auto"> 해당하는 강의가 없습니다. </h5>
-                                                </c:if>
-                                            </div>
-                                            <nav class="pagination justify-content-center mb-6" aria-label="pagination">
-                                                <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Previous</a>
-                                                </c:if>
-                                                <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Next page</a>
-                                                </c:if>
-                                                <ul class="pagination">
-                                                    <c:forEach var="i" begin="${page.blockStartNum}"
-                                                               end="${page.blockLastNum}">
-                                                        <c:choose>
-                                                            <c:when test="${i == curPage}">
-                                                                <li class="page-item active">
-                                                                    <span class="page-link"
-                                                                          aria-label="Page ${i}">${i}</span>
-                                                                </li>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <li class="page-item">
-                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                                       class="page-link" aria-label="Page ${i}">${i}</a>
-                                                                </li>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="china" role="tabpanel" aria-labelledby="china-tab">
-                            <div class="container mt-5">
-                                <ul class="list-group thumb_list_wrap">
-                                    <li class="list-group-item">
-                                        <div class="container">
-                                            <form id="searchChina" class="d-flex justify-content-end">
-                                                <div>
-                                                    <div class="col-auto">
-                                                        <input class="form-control" type="text" id="ch" name="ch"
-                                                               autocomplete="off" value="ch" hidden="hidden">
-                                                    </div>
-                                                    <select style="height: 36px;font-size: 16px" id="chinaType"
-                                                            name="chinaType" class="form-select">
-                                                        <option value="T">제목</option>
-                                                        <option value="C">내용</option>
-                                                        <option value="W">강사이름</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <input class="form-control" type="text" id="chinaKeyword"
-                                                           name="chinaKeyword" placeholder="검색어를 입력하세요"
-                                                           autocomplete="off" value="${page.keyword}">
-                                                </div>
-                                                <div>
-                                                    <input type="button" class="btn btn-primary" value="검색"
-                                                           onclick="searchChina()"/>
-                                                </div>
-                                            </form>
-                                            <br>
-                                            <div class="row">
-                                                <c:set var="cnt" value="0"/>
-                                                <c:forEach items="${lectureList}" var="lecture">
-                                                    <c:if test="${lecture.scode eq 'ch'}">
-                                                        <c:set var="cnt" value="${cnt += 1}"/>
-                                                        <div class="col-md-12 row">
-                                                            <div class="col-md-2 img" style="margin-bottom: 20px;">
-                                                                <img src="${pageContext.request.contextPath}/resources/upload/lecture/${lecture.saveFile}"
-                                                                     alt="사진"/>
-                                                            </div>
-                                                            <div class="col-md-10 cont_wrap">
-                                                                <div class="txt_area">
-                                                                    <h7 class="tit">강사: ${lecture.tname}</h7>
-                                                                    <h6 class="tit"><a
-                                                                            href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
-                                                                    </h6><br>
-                                                                    <h8>수강인원 ${lecture.maxStudent}명</h8>
-                                                                    <br>
-                                                                    <h8>교재: ${lecture.bname}</h8>
-                                                                    <br>
-                                                                    <span>접수기간 - ${lecture.sdate} ~ ${lecture.edate}</span><br>
-                                                                    <c:if test="${lecture.state eq 'on'}">
-                                                                        <span>수업방식: 온라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'off'}">
-                                                                        <span>수업방식: 오프라인 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${lecture.state eq 'close'}">
-                                                                        <span style="color: red; font-weight: bold;"> 폐강 </span>
-                                                                    </c:if>
-                                                                    <c:if test="${not empty sid}">
-                                                                        <div class="d-flex justify-content-end">
-                                                                            <c:if test="${(lecture.bcode eq null && lecture.state eq 'off') || (lecture.bcode ne null && lecture.state eq 'on') || (lecture.bcode eq null && lecture.state eq 'on') }">
-                                                                                <a href="${path}/lecture/register2?lcode=${lecture.lcode}"
-                                                                                   class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                            <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
-                                                                                <a href="javascript:void(0);"
-                                                                                   data-lcode="${lecture.lcode}, ${lecture.bcode}"
-                                                                                   id="pay"
-                                                                                   class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
-                                                                            </c:if>
-                                                                        </div>
-                                                                    </c:if>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <br>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:if test="${cnt eq 0}">
-                                                    <h5 style="margin: 20px auto"> 해당하는 강의가 없습니다. </h5>
-                                                </c:if>
-                                            </div>
-                                            <nav class="pagination justify-content-center mb-6" aria-label="pagination">
-                                                <c:if test="${curPage > 5}">
-                                                    <a href="${path}/lecture/list?page=${page.blockStartNum - 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Previous</a>
-                                                </c:if>
-                                                <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                                    <a href="${path}/lecture/list?page=${page.blockLastNum + 1}<c:if test="${!empty cate}">&cate=${cate}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                       class="btn btn-primary">Next page</a>
-                                                </c:if>
-                                                <ul class="pagination">
-                                                    <c:forEach var="i" begin="${page.blockStartNum}"
-                                                               end="${page.blockLastNum}">
-                                                        <c:choose>
-                                                            <c:when test="${i == curPage}">
-                                                                <li class="page-item active">
-                                                                    <span class="page-link"
-                                                                          aria-label="Page ${i}">${i}</span>
-                                                                </li>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <li class="page-item">
-                                                                    <a href="${path}/lecture/list?page=${i}<c:if test="${!empty curCategory}">&cate=${curCategory}</c:if><c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                                                       class="page-link" aria-label="Page ${i}">${i}</a>
-                                                                </li>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="registerPage" role="tabpanel" aria-labelledby="register-tab">
-
+                            </nav>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="registerPage" role="tabpanel" aria-labelledby="register-tab"></div>
                 </div>
             </div>
         </section>
-        <br>
-        <br>
         <section class="container mb-100">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
@@ -609,7 +195,8 @@
                         <c:forEach items="${lectureList2}" var="lecture" varStatus="status">
                             <tr class="table-row">
                                 <td id="row-${status.index}4">
-                                    <a id="row-${status.index}3" href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
+                                    <a id="row-${status.index}3"
+                                       href="${path}/lecture/detail?lcode=${lecture.lcode}">${lecture.lname}</a>
                                 </td>
                                 <td id="row-${status.index}">~${lecture.edate}</td>
                                 <td id="row-${status.index}2">
@@ -668,127 +255,86 @@
             </div>
         </section>
     </div>
-    <!-- //진행정보 -->
-    </div>
-    <!-- //모든강좌정보  -->
-    <!-- 모든강좌탭 -->
-
-    <!-- 테이블 영역 끝 -->
 </section>
-<!-- 로그인 끝 -->
+
 <!-- 푸터 시작 -->
 <jsp:include page="../layout/footer.jsp"/>
 <!-- 푸터 끝 -->
 </body>
 
 <script>
-    function searchByAjax() {
-        var scode = document.getElementById("scode").value;
-        var type = document.getElementById("type").value;
-        var keyword = document.getElementById("keyword").value;
-        var path = "${path}/lecture/wrPro";
-        var url = path + "?type=" + type + "&keyword=" + keyword + "&scode=" + scode;
-        $.ajax({
-            url: url,
-            type: "GET",
-            success: function (data) {
-                // 성공적으로 데이터를 서버로 전송했을 때 실행되는 콜백 함수
-                // 서버로부터 반환된 데이터를 처리할 수 있습니다.
-                console.log(data);
-                // 여기에서 반환된 데이터를 사용하여 필요한 작업을 수행합니다.
-                $("#writing").html(data)
-            },
-            error: function (error) {
-                // 데이터 전송 중에 오류가 발생했을 때 실행되는 콜백 함수
-                console.error("에러: " + error.responseText);
-            }
-        });
-    }
-</script>
-<script>
-    function searchMath() {
-        var scode = document.getElementById("ma").value;
-        var type = document.getElementById("mathType").value;
-        var keyword = document.getElementById("mathKeyword").value;
-        var path = "${path}/lecture/maPro";
-
-        var url = path + "?type=" + type + "&keyword=" + keyword + "&scode=" + scode;
-        $.ajax({
-            url: url,
-            type: "GET",
-            success: function (data) {
-                // 성공적으로 데이터를 서버로 전송했을 때 실행되는 콜백 함수
-                // 서버로부터 반환된 데이터를 처리할 수 있습니다.
-                console.log(data);
-                // 여기에서 반환된 데이터를 사용하여 필요한 작업을 수행합니다.
-                $("#math").html(data)
-            },
-            error: function (error) {
-                // 데이터 전송 중에 오류가 발생했을 때 실행되는 콜백 함수
-                console.error("에러: " + error.responseText);
-            }
-        });
-    }
-</script>
-<script>
-    function searchKorean() {
-        var scode = document.getElementById("ko").value;
-        var type = document.getElementById("koType").value;
-        var keyword = document.getElementById("koKeyword").value;
-        var path = "${path}/lecture/koPro";
-
-        var url = path + "?type=" + type + "&keyword=" + keyword + "&scode=" + scode;
-        $.ajax({
-            url: url,
-            type: "GET",
-            success: function (data) {
-                // 성공적으로 데이터를 서버로 전송했을 때 실행되는 콜백 함수
-                // 서버로부터 반환된 데이터를 처리할 수 있습니다.
-                console.log(data);
-                // 여기에서 반환된 데이터를 사용하여 필요한 작업을 수행합니다.
-                $("#korean").html(data)
-            },
-            error: function (error) {
-                // 데이터 전송 중에 오류가 발생했을 때 실행되는 콜백 함수
-                console.error("에러: " + error.responseText);
-            }
-        });
-    }
-</script>
-<script>
-    function searchChina() {
-        var scode = document.getElementById("ch").value;
-        var type = document.getElementById("chinaType").value;
-        var keyword = document.getElementById("chinaKeyword").value;
-        var path = "${path}/lecture/chPro";
-
-        var url = path + "?type=" + type + "&keyword=" + keyword + "&scode=" + scode;
-        $.ajax({
-            url: url,
-            type: "GET",
-            success: function (data) {
-                // 성공적으로 데이터를 서버로 전송했을 때 실행되는 콜백 함수
-                // 서버로부터 반환된 데이터를 처리할 수 있습니다.
-                console.log(data);
-                // 여기에서 반환된 데이터를 사용하여 필요한 작업을 수행합니다.
-                $("#china").html(data)
-            },
-            error: function (error) {
-                // 데이터 전송 중에 오류가 발생했을 때 실행되는 콜백 함수
-                console.error("에러: " + error.responseText);
-            }
-        });
-    }
-</script>
-<script>
     $(document).ready(function () {
-        // 초기 상단 여백 값을 저장합니다.
-        var initialMarginTop = 0;
-
         // 탭 클릭 이벤트를 처리
-        $(".nav-link").click(function () {
-            // 모든 탭 내용을 숨깁니다.
-            $(".tab-pane").removeClass("show active");
+        $(".nav-link").on("click", function () {
+            let scode = $(this).attr("id");
+            let type = $("#type").val();
+            let keyword = $("#keyword").val();
+            let data = {"scode": scode, "type": type, "keyword": keyword};
+            let html = "";
+            $.ajax({
+                url: "${path}/lecture/pagingList",
+                type: "GET",
+                data: data,
+                success: function (data) {
+                    // 강의 목록 출력하기
+                    $("#lectureList .lecture").remove();
+                    let lectureList = data.lectureList;
+                    let listHtml = '';
+                    for (let i = 0; i < lectureList.length; i++) {
+                        // 화면에 ajax로 가져온 데이터 출력하기
+                        listHtml += '<div class="col-md-12 row mt-1 p-3 lecture">' +
+                            '<div class="col-md-3 img"><img src="${path}/resources/upload/lecture/' + lectureList[i].saveFile + '" alt="강의 이미지"/></div>' +
+                            '<div class="col cont_wrap"><div class="txt_area"><h4 class="tit"><a href="${path}/lecture/detail?lcode=' + lectureList[i].lcode + '">' + lectureList[i].lname + '</a></h4><p><i class="fa-solid fa-user"></i> ' + lectureList[i].tname + ' 선생님 </p>' +
+                            '<span>수강인원:  ' + lectureList[i].maxStudent + '명</span><br><span>교&nbsp; &nbsp; &nbsp; &nbsp; 재: ' + lectureList[i].bname + '</span><br><span>접수기간: ' + lectureList[i].sdate + ' ~ ' + lectureList[i].edate + '</span><br>';
+                        if (lectureList[i].state == "on") {
+                            listHtml += '<span> 수업방식: 온라인 </span>';
+                        } else if (lectureList[i].state == "off") {
+                            listHtml += '<span> 수업방식: 오프라인 </span>';
+                        } else {
+                            listHtml += '<span style="color: red; font-weight: bold"> 폐강 </span>';
+                        }
+
+                        if (${not empty sid}) {
+                            listHtml += '<div class="d-flex justify-content-end">';
+                            if ((lectureList[i].bcode == null && lectureList[i].state == "off") || (lectureList[i].bcode != null && lectureList[i].state == "on") || (lectureList[i].bcode == null && lectureList[i].state == "on")) {
+                                listHtml += '<a href="${path}/lecture/register2?lcode=' + lectureList[i].lcode + '" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>';
+                            }
+                            if (lectureList[i].bcode != null && lectureList[i].state == "off") {
+                                listHtml += '<a href="javascript:void(0);" data-lcode="'+lectureList[i].lcode+', '+lectureList[i].bcode+'" id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>';
+                            }
+                        }
+                        listHtml += '</div></div></div></div>';
+                    }
+                    if (lectureList.length == 0) {
+                        listHtml = "<div class='col-md-12 pb-5 text-center lecture'><p class='mt-3 text-danger'> 해당하는 강의가 없습니다. </p></div>";
+                    }
+                    $("#lectureList").append(listHtml);
+
+                    // 기존 페이징 데이터 화면에서 삭제 후 새로운 데이터 출력
+                    $(".navigation .pagination").remove();
+                    let pageHtml = '<ul class="pagination" id="' + scode + '">';
+                    if (data.curPage > 5) {
+                        pageHtml += '<li class="page-item"><a class="page-link paging" id="' + (data.blockStartNum - 1) + '" data-value="' + scode + '"> << </a></li>';
+                    }
+                    for (let i = data.blockStartNum; i < data.blockLastNum + 1; i++) {
+                        if (data.curPage == i) {
+                            pageHtml += '<li class="page-item active">';
+                        } else {
+                            pageHtml += '<li class="page-item">';
+                        }
+                        pageHtml += '<a href="#" class="page-link paging" id="' + i + '" data-value="' + scode + '">' + i + '</a></li>';
+                    }
+                    if (data.blockLastNum < data.totalPageCount) {
+                        pageHtml += '<li class="page-item"><a class="page-link paging" id="' + (data.blockLastNum + 1) + '" data-value="' + scode + '"> >> </a></li>';
+                    }
+                    pageHtml += '</ul></nav>';
+
+                    $(".navigation").append(pageHtml);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
 
             // 클릭한 탭의 data-bs-target 속성 값을 가져와 해당 탭 내용을 보이게 합니다.
             var target = $(this).data("bs-target");
@@ -798,11 +344,209 @@
             $(".nav-link").removeClass("active");
             $(this).addClass("active");
 
+            return false;
+        });
+
+        // 페이징 이벤트 처리
+        $(document).on("click", ".paging", function () {
+            let scode = $(this).attr("data-value");
+            let type = $("#type").val();
+            let keyword = $("#keyword").val();
+
+            let data = {"page": $(this).attr("id"), "scode": scode, "type": type, "keyword": keyword};
+            let html = "";
+            $.ajax({
+                url: "${path}/lecture/pagingList",
+                type: "GET",
+                data: data,
+                success: function (data) {
+                    $("#lectureList .lecture").remove();
+
+                    let lectureList = data.lectureList;
+                    let listHtml = '';
+                    for (let i = 0; i < lectureList.length; i++) {
+                        // 화면에 ajax로 가져온 데이터 출력하기
+                        listHtml += '<div class="col-md-12 row mt-1 p-3 lecture">' +
+                            '<div class="col-md-3 img"><img src="${path}/resources/upload/lecture/' + lectureList[i].saveFile + '" alt="강의 이미지"/></div>' +
+                            '<div class="col cont_wrap"><div class="txt_area"><h4 class="tit"><a href="${path}/lecture/detail?lcode=' + lectureList[i].lcode + '">' + lectureList[i].lname + '</a></h4><p><i class="fa-solid fa-user"></i> ' + lectureList[i].tname + '선생님 </p>' +
+                            '<span>수강인원:  ' + lectureList[i].maxStudent + '명</span><br><span>교&nbsp; &nbsp; &nbsp; &nbsp; 재: ' + lectureList[i].bname + '</span><br><span>접수기간: ' + lectureList[i].sdate + ' ~ ' + lectureList[i].edate + '</span><br>';
+                        if (lectureList[i].state == "on") {
+                            listHtml += '<span> 수업방식: 온라인 </span>';
+                        } else if (lectureList[i].state == "off") {
+                            listHtml += '<span> 수업방식: 오프라인 </span>';
+                        } else {
+                            listHtml += '<span style="color: red; font-weight: bold"> 폐강 </span>';
+                        }
+
+                        if (${not empty sid}) {
+                            listHtml += '<div class="d-flex justify-content-end">';
+                            if ((lectureList[i].bcode == null && lectureList[i].state == "off") || (lectureList[i].bcode != null && lectureList[i].state == "on") || (lectureList[i].bcode == null && lectureList[i].state == "on")) {
+                                listHtml += '<a href="${path}/lecture/register2?lcode=' + lectureList[i].lcode + '" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>';
+                            }
+                            if (lectureList[i].bcode != null && lectureList[i].state == "off") {
+                                listHtml += '<a href="javascript:void(0);" data-lcode="'+lectureList[i].lcode+', '+lectureList[i].bcode+'" id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>';
+                            }
+                        }
+                        listHtml += '</div></div></div></div>';
+                    }
+                    if (lectureList.length == 0) {
+                        listHtml = "<div class='col-md-12 pb-5 text-center lecture'><p class='mt-3 text-danger'> 해당하는 강의가 없습니다. </p></div>";
+                    }
+                    $("#lectureList").append(listHtml);
+
+                    // 기존 페이징 데이터 화면에서 삭제 후 새로운 데이터 출력
+                    $(".navigation .pagination").remove();
+                    let pageHtml = '<ul class="pagination">';
+                    if (data.curPage > 5) {
+                        pageHtml += '<li class="page-item"><a class="page-link paging" id="' + (data.blockStartNum - 1) + '" data-value="' + scode + '"> << </a></li>';
+                    }
+                    for (let i = data.blockStartNum; i < data.blockLastNum + 1; i++) {
+                        if (data.curPage == i) {
+                            pageHtml += '<li class="page-item active">';
+                        } else {
+                            pageHtml += '<li class="page-item">';
+                        }
+                        pageHtml += '<a href="#" class="page-link paging" id="' + i + '" data-value="' + scode + '">' + i + '</a></li>';
+                    }
+                    if (data.blockLastNum < data.totalPageCount) {
+                        pageHtml += '<li class="page-item"><a href="#" class="page-link paging" id="${page.blockLastNum + 1}" data-value="' + scode + '"> >> </a></li>';
+                    }
+                    pageHtml += '</ul>';
+
+                    $(".navigation").append(pageHtml);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+            return false;
+        });
+
+        // 검색 버튼 클릭 시 처리
+        $("#project-search-addon").on("click", function () {
+            let scode = ($(".nav-link.show.active").attr("id") == undefined || $(".nav-link.show.active").attr("id") == "undefined") ? "" : $(".nav-link.show.active").attr("id");
+            let type = $("#type").val();
+            let keyword = $("#keyword").val();
+
+            let data = {"scode": scode, "type": type, "keyword": keyword};
+            let listHtml = "";
+            $.ajax({
+                url: "${path}/lecture/pagingList",
+                type: "GET",
+                data: data,
+                success: function (data) {
+                    $("#lectureList .lecture").remove();
+
+                    let lectureList = data.lectureList;
+                    let listHtml = '';
+                    for (let i = 0; i < lectureList.length; i++) {
+                        // 화면에 ajax로 가져온 데이터 출력하기
+                        listHtml += '<div class="col-md-12 row mt-1 p-3 lecture">' +
+                            '<div class="col-md-3 img"><img src="${path}/resources/upload/lecture/' + lectureList[i].saveFile + '" alt="강의 이미지"/></div>' +
+                            '<div class="col cont_wrap"><div class="txt_area"><h4 class="tit"><a href="${path}/lecture/detail?lcode=' + lectureList[i].lcode + '">' + lectureList[i].lname + '</a></h4><p><i class="fa-solid fa-user"></i> ' + lectureList[i].tname + ' 선생님 <p>' +
+                            '<span>수강인원:  ' + lectureList[i].maxStudent + '명</span><br><span>교&nbsp; &nbsp; &nbsp; &nbsp; 재: ' + lectureList[i].bname + '</span><br><span>접수기간: ' + lectureList[i].sdate + ' ~ ' + lectureList[i].edate + '</span><br>';
+                        if (lectureList[i].state == "on") {
+                            listHtml += '<span> 수업방식: 온라인 </span>';
+                        } else if (lectureList[i].state == "off") {
+                            listHtml += '<span> 수업방식: 오프라인 </span>';
+                        } else {
+                            listHtml += '<span style="color: red; font-weight: bold"> 폐강 </span>';
+                        }
+
+                        if (${not empty sid}) {
+                            listHtml += '<div class="d-flex justify-content-end">';
+                            if ((lectureList[i].bcode == null && lectureList[i].state == "off") || (lectureList[i].bcode != null && lectureList[i].state == "on") || (lectureList[i].bcode == null && lectureList[i].state == "on")) {
+                                listHtml += '<a href="${path}/lecture/register2?lcode=' + lectureList[i].lcode + '" class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>';
+                            }
+                            if (lectureList[i].bcode != null && lectureList[i].state == "off") {
+                                listHtml += '<a href="javascript:void(0);" data-lcode="'+lectureList[i].lcode+', '+lectureList[i].bcode+'" id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>';
+                            }
+                        }
+                        listHtml += '</div></div></div></div>';
+                    }
+                    if (lectureList.length == 0) {
+                        listHtml = "<div class='col-md-12 pb-5 text-center lecture'><p class='mt-3 text-danger'> 해당하는 강의가 없습니다. </p></div>";
+                    }
+                    $("#lectureList").append(listHtml);
+
+                    // 기존 페이징 데이터 화면에서 삭제 후 새로운 데이터 출력
+                    $(".navigation .pagination").remove();
+                    let pageHtml = '<ul class="pagination">';
+                    if (data.curPage > 5) {
+                        pageHtml += '<li class="page-item"><a class="page-link paging" id="' + (data.blockStartNum - 1) + '" data-value="' + scode + '"> << </a></li>';
+                    }
+                    for (let i = data.blockStartNum; i < data.blockLastNum + 1; i++) {
+                        if (data.curPage == i) {
+                            pageHtml += '<li class="page-item active">';
+                        } else {
+                            pageHtml += '<li class="page-item">';
+                        }
+                        pageHtml += '<a href="#" class="page-link paging" id="' + i + '" data-value="' + scode + '">' + i + '</a></li>';
+                    }
+                    if (data.blockLastNum < data.totalPageCount) {
+                        pageHtml += '<li class="page-item"><a href="#" class="page-link paging" id="${page.blockLastNum + 1}" data-value="' + scode + '"> >> </a></li>';
+                    }
+                    pageHtml += '</ul>';
+
+                    $(".navigation").append(pageHtml);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+            return false;
+        });
+
+        // 오프라인 강의 중복신청 방지 코드
+        $(document).on("click", ".pay-button", function () {
+            var lcodeAndBcode = $(this).data("lcode").split(", ");
+            var lcode = lcodeAndBcode[0];
+            var bcode = lcodeAndBcode[1];
+
+            $.ajax({
+                type: "GET",
+                url: "${path}/payment/check?lcode=" + lcode,
+                success: function (data) {
+                    if (data.loginRequired) {
+                        // 로그인이 필요한 경우 로그인 페이지로 리다이렉트
+                        alert("로그인이 필요합니다.");
+                        window.location.href = "${path}/user/login";
+                    } else if (data.duplicate === false) {
+                        // 이미 등록된 경우 알림 메시지를 표시
+                        alert("이 강의에 이미 등록되었습니다.");
+                    } else {
+                        // 중복 신청이 아닌 경우 수강신청 요청을 보냅니다.
+                        $.ajax({
+                            type: "GET",
+                            url: "${path}/payment/pay?lcode=" + lcode + "&bcode=" + bcode,
+                            success: function (data) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode,
+                                    success: function (registerData) {
+                                        window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
+                                        console.log("payment 실행 완료");
+                                    },
+                                    error: function (registerError) {
+                                        console.log("에러다에러" + registerError.responseText);
+                                    }
+                                });
+                            },
+                            error: function (error) {
+                                console.log("에러다에러" + error.responseText);
+                            }
+                        });
+                    }
+                },
+                error: function (duplicateError) {
+                    console.log("중복 신청 확인 중 에러: " + duplicateError.responseText);
+                }
+            });
         });
     });
 </script>
 
-
+<!-- 네온사인 적용 -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const firstRow = document.getElementById('row-05'); // 첫 번째 데이터 행을 선택합니다.
@@ -845,6 +589,7 @@
     });
 </script>
 
+<!-- 네온사인 적용 -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const firstRow = document.getElementById('row-0'); // 첫 번째 데이터 행을 선택합니다.
@@ -887,77 +632,5 @@
     });
 </script>
 
-<script>
-    function registerPage() {
-        var lcode = $("#lcode").val();
-        $.ajax({
-            type: "GET",  // GET 요청 또는 POST 요청을 선택할 수 있습니다.
-            url: "${path}/lecture/register?lcode=" + lcode,  // 실제 API 엔드포인트로 변경해야 합니다.
-            success: function (data) {
-                $(" #korean,#math, #writing, #china").removeClass("show active");
-                $(" #korean-tab ,#math-tab, #writing-tab, #china-tab").removeClass("active");
-                $("#registerPage").html(data);
-                $("#registerPage").addClass("show active");
-            },
-            error: function (error) {
-                console.log("에러다에러" + error.responseText)
-            }
-        });
-    }
-</script>
-<script>
-    $(document).ready(function () {
-        $(".pay-button").click(function () {
-            var lcodeAndBcode = $(this).data("lcode").split(", ");
-            var lcode = lcodeAndBcode[0];
-            var bcode = lcodeAndBcode[1];
-
-            $.ajax({
-                type: "GET",
-                url: "${path}/payment/check?lcode=" + lcode,
-                success: function (data) {
-                    if (data.duplicate === 'false') {
-                        // 이미 등록된 경우 알림 메시지를 표시
-                        alert("이 강의에 이미 등록되었습니다.");
-                    } else if (data.loginRequired) {
-                        // 로그인이 필요한 경우 로그인 페이지로 리다이렉트
-                        alert("로그인이 필요합니다.");
-                        window.location.href = "${path}/user/login";
-                    } else {
-                        // 중복 신청이 아닌 경우 수강신청 요청을 보냅니다.
-                        $.ajax({
-                            type: "GET",
-                            url: "${path}/payment/pay?lcode=" + lcode + "&bcode=" + bcode,
-                            success: function (data) {
-                                $.ajax({
-                                    type: "GET",
-                                    url: "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode,
-                                    success: function (registerData) {
-                                        window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
-                                        console.log("payment 실행 완료");
-                                    },
-                                    error: function (registerError) {
-                                        console.log("에러다에러" + registerError.responseText);
-                                    }
-                                });
-                            },
-                            error: function (error) {
-                                console.log("에러다에러" + error.responseText);
-                            }
-                        });
-                    }
-                },
-                error: function (duplicateError) {
-                    console.log("중복 신청 확인 중 에러: " + duplicateError.responseText);
-                }
-            });
-        });
-    });
-
-</script>
-
-
 </body>
-
-
 </html>
