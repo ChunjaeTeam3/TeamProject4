@@ -6,7 +6,7 @@
 "해법(Haebeop)" 이라는 온라인/오프라인 강의 및 커뮤니티 사이트입니다.
 <br><br>
 
-<p align="center"><img alt="member" src="https://github.com/ChunjaeTeam3/TeamProject4/assets/80402477/0eb61d85-b362-442c-aa59-6a7194edd67f"></p>
+<p align="center"><img alt="list" src="https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/f0f44545-ee7b-4de9-b5bb-d33325165f40"></p>
 <br>
 
 ## 🕰️ 개발 기간
@@ -263,3 +263,144 @@
 ## 🗂 메인 페이지
 - 사이드바
   <br>
+  ![index](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/f8dc4788-c363-4595-8c6b-e23227f9fb54)
+  <br><br>
+
+## 🗂 회원 기능
+### 1. 로그인
+- DB값 검증
+- 로그인 시 쿠키(Cookie) 및 세션(Session) 생성
+- 로그아웃
+- 아이디 저장
+  <br>
+  ![로그인](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/1ba4338e-2512-4984-9eea-cea8895e3f25)
+
+### 2. 회원가입
+- 주소 API 연동
+- ID 중복 체크
+- 비밀번호 유효성 검사
+  <br>
+  ![회원가입](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/40956f53-dac6-44d1-ab9a-b23c0572c011)
+  <br>
+
+<br><br>
+### 🗂 강의
+### 1. 비로그인 및 회원 로그인 시
+- 강의 목록(온라인/오프라인)
+- 강의 상세보기 (ajax 이용하여 강의소개, 목차, 질문게시판, 수강후기 확인)
+### 2. 회원 로그인 시
+- 수강신청 기능구현
+- 수강인원 초과시 수강신청 제한
+- 이미 신청한 회원 중복신청 방지 기능 구현
+- 질문게시판 CRUD
+- 수강신청 후 수강후기 작성 및 별점 주기 가능하도록 구현    
+### 3. 결제
+- 온라인 강의 포인트로 결제하도록 기능 구현
+- 오프라인 강의 결제API 연결하여 결제
+- 회원 로그인시 마이페이지에서 주문취소/배송조회 가능
+  <br>
+
+<br><br>
+## 🗂 자료실
+- CRUD
+- 관리자: 자료실 등록[다수의 파일 첨부 가능], 자료실 글[파일 포함] 수정, 자료실 글 삭제 가능
+- 회원: 자료실 글 상세 보기만 가능
+  <br>
+  ![자료실](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/1520a19c-6bae-43ae-9099-a9230839d38b)
+  <br>
+
+<br><br>
+## 🗂 뉴스
+- 뉴스 크롤링 기능 구현
+- 뉴스 클릭시 해당 뉴스 링크로 이동
+  <br>
+  ![교육뉴스](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/c804d073-353b-4487-b10b-fc9085f4fe69)
+  <br>
+
+<br><br>
+## 🗂 이벤트
+### 1. 이벤트 관리
+- CRUD
+- 관리자: 이벤트 등록[파일 첨부], 이벤트 글 수정, 이벤트 글 삭제
+- 회원: 이벤트 글 상세보기만 가능
+  <br>
+  ![이벤트(관리자)](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/5cdad5b4-6f1c-4d4a-a84e-cf0cb88eaa73)
+
+### 2. 이벤트 신청
+- 한번 신청한 회원 중복 신청 방지 구현
+- 한 회원이 여러 이벤트 신청 가능하도록 구현
+- 비로그인시 이벤트 신청 버튼 안보이도록 구현
+  <br>
+  ![이벤트(회원)](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/56ca3bcb-0f9c-4a20-804d-ebc1b1779293)
+
+<br><br>
+## 🗂 이벤트 당첨
+### 1. 이벤트 신청자 목록
+- 관리자 : 이벤트 신청자 목록 확인
+- 추첨하기 링크로 이동
+### 2. 이벤트 당첨
+- 랜덤으로 원하는 당첨자수 선정하도록 구현
+- 추첨 후 당첨자 발표글에 당첨자 익명 처리 구현
+  <br>
+  ![이벤트당첨](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/3ce28f8d-ddb5-4c43-87ca-c34248eeed5e)
+
+
+<br><br>
+## 🗂 출석체크
+- 비로그인 시 로그인 페이지로 이동
+- 출석체크 클릭 시 달력의 오늘 날짜에 스타일 변경 및 포인트 획득 창 출력
+- 출석체크 시 10부터 100까지 10단위의 랜덤한 숫자의 포인트 획득 가능
+- 출석체크 데이터와 추가된 포인트 데이터를 DB에 INSERT
+  <br>
+  ![출석체크](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/8a434fad-054a-4fe7-912d-aee4fdced37e)
+
+
+<br><br>
+## 🗂 커뮤니티
+### 1. 커뮤니티
+- 커뮤니티 게시글 작성, 읽기, 수정, 삭제 구현
+- ckEditor를 활용하여 HTML 태그를 저장함으로써 게시글 내용을 자유롭게 작성 가능
+- Page util 생성하여 페이징 기능 구현
+- 커뮤니티의 카테고리 동적 구현
+### 2. 댓글
+- 댓글 작성, 삭제 구현
+- 댓글 페이징 처리
+- 비로그인시 댓글 작성 폼 비활성화
+- 게시글 작성자와 관리자만 게시글 수정, 삭제 가능
+  <br>
+  ![커뮤니티](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/6b93c946-eb14-44a0-99f3-92684e094e2b)
+
+<br><br>
+## 🗂 FAQ
+- FAQ 글 목록 화면 및 기능 구현
+  <br>
+  ![faq](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/9e9072e0-bb10-4ab3-ba4e-ace1f85f9f02)
+
+<br><br>
+## 🗂 공지사항
+- 관리자만 공지사항 글 쓰기, 수정, 삭제 가능하도록 구현
+- 회원은 공지사항 글 상세 보기만 가능하도록 구현
+  <br>
+  ![공지사항](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/5ea4da16-88e0-4f86-982b-57d007ed6e23)
+
+<br><br>
+## 🗂 Q & A
+### 1. 비로그인 및 회원 로그인 시
+- 비로그인 시 Q & A 목록만 확인 가능하도록 구현
+- 회원 로그인 시 질문글만 작성 가능
+- 질문글을 작성한 사용자만 글 수정, 삭제 가능
+  <br>
+  ![qna(회원)](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/7b640d55-847b-4b76-8d60-8ac73e9f0816)
+
+### 2. 관리자 로그인 시
+- 관리자 로그인 시 전체 게시글 CRUD 가능하도록 구현
+- 관리자 페이지에서 미답변 질문 글 목록을 확인 후 바로 답변할 수 있도록 구현
+  <br>
+  ![qna(관리자)](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/f7c03c58-73e9-41dd-a12e-d1c1a507dc84)
+
+
+<br><br>
+## 🗂 마이페이지
+  
+<br><br>
+## 🗂 관리페이지
