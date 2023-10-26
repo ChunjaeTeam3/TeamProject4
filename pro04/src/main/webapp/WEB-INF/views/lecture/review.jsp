@@ -111,7 +111,7 @@
 <script>
     $(document).ready(() => {
         // Ajax를 사용하여 리뷰 목록 정렬
-        $("#type").change(() => {
+        $(document).on("change", "#type", () => {
             let data = {"type": $("#type").val(), "lcode": "${lecture.lcode}"};
             $.ajax({
                 url: "${path}/lecture/changeReview",

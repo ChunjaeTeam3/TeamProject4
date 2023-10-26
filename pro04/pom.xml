@@ -5,7 +5,7 @@
   <artifactId>team34</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>pro04 Maven Webapp</name>
+  <name>team34 Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
     <java-version>17</java-version>
@@ -330,7 +330,7 @@
   </dependencies>
 
   <build>
-    <finalName>pro04</finalName>
+    <finalName>team34</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>
