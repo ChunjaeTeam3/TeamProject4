@@ -69,7 +69,7 @@
                         <td class="text-black font-weight-bold" style="color: red;"><strong> ${lecture.lprice} 포인트 </strong></td>
                     </tr>
                 </c:if>
-                <c:if test="${lecture.lprice lt user.pt}">
+                <c:if test="${lecture.lprice le user.pt}">
                     <tr class="table-primary">
                         <td class="text-black font-weight-bold"><strong> 총 금액 </strong></td>
                         <td class="text-black font-weight-bold"><strong> ${lecture.lprice} 포인트 </strong></td>
@@ -78,7 +78,7 @@
                 </tbody>
             </table>
             <div class="form-group mt-15">
-                <c:if test="${lecture.lprice lt user.pt}">
+                <c:if test="${lecture.lprice le user.pt}">
                     <button class="btn btn-outline-dark btn-lg py-3 btn-block" onclick="window.location='${path}/lecture/registerInsert2?lcode=${lecture.lcode}'"> 수강신청하기 </button>
                 </c:if>
                 <c:if test="${lecture.lprice gt user.pt}">

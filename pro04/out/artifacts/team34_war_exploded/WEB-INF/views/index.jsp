@@ -127,13 +127,9 @@
 <!-- ##### Popular Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100" id="popular">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading style-2">
-                    <p> 수강생들이 추천하는 </p>
-                    <h2> 인기 강의 </h2>
-                </div>
-            </div>
+        <div class="section-heading style-2">
+            <p> 수강생들이 추천하는 </p>
+            <h2> 인기 강의 </h2>
         </div>
         <div class="row">
             <div class="col-12">
@@ -145,7 +141,7 @@
                                 <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                                     <h5>${lecture.lname}</h5>
                                 </a>
-                                <p>${lecture.tname}</p>
+                                <p>${lecture.tname} 선생님</p>
                             </div>
                         </div>
                     </c:forEach>
@@ -159,13 +155,9 @@
 <!-- ##### Offline Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100 mt-50 mb-50 bg-gray wow fadeInUp" id="offline">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading style-2">
-                    <p> 실시간 대면을 통한 최고의 학습 경험 </p>
-                    <h2> 오프라인 강의 </h2>
-                </div>
-            </div>
+        <div class="section-heading style-2">
+            <p> 실시간 대면을 통한 최고의 학습 경험 </p>
+            <h2> 오프라인 강의 </h2>
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${offLectures}">
@@ -173,7 +165,7 @@
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <img src="${path}/resources/upload/lecture/${lecture.saveFile}" alt="${lecture.lname} 커버 이미지">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
-                        <p class="text-center">${lecture.tname}</p>
+                        <p class="text-center">${lecture.tname} 선생님</p>
                     </a>
                 </div>
             </c:forEach>
@@ -185,13 +177,9 @@
 <!-- ##### Online Lecture Area Start ##### -->
 <section class="latest-albums-area section-padding-100 mt-50 mb-50 wow fadeInUp" id="online">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading style-2">
-                    <p> 언제 어디서든 해법과 함께 </p>
-                    <h2> 온라인 강의 </h2>
-                </div>
-            </div>
+        <div class="section-heading style-2">
+            <p> 언제 어디서든 해법과 함께 </p>
+            <h2> 온라인 강의 </h2>
         </div>
         <div class="row">
             <c:forEach var="lecture" items="${onLectures}">
@@ -200,7 +188,7 @@
                     <a href="${path}/lecture/detail?lcode=${lecture.lcode}">
                         <h5 class="mt-4 text-center">${lecture.lname}</h5>
                     </a>
-                    <p class="text-center">${lecture.tname}</p>
+                    <p class="text-center">${lecture.tname} 선생님</p>
                 </div>
             </c:forEach>
         </div>
@@ -210,19 +198,15 @@
 
 <!-- ##### Review Area Start ##### -->
 <section class="latest-albums-area mt-50 bg-gray wow fadeInUp" style="padding: 150px 0px;" id="reviews">
-    <div class="row w-100">
-        <div class="col-12">
-            <div class="section-heading style-2">
-                <p> 다른 수강생들이 들려주는 </p>
-                <h2> 수강평 </h2>
-            </div>
-        </div>
+    <div class="section-heading style-2">
+        <p> 다른 수강생들이 들려주는 </p>
+        <h2> 수강평 </h2>
     </div>
     <div id="carouselExampleIndicators" class="carousel slide container" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <c:forEach var="idx" begin="1" end="${fn:length(reviews)}">
+                <li class="carousel-list" data-target="#carouselExampleIndicators" data-slide-to="${idx}"></li>
+            </c:forEach>
         </ol>
         <div class="carousel-inner">
             <c:forEach var="review" items="${reviews}">
@@ -236,7 +220,7 @@
                             <div class="col">
                                 <h3 class="reviewLectureName"> ${review.lname} </h3>
                                 <p class="text-dark"> ${review.content} </p>
-                                <p> ${review.id} </p>
+                                <p> ${review.id} 님 </p>
                             </div>
                         </div>
                     </div>
@@ -244,7 +228,8 @@
             </c:forEach>
             <script>
                 $(document).ready(() => {
-                    $(".carousel-item:eq(1)").addClass("active");
+                    $(".carousel-item:eq(0)").addClass("active");
+                    $(".carousel-list:eq(0)").addClass("active");
                 });
             </script>
         </div>
@@ -257,6 +242,9 @@
             <span class="sr-only">Next</span>
         </button>
     </div>
+    <c:if test="${empty reviews}">
+        <p class="text-center"> 등록된 수강평이 없습니다. </p>
+    </c:if>
 </section>
 <!-- ##### Review Area End ##### -->
 
@@ -308,36 +296,6 @@
             map: map
         });
     </script>
-
-<%--    <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/v3.js"></script>--%>
-<%--    <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.js"></script>--%>
-<%--    <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U0301/cssjs/JSON-js/fc535e9cc8/json2.min.js"></script>--%>
-<%--    <script>--%>
-<%--        var mapContainer = document.getElementById('map'), // 지도를 표시할 div--%>
-<%--            mapOption = {--%>
-<%--                center: new daum.maps.LatLng(37.4786713,126.8864968), // 지도의 중심좌표--%>
-<%--                level: 2, // 지도의 확대 레벨--%>
-<%--                draggable: false--%>
-<%--            };--%>
-<%--        var map = new daum.maps.Map(mapContainer, mapOption);--%>
-<%--        // 마커가 표시될 위치입니다--%>
-<%--        var markerPosition  = new daum.maps.LatLng(37.4786713,126.8864968);--%>
-<%--        // 마커를 생성합니다--%>
-<%--        var marker = new daum.maps.Marker({--%>
-<%--            position: markerPosition--%>
-<%--        });--%>
-<%--        // 마커가 지도 위에 표시되도록 설정합니다--%>
-<%--        marker.setMap(map);--%>
-<%--        var iwContent = '<div style="padding:5px;">마리오아울렛 2관</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다--%>
-<%--            iwPosition = new daum.maps.LatLng(37.4786713,126.8864968); //인포윈도우 표시 위치입니다--%>
-<%--        // 인포윈도우를 생성합니다--%>
-<%--        var infowindow = new daum.maps.InfoWindow({--%>
-<%--            position : iwPosition,--%>
-<%--            content : iwContent--%>
-<%--        });--%>
-<%--        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다--%>
-<%--        infowindow.open(map, marker);--%>
-<%--    </script>--%>
 </section>
 <!-- ##### Location Area Start ##### -->
 
@@ -345,6 +303,19 @@
 <section class="mt-100 pt-5">
     <img src="${path}/resources/img/mainBanner.jpg" alt="메인페이지 하단 배너" style="width: 100%; height: auto;">
 </section>
+
+<!-- ##### Chat ##### -->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/6538c67ef2439e1631e82d27/1hdisent5';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
 
 <jsp:include page="./layout/footer.jsp"/>
 </body>

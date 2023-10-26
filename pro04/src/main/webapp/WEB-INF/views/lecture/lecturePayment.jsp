@@ -270,7 +270,7 @@
                     if (pointValue === "") {
                         pointValue = "0";
                     }
-                    pointValue = partInt(pointValue);
+                    pointValue = parseInt(pointValue);
 
                     if (!isNaN(pointValue) && pointValue >= 0) {
                         var orPrice = parseInt($("#bprice").text());
@@ -350,6 +350,7 @@
 </div>
 <!-- section2(payment & payInfo) End -->
 
+<jsp:include page="../layout/footer.jsp" />
 <!-- userPaymentDetail End -->
 </body>
 </html>

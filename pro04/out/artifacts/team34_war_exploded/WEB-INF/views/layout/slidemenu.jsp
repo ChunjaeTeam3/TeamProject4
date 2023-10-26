@@ -18,12 +18,12 @@
         position: absolute;
         width: 150px;
         top: 50%;
-        margin-top: -50px;
+        margin-top: -165px;
         right: 10px;
         background: #fff;
         border-radius: 20px;
         border: 1px solid #333333;
-        z-index: 150;
+        z-index: 5;
     }
 
     .menu ul {

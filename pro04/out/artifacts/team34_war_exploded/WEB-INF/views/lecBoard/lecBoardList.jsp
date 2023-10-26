@@ -107,16 +107,19 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li  class="page-item">
-                                            <a href="${path}/lecBoard/list?page=${i}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                               class="page-link" aria-label="Page ${i}" aria-current="page">${i}</a>
+                                            <a href="javascript:void(0);" class="page-link paging" aria-label="Page ${i}" aria-current="page">${i}</a>
+                                            <input value="${i}" id="curPage1" hidden="hidden">
+                                            <input value="${page.keyword}" id="keyword" hidden="hidden">
+                                            <input value="${page.type}" id="type2" hidden="hidden">
+                                            <input value="${lecture.lcode}" id="lcode2" hidden="hidden">
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                             <c:if test="${page.blockLastNum < page.totalPageCount}">
                                 <li class="page-item">
-                                    <a href="${path}/lecBoard/list?page=${page.blockLastNum + 1}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>"
-                                       class="page-link"><i class="fa-solid fa-arrow-right"></i></a>
+
+                                    <a <%--href="${path}/lecBoard/list?page=${page.blockLastNum + 1}<c:if test="${!empty page.keyword}">&type=${page.type}&keyword=${page.keyword}</c:if>" --%>class="page-link"><i class="fa-solid fa-arrow-right"></i></a>
                                 </li>
                             </c:if>
                         </ul>
@@ -178,4 +181,34 @@
                 }
             });
         });
+</script>
+
+<script>
+    $('.paging').click(function (e) {
+        e.preventDefault(); // 기본 클릭 이벤트 방지
+
+        var keyword = document.getElementById("keyword").value;
+        var type = document.getElementById("type2").value;
+        var page = parseInt(document.getElementById("curPage1").value);
+        var lcode = $("#lcode2").val();
+        let params = {"keyword" : keyword, "page" : page, "type" : type, "lcode" : lcode};
+        // Ajax 요청 보내기
+        $.ajax({
+            type: 'GET',
+            url: '${path}/lecBoard/list',
+            data: params,
+            success: function (data) {
+                // Ajax 요청이 성공했을 때 수행할 작업
+                // data 변수에 서버에서 반환한 데이터가 포함됩니다.
+                $("#board").html(data);
+                //originalContent = $("#board").html();
+                console.log(data);
+            },
+            error: function (error) {
+                // Ajax 요청이 실패했을 때 수행할 작업
+                console.log("에러다에러"+error.responseText)
+                console.log(params)
+            }
+        });
+    });
 </script>

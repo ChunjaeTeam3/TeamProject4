@@ -18,7 +18,7 @@
         position: absolute;
         width: 150px;
         top: 50%;
-        margin-top: -50px;
+        margin-top: -165px;
         right: 10px;
         background: #fff;
         border-radius: 20px;

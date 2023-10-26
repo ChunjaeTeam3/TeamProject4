@@ -50,8 +50,10 @@
             left: 50%; /* 화면 왼쪽에서 50% 위치로 이동 */
             transform: translate(-50%, -50%); /* 모달을 가운데로 이동 */
         }
-
     </style>
+    <c:if test="${not empty msg}">
+        <script> alert("${msg}"); </script>
+    </c:if>
 </head>
 <body>
 <!-- 헤더 시작 -->
@@ -96,7 +98,7 @@
                                        class="btn btn-primary btn_L_col2 register"><span>수강신청</span></a>
                                 </c:if>
                                 <c:if test="${lecture.bcode ne null && lecture.state eq 'off'}">
-                                    <a href="javascript:void(0);"
+                                    <a href="${path}/payment/payment?lcode=${lecture.lcode}&bcode=${lecture.bcode}"
                                        data-lcode="${lecture.lcode}, ${lecture.bcode}"
                                        id="pay" class="btn btn-primary btn_L_col2 register pay-button"><span>수강신청</span></a>
                                 </c:if>
@@ -164,8 +166,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
                             <div class="content mt-30 pb-5">
                                 <ul class="course_list">
@@ -194,46 +194,6 @@
                                         <p class="text-center"> 등록된 커리큘럼이 없습니다. </p>
                                     </c:if>
                                 </ul>
-
-                                <!-- pagination -->
-                                <nav aria-label="Page navigation example" class="mt-25 mb-30">
-                                    <ul class="pagination justify-content-center">
-                                        <c:if test="${curPage > 5}">
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="${path}/lecture/detail?page=${page.blockStartNum - 1}"
-                                                   aria-label="Previous">
-                                                    <span aria-hidden="true"><<</span>
-                                                </a>
-                                            </li>
-                                        </c:if>
-                                        <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
-                                            <c:choose>
-                                                <c:when test="${i == curPage}">
-                                                    <li class="page-item active" aria-current="page">
-                                                        <a class="page-link"
-                                                           href="${path}/lecture/detail?page=${i}">${i}</a>
-                                                    </li>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <li class="page-item">
-                                                        <a class="page-link"
-                                                           href="${path}/lecture/detail?page=${i}">${i}</a>
-                                                    </li>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                        <c:if test="${page.blockLastNum < page.totalPageCount}">
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="${path}/lecture/detail?page=${page.blockLastNum + 1}"
-                                                   aria-label="Next">
-                                                    <span aria-hidden="true">>></span>
-                                                </a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                </nav>
                             </div>
                         </div>
 
@@ -412,55 +372,4 @@
         obwindow.moveTo(intXOffset, intYOffset);
     }
 </script>
-<script>
-    $(document).ready(function () {
-        $(".pay-button").click(function () {
-            var lcodeAndBcode = $(this).data("lcode").split(", ");
-            var lcode = lcodeAndBcode[0];
-            var bcode = lcodeAndBcode[1];
-
-            $.ajax({
-                type: "GET",
-                url: "${path}/payment/check?lcode=" + lcode,
-                success: function (data) {
-                    if (data.loginRequired) {
-                        // 로그인이 필요한 경우 로그인 페이지로 리다이렉트
-                        alert("로그인이 필요합니다.");
-                        window.location.href = "${path}/user/login";
-                    } else if (data.duplicate === false) {
-                        // 이미 등록된 경우 알림 메시지를 표시
-                        alert("이 강의에 이미 등록되었습니다.");
-                    } else {
-                        // 중복 신청이 아닌 경우 수강신청 요청을 보냅니다.
-                        $.ajax({
-                            type: "GET",
-                            url: "${path}/payment/pay?lcode=" + lcode + "&bcode=" + bcode,
-                            success: function (data) {
-                                $.ajax({
-                                    type: "GET",
-                                    url: "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode,
-                                    success: function (registerData) {
-                                        window.location.href = "${path}/payment/payment?lcode=" + lcode + "&bcode=" + bcode;
-                                        console.log("payment 실행 완료");
-                                    },
-                                    error: function (registerError) {
-                                        console.log("에러다에러" + registerError.responseText);
-                                    }
-                                });
-                            },
-                            error: function (error) {
-                                console.log("에러다에러" + error.responseText);
-                            }
-                        });
-                    }
-                },
-                error: function (duplicateError) {
-                    console.log("중복 신청 확인 중 에러: " + duplicateError.responseText);
-                }
-            });
-        });
-    });
-
-</script>
 </html>
-

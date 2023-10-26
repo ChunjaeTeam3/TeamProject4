@@ -396,7 +396,7 @@ CREATE TABLE lecture(
 ); 
 
 -- 강의
---논술
+-- 논술
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
 	VALUES ('wr1', '논술 마스터 클래스: 효과적인 논증 기술' , 'wr', 2, 'wr01','이 강좌는 논술 능력 향상을 위한 완벽한 기회입니다. 효과적인 논증 기술을 배우고 논술 작성의 전문가가 되는 방법을 탐구하세요. 논술을 작성할 때 필요한 연구, 구조화, 그리고 논증 능력을 향상시키는 방법을 배울 것입니다.', 1000, 1, '','2023-11-01','2023-12-30', '16:23:00', 'on');
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
@@ -408,7 +408,7 @@ CREATE TABLE lecture(
 	INSERT INTO lecture VALUES 
 	('wr5', '논술 피드백과 자기평가: 작성 능력 향상을 위한 과정' , 'wr', 3, 'wr02','이 강좌는 자기평가와 피드백을 통해 논술 작성 능력을 향상시키는 방법을 제시합니다. 자신의 논술을 평가하고 향상시키는 방법을 배우며, 강사와 피어 리뷰를 통해 풍부한 피드백을 얻을 수 있습니다. 논술 작성 기술을 업그레이드하세요.', 15000, 10, '','2023-11-13','2023-12-30', '19:23:00', 'off', '강의실8');
 	
---영어	
+-- 영어	
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
 	VALUES ('en6', '영어 회화 마스터: 일상에서 비즈니스까지' , 'en', 4, 'en01','이 강좌는 일상적인 상황부터 비즈니스 커뮤니케이션까지 다양한 상황에서 영어로 원활하게 대화할 수 있는 능력을 키우기 위해 설계되었습니다. 실생활 예시를 통해 효과적인 회화 스킬을 습득하고 능숙한 영어 소통자로 성장하세요.', 1000, 1, '','2023-11-01','2023-12-30', '16:23:00', 'on');
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
@@ -420,7 +420,7 @@ CREATE TABLE lecture(
 		INSERT INTO lecture
 	VALUES ('en10', '비즈니스 영어: 프로페셔널 커뮤니케이션 스킬' , 'en', 5, 'en02','이 강좌는 비즈니스 환경에서 영어로 효과적으로 커뮤니케이션하는 데 필요한 스킬을 강화합니다. 비즈니스 미팅, 이메일 커뮤니케이션, 프레젠테이션, 협상 등 다양한 비즈니스 상황에서 자신감을 갖고 영어로 효과적으로 소통하는 방법을 배우세요.', 15000, 1, '', '2023-11-20','2023-12-25', '16:23:00', 'off','강의실5');
 	
---수학
+-- 수학
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
 	VALUES ('ma11', '수학의 기초를 다지는 강좌: 초급 수학의 세계' , 'ma', 6, 'ma01','이 강좌는 수학의 기초부터 시작하여, 수학에 대한 기본 개념과 기초 스킬을 강화하는 데 도움을 줍니다. 실생활 문제 해결을 위한 수학적 사고 능력을 향상시키며, 수학의 기초에 대한 확실한 이해를 갖는데 도움을 줍니다.', 1000, 1, '','2023-11-01','2023-12-30', '16:23:00', 'on');
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
@@ -432,7 +432,7 @@ CREATE TABLE lecture(
 	INSERT INTO lecture
 	VALUES ('ma15', '수학 모델링과 응용: 현실 문제를 해결하는 방법' , 'ma', 7, 'ma02','이 강좌는 수학을 현실 세계의 문제를 해결하는 도구로 활용하는 방법을 다룹니다. 수학 모델링과 응용을 통해 현실 세계의 복잡한 문제를 해결하고, 수학을 현실에서의 문제 해결 도구로 활용하는 방법을 배우게 됩니다.', 15000, 1, '', '2023-11-20','2023-12-10', '14:23:00', 'off', '강의실9');
 
---국어
+-- 국어
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
 	VALUES ('ko16', '문학 감상과 분석: 대표작들의 해석' , 'ko', 8, 'ko01','이 강좌는 문학 작품의 감상과 분석을 통해 문학을 더 깊이 이해하는 방법을 제공합니다. 대표적인 문학 작품들을 읽고, 문학적 디테일과 작품의 주요 주제에 대한 해석 능력을 향상시킵니다.', 1000, 1, '','2023-11-01','2023-12-30', '16:23:00', 'on');
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
@@ -444,18 +444,17 @@ CREATE TABLE lecture(
 	INSERT INTO lecture
 	VALUES ('ko20', '토론과 비평: 작품 분석과 토론 스킬 강화' , 'ko', 9, 'ko02','이 강좌는 문학 작품을 비평하고 토론하는 능력을 향상시키는 방법을 다룹니다. 다양한 작품을 읽고 비평하는 과정을 통해 문학에 대한 풍부한 이해와 토론 스킬을 향상시킵니다.', 1000, 1, '', '2023-11-20','2023-12-25', '17:23:00', 'off', '강의실9');
 	
---중국어
+-- 중국어
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
 	VALUES ('ch21', '중국어 초급 입문: 기초 발음과 어휘' , 'ch', 10, 'ch01','이 강좌는 중국어 초보자들을 위한 입문 강좌로, 중국어의 발음과 기본 어휘를 학습합니다. 중국어를 처음 배우는 분들을 위한 필수 강좌로, 자신감을 갖고 중국어를 사용할 수 있도록 돕습니다.', 1000, 1, '','2023-11-01','2023-12-30', '16:23:00', 'on');
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
-	VALUES ('ch22', '실용 중국어 회화: 일상 대화 스킬' , 'ch', 11, 'ch02','이 강좌는 중국어로 일상 생활에서 필요한 대화 스킬을 향상시키는데 중점을 두며, 여행, 소셜 상황, 비즈니스 커뮤니케이션 등 다양한 상황에서 자신의 의사를 효과적으로 표현하고 이해할 수 있는 능력을 강화합니다.', 1000, 1, '','2023-11-10','2024-01-04', '16:34:00', 'on');
+	VALUES ('ch22', '실용 중국어 회화: 일상 대화 스킬' , 'ch', 8, 'ch02','이 강좌는 중국어로 일상 생활에서 필요한 대화 스킬을 향상시키는데 중점을 두며, 여행, 소셜 상황, 비즈니스 커뮤니케이션 등 다양한 상황에서 자신의 의사를 효과적으로 표현하고 이해할 수 있는 능력을 강화합니다.', 1000, 1, '','2023-11-10','2024-01-04', '16:34:00', 'on');
 	INSERT INTO lecture (lcode, lname, scode, tcode, bcode, lcontent, lprice, maxStudent, saveFile, sdate, edate, stime, state) 
 	VALUES ('ch23', '중국어 글쓰기 마스터: 창작과 학술 글쓰기' , 'ch', 10, 'ch01','이 강좌는 중국어로 글을 쓰는 기술을 개발하고자 하는 학습자를 위한 것으로, 창작 글쓰기와 학술 글쓰기에 필요한 스킬을 강화합니다. 다양한 글쓰기 과제를 통해 자신의 글쓰기 능력을 높이는데 도움을 줍니다.', 1000, 1, '', '2023-11-02','2023-12-15', '17:56:00', 'on');
 	INSERT INTO lecture
 	VALUES ('ch24', '중국어로 읽는 중국문학: 고전과 현대 작품' , 'ch', 10, 'ch01','이 강좌는 중국문학을 탐구하고자 하는 학습자를 위한 것으로, 중국의 고전 작품부터 현대 작품까지 다양한 문학작품을 읽고 이해하도록 돕습니다. 작품의 문학적, 역사적 맥락을 이해하며 중국문학의 아름다움을 발견합니다.', 1000, 1, '', '2023-11-30','2023-12-25', '14:46:00', 'off', '강의실1');
 	INSERT INTO lecture
-	VALUES ('ch25', '중국문화와 역사: 언어를 통해 이해하는 중국' , 'ch', 11, 'ch02','이 강좌는 중국의 언어, 문화, 역사를 깊이 이해하고자 하는 학습자를 위한 것으로, 중국의 다양한 측면을 탐구합니다. 중국의 역사, 문화, 관례, 언어적 맥락을 이해하며 중국을 보다 폭넓게 이해하는데 도움을 줍니다.', 1000, 1, '', '2023-11-11','2023-12-30', '13:23:00', 'off', '강의실2');
-
+	VALUES ('ch25', '중국문화와 역사: 언어를 통해 이해하는 중국' , 'ch', 7, 'ch02','이 강좌는 중국의 언어, 문화, 역사를 깊이 이해하고자 하는 학습자를 위한 것으로, 중국의 다양한 측면을 탐구합니다. 중국의 역사, 문화, 관례, 언어적 맥락을 이해하며 중국을 보다 폭넓게 이해하는데 도움을 줍니다.', 1000, 1, '', '2023-11-11','2023-12-30', '13:23:00', 'off', '강의실2');
 
 -- 커리큘럼 (커리큘럼코드, 강의코드, 강좌 제목, 강의 파일, 강의 시간)
 CREATE TABLE curriculum(
