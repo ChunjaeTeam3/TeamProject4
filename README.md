@@ -405,10 +405,12 @@
 
 <br><br>
 ## 🗂 마이페이지
+- 마이페이지에서 수강신청한 강의, 오프라인 강의 출석하기, 개인정보변경, 배송확인 할 수 있도록 구현
   ![마이페이지](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/d79790ae-c867-4a63-b8d1-6c66038fbbc4)  
 
 <br><br>
 ## 🗂 관리자페이지
+- 관리자페이지에서 회원정보,질문게시판,강의,강사,교재,커리큘럼,배송을 관리할 수 있도록 구현
   ![관리자페이지](https://github.com/ChunjaeTeam3/TeamProject4/assets/138674233/f4292150-fbcd-47a7-a951-8e1f907d64dd) 
 
 
