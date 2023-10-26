@@ -1,5 +1,4 @@
 package kr.ed.haebeop.config;
-
 import kr.ed.haebeop.util.AdminInterceptor;
 import kr.ed.haebeop.util.LectureInterceptor;
 import kr.ed.haebeop.util.RegisterInterceptor;
@@ -9,13 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
 // dispatcher-servlet.xml를 대신하는 ServletContext.java : kr.ed.haebeop.config
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"kr.ed.haebeop"})
 public class ServletContext implements WebMvcConfigurer {
-
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         // 접두사와 접미사 설정
@@ -25,7 +22,6 @@ public class ServletContext implements WebMvcConfigurer {
         bean.setSuffix(".jsp");
         registry.viewResolver(bean);
     }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 접근 자원에 대한 권한 설정
@@ -49,21 +45,18 @@ public class ServletContext implements WebMvcConfigurer {
         registry.addResourceHandler("/winner/**").addResourceLocations("/WEB-INF/views/winner");
         registry.addResourceHandler("/lecBoard/**").addResourceLocations("/WEB-INF/views/lecBoard");
     }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebMvcConfigurer.super.addInterceptors(registry);
         registry.addInterceptor(lectureInterceptor()).addPathPatterns("/lecture/player");
-        registry.addInterceptor(registerInterceptor()).addPathPatterns("/lecture/register2");
+        registry.addInterceptor(registerInterceptor()).addPathPatterns("/lecture/register2", "/payment/payment");
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
     }
-
     @Bean
     public LectureInterceptor lectureInterceptor() {
         // Interceptor 안에서 Service를 사용하기 위해 스프링에서 관리할 수 있도록 Bean으로 설정
         return new LectureInterceptor();
     }
-
     @Bean
     public RegisterInterceptor registerInterceptor() {
         return new RegisterInterceptor();
